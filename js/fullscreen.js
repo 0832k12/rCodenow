@@ -1797,7 +1797,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const PROJECT_BASE = 'https://scratch.mit.edu/projects/';
+const PROJECT_BASE = '';
 const messages = Object(react_intl__WEBPACK_IMPORTED_MODULE_5__["defineMessages"])({
   tooltip: {
     "id": "tw.input.tooltip",
@@ -3087,21 +3087,21 @@ const Footer = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.c
 }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
   className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.footerSection
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "https://desktop.turbowarp.org/"
-}, 'TurboWarp Desktop'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
+  href: "https://desktop.turbowarp.cn/rCodenow/"
+}, 'rCodenow Desktop'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
   href: "https://packager.40code.com/"
 }, '40code Packager'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "https://docs.turbowarp.org/embedding"
+  href: "https://docs.turbowarp.cn/embedding"
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
   defaultMessage: "Embedding",
   id: "tw.footer.embed"
 })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "https://docs.turbowarp.org/url-parameters"
+  href: "https://docs.turbowarp.cn/url-parameters"
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
   defaultMessage: "URL Parameters",
   id: "tw.footer.parameters"
 })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "https://docs.turbowarp.org/"
+  href: "https://docs.turbowarp.cn/"
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
   defaultMessage: "Documentation",
   id: "tw.footer.documentation"
@@ -3113,7 +3113,7 @@ const Footer = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.c
   defaultMessage: "Feedback & Bugs",
   id: "tw.feedback"
 })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "https://github.com/TurboWarp/"
+  href: "https://github.com/0832k12/rcodenow-gui/"
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
   defaultMessage: "Source Code",
   id: "tw.code"
@@ -3193,9 +3193,7 @@ class Interface extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
       isRtl: isRtl
     }), Object(_lib_tw_environment_support_prober__WEBPACK_IMPORTED_MODULE_26__["isBrowserSupported"])() ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_browser_modal_browser_modal_jsx__WEBPACK_IMPORTED_MODULE_24__["default"], {
       isRtl: isRtl
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.section
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_tw_project_input_project_input_jsx__WEBPACK_IMPORTED_MODULE_20__["default"], null)), ( // eslint-disable-next-line max-len
+    }), ( // eslint-disable-next-line max-len
     description.instructions === 'unshared' || description.credits === 'unshared') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.unsharedUpdate
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
@@ -3229,15 +3227,7 @@ class Interface extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
       projectId: projectId
     })) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.section
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"] // eslint-disable-next-line max-len
-    , {
-      defaultMessage: "TurboWarp is a Scratch mod that compiles projects to JavaScript to make them run really fast. Try it out by inputting a project ID or URL above or choosing a featured project below.",
-      id: "tw.home.description"
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.section
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_tw_featured_projects_featured_projects_jsx__WEBPACK_IMPORTED_MODULE_21__["default"], {
-      studio: "27205657"
-    }))) : null), isHomepage && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Footer, null));
+    })) : null));
   }
 
 }
