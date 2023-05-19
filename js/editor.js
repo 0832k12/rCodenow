@@ -2456,7 +2456,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 
-const PACKAGER_URL = 'https://packager.turbowarp.org';
+const PACKAGER_URL = 'https://0832k12.github.io/rCodenow-packager';
 const PACKAGER_ORIGIN = PACKAGER_URL;
 
 const readBlobAsArrayBuffer = blob => new Promise((resolve, reject) => {
