@@ -2878,6 +2878,7 @@ __webpack_require__.r(__webpack_exports__);
   "tw-remove-feedback": () => __webpack_require__.e(/*! import() | addon-entry-tw-remove-feedback */ "addon-entry-tw-remove-feedback").then(__webpack_require__.bind(null, /*! ../addons/tw-remove-feedback/_runtime_entry.js */ "./src/addons/addons/tw-remove-feedback/_runtime_entry.js")),
   "tw-disable-cloud-variables": () => __webpack_require__.e(/*! import() | addon-entry-tw-disable-cloud-variables */ "addon-entry-tw-disable-cloud-variables").then(__webpack_require__.bind(null, /*! ../addons/tw-disable-cloud-variables/_runtime_entry.js */ "./src/addons/addons/tw-disable-cloud-variables/_runtime_entry.js")),
   "tw-disable-compiler": () => __webpack_require__.e(/*! import() | addon-entry-tw-disable-compiler */ "addon-entry-tw-disable-compiler").then(__webpack_require__.bind(null, /*! ../addons/tw-disable-compiler/_runtime_entry.js */ "./src/addons/addons/tw-disable-compiler/_runtime_entry.js")),
+  "tw-disable-restore-points": () => __webpack_require__.e(/*! import() | addon-entry-tw-disable-restore-points */ "addon-entry-tw-disable-restore-points").then(__webpack_require__.bind(null, /*! ../addons/tw-disable-restore-points/_runtime_entry.js */ "./src/addons/addons/tw-disable-restore-points/_runtime_entry.js")),
   "editor-stepping": () => __webpack_require__.e(/*! import() | addon-entry-editor-stepping */ "addon-entry-editor-stepping").then(__webpack_require__.bind(null, /*! ../addons/editor-stepping/_runtime_entry.js */ "./src/addons/addons/editor-stepping/_runtime_entry.js"))
 });
 
