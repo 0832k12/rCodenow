@@ -31355,8 +31355,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _libraries_extensions_anitext_anitext_svg__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_anitext_anitext_svg__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _libraries_extensions_eval_evalmain_png__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./libraries/extensions/eval/evalmain.png */ "./src/lib/libraries/extensions/eval/evalmain.png");
 /* harmony import */ var _libraries_extensions_eval_evalmain_png__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_eval_evalmain_png__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _libraries_extensions_list_list_png__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./libraries/extensions/list/list.png */ "./src/lib/libraries/extensions/list/list.png");
-/* harmony import */ var _libraries_extensions_list_list_png__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_list_list_png__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _libraries_extensions_list_list_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./libraries/extensions/list/list.svg */ "./src/lib/libraries/extensions/list/list.svg");
+/* harmony import */ var _libraries_extensions_list_list_svg__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_list_list_svg__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var _libraries_extensions_lazyload_lazyload_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./libraries/extensions/lazyload/lazyload.svg */ "./src/lib/libraries/extensions/lazyload/lazyload.svg");
 /* harmony import */ var _libraries_extensions_lazyload_lazyload_svg__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_lazyload_lazyload_svg__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var _libraries_extensions_rtimejs_runtimemain_png__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./libraries/extensions/rtimejs/runtimemain.png */ "./src/lib/libraries/extensions/rtimejs/runtimemain.png");
@@ -31520,7 +31520,7 @@ const builtinExtensions = [{
 }, {
   name: "rc.rxblocks.anitext.name",
   extensionId: 'text',
-  author: '大主教大祭司',
+  author: 'ScratchLab',
   iconURL: _libraries_extensions_anitext_anitextmain_png__WEBPACK_IMPORTED_MODULE_10___default.a,
   insetIconURL: _libraries_extensions_anitext_anitext_svg__WEBPACK_IMPORTED_MODULE_11___default.a,
   description: "rc.rxblocks.anitext.describe",
@@ -31538,7 +31538,7 @@ const builtinExtensions = [{
   name: 'rc.rxblocks.list.name',
   extensionId: 'list',
   author: '大主教大祭司',
-  iconURL: _libraries_extensions_list_list_png__WEBPACK_IMPORTED_MODULE_13___default.a,
+  iconURL: _libraries_extensions_list_list_svg__WEBPACK_IMPORTED_MODULE_13___default.a,
   description: "rc.rxblocks.list.describe",
   tags: ['rcodenow'],
   featured: true
@@ -31554,7 +31554,7 @@ const builtinExtensions = [{
 }, {
   name: "rc.rxblocks.iframe.name",
   extensionId: 'iframe',
-  author: '大主教大祭司',
+  author: 'PenguinMod',
   iconURL: _libraries_extensions_iframe_iframemain_png__WEBPACK_IMPORTED_MODULE_8___default.a,
   description: "rc.rxblocks.iframe.describe",
   tags: ['rcodenow'],
@@ -34457,8 +34457,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _anitext_anitext_svg__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_anitext_anitext_svg__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _eval_evalmain_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./eval/evalmain.png */ "./src/lib/libraries/extensions/eval/evalmain.png");
 /* harmony import */ var _eval_evalmain_png__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_eval_evalmain_png__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _list_list_png__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./list/list.png */ "./src/lib/libraries/extensions/list/list.png");
-/* harmony import */ var _list_list_png__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_list_list_png__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _list_list_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./list/list.svg */ "./src/lib/libraries/extensions/list/list.svg");
+/* harmony import */ var _list_list_svg__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_list_list_svg__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _lazyload_lazyload_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./lazyload/lazyload.svg */ "./src/lib/libraries/extensions/lazyload/lazyload.svg");
 /* harmony import */ var _lazyload_lazyload_svg__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_lazyload_lazyload_svg__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _rtimejs_runtimemain_png__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./rtimejs/runtimemain.png */ "./src/lib/libraries/extensions/rtimejs/runtimemain.png");
@@ -34725,7 +34725,7 @@ const galleryItem = object => _objectSpread(_objectSpread({}, object), {}, {
   }),
   extensionId: 'list',
   collaborator: '大主教大祭司',
-  iconURL: _list_list_png__WEBPACK_IMPORTED_MODULE_9___default.a,
+  iconURL: _list_list_svg__WEBPACK_IMPORTED_MODULE_9___default.a,
   description: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_1__["FormattedMessage"], {
     defaultMessage: "Remove restrictions on lists and variables.",
     id: "rc.rxblocks.list.describe"
@@ -35188,14 +35188,14 @@ module.exports = __webpack_require__.p + "static/assets/a7c6d438e42df77832a4651b
 
 /***/ }),
 
-/***/ "./src/lib/libraries/extensions/list/list.png":
+/***/ "./src/lib/libraries/extensions/list/list.svg":
 /*!****************************************************!*\
-  !*** ./src/lib/libraries/extensions/list/list.png ***!
+  !*** ./src/lib/libraries/extensions/list/list.svg ***!
   \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/assets/471d856b38b693d87162b39e48318135.png";
+module.exports = __webpack_require__.p + "static/assets/261e0fe7eb751f5dafececb34e6dab6f.svg";
 
 /***/ }),
 
