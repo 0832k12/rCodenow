@@ -149,12 +149,11 @@ const resources = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createScalePoints; });
 /* harmony import */ var _state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state.js */ "./src/addons/addons/paint-snap/state.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
 function createScalePoints(paper, lib, objects, sx, sy) {
   const {
@@ -163,7 +162,6 @@ function createScalePoints(paper, lib, objects, sx, sy) {
       ART_BOARD_BOUNDS
     }
   } = lib;
-
   const toPoints = _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, _state_js__WEBPACK_IMPORTED_MODULE_0__["snapTo"].pageAxes ? _objectSpread(_objectSpread({}, sx ? {
     bounds_cx: {
       type: "xcoord",
@@ -259,7 +257,6 @@ function createScalePoints(paper, lib, objects, sx, sy) {
     type: "ycoord",
     value: item.bounds.center.y
   }]].filter(Boolean)).flat(1)) : {});
-
   return toPoints;
 }
 
@@ -276,12 +273,11 @@ function createScalePoints(paper, lib, objects, sx, sy) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return createSnapPoints; });
 /* harmony import */ var _state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state.js */ "./src/addons/addons/paint-snap/state.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
 function createSnapPoints(paper, selectionBounds, lib, objects) {
   const {
@@ -290,7 +286,6 @@ function createSnapPoints(paper, selectionBounds, lib, objects) {
       ART_BOARD_BOUNDS
     }
   } = lib;
-
   const fromPoints = _objectSpread(_objectSpread(_objectSpread({}, _state_js__WEBPACK_IMPORTED_MODULE_0__["snapFrom"].boxCenter ? {
     center: selectionBounds.center
   } : {}), _state_js__WEBPACK_IMPORTED_MODULE_0__["snapFrom"].boxCorners ? {
@@ -304,7 +299,6 @@ function createSnapPoints(paper, selectionBounds, lib, objects) {
     top: new paper.Point(selectionBounds.center.x, selectionBounds.top),
     bottom: new paper.Point(selectionBounds.center.x, selectionBounds.bottom)
   } : {});
-
   const toPoints = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, _state_js__WEBPACK_IMPORTED_MODULE_0__["snapTo"].pageCenter ? {
     bounds_c: {
       type: "point",
@@ -435,7 +429,6 @@ function createSnapPoints(paper, selectionBounds, lib, objects) {
     type: "point",
     value: item.bounds.bottomRight
   }]]).flat(1)) : {});
-
   return {
     from: fromPoints,
     to: toPoints
@@ -458,26 +451,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VectorModes", function() { return VectorModes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BitmapModes", function() { return BitmapModes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GradientToolsModes", function() { return GradientToolsModes; });
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function loadModules(paper) {
   // https://github.com/LLK/scratch-paint/blob/2a9fb2356d961200dc849b5b0a090d33f473c0b5/src/helper/math.js
+
   const checkPointsClose = function checkPointsClose(startPos, eventPoint, threshold) {
     const xOff = Math.abs(startPos.x - eventPoint.x);
     const yOff = Math.abs(startPos.y - eventPoint.y);
-
     if (xOff < threshold && yOff < threshold) {
       return true;
     }
-
     return false;
-  }; // Thanks Mikko Mononen! https://github.com/memononen/stylii
+  };
 
-
+  // Thanks Mikko Mononen! https://github.com/memononen/stylii
   const snapDeltaToAngle = function snapDeltaToAngle(delta, snapAngle) {
     let angle = Math.atan2(delta.y, delta.x);
     angle = Math.round(angle / snapAngle) * snapAngle;
@@ -485,11 +476,10 @@ function loadModules(paper) {
     const diry = Math.sin(angle);
     const d = dirx * delta.x + diry * delta.y;
     return new paper.Point(dirx * d, diry * d);
-  }; // https://github.com/LLK/scratch-paint/blob/2a9fb2356d961200dc849b5b0a090d33f473c0b5/src/helper/layer.js
+  };
 
-
+  // https://github.com/LLK/scratch-paint/blob/2a9fb2356d961200dc849b5b0a090d33f473c0b5/src/helper/layer.js
   const CROSSHAIR_FULL_OPACITY = 0.75;
-
   const _getLayer = function _getLayer(layerString) {
     for (const layer of paper.project.layers) {
       if (layer.data && layer.data[layerString]) {
@@ -497,21 +487,20 @@ function loadModules(paper) {
       }
     }
   };
-
   const getDragCrosshairLayer = function getDragCrosshairLayer() {
     return _getLayer("isDragCrosshairLayer");
   };
-
   const getGuideLayer = function getGuideLayer() {
     return _getLayer("isGuideLayer");
-  }; // https://github.com/LLK/scratch-paint/blob/2a9fb2356d961200dc849b5b0a090d33f473c0b5/src/helper/view.js
+  };
+
+  // https://github.com/LLK/scratch-paint/blob/2a9fb2356d961200dc849b5b0a090d33f473c0b5/src/helper/view.js
+
   // Vectors are imported and exported at SVG_ART_BOARD size.
   // Once they are imported however, both SVGs and bitmaps are on
   // canvases of ART_BOARD size.
   // (This is for backwards compatibility, to handle both assets
   // designed for 480 x 360, and bitmap resolution 2 bitmaps)
-
-
   const SVG_ART_BOARD_WIDTH = 480;
   const SVG_ART_BOARD_HEIGHT = 360;
   const ART_BOARD_WIDTH = SVG_ART_BOARD_WIDTH * 2;
@@ -519,36 +508,30 @@ function loadModules(paper) {
   const CENTER = new paper.Point(ART_BOARD_WIDTH / 2, ART_BOARD_HEIGHT / 2);
   const ART_BOARD_BOUNDS = new paper.Rectangle(0, 0, ART_BOARD_WIDTH, ART_BOARD_HEIGHT);
   const MAX_WORKSPACE_BOUNDS = new paper.Rectangle(-ART_BOARD_WIDTH / 4, -ART_BOARD_HEIGHT / 4, ART_BOARD_WIDTH * 1.5, ART_BOARD_HEIGHT * 1.5);
+
   /**
    * Mouse actions are clamped to action bounds
    * @param {boolean} isBitmap True if the editor is in bitmap mode, false if it is in vector mode
    * @returns {paper.Rectangle} the bounds within which mouse events should work in the paint editor
    */
-
   const getActionBounds = isBitmap => {
     if (isBitmap) {
       return ART_BOARD_BOUNDS;
     }
-
     return paper.view.bounds.unite(ART_BOARD_BOUNDS).intersect(MAX_WORKSPACE_BOUNDS);
   };
-
   const setDefaultGuideStyle = function setDefaultGuideStyle(item) {
     item.strokeWidth = 1 / paper.view.zoom;
     item.opacity = 1;
     item.blendMode = "normal";
     item.guide = true;
   };
-
   const GUIDE_BLUE = "#009dec";
-
   const hoverBounds = function hoverBounds(item, expandBy) {
     let bounds = item.internalBounds;
-
     if (expandBy) {
       bounds = bounds.expand(expandBy);
     }
-
     const rect = new paper.Path.Rectangle(bounds);
     rect.matrix = item.matrix;
     setDefaultGuideStyle(rect);
@@ -560,7 +543,6 @@ function loadModules(paper) {
     rect.bringToFront();
     return rect;
   };
-
   return {
     math: {
       checkPointsClose,
@@ -582,9 +564,12 @@ function loadModules(paper) {
     }
   };
 }
+const keyMirror = obj => Object.fromEntries(Object.entries(obj).map(_ref => {
+  let [k] = _ref;
+  return [k, k];
+}));
 
-const keyMirror = obj => Object.fromEntries(Object.entries(obj).map(([k]) => [k, k])); // https://github.com/LLK/scratch-paint/blob/2a9fb2356d961200dc849b5b0a090d33f473c0b5/src/lib/modes.js
-
+// https://github.com/LLK/scratch-paint/blob/2a9fb2356d961200dc849b5b0a090d33f473c0b5/src/lib/modes.js
 
 const vectorModesObj = {
   BRUSH: null,
@@ -649,7 +634,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "disable", function() { return disable; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggle", function() { return toggle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setGuideColor", function() { return setGuideColor; });
-let snapOn = true; //const ls = localStorage;
+let snapOn = true;
+
+//const ls = localStorage;
 
 const snapTo = {
   pageEdges: true,
@@ -668,26 +655,26 @@ const snapFrom = {
 };
 let threshold = 10;
 let guideColor;
+
 /**
  *
  * @param {import("../../addon-api/content-script/typedef").UserscriptAddon} addon
  */
-
-function loadSettings({
-  settings
-}) {
+function loadSettings(_ref) {
+  let {
+    settings
+  } = _ref;
   for (const point in snapTo) {
     if (Object.prototype.hasOwnProperty.call(snapTo, point)) setSnapTo(point, settings.get(point));
   }
-
   for (const point in snapFrom) {
     if (Object.prototype.hasOwnProperty.call(snapFrom, point)) setSnapFrom(point, settings.get(point));
   }
-
   setThreshold(settings.get("threshold"));
   toggle(settings.get("enable-default"));
-} // Will update for addon storage api, but not yet.
+}
 
+// Will update for addon storage api, but not yet.
 /*if (ls.getItem("sa-paint-snap-snapTo")) {
   const stored = JSON.parse(ls.getItem("sa-paint-snap-snapTo"));
   Object.assign(snapTo, stored);
@@ -704,14 +691,20 @@ if (ls.getItem("sa-paint-snap-threshold")) {
 }*/
 
 function setSnapTo(point, to) {
-  snapTo[point] = !!to; //ls.setItem("sa-paint-snap-snapTo", JSON.stringify(snapTo));
+  snapTo[point] = !!to;
+  //ls.setItem("sa-paint-snap-snapTo", JSON.stringify(snapTo));
 }
+
 function setSnapFrom(point, to) {
-  snapFrom[point] = !!to; //ls.setItem("sa-paint-snap-snapFrom", JSON.stringify(snapFrom));
+  snapFrom[point] = !!to;
+  //ls.setItem("sa-paint-snap-snapFrom", JSON.stringify(snapFrom));
 }
+
 function setThreshold(thresh) {
-  threshold = thresh; //ls.setItem("sa-paint-snap-threshold", JSON.stringify(threshold));
+  threshold = thresh;
+  //ls.setItem("sa-paint-snap-threshold", JSON.stringify(threshold));
 }
+
 function enable() {
   snapOn = true;
 }
@@ -739,43 +732,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initUI", function() { return initUI; });
 /* harmony import */ var _state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state.js */ "./src/addons/addons/paint-snap/state.js");
 
-/** @type {import("../../addon-api/content-script/typedef").UserscriptUtilities} */
 
-function initUI({
-  addon,
-  msg
-}) {
+/** @type {import("../../addon-api/content-script/typedef").UserscriptUtilities} */
+function initUI(_ref) {
+  let {
+    addon,
+    msg
+  } = _ref;
   const createGroup = () => {
     const el = document.createElement("div");
     el.className = "sa-paint-snap-group";
     return el;
   };
-
   const createSeparator = () => {
     const el = document.createElement("div");
     el.className = "sa-paint-snap-settings-separator";
     return el;
   };
-
-  const createButton = ({
-    useButtonTag
-  } = {}) => {
+  const createButton = function createButton() {
+    let {
+      useButtonTag
+    } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     const el = document.createElement(useButtonTag ? "button" : "span");
     el.className = "sa-paint-snap-button";
     el.setAttribute("role", "button");
     return el;
   };
-
   const createButtonImage = name => {
     const el = document.createElement("img");
     el.className = "sa-paint-snap-image";
     el.draggable = false;
-    el.src = addon.self.getResource("/icons/" + name + ".svg")
-    /* rewritten by pull.js */
-    ;
+    el.src = addon.self.getResource("/icons/" + name + ".svg") /* rewritten by pull.js */;
     return el;
   };
-
   const controlsGroup = createGroup();
   addon.tab.displayNoneWhileDisabled(controlsGroup, {
     display: "flex"
@@ -785,8 +774,9 @@ function initUI({
   controlsGroup.appendChild(settingPageWrapper);
   const settingsPage = document.createElement("div");
   settingsPage.className = "sa-paint-snap-settings";
-  settingPageWrapper.appendChild(settingsPage); //todo msg
+  settingPageWrapper.appendChild(settingsPage);
 
+  //todo msg
   const SVG_NS = "http://www.w3.org/2000/svg";
   const settingsTip = document.createElementNS(SVG_NS, "svg");
   settingsTip.setAttribute("class", "sa-paint-snap-settings-tip");
@@ -803,12 +793,10 @@ function initUI({
       if (!Object.values(_state_js__WEBPACK_IMPORTED_MODULE_0__["snapTo"]).some(e => e)) {
         Object(_state_js__WEBPACK_IMPORTED_MODULE_0__["setSnapTo"])("pageCenter", true);
       }
-
       if (!Object.values(_state_js__WEBPACK_IMPORTED_MODULE_0__["snapFrom"]).some(e => e)) {
         Object(_state_js__WEBPACK_IMPORTED_MODULE_0__["setSnapFrom"])("boxCenter", true);
       }
     }
-
     Object(_state_js__WEBPACK_IMPORTED_MODULE_0__["toggle"])(!_state_js__WEBPACK_IMPORTED_MODULE_0__["snapOn"]);
     toggleButton.dataset.enabled = _state_js__WEBPACK_IMPORTED_MODULE_0__["snapOn"];
   });
@@ -822,7 +810,6 @@ function initUI({
   settingButton.appendChild(createButtonImage("settings"));
   controlsGroup.appendChild(settingButton);
   const settingsOpenUpdaters = [];
-
   const setSettingsOpen = open => {
     settingButton.dataset.enabled = open;
     settingsPage.dataset.visible = open;
@@ -835,10 +822,9 @@ function initUI({
       toggleButton.dataset.enabled = false;
     }
   };
-
   const areSettingsOpen = () => settingsPage.dataset.visible === "true";
-
-  const createToggle = (button1Text, button2Text, defaultValue, onChange = () => {}) => {
+  const createToggle = function createToggle(button1Text, button2Text, defaultValue) {
+    let onChange = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : () => {};
     const values = [button1Text, button2Text];
     const group = createGroup();
     const button1 = createButton({
@@ -854,21 +840,23 @@ function initUI({
     button2.appendChild(icon2);
     button1.setAttribute("aria-label", button1.title = msg(button1Text));
     button2.setAttribute("aria-label", button2.title = msg(button2Text));
-
-    const setSelectedButton = (button, e, suppress = false) => {
+    const setSelectedButton = function setSelectedButton(button, e) {
+      let suppress = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
       button1.dataset.enabled = !!button;
       button2.dataset.enabled = !button;
       if (!suppress) onChange(values[button]);
     };
-
     setSelectedButton(1 - values.indexOf(defaultValue), null, true);
     button1.addEventListener("click", setSelectedButton.bind(button1, 1));
     button2.addEventListener("click", setSelectedButton.bind(button2, 0));
     group.append(button1, button2);
     return group;
   };
-
-  const createNumberInput = (defaultValue, onChange = () => {}, min = -Infinity, max = Infinity, step = 1) => {
+  const createNumberInput = function createNumberInput(defaultValue) {
+    let onChange = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : () => {};
+    let min = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -Infinity;
+    let max = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Infinity;
+    let step = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 1;
     const group = createGroup();
     const filler = document.createElement("div");
     filler.style.width = "20px";
@@ -909,7 +897,6 @@ function initUI({
     group.append(decrementButton, valueButton, incrementButton);
     return group;
   };
-
   const createSettingWithLabel = (settingId, settingElem) => {
     const container = document.createElement("label");
     container.className = "sa-paint-snap-settings-line";
@@ -920,12 +907,10 @@ function initUI({
     settingsOpenUpdaters.push(() => {
       const onBtn = settingElem.querySelector("[aria-label=\"".concat(msg("on"), "\"]"));
       const offBtn = settingElem.querySelector("[aria-label=\"".concat(msg("off"), "\"]"));
-
       if (settingId in _state_js__WEBPACK_IMPORTED_MODULE_0__["snapTo"]) {
         onBtn.dataset.enabled = !!_state_js__WEBPACK_IMPORTED_MODULE_0__["snapTo"][settingId];
         offBtn.dataset.enabled = !_state_js__WEBPACK_IMPORTED_MODULE_0__["snapTo"][settingId];
       }
-
       if (settingId in _state_js__WEBPACK_IMPORTED_MODULE_0__["snapFrom"]) {
         onBtn.dataset.enabled = !!_state_js__WEBPACK_IMPORTED_MODULE_0__["snapFrom"][settingId];
         offBtn.dataset.enabled = !_state_js__WEBPACK_IMPORTED_MODULE_0__["snapFrom"][settingId];
@@ -933,46 +918,41 @@ function initUI({
     });
     return container;
   };
-
-  const createSection = (title, ...settingElems) => {
+  const createSection = function createSection(title) {
     const sectionContainer = document.createElement("div");
     sectionContainer.className = "sa-paint-snap-settings-section";
     const titleElem = document.createElement("span");
     titleElem.appendChild(document.createTextNode(title));
     titleElem.className = "sa-paint-snap-settings-section-title";
     sectionContainer.appendChild(titleElem);
+    for (var _len = arguments.length, settingElems = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      settingElems[_key - 1] = arguments[_key];
+    }
     sectionContainer.append(...settingElems);
     return sectionContainer;
   };
-
   const threshSetting = createSettingWithLabel("threshold", createNumberInput(_state_js__WEBPACK_IMPORTED_MODULE_0__["threshold"], value => {
     Object(_state_js__WEBPACK_IMPORTED_MODULE_0__["setThreshold"])(value);
   }, 4, 50, 1));
-
   const toOnOff = bool => bool ? "on" : "off";
-
   const toBool = onOff => !!["on", "off"].indexOf(onOff);
-
-  const toggleParams = (defaultValue, onChange = () => {}) => ["off", "on", toOnOff(defaultValue), value => onChange(toBool(value))];
-
+  const toggleParams = function toggleParams(defaultValue) {
+    let onChange = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : () => {};
+    return ["off", "on", toOnOff(defaultValue), value => onChange(toBool(value))];
+  };
   const createSnapToSetting = forPoint => createSettingWithLabel(forPoint, createToggle(...toggleParams(_state_js__WEBPACK_IMPORTED_MODULE_0__["snapTo"][forPoint], enabled => {
     Object(_state_js__WEBPACK_IMPORTED_MODULE_0__["toggle"])(true);
     toggleButton.dataset.enabled = true;
     Object(_state_js__WEBPACK_IMPORTED_MODULE_0__["setSnapTo"])(forPoint, enabled);
   })));
-
   const snapToSection = createSection(msg("snapTo"), createSnapToSetting("pageCenter"), createSnapToSetting("pageAxes"), createSnapToSetting("pageEdges"), createSnapToSetting("pageCorners"), createSnapToSetting("objectCenters"), createSnapToSetting("objectMidlines"), createSnapToSetting("objectEdges"), createSnapToSetting("objectCorners"));
-
   const createSnapFromSetting = forPoint => createSettingWithLabel(forPoint, createToggle(...toggleParams(_state_js__WEBPACK_IMPORTED_MODULE_0__["snapFrom"][forPoint], enabled => {
     Object(_state_js__WEBPACK_IMPORTED_MODULE_0__["setSnapFrom"])(forPoint, enabled);
   })));
-
   const snapFromSection = createSection(msg("snapFrom"), createSnapFromSetting("boxCenter"), createSnapFromSetting("boxCorners"), createSnapFromSetting("boxEdgeMids"));
   settingsPage.append(threshSetting, createSeparator(), snapToSection, createSeparator(), snapFromSection);
-
   const controlsLoop = async () => {
     let hasRunOnce = false;
-
     while (true) {
       const canvasControls = await addon.tab.waitForElement("[class^='paint-editor_canvas-controls']", {
         markAsSeen: true,
@@ -985,28 +965,23 @@ function initUI({
         element: controlsGroup,
         order: 2
       });
-
       if (!hasRunOnce) {
         hasRunOnce = true;
         const groupClass = zoomControlsContainer.firstChild.className;
         const buttonClass = zoomControlsContainer.firstChild.firstChild.className;
         const imageClass = zoomControlsContainer.firstChild.firstChild.firstChild.className;
-
         for (const el of document.querySelectorAll(".sa-paint-snap-group")) {
           el.className += " " + groupClass;
         }
-
         for (const el of document.querySelectorAll(".sa-paint-snap-button")) {
           el.className += " " + buttonClass;
         }
-
         for (const el of document.querySelectorAll(".sa-paint-snap-image")) {
           el.className += " " + imageClass;
         }
       }
     }
   };
-
   controlsLoop();
 }
 
@@ -1030,11 +1005,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const getScaleTool = tool => {
   return tool.boundingBoxTool._modeMap.SCALE;
 };
-
 const updateScaleTool = (paper, tool) => {
   const lib = Object(_helpers_js__WEBPACK_IMPORTED_MODULE_2__["loadModules"])(paper);
   const {
@@ -1045,8 +1018,9 @@ const updateScaleTool = (paper, tool) => {
       getLayer
     }
   } = lib;
-  const scaleTool = getScaleTool(tool); // https://github.com/LLK/scratch-paint/blob/develop/src/helper/selection-tools/scale-tool.js
+  const scaleTool = getScaleTool(tool);
 
+  // https://github.com/LLK/scratch-paint/blob/develop/src/helper/selection-tools/scale-tool.js
   const MIN_SCALE_FACTOR = 0.0001;
   const selectionSizeGuide = {
     endLeft: new paper.Path.Line({
@@ -1186,7 +1160,6 @@ const updateScaleTool = (paper, tool) => {
   });
   axisLineX.remove();
   axisLineY.remove();
-
   const fixGuideSizes = () => {
     axisLineX.strokeWidth = 1 / paper.view.zoom;
     axisLineY.strokeWidth = 1 / paper.view.zoom;
@@ -1208,9 +1181,7 @@ const updateScaleTool = (paper, tool) => {
     axisLineY.bringToFront();
     getLayer("isGuideLayer").addChildren([axisLineY, axisLineX, selectionSizeGuide.group, matchingSizeGuide.group]);
   };
-
   const priority = ["width", "height", "itemSideVert", "itemSideHoriz", "xcoord", "ycoord", "generated", undefined];
-
   const removeGuides = () => {
     selectionSizeGuide.group.remove();
     selectionSizeGuide.group.visible = false;
@@ -1221,7 +1192,6 @@ const updateScaleTool = (paper, tool) => {
     axisLineY.remove();
     axisLineY.visible = false;
   };
-
   scaleTool.constructor.prototype.onMouseDrag = function (event) {
     if (!this.active) return;
     const point = event.point;
@@ -1231,7 +1201,6 @@ const updateScaleTool = (paper, tool) => {
     if (!this.lastPoint) this.lastPoint = event.lastPoint;
     const delta = point.subtract(this.lastPoint);
     this.lastPoint = point;
-
     if (event.modifiers.alt) {
       this.centered = true;
       this.itemGroup.position = this.origCenter;
@@ -1241,83 +1210,69 @@ const updateScaleTool = (paper, tool) => {
         // Reset position if we were just in alt
         this.centered = false;
         this.itemGroup.scale(1 / this.lastSx, 1 / this.lastSy, this.pivot);
-
         if (this.selectionAnchor) {
           this.selectionAnchor.scale(this.lastSx, this.lastSy);
         }
-
         this.lastSx = 1;
         this.lastSy = 1;
       }
-
       this.pivot = this.origPivot;
     }
-
     this.corner = this.corner.add(delta);
     let size = this.corner.subtract(this.pivot);
-
     if (event.modifiers.alt) {
       size = size.multiply(2);
     }
-
     let sx = 1.0;
     let sy = 1.0;
-
     if (Math.abs(this.origSize.x) > 0.0000001) {
       sx = size.x / this.origSize.x;
     }
-
     if (Math.abs(this.origSize.y) > 0.0000001) {
       sy = size.y / this.origSize.y;
     }
-
     const sortByPrioOrDist = (a, b) => {
       const prioDiff = priority.indexOf(a.type) - priority.indexOf(b.type);
       if (prioDiff) return prioDiff;
       return a.distance - b.distance;
     };
-
     const paintLayer = getLayer("isPaintingLayer");
     const doesSx = _state_js__WEBPACK_IMPORTED_MODULE_3__["snapOn"] && (this.isCorner && !event.modifiers.shift || Math.abs(this.origSize.x) > 0.0000001);
     const doesSy = _state_js__WEBPACK_IMPORTED_MODULE_3__["snapOn"] && (this.isCorner && !event.modifiers.shift || Math.abs(this.origSize.y) > 0.0000001);
     const scaledThreshold = _state_js__WEBPACK_IMPORTED_MODULE_3__["threshold"] / paper.view.zoom;
-
     const canSnap = coord => coord.distance < scaledThreshold;
-
-    const format = ([coordName, coord]) => ({
-      type: coord.type,
-      distance: (() => {
-        switch (coord.type) {
-          case "width":
-            {
-              return Math.abs(Math.abs(size.x) - Math.abs(coord.clamp.max - coord.clamp.min));
-            }
-
-          case "height":
-            {
-              return Math.abs(Math.abs(size.y) - Math.abs(coord.clamp.max - coord.clamp.min));
-            }
-
-          case "xcoord":
-          case "itemSideVert":
-            {
-              return Math.abs(this.corner.x - coord.value);
-            }
-
-          case "ycoord":
-          case "itemSideHoriz":
-            {
-              return Math.abs(this.corner.y - coord.value);
-            }
-
-          default:
-            break;
-        }
-      })(),
-      name: coordName,
-      coord: coord
-    });
-
+    const format = _ref => {
+      let [coordName, coord] = _ref;
+      return {
+        type: coord.type,
+        distance: (() => {
+          switch (coord.type) {
+            case "width":
+              {
+                return Math.abs(Math.abs(size.x) - Math.abs(coord.clamp.max - coord.clamp.min));
+              }
+            case "height":
+              {
+                return Math.abs(Math.abs(size.y) - Math.abs(coord.clamp.max - coord.clamp.min));
+              }
+            case "xcoord":
+            case "itemSideVert":
+              {
+                return Math.abs(this.corner.x - coord.value);
+              }
+            case "ycoord":
+            case "itemSideHoriz":
+              {
+                return Math.abs(this.corner.y - coord.value);
+              }
+            default:
+              break;
+          }
+        })(),
+        name: coordName,
+        coord: coord
+      };
+    };
     const snapXCoords = Object(_genScalePoints_js__WEBPACK_IMPORTED_MODULE_0__["default"])(paper, lib, paintLayer.children, doesSx, false);
     const canSnapXCoords = Object.entries(snapXCoords).map(format).filter(canSnap).sort(sortByPrioOrDist);
     const snapYCoords = Object(_genScalePoints_js__WEBPACK_IMPORTED_MODULE_0__["default"])(paper, lib, paintLayer.children, false, doesSy);
@@ -1325,8 +1280,8 @@ const updateScaleTool = (paper, tool) => {
     const closestSnapX = canSnapXCoords[0];
     const closestSnapY = canSnapYCoords[0];
     const signx = sx > 0 ? 1 : -1;
-    const signy = sy > 0 ? 1 : -1; // TODO: show correct guides
-
+    const signy = sy > 0 ? 1 : -1;
+    // TODO: show correct guides
     if (closestSnapX) {
       switch (closestSnapX.type) {
         case "width":
@@ -1335,7 +1290,6 @@ const updateScaleTool = (paper, tool) => {
             sx = newSize.x / this.origSize.x;
             break;
           }
-
         case "xcoord":
         case "itemSideVert":
           {
@@ -1344,12 +1298,10 @@ const updateScaleTool = (paper, tool) => {
             if (event.modifiers.alt) sx *= 2;
             break;
           }
-
         default:
           break;
       }
     }
-
     if (closestSnapY) {
       switch (closestSnapY.type) {
         case "height":
@@ -1358,7 +1310,6 @@ const updateScaleTool = (paper, tool) => {
             sy = newSize.y / this.origSize.y;
             break;
           }
-
         case "ycoord":
         case "itemSideHoriz":
           {
@@ -1367,32 +1318,25 @@ const updateScaleTool = (paper, tool) => {
             if (event.modifiers.alt) sy *= 2;
             break;
           }
-
         default:
           break;
       }
     }
-
     const oldSX = sx;
     const oldSY = sy;
-
     if (this.isCorner && !event.modifiers.shift) {
       sx = sy = Math.max(Math.abs(sx), Math.abs(sy));
       sx *= signx;
       sy *= signy;
     }
-
     sx = signx * Math.max(Math.abs(sx), MIN_SCALE_FACTOR);
     sy = signy * Math.max(Math.abs(sy), MIN_SCALE_FACTOR);
     this.itemGroup.scale(sx / this.lastSx, sy / this.lastSy, this.pivot);
-
     if (this.selectionAnchor) {
       this.selectionAnchor.scale(this.lastSx / sx, this.lastSy / sy);
     }
-
     removeGuides();
     if (Math.abs(oldSX) === Math.abs(sx) && closestSnapX || Math.abs(oldSY) === Math.abs(sy) && closestSnapY) fixGuideSizes();
-
     if (Math.abs(oldSX) === Math.abs(sx) && closestSnapX) {
       switch (closestSnapX.type) {
         case "width":
@@ -1417,7 +1361,6 @@ const updateScaleTool = (paper, tool) => {
             selectionSizeGuide.group.bringToFront();
             break;
           }
-
         case "xcoord":
         case "itemSideVert":
           {
@@ -1427,12 +1370,10 @@ const updateScaleTool = (paper, tool) => {
             axisLineX.bringToFront();
             break;
           }
-
         default:
           break;
       }
     }
-
     if (Math.abs(oldSY) === Math.abs(sy) && closestSnapY) {
       switch (closestSnapY.type) {
         case "height":
@@ -1457,7 +1398,6 @@ const updateScaleTool = (paper, tool) => {
             selectionSizeGuide.group.bringToFront();
             break;
           }
-
         case "ycoord":
         case "itemSideHoriz":
           {
@@ -1467,18 +1407,14 @@ const updateScaleTool = (paper, tool) => {
             axisLineY.bringToFront();
             break;
           }
-
         default:
           break;
       }
     }
-
     this.lastSx = sx;
     this.lastSy = sy;
   };
-
   const oldMouseUp = scaleTool.constructor.prototype.onMouseUp;
-
   scaleTool.constructor.prototype.onMouseUp = function () {
     removeGuides();
     oldMouseUp.call(this);
@@ -1504,11 +1440,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const getMoveTool = tool => {
   return tool.boundingBoxTool._modeMap.MOVE;
 };
-
 const updateSelectTool = (paper, tool) => {
   const lib = Object(_helpers_js__WEBPACK_IMPORTED_MODULE_1__["loadModules"])(paper);
   const {
@@ -1529,7 +1463,9 @@ const updateSelectTool = (paper, tool) => {
       hoverBounds
     }
   } = lib;
-  const moveTool = getMoveTool(tool); // https://github.com/LLK/scratch-paint/blob/2a9fb2356d961200dc849b5b0a090d33f473c0b5/src/helper/selection-tools/move-tool.js
+  const moveTool = getMoveTool(tool);
+
+  // https://github.com/LLK/scratch-paint/blob/2a9fb2356d961200dc849b5b0a090d33f473c0b5/src/helper/selection-tools/move-tool.js
 
   const FADE_DISTANCE = 10;
   let guideLine = new paper.Path.Line({
@@ -1553,12 +1489,12 @@ const updateSelectTool = (paper, tool) => {
   const guidePoint = new paper.Group({
     children: [],
     visible: false
-  }); // Paper adds them by default, and we don't want them in the canvas yet.
+  });
 
+  // Paper adds them by default, and we don't want them in the canvas yet.
   guideLine.remove();
   guidePoint.remove();
   let itemIndicator;
-
   const fixGuideSizes = () => {
     guidePointParts.shadow = new paper.Path.Circle({
       center: new paper.Point(0, 0),
@@ -1596,12 +1532,9 @@ const updateSelectTool = (paper, tool) => {
     guidePoint.bringToFront();
     getLayer("isGuideLayer").addChildren([guideLine, guidePoint]);
   };
-
   let removeGuides;
-
   function onMouseDrag(event) {
     var _getLayer$children$fi, _getLayer$children$fi2;
-
     const point = event.point;
     const actionBounds = getActionBounds(this.mode in _helpers_js__WEBPACK_IMPORTED_MODULE_1__["BitmapModes"]);
     point.x = Math.max(actionBounds.left, Math.min(point.x, actionBounds.right));
@@ -1609,28 +1542,21 @@ const updateSelectTool = (paper, tool) => {
     const dragVector = point.subtract(event.downPoint);
     const scaledThreshold = _state_js__WEBPACK_IMPORTED_MODULE_2__["threshold"] / paper.view.zoom;
     let snapVector;
-
     if (this.selectedItems.length === 0) {
       return;
     }
-
     const selectionBounds = this.selectionCenter._owner;
     const newCenter = this.selectionCenter.add(dragVector);
-
     const getDist = (p1, p2) => {
       return p1.getDistance(p2);
     };
-
     const selectionAnchor = (_getLayer$children$fi = (_getLayer$children$fi2 = getLayer("isGuideLayer").children.find(c => c.data.isSelectionBound)) === null || _getLayer$children$fi2 === void 0 ? void 0 : _getLayer$children$fi2.selectionAnchor) !== null && _getLayer$children$fi !== void 0 ? _getLayer$children$fi : {};
-
     const resetAnchorColor = () => {
       selectionAnchor.strokeColor = new paper.Color(0.30196078431372547, 0.592156862745098, 1);
       selectionAnchor.fillColor = null;
     };
-
     removeGuides = () => {
       var _itemIndicator;
-
       guideLine.remove();
       guidePoint.remove();
       guidePoint.visible = false;
@@ -1639,15 +1565,12 @@ const updateSelectTool = (paper, tool) => {
       if (itemIndicator) itemIndicator.visible = false;
       resetAnchorColor();
     };
-
     removeGuides();
-
     if (!event.modifiers.shift && this.mode !== _helpers_js__WEBPACK_IMPORTED_MODULE_1__["Modes"].RESHAPE) {
       const paintLayer = getLayer("isPaintingLayer");
       const snapPoints = Object(_genSnapPoints_js__WEBPACK_IMPORTED_MODULE_0__["default"])(paper, selectionBounds, lib, paintLayer.children);
       const fromPoints = snapPoints.from;
       const toPoints = snapPoints.to;
-
       const configDefFn = pointDef => {
         if (!pointDef.clamp) pointDef.clamp = {
           min: -Infinity,
@@ -1658,38 +1581,46 @@ const updateSelectTool = (paper, tool) => {
         if (pointDef.type === "ycoord" || pointDef.type === "itemSideHoriz") return point => new paper.Point(Math.min(Math.max(point.x, pointDef.clamp.min), pointDef.clamp.max), pointDef.value);
         if (pointDef.type === "generator") return pointDef.value;
       };
-
-      const generateSnapPointsFor = point => Object.fromEntries(Object.entries(toPoints).map(([k, v]) => [k, {
-        type: v.type,
-        point: configDefFn(v)(point)
-      }]));
-
-      const generatedSnapPoints = Object.entries(fromPoints).map(([pointPos, point]) => ({
-        pointPos,
-        origPoint: point,
-        point: point.add(dragVector),
-        snapPoints: generateSnapPointsFor(point.add(dragVector))
+      const generateSnapPointsFor = point => Object.fromEntries(Object.entries(toPoints).map(_ref => {
+        let [k, v] = _ref;
+        return [k, {
+          type: v.type,
+          point: configDefFn(v)(point)
+        }];
       }));
+      const generatedSnapPoints = Object.entries(fromPoints).map(_ref2 => {
+        let [pointPos, point] = _ref2;
+        return {
+          pointPos,
+          origPoint: point,
+          point: point.add(dragVector),
+          snapPoints: generateSnapPointsFor(point.add(dragVector))
+        };
+      });
       const priority = ["point", "itemSideVert", "itemSideHoriz", "xcoord", "ycoord", "generated", undefined];
-
       const sortByPrioOrDist = (a, b) => {
         const prioDiff = priority.indexOf(a.snapPointType) - priority.indexOf(b.snapPointType);
         if (prioDiff) return prioDiff;
         return a.distance - b.distance;
       };
-
-      const closestSnapForEachPoint = generatedSnapPoints.map(({
-        point,
-        origPoint,
-        snapPoints
-      }) => {
+      const closestSnapForEachPoint = generatedSnapPoints.map(_ref3 => {
         var _snapPoints$closestSn, _snapPoints$closestSn2;
-
-        const snappablePoints = Object.entries(snapPoints).filter(([pos, snapPoint]) => checkPointsClose(point, snapPoint.point, scaledThreshold)).map(([pos, snapPoint]) => ({
-          pos,
-          distance: getDist(snapPoint.point, point),
-          snapPointType: snapPoint.type
-        }));
+        let {
+          point,
+          origPoint,
+          snapPoints
+        } = _ref3;
+        const snappablePoints = Object.entries(snapPoints).filter(_ref4 => {
+          let [pos, snapPoint] = _ref4;
+          return checkPointsClose(point, snapPoint.point, scaledThreshold);
+        }).map(_ref5 => {
+          let [pos, snapPoint] = _ref5;
+          return {
+            pos,
+            distance: getDist(snapPoint.point, point),
+            snapPointType: snapPoint.type
+          };
+        });
         const closestSnapPoint = snappablePoints.sort(sortByPrioOrDist)[0] || {
           pos: "",
           distance: Infinity
@@ -1704,29 +1635,23 @@ const updateSelectTool = (paper, tool) => {
       }).sort(sortByPrioOrDist);
       const closestSnapPoint = closestSnapForEachPoint.sort(sortByPrioOrDist)[0];
       removeGuides();
-
       if (closestSnapPoint !== null && closestSnapPoint !== void 0 && closestSnapPoint.snapPoint) {
         var _closestSnapPoint$pos;
-
         fixGuideSizes();
         snapVector = closestSnapPoint.snapPoint.subtract(closestSnapPoint.point);
         const itemID = (_closestSnapPoint$pos = closestSnapPoint.pos.match(/item_(\d+)_/)) === null || _closestSnapPoint$pos === void 0 ? void 0 : _closestSnapPoint$pos[1];
-
         if (itemID) {
           const item = paper.project.getItem({
             id: parseInt(itemID, 10)
           });
-
           if (item) {
             itemIndicator = hoverBounds(item);
           }
         }
-
         if (closestSnapPoint.point.equals(this.selectionCenter) && closestSnapPoint.snapPointType === "point") {
           selectionAnchor.fillColor = selectionAnchor.strokeColor = new paper.Color(_state_js__WEBPACK_IMPORTED_MODULE_2__["guideColor"]);
         } else {
           resetAnchorColor();
-
           switch (closestSnapPoint.snapPointType) {
             case "point":
               {
@@ -1735,7 +1660,6 @@ const updateSelectTool = (paper, tool) => {
                 guidePoint.bringToFront();
                 break;
               }
-
             case "xcoord":
             case "itemSideVert":
               {
@@ -1745,7 +1669,6 @@ const updateSelectTool = (paper, tool) => {
                 guideLine.bringToFront();
                 break;
               }
-
             case "ycoord":
             case "itemSideHoriz":
               {
@@ -1759,16 +1682,13 @@ const updateSelectTool = (paper, tool) => {
         }
       }
     }
-
     let bounds;
-
     for (const item of this.selectedItems) {
       // add the position of the item before the drag started
       // for later use in the snap calculation
       if (!item.data.origPos) {
         item.data.origPos = item.position;
       }
-
       if (snapVector) {
         item.position = item.data.origPos.add(snapVector);
       } else if (event.modifiers.shift) {
@@ -1776,24 +1696,21 @@ const updateSelectTool = (paper, tool) => {
       } else {
         item.position = item.data.origPos.add(dragVector);
       }
-
       if (bounds) {
         bounds = bounds.unite(item.bounds);
       } else {
         bounds = item.bounds;
       }
     }
-
     if (this.firstDrag) {
       // Show the center crosshair above the selected item while dragging.
       getDragCrosshairLayer().visible = true;
       this.firstDrag = false;
-    } // The rotation center crosshair should be opaque over the entire selection bounding box, and fade out to
+    }
+
+    // The rotation center crosshair should be opaque over the entire selection bounding box, and fade out to
     // totally transparent outside the selection bounding box.
-
-
     let opacityMultiplier = 1;
-
     if (CENTER.y < bounds.top && CENTER.x < bounds.left || CENTER.y > bounds.bottom && CENTER.x < bounds.left || CENTER.y < bounds.top && CENTER.x > bounds.right || CENTER.y > bounds.bottom && CENTER.x > bounds.right) {
       // rotation center is to one of the 4 corners of the selection bounding box
       const distX = Math.max(CENTER.x - bounds.right, bounds.left - CENTER.x);
@@ -1807,26 +1724,25 @@ const updateSelectTool = (paper, tool) => {
       // rotation center is left or right of the selection bounding box
       opacityMultiplier = Math.max(0, 1 - (Math.abs(CENTER.x - newCenter.x) - bounds.width / 2) / (FADE_DISTANCE / paper.view.zoom));
     } // else the rotation center is within selection bounds, always show drag crosshair at full opacity
-
-
     getDragCrosshairLayer().opacity = CROSSHAIR_FULL_OPACITY * opacityMultiplier;
   }
-
   const oldMouseDrag = moveTool.constructor.prototype.onMouseDrag;
   moveTool.constructor.prototype.onMouseDrag = onMouseDrag;
   const oldMouseDown = moveTool.constructor.prototype.onMouseDown;
-
-  moveTool.constructor.prototype.onMouseDown = function (...a) {
+  moveTool.constructor.prototype.onMouseDown = function () {
     if (_state_js__WEBPACK_IMPORTED_MODULE_2__["snapOn"]) moveTool.constructor.prototype.onMouseDrag = onMouseDrag;else moveTool.constructor.prototype.onMouseDrag = oldMouseDrag;
+    for (var _len = arguments.length, a = new Array(_len), _key = 0; _key < _len; _key++) {
+      a[_key] = arguments[_key];
+    }
     oldMouseDown.apply(this, a);
   };
-
   const oldMouseUp = moveTool.constructor.prototype.onMouseUp;
-
-  moveTool.constructor.prototype.onMouseUp = function (...a) {
+  moveTool.constructor.prototype.onMouseUp = function () {
     var _removeGuides;
-
     (_removeGuides = removeGuides) === null || _removeGuides === void 0 ? void 0 : _removeGuides();
+    for (var _len2 = arguments.length, a = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      a[_key2] = arguments[_key2];
+    }
     oldMouseUp.apply(this, a);
   };
 };
@@ -1853,8 +1769,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/** @type {(api: import("../../addon-api/content-script/typedef").UserscriptUtilities) => Promise<void>} */
 
+/** @type {(api: import("../../addon-api/content-script/typedef").UserscriptUtilities) => Promise<void>} */
 /* harmony default export */ __webpack_exports__["default"] = (async function (api) {
   const {
     addon
@@ -1867,12 +1783,10 @@ __webpack_require__.r(__webpack_exports__);
   Object(_state_js__WEBPACK_IMPORTED_MODULE_1__["toggle"])(addon.settings.get("enable-default"));
   Object(_state_js__WEBPACK_IMPORTED_MODULE_1__["setGuideColor"])(addon.settings.get("guide-color"));
   addon.settings.addEventListener("change", () => Object(_state_js__WEBPACK_IMPORTED_MODULE_1__["setGuideColor"])(addon.settings.get("guide-color")));
-
   if (Object(_updateSelectTool_js__WEBPACK_IMPORTED_MODULE_0__["isSelectTool"])(tool)) {
     Object(_updateSelectTool_js__WEBPACK_IMPORTED_MODULE_0__["updateSelectTool"])(paper, tool);
     Object(_updateScaleTool_js__WEBPACK_IMPORTED_MODULE_3__["updateScaleTool"])(paper, tool);
   }
-
   Object(_ui_js__WEBPACK_IMPORTED_MODULE_2__["initUI"])(api);
 });
 

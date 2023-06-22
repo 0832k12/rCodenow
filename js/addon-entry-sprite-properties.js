@@ -83,47 +83,46 @@ const resources = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console,
-  msg
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console,
+    msg
+  } = _ref;
   const SHOW_PROPS_CLASS = "sa-show-sprite-properties";
   const HIDE_PROPS_CLASS = "sa-hide-sprite-properties";
   const PROPS_INFO_BTN_CLASS = "sa-sprite-properties-info-btn";
   const PROPS_CLOSE_BTN_CLASS = "sa-sprite-properties-close-btn";
+
   /** @type {HTMLElement} */
+  let propertiesPanel;
 
-  let propertiesPanel; // A mutation observer is the only reliable way to detect when a different sprite has
+  // A mutation observer is the only reliable way to detect when a different sprite has
   // been selected or when the folder that contains the focused sprite has been opened.
-
   const observer = new MutationObserver(() => {
     injectInfoButton();
-  }); // Toggle the properties panel when double clicking in the sprite grid
+  });
 
+  // Toggle the properties panel when double clicking in the sprite grid
   document.addEventListener("click", e => {
     if (e.detail === 2 && e.target.closest('[class^="sprite-selector_scroll-wrapper_"]')) {
       togglePropertiesPanel();
     }
   });
-
   function setPropertiesPanelVisible(visible) {
     document.body.classList.toggle(SHOW_PROPS_CLASS, visible);
     document.body.classList.toggle(HIDE_PROPS_CLASS, !visible);
   }
-
   function togglePropertiesPanel() {
     const isCurrentlyOpen = document.body.classList.contains(SHOW_PROPS_CLASS);
     setPropertiesPanelVisible(!isCurrentlyOpen);
   }
-
   function autoHidePanel() {
     if (addon.settings.get("autoCollapse")) {
       setPropertiesPanelVisible(false);
     }
-  } // Close properties panel when mouse leaves the entire sprite panel
-
-
+  }
+  // Close properties panel when mouse leaves the entire sprite panel
   document.body.addEventListener("mouseleave", e => {
     if (e.target.matches('[class*="sprite-selector_sprite-selector_2KgCX"]')) {
       autoHidePanel();
@@ -132,23 +131,18 @@ __webpack_require__.r(__webpack_exports__);
     capture: true
   });
   addon.settings.addEventListener("change", autoHidePanel);
-
   function applySettings() {
     const visibleByDefault = !addon.settings.get("autoCollapse") && !addon.settings.get("hideByDefault");
     setPropertiesPanelVisible(visibleByDefault);
   }
-
   addon.self.addEventListener("reenabled", applySettings);
   applySettings();
   addon.self.addEventListener("disabled", () => {
     setPropertiesPanelVisible(true);
   });
-
   function createButton(className, iconPath, tooltip) {
     const buttonIcon = document.createElement("img");
-    buttonIcon.setAttribute("src", addon.self.getResource(iconPath))
-    /* rewritten by pull.js */
-    ;
+    buttonIcon.setAttribute("src", addon.self.getResource(iconPath)) /* rewritten by pull.js */;
     buttonIcon.draggable = false;
     const button = document.createElement("button");
     button.classList.add(className);
@@ -160,21 +154,16 @@ __webpack_require__.r(__webpack_exports__);
     });
     return button;
   }
+
   /** @type {HTMLElement} */
-
-
   let infoButton;
   /** @type {HTMLElement} */
-
   let closeButton;
-
   function injectInfoButton() {
     if (!infoButton) {
       infoButton = createButton(PROPS_INFO_BTN_CLASS, "/info.svg", msg("open-properties-panel-tooltip"));
     }
-
     const selectedSprite = propertiesPanel.parentNode.querySelector('[class*="sprite-selector-item_is-selected"]');
-
     if (infoButton.parentNode !== selectedSprite) {
       if (selectedSprite) {
         selectedSprite.appendChild(infoButton);
@@ -183,15 +172,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   }
-
   function injectCloseButton() {
     if (!closeButton) {
       closeButton = createButton(PROPS_CLOSE_BTN_CLASS, "/collapse.svg", msg("close-properties-panel-tooltip"));
     }
-
     propertiesPanel.appendChild(closeButton);
   }
-
   function updateWideLocaleMode() {
     // Certain "wide" languages such as Japanese use a different layout for the sprite info panel
     // Easiest way to detect this is with this selector that only exists when the sprite info panel
@@ -203,7 +189,6 @@ __webpack_require__.r(__webpack_exports__);
     const isWideLocale = !!propertiesPanel.querySelector("[class^=label_input-group-column_]");
     document.body.classList.toggle("sa-sprite-properties-wide-locale", isWideLocale);
   }
-
   document.addEventListener("click", e => {
     if (e.target.closest("[class*='stage-header_stage-button-first']") || e.target.closest("[class*='stage-header_stage-button-last']")) {
       setTimeout(updateWideLocaleMode);
@@ -211,7 +196,6 @@ __webpack_require__.r(__webpack_exports__);
   }, {
     capture: true
   });
-
   while (true) {
     propertiesPanel = await addon.tab.waitForElement('[class^="sprite-info_sprite-info_"]', {
       markAsSeen: true,

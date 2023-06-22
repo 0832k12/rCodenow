@@ -94,9 +94,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {const context = __webpack_require__(/*! ./tw-extension-worker-context */ "./node_modules/scratch-vm/src/extension-support/tw-extension-worker-context.js");
-
 const jQuery = __webpack_require__(/*! ./tw-jquery-shim */ "./node_modules/scratch-vm/src/extension-support/tw-jquery-shim.js");
-
 global.$ = jQuery;
 global.jQuery = jQuery;
 const id = window.__WRAPPED_IFRAME_ID__;
@@ -107,18 +105,14 @@ context.centralDispatchService = {
       vmIframeId: id,
       message
     };
-
     if (transfer) {
       window.parent.postMessage(data, '*', transfer);
     } else {
       window.parent.postMessage(data, '*');
     }
   }
-
 };
-
 __webpack_require__(/*! ./extension-worker */ "./node_modules/scratch-vm/src/extension-support/extension-worker.js");
-
 window.parent.postMessage({
   vmIframeId: id,
   ready: true
@@ -127,10 +121,225 @@ window.parent.postMessage({
 
 /***/ }),
 
-/***/ "./node_modules/format-message-formats/index.js":
-/*!******************************************************!*\
-  !*** ./node_modules/format-message-formats/index.js ***!
-  \******************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/format-message-interpret/index.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/format-message-interpret/index.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// @flow
+
+var formats = __webpack_require__(/*! format-message-formats */ "./node_modules/scratch-vm/node_modules/format-message-interpret/node_modules/format-message-formats/index.js")
+var lookupClosestLocale = __webpack_require__(/*! lookup-closest-locale */ "./node_modules/scratch-vm/node_modules/format-message-interpret/node_modules/lookup-closest-locale/index.js")
+var plurals = __webpack_require__(/*! ./plurals */ "./node_modules/scratch-vm/node_modules/format-message-interpret/plurals.js")
+
+/*::
+import type {
+  AST,
+  SubMessages
+} from '../format-message-parse'
+type Locale = string
+type Locales = Locale | Locale[]
+type Placeholder = any[] // https://github.com/facebook/flow/issues/4050
+export type Type = (Placeholder, Locales) => (any, ?Object) => any
+export type Types = { [string]: Type }
+*/
+
+exports = module.exports = function interpret (
+  ast/*: AST */,
+  locale/*:: ?: Locales */,
+  types/*:: ?: Types */
+)/*: (args?: Object) => string */ {
+  return interpretAST(ast, null, locale || 'en', types || {}, true)
+}
+
+exports.toParts = function toParts (
+  ast/*: AST */,
+  locale/*:: ?: Locales */,
+  types/*:: ?: Types */
+)/*: (args?: Object) => any[] */ {
+  return interpretAST(ast, null, locale || 'en', types || {}, false)
+}
+
+function interpretAST (
+  elements/*: any[] */,
+  parent/*: ?Placeholder */,
+  locale/*: Locales */,
+  types/*: Types */,
+  join/*: boolean */
+)/*: Function */ {
+  var parts = elements.map(function (element) {
+    return interpretElement(element, parent, locale, types, join)
+  })
+
+  if (!join) {
+    return function format (args) {
+      return parts.reduce(function (parts, part) {
+        return parts.concat(part(args))
+      }, [])
+    }
+  }
+
+  if (parts.length === 1) return parts[0]
+  return function format (args) {
+    var message = ''
+    for (var e = 0; e < parts.length; ++e) {
+      message += parts[e](args)
+    }
+    return message
+  }
+}
+
+function interpretElement (
+  element/*: Placeholder */,
+  parent/*: ?Placeholder */,
+  locale/*: Locales */,
+  types/*: Types */,
+  join/*: boolean */
+)/*: Function */ {
+  if (typeof element === 'string') {
+    var value/*: string */ = element
+    return function format () { return value }
+  }
+
+  var id = element[0]
+  var type = element[1]
+
+  if (parent && element[0] === '#') {
+    id = parent[0]
+    var offset = parent[2]
+    var formatter = (types.number || defaults.number)([ id, 'number' ], locale)
+    return function format (args) {
+      return formatter(getArg(id, args) - offset, args)
+    }
+  }
+
+  // pre-process children
+  var children
+  if (type === 'plural' || type === 'selectordinal') {
+    children = {}
+    Object.keys(element[3]).forEach(function (key) {
+      children[key] = interpretAST(element[3][key], element, locale, types, join)
+    })
+    element = [ element[0], element[1], element[2], children ]
+  } else if (element[2] && typeof element[2] === 'object') {
+    children = {}
+    Object.keys(element[2]).forEach(function (key) {
+      children[key] = interpretAST(element[2][key], element, locale, types, join)
+    })
+    element = [ element[0], element[1], children ]
+  }
+
+  var getFrmt = type && (types[type] || defaults[type])
+  if (getFrmt) {
+    var frmt = getFrmt(element, locale)
+    return function format (args) {
+      return frmt(getArg(id, args), args)
+    }
+  }
+
+  return join
+    ? function format (args) { return String(getArg(id, args)) }
+    : function format (args) { return getArg(id, args) }
+}
+
+function getArg (id/*: string */, args/*: ?Object */)/*: any */ {
+  if (args && (id in args)) return args[id]
+  var parts = id.split('.')
+  var a = args
+  for (var i = 0, ii = parts.length; a && i < ii; ++i) {
+    a = a[parts[i]]
+  }
+  return a
+}
+
+function interpretNumber (element/*: Placeholder */, locales/*: Locales */) {
+  var style = element[2]
+  var options = formats.number[style] || formats.parseNumberPattern(style) || formats.number.default
+  return new Intl.NumberFormat(locales, options).format
+}
+
+function interpretDuration (element/*: Placeholder */, locales/*: Locales */) {
+  var style = element[2]
+  var options = formats.duration[style] || formats.duration.default
+  var fs = new Intl.NumberFormat(locales, options.seconds).format
+  var fm = new Intl.NumberFormat(locales, options.minutes).format
+  var fh = new Intl.NumberFormat(locales, options.hours).format
+  var sep = /^fi$|^fi-|^da/.test(String(locales)) ? '.' : ':'
+
+  return function (s, args) {
+    s = +s
+    if (!isFinite(s)) return fs(s)
+    var h = ~~(s / 60 / 60) // ~~ acts much like Math.trunc
+    var m = ~~(s / 60 % 60)
+    var dur = (h ? (fh(Math.abs(h)) + sep) : '') +
+      fm(Math.abs(m)) + sep + fs(Math.abs(s % 60))
+    return s < 0 ? fh(-1).replace(fh(1), dur) : dur
+  }
+}
+
+function interpretDateTime (element/*: Placeholder */, locales/*: Locales */) {
+  var type = element[1]
+  var style = element[2]
+  var options = formats[type][style] || formats.parseDatePattern(style) || formats[type].default
+  return new Intl.DateTimeFormat(locales, options).format
+}
+
+function interpretPlural (element/*: Placeholder */, locales/*: Locales */) {
+  var type = element[1]
+  var pluralType = type === 'selectordinal' ? 'ordinal' : 'cardinal'
+  var offset = element[2]
+  var children = element[3]
+  var pluralRules
+  if (Intl.PluralRules && Intl.PluralRules.supportedLocalesOf(locales).length > 0) {
+    pluralRules = new Intl.PluralRules(locales, { type: pluralType })
+  } else {
+    var locale = lookupClosestLocale(locales, plurals)
+    var select = (locale && plurals[locale][pluralType]) || returnOther
+    pluralRules = { select: select }
+  }
+
+  return function (value, args) {
+    var clause =
+      children['=' + +value] ||
+      children[pluralRules.select(value - offset)] ||
+      children.other
+    return clause(args)
+  }
+}
+
+function returnOther (/*:: n:number */) { return 'other' }
+
+function interpretSelect (element/*: Placeholder */, locales/*: Locales */) {
+  var children = element[2]
+  return function (value, args) {
+    var clause = children[value] || children.other
+    return clause(args)
+  }
+}
+
+var defaults/*: Types */ = {
+  number: interpretNumber,
+  ordinal: interpretNumber, // TODO: support rbnf
+  spellout: interpretNumber, // TODO: support rbnf
+  duration: interpretDuration,
+  date: interpretDateTime,
+  time: interpretDateTime,
+  plural: interpretPlural,
+  selectordinal: interpretPlural,
+  select: interpretSelect
+}
+exports.types = defaults
+
+
+/***/ }),
+
+/***/ "./node_modules/scratch-vm/node_modules/format-message-interpret/node_modules/format-message-formats/index.js":
+/*!********************************************************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/format-message-interpret/node_modules/format-message-formats/index.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -288,7 +497,7 @@ module.exports = {
         case 'M':
         case 'L':
           n = Math.min(Math.max(n - 1, 0), 4)
-          options.month = [NUMERIC, TWODIGIT, SHORT, LONG, NARROW][n]
+          options.month = [ NUMERIC, TWODIGIT, SHORT, LONG, NARROW ][n]
           break
         case 'E':
         case 'e':
@@ -331,225 +540,36 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/format-message-interpret/index.js":
-/*!********************************************************!*\
-  !*** ./node_modules/format-message-interpret/index.js ***!
-  \********************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/format-message-interpret/node_modules/lookup-closest-locale/index.js":
+/*!*******************************************************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/format-message-interpret/node_modules/lookup-closest-locale/index.js ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
 // @flow
-
-var formats = __webpack_require__(/*! format-message-formats */ "./node_modules/format-message-formats/index.js")
-var lookupClosestLocale = __webpack_require__(/*! lookup-closest-locale */ "./node_modules/lookup-closest-locale/index.js")
-var plurals = __webpack_require__(/*! ./plurals */ "./node_modules/format-message-interpret/plurals.js")
-
-/*::
-import type {
-  AST,
-  SubMessages
-} from '../format-message-parse'
-type Locale = string
-type Locales = Locale | Locale[]
-type Placeholder = any[] // https://github.com/facebook/flow/issues/4050
-export type Type = (Placeholder, Locales) => (any, ?Object) => any
-export type Types = { [string]: Type }
-*/
-
-exports = module.exports = function interpret (
-  ast/*: AST */,
-  locale/*:: ?: Locales */,
-  types/*:: ?: Types */
-)/*: (args?: Object) => string */ {
-  return interpretAST(ast, null, locale || 'en', types || {}, true)
-}
-
-exports.toParts = function toParts (
-  ast/*: AST */,
-  locale/*:: ?: Locales */,
-  types/*:: ?: Types */
-)/*: (args?: Object) => any[] */ {
-  return interpretAST(ast, null, locale || 'en', types || {}, false)
-}
-
-function interpretAST (
-  elements/*: any[] */,
-  parent/*: ?Placeholder */,
-  locale/*: Locales */,
-  types/*: Types */,
-  join/*: boolean */
-)/*: Function */ {
-  var parts = elements.map(function (element) {
-    return interpretElement(element, parent, locale, types, join)
-  })
-
-  if (!join) {
-    return function format (args) {
-      return parts.reduce(function (parts, part) {
-        return parts.concat(part(args))
-      }, [])
+// "lookup" algorithm http://tools.ietf.org/html/rfc4647#section-3.4
+// assumes normalized language tags, and matches in a case sensitive manner
+module.exports = function lookupClosestLocale (locale/*: string | string[] | void */, available/*: { [string]: any } */)/*: ?string */ {
+  if (typeof locale === 'string' && available[locale]) return locale
+  var locales = [].concat(locale || [])
+  for (var l = 0, ll = locales.length; l < ll; ++l) {
+    var current = locales[l].split('-')
+    while (current.length) {
+      var candidate = current.join('-')
+      if (available[candidate]) return candidate
+      current.pop()
     }
   }
-
-  if (parts.length === 1) return parts[0]
-  return function format (args) {
-    var message = ''
-    for (var e = 0; e < parts.length; ++e) {
-      message += parts[e](args)
-    }
-    return message
-  }
 }
-
-function interpretElement (
-  element/*: Placeholder */,
-  parent/*: ?Placeholder */,
-  locale/*: Locales */,
-  types/*: Types */,
-  join/*: boolean */
-)/*: Function */ {
-  if (typeof element === 'string') {
-    var value/*: string */ = element
-    return function format () { return value }
-  }
-
-  var id = element[0]
-  var type = element[1]
-
-  if (parent && element[0] === '#') {
-    id = parent[0]
-    var offset = parent[2]
-    var formatter = (types.number || defaults.number)([id, 'number'], locale)
-    return function format (args) {
-      return formatter(getArg(id, args) - offset, args)
-    }
-  }
-
-  // pre-process children
-  var children
-  if (type === 'plural' || type === 'selectordinal') {
-    children = {}
-    Object.keys(element[3]).forEach(function (key) {
-      children[key] = interpretAST(element[3][key], element, locale, types, join)
-    })
-    element = [element[0], element[1], element[2], children]
-  } else if (element[2] && typeof element[2] === 'object') {
-    children = {}
-    Object.keys(element[2]).forEach(function (key) {
-      children[key] = interpretAST(element[2][key], element, locale, types, join)
-    })
-    element = [element[0], element[1], children]
-  }
-
-  var getFrmt = type && (types[type] || defaults[type])
-  if (getFrmt) {
-    var frmt = getFrmt(element, locale)
-    return function format (args) {
-      return frmt(getArg(id, args), args)
-    }
-  }
-
-  return join
-    ? function format (args) { return String(getArg(id, args)) }
-    : function format (args) { return getArg(id, args) }
-}
-
-function getArg (id/*: string */, args/*: ?Object */)/*: any */ {
-  if (args && (id in args)) return args[id]
-  var parts = id.split('.')
-  var a = args
-  for (var i = 0, ii = parts.length; a && i < ii; ++i) {
-    a = a[parts[i]]
-  }
-  return a
-}
-
-function interpretNumber (element/*: Placeholder */, locales/*: Locales */) {
-  var style = element[2]
-  var options = formats.number[style] || formats.parseNumberPattern(style) || formats.number.default
-  return new Intl.NumberFormat(locales, options).format
-}
-
-function interpretDuration (element/*: Placeholder */, locales/*: Locales */) {
-  var style = element[2]
-  var options = formats.duration[style] || formats.duration.default
-  var fs = new Intl.NumberFormat(locales, options.seconds).format
-  var fm = new Intl.NumberFormat(locales, options.minutes).format
-  var fh = new Intl.NumberFormat(locales, options.hours).format
-  var sep = /^fi$|^fi-|^da/.test(String(locales)) ? '.' : ':'
-
-  return function (s, args) {
-    s = +s
-    if (!isFinite(s)) return fs(s)
-    var h = ~~(s / 60 / 60) // ~~ acts much like Math.trunc
-    var m = ~~(s / 60 % 60)
-    var dur = (h ? (fh(Math.abs(h)) + sep) : '') +
-      fm(Math.abs(m)) + sep + fs(Math.abs(s % 60))
-    return s < 0 ? fh(-1).replace(fh(1), dur) : dur
-  }
-}
-
-function interpretDateTime (element/*: Placeholder */, locales/*: Locales */) {
-  var type = element[1]
-  var style = element[2]
-  var options = formats[type][style] || formats.parseDatePattern(style) || formats[type].default
-  return new Intl.DateTimeFormat(locales, options).format
-}
-
-function interpretPlural (element/*: Placeholder */, locales/*: Locales */) {
-  var type = element[1]
-  var pluralType = type === 'selectordinal' ? 'ordinal' : 'cardinal'
-  var offset = element[2]
-  var children = element[3]
-  var pluralRules
-  if (Intl.PluralRules && Intl.PluralRules.supportedLocalesOf(locales).length > 0) {
-    pluralRules = new Intl.PluralRules(locales, { type: pluralType })
-  } else {
-    var locale = lookupClosestLocale(locales, plurals)
-    var select = (locale && plurals[locale][pluralType]) || returnOther
-    pluralRules = { select: select }
-  }
-
-  return function (value, args) {
-    var clause =
-      children['=' + +value] ||
-      children[pluralRules.select(value - offset)] ||
-      children.other
-    return clause(args)
-  }
-}
-
-function returnOther (/*:: n:number */) { return 'other' }
-
-function interpretSelect (element/*: Placeholder */, locales/*: Locales */) {
-  var children = element[2]
-  return function (value, args) {
-    var clause = children[value] || children.other
-    return clause(args)
-  }
-}
-
-var defaults/*: Types */ = {
-  number: interpretNumber,
-  ordinal: interpretNumber, // TODO: support rbnf
-  spellout: interpretNumber, // TODO: support rbnf
-  duration: interpretDuration,
-  date: interpretDateTime,
-  time: interpretDateTime,
-  plural: interpretPlural,
-  selectordinal: interpretPlural,
-  select: interpretSelect
-}
-exports.types = defaults
 
 
 /***/ }),
 
-/***/ "./node_modules/format-message-interpret/plurals.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/format-message-interpret/plurals.js ***!
-  \**********************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/format-message-interpret/plurals.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/format-message-interpret/plurals.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -848,13 +868,6 @@ var f = [
   },
   function (s/*: string | number */)/*: Rule */ {
     var n = +s
-    return n === 1 || n === 11 ? one
-      : n === 2 || n === 12 ? two
-      : n === 3 || n === 13 ? few
-      : other
-  },
-  function (s/*: string | number */)/*: Rule */ {
-    var n = +s
     return n === 1 ? one
       : n === 2 || n === 3 ? two
       : n === 4 ? few
@@ -978,34 +991,33 @@ module.exports = {
   fur: { cardinal: f[0] },
   fy: { cardinal: f[4] },
   ga: { cardinal: f[14], ordinal: f[0] },
-  gd: { cardinal: f[15], ordinal: f[40] },
+  gd: { cardinal: f[15] },
   gl: { cardinal: f[4] },
   gsw: { cardinal: f[0] },
-  gu: { cardinal: f[2], ordinal: f[41] },
+  gu: { cardinal: f[2], ordinal: f[40] },
   guw: { cardinal: f[1] },
   gv: { cardinal: f[16] },
   ha: { cardinal: f[0] },
   haw: { cardinal: f[0] },
   he: { cardinal: f[17] },
-  hi: { cardinal: f[2], ordinal: f[41] },
+  hi: { cardinal: f[2], ordinal: f[40] },
   hr: { cardinal: f[7] },
   hsb: { cardinal: f[11] },
-  hu: { cardinal: f[0], ordinal: f[42] },
+  hu: { cardinal: f[0], ordinal: f[41] },
   hy: { cardinal: f[12], ordinal: f[0] },
-  ia: { cardinal: f[4] },
   io: { cardinal: f[4] },
   is: { cardinal: f[18] },
-  it: { cardinal: f[4], ordinal: f[43] },
+  it: { cardinal: f[4], ordinal: f[42] },
   iu: { cardinal: f[19] },
   iw: { cardinal: f[17] },
   jgo: { cardinal: f[0] },
   ji: { cardinal: f[4] },
   jmc: { cardinal: f[0] },
-  ka: { cardinal: f[0], ordinal: f[44] },
+  ka: { cardinal: f[0], ordinal: f[43] },
   kab: { cardinal: f[12] },
   kaj: { cardinal: f[0] },
   kcg: { cardinal: f[0] },
-  kk: { cardinal: f[0], ordinal: f[45] },
+  kk: { cardinal: f[0], ordinal: f[44] },
   kkj: { cardinal: f[0] },
   kl: { cardinal: f[0] },
   kn: { cardinal: f[2] },
@@ -1024,17 +1036,17 @@ module.exports = {
   mas: { cardinal: f[0] },
   mg: { cardinal: f[1] },
   mgo: { cardinal: f[0] },
-  mk: { cardinal: f[24], ordinal: f[46] },
+  mk: { cardinal: f[24], ordinal: f[45] },
   ml: { cardinal: f[0] },
   mn: { cardinal: f[0] },
   mo: { cardinal: f[25], ordinal: f[0] },
-  mr: { cardinal: f[2], ordinal: f[47] },
+  mr: { cardinal: f[2], ordinal: f[46] },
   mt: { cardinal: f[26] },
   nah: { cardinal: f[0] },
   naq: { cardinal: f[19] },
   nb: { cardinal: f[0] },
   nd: { cardinal: f[0] },
-  ne: { cardinal: f[0], ordinal: f[48] },
+  ne: { cardinal: f[0], ordinal: f[47] },
   nl: { cardinal: f[4] },
   nn: { cardinal: f[0] },
   nnh: { cardinal: f[0] },
@@ -1044,7 +1056,7 @@ module.exports = {
   ny: { cardinal: f[0] },
   nyn: { cardinal: f[0] },
   om: { cardinal: f[0] },
-  or: { cardinal: f[0], ordinal: f[49] },
+  or: { cardinal: f[0], ordinal: f[48] },
   os: { cardinal: f[0] },
   pa: { cardinal: f[1] },
   pap: { cardinal: f[0] },
@@ -1059,8 +1071,7 @@ module.exports = {
   ru: { cardinal: f[29] },
   rwk: { cardinal: f[0] },
   saq: { cardinal: f[0] },
-  sc: { cardinal: f[4], ordinal: f[43] },
-  scn: { cardinal: f[4], ordinal: f[43] },
+  scn: { cardinal: f[4], ordinal: f[42] },
   sd: { cardinal: f[0] },
   sdh: { cardinal: f[0] },
   se: { cardinal: f[19] },
@@ -1077,12 +1088,12 @@ module.exports = {
   sms: { cardinal: f[19] },
   sn: { cardinal: f[0] },
   so: { cardinal: f[0] },
-  sq: { cardinal: f[0], ordinal: f[50] },
+  sq: { cardinal: f[0], ordinal: f[49] },
   sr: { cardinal: f[7] },
   ss: { cardinal: f[0] },
   ssy: { cardinal: f[0] },
   st: { cardinal: f[0] },
-  sv: { cardinal: f[4], ordinal: f[51] },
+  sv: { cardinal: f[4], ordinal: f[50] },
   sw: { cardinal: f[4] },
   syr: { cardinal: f[0] },
   ta: { cardinal: f[0] },
@@ -1090,14 +1101,14 @@ module.exports = {
   teo: { cardinal: f[0] },
   ti: { cardinal: f[1] },
   tig: { cardinal: f[0] },
-  tk: { cardinal: f[0], ordinal: f[52] },
+  tk: { cardinal: f[0], ordinal: f[51] },
   tl: { cardinal: f[13], ordinal: f[0] },
   tn: { cardinal: f[0] },
   tr: { cardinal: f[0] },
   ts: { cardinal: f[0] },
   tzm: { cardinal: f[33] },
   ug: { cardinal: f[0] },
-  uk: { cardinal: f[29], ordinal: f[53] },
+  uk: { cardinal: f[29], ordinal: f[52] },
   ur: { cardinal: f[4] },
   uz: { cardinal: f[0] },
   ve: { cardinal: f[0] },
@@ -1117,477 +1128,21 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/format-message-parse/index.js":
-/*!****************************************************!*\
-  !*** ./node_modules/format-message-parse/index.js ***!
-  \****************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/format-message/index.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/format-message/index.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 // @flow
 
-
-/*::
-export type AST = Element[]
-export type Element = string | Placeholder
-export type Placeholder = Plural | Styled | Typed | Simple
-export type Plural = [ string, 'plural' | 'selectordinal', number, SubMessages ]
-export type Styled = [ string, string, string | SubMessages ]
-export type Typed = [ string, string ]
-export type Simple = [ string ]
-export type SubMessages = { [string]: AST }
-export type Token = [ TokenType, string ]
-export type TokenType = 'text' | 'space' | 'id' | 'type' | 'style' | 'offset' | 'number' | 'selector' | 'syntax'
-type Context = {|
-  pattern: string,
-  index: number,
-  tagsType: ?string,
-  tokens: ?Token[]
-|}
-*/
-
-var ARG_OPN = '{'
-var ARG_CLS = '}'
-var ARG_SEP = ','
-var NUM_ARG = '#'
-var TAG_OPN = '<'
-var TAG_CLS = '>'
-var TAG_END = '</'
-var TAG_SELF_CLS = '/>'
-var ESC = '\''
-var OFFSET = 'offset:'
-var simpleTypes = [
-  'number',
-  'date',
-  'time',
-  'ordinal',
-  'duration',
-  'spellout'
-]
-var submTypes = [
-  'plural',
-  'select',
-  'selectordinal'
-]
-
-/**
- * parse
- *
- * Turns this:
- *  `You have { numBananas, plural,
- *       =0 {no bananas}
- *      one {a banana}
- *    other {# bananas}
- *  } for sale`
- *
- * into this:
- *  [ "You have ", [ "numBananas", "plural", 0, {
- *       "=0": [ "no bananas" ],
- *      "one": [ "a banana" ],
- *    "other": [ [ '#' ], " bananas" ]
- *  } ], " for sale." ]
- *
- * tokens:
- *  [
- *    [ "text", "You have " ],
- *    [ "syntax", "{" ],
- *    [ "space", " " ],
- *    [ "id", "numBananas" ],
- *    [ "syntax", ", " ],
- *    [ "space", " " ],
- *    [ "type", "plural" ],
- *    [ "syntax", "," ],
- *    [ "space", "\n     " ],
- *    [ "selector", "=0" ],
- *    [ "space", " " ],
- *    [ "syntax", "{" ],
- *    [ "text", "no bananas" ],
- *    [ "syntax", "}" ],
- *    [ "space", "\n    " ],
- *    [ "selector", "one" ],
- *    [ "space", " " ],
- *    [ "syntax", "{" ],
- *    [ "text", "a banana" ],
- *    [ "syntax", "}" ],
- *    [ "space", "\n  " ],
- *    [ "selector", "other" ],
- *    [ "space", " " ],
- *    [ "syntax", "{" ],
- *    [ "syntax", "#" ],
- *    [ "text", " bananas" ],
- *    [ "syntax", "}" ],
- *    [ "space", "\n" ],
- *    [ "syntax", "}" ],
- *    [ "text", " for sale." ]
- *  ]
- **/
-exports = module.exports = function parse (
-  pattern/*: string */,
-  options/*:: ?: { tagsType?: string, tokens?: Token[] } */
-)/*: AST */ {
-  return parseAST({
-    pattern: String(pattern),
-    index: 0,
-    tagsType: (options && options.tagsType) || null,
-    tokens: (options && options.tokens) || null
-  }, '')
-}
-
-function parseAST (current/*: Context */, parentType/*: string */)/*: AST */ {
-  var pattern = current.pattern
-  var length = pattern.length
-  var elements/*: AST */ = []
-  var start = current.index
-  var text = parseText(current, parentType)
-  if (text) elements.push(text)
-  if (text && current.tokens) current.tokens.push(['text', pattern.slice(start, current.index)])
-  while (current.index < length) {
-    if (pattern[current.index] === ARG_CLS) {
-      if (!parentType) throw expected(current)
-      break
-    }
-    if (parentType && current.tagsType && pattern.slice(current.index, current.index + TAG_END.length) === TAG_END) break
-    elements.push(parsePlaceholder(current))
-    start = current.index
-    text = parseText(current, parentType)
-    if (text) elements.push(text)
-    if (text && current.tokens) current.tokens.push(['text', pattern.slice(start, current.index)])
-  }
-  return elements
-}
-
-function parseText (current/*: Context */, parentType/*: string */)/*: string */ {
-  var pattern = current.pattern
-  var length = pattern.length
-  var isHashSpecial = (parentType === 'plural' || parentType === 'selectordinal')
-  var isAngleSpecial = !!current.tagsType
-  var isArgStyle = (parentType === '{style}')
-  var text = ''
-  while (current.index < length) {
-    var char = pattern[current.index]
-    if (
-      char === ARG_OPN || char === ARG_CLS ||
-      (isHashSpecial && char === NUM_ARG) ||
-      (isAngleSpecial && char === TAG_OPN) ||
-      (isArgStyle && isWhitespace(char.charCodeAt(0)))
-    ) {
-      break
-    } else if (char === ESC) {
-      char = pattern[++current.index]
-      if (char === ESC) { // double is always 1 '
-        text += char
-        ++current.index
-      } else if (
-        // only when necessary
-        char === ARG_OPN || char === ARG_CLS ||
-        (isHashSpecial && char === NUM_ARG) ||
-        (isAngleSpecial && char === TAG_OPN) ||
-        isArgStyle
-      ) {
-        text += char
-        while (++current.index < length) {
-          char = pattern[current.index]
-          if (char === ESC && pattern[current.index + 1] === ESC) { // double is always 1 '
-            text += ESC
-            ++current.index
-          } else if (char === ESC) { // end of quoted
-            ++current.index
-            break
-          } else {
-            text += char
-          }
-        }
-      } else { // lone ' is just a '
-        text += ESC
-        // already incremented
-      }
-    } else {
-      text += char
-      ++current.index
-    }
-  }
-  return text
-}
-
-function isWhitespace (code/*: number */)/*: boolean */ {
-  return (
-    (code >= 0x09 && code <= 0x0D) ||
-    code === 0x20 || code === 0x85 || code === 0xA0 || code === 0x180E ||
-    (code >= 0x2000 && code <= 0x200D) ||
-    code === 0x2028 || code === 0x2029 || code === 0x202F || code === 0x205F ||
-    code === 0x2060 || code === 0x3000 || code === 0xFEFF
-  )
-}
-
-function skipWhitespace (current/*: Context */)/*: void */ {
-  var pattern = current.pattern
-  var length = pattern.length
-  var start = current.index
-  while (current.index < length && isWhitespace(pattern.charCodeAt(current.index))) {
-    ++current.index
-  }
-  if (start < current.index && current.tokens) {
-    current.tokens.push(['space', current.pattern.slice(start, current.index)])
-  }
-}
-
-function parsePlaceholder (current/*: Context */)/*: Placeholder */ {
-  var pattern = current.pattern
-  if (pattern[current.index] === NUM_ARG) {
-    if (current.tokens) current.tokens.push(['syntax', NUM_ARG])
-    ++current.index // move passed #
-    return [NUM_ARG]
-  }
-
-  var tag = parseTag(current)
-  if (tag) return tag
-
-  /* istanbul ignore if should be unreachable if parseAST and parseText are right */
-  if (pattern[current.index] !== ARG_OPN) throw expected(current, ARG_OPN)
-  if (current.tokens) current.tokens.push(['syntax', ARG_OPN])
-  ++current.index // move passed {
-  skipWhitespace(current)
-
-  var id = parseId(current)
-  if (!id) throw expected(current, 'placeholder id')
-  if (current.tokens) current.tokens.push(['id', id])
-  skipWhitespace(current)
-
-  var char = pattern[current.index]
-  if (char === ARG_CLS) { // end placeholder
-    if (current.tokens) current.tokens.push(['syntax', ARG_CLS])
-    ++current.index // move passed }
-    return [id]
-  }
-
-  if (char !== ARG_SEP) throw expected(current, ARG_SEP + ' or ' + ARG_CLS)
-  if (current.tokens) current.tokens.push(['syntax', ARG_SEP])
-  ++current.index // move passed ,
-  skipWhitespace(current)
-
-  var type = parseId(current)
-  if (!type) throw expected(current, 'placeholder type')
-  if (current.tokens) current.tokens.push(['type', type])
-  skipWhitespace(current)
-  char = pattern[current.index]
-  if (char === ARG_CLS) { // end placeholder
-    if (current.tokens) current.tokens.push(['syntax', ARG_CLS])
-    if (type === 'plural' || type === 'selectordinal' || type === 'select') {
-      throw expected(current, type + ' sub-messages')
-    }
-    ++current.index // move passed }
-    return [id, type]
-  }
-
-  if (char !== ARG_SEP) throw expected(current, ARG_SEP + ' or ' + ARG_CLS)
-  if (current.tokens) current.tokens.push(['syntax', ARG_SEP])
-  ++current.index // move passed ,
-  skipWhitespace(current)
-
-  var arg
-  if (type === 'plural' || type === 'selectordinal') {
-    var offset = parsePluralOffset(current)
-    skipWhitespace(current)
-    arg = [id, type, offset, parseSubMessages(current, type)]
-  } else if (type === 'select') {
-    arg = [id, type, parseSubMessages(current, type)]
-  } else if (simpleTypes.indexOf(type) >= 0) {
-    arg = [id, type, parseSimpleFormat(current)]
-  } else { // custom placeholder type
-    var index = current.index
-    var format/*: string | SubMessages */ = parseSimpleFormat(current)
-    skipWhitespace(current)
-    if (pattern[current.index] === ARG_OPN) {
-      current.index = index // rewind, since should have been submessages
-      format = parseSubMessages(current, type)
-    }
-    arg = [id, type, format]
-  }
-
-  skipWhitespace(current)
-  if (pattern[current.index] !== ARG_CLS) throw expected(current, ARG_CLS)
-  if (current.tokens) current.tokens.push(['syntax', ARG_CLS])
-  ++current.index // move passed }
-  return arg
-}
-
-function parseTag (current/*: Context */)/*: ?Placeholder */ {
-  var tagsType = current.tagsType
-  if (!tagsType || current.pattern[current.index] !== TAG_OPN) return
-
-  if (current.pattern.slice(current.index, current.index + TAG_END.length) === TAG_END) {
-    throw expected(current, null, 'closing tag without matching opening tag')
-  }
-  if (current.tokens) current.tokens.push(['syntax', TAG_OPN])
-  ++current.index // move passed <
-
-  var id = parseId(current, true)
-  if (!id) throw expected(current, 'placeholder id')
-  if (current.tokens) current.tokens.push(['id', id])
-  skipWhitespace(current)
-
-  if (current.pattern.slice(current.index, current.index + TAG_SELF_CLS.length) === TAG_SELF_CLS) {
-    if (current.tokens) current.tokens.push(['syntax', TAG_SELF_CLS])
-    current.index += TAG_SELF_CLS.length
-    return [id, tagsType]
-  }
-  if (current.pattern[current.index] !== TAG_CLS) throw expected(current, TAG_CLS)
-  if (current.tokens) current.tokens.push(['syntax', TAG_CLS])
-  ++current.index // move passed >
-
-  var children = parseAST(current, tagsType)
-
-  var end = current.index
-  if (current.pattern.slice(current.index, current.index + TAG_END.length) !== TAG_END) throw expected(current, TAG_END + id + TAG_CLS)
-  if (current.tokens) current.tokens.push(['syntax', TAG_END])
-  current.index += TAG_END.length
-  var closeId = parseId(current, true)
-  if (closeId && current.tokens) current.tokens.push(['id', closeId])
-  if (id !== closeId) {
-    current.index = end // rewind for better error message
-    throw expected(current, TAG_END + id + TAG_CLS, TAG_END + closeId + TAG_CLS)
-  }
-  skipWhitespace(current)
-  if (current.pattern[current.index] !== TAG_CLS) throw expected(current, TAG_CLS)
-  if (current.tokens) current.tokens.push(['syntax', TAG_CLS])
-  ++current.index // move passed >
-
-  return [id, tagsType, { children: children }]
-}
-
-function parseId (current/*: Context */, isTag/*:: ?: boolean */)/*: string */ {
-  var pattern = current.pattern
-  var length = pattern.length
-  var id = ''
-  while (current.index < length) {
-    var char = pattern[current.index]
-    if (
-      char === ARG_OPN || char === ARG_CLS || char === ARG_SEP ||
-      char === NUM_ARG || char === ESC || isWhitespace(char.charCodeAt(0)) ||
-      (isTag && (char === TAG_OPN || char === TAG_CLS || char === '/'))
-    ) break
-    id += char
-    ++current.index
-  }
-  return id
-}
-
-function parseSimpleFormat (current/*: Context */)/*: string */ {
-  var start = current.index
-  var style = parseText(current, '{style}')
-  if (!style) throw expected(current, 'placeholder style name')
-  if (current.tokens) current.tokens.push(['style', current.pattern.slice(start, current.index)])
-  return style
-}
-
-function parsePluralOffset (current/*: Context */)/*: number */ {
-  var pattern = current.pattern
-  var length = pattern.length
-  var offset = 0
-  if (pattern.slice(current.index, current.index + OFFSET.length) === OFFSET) {
-    if (current.tokens) current.tokens.push(['offset', 'offset'], ['syntax', ':'])
-    current.index += OFFSET.length // move passed offset:
-    skipWhitespace(current)
-    var start = current.index
-    while (current.index < length && isDigit(pattern.charCodeAt(current.index))) {
-      ++current.index
-    }
-    if (start === current.index) throw expected(current, 'offset number')
-    if (current.tokens) current.tokens.push(['number', pattern.slice(start, current.index)])
-    offset = +pattern.slice(start, current.index)
-  }
-  return offset
-}
-
-function isDigit (code/*: number */)/*: boolean */ {
-  return (code >= 0x30 && code <= 0x39)
-}
-
-function parseSubMessages (current/*: Context */, parentType/*: string */)/*: SubMessages */ {
-  var pattern = current.pattern
-  var length = pattern.length
-  var options/*: SubMessages */ = {}
-  while (current.index < length && pattern[current.index] !== ARG_CLS) {
-    var selector = parseId(current)
-    if (!selector) throw expected(current, 'sub-message selector')
-    if (current.tokens) current.tokens.push(['selector', selector])
-    skipWhitespace(current)
-    options[selector] = parseSubMessage(current, parentType)
-    skipWhitespace(current)
-  }
-  if (!options.other && submTypes.indexOf(parentType) >= 0) {
-    throw expected(current, null, null, '"other" sub-message must be specified in ' + parentType)
-  }
-  return options
-}
-
-function parseSubMessage (current/*: Context */, parentType/*: string */)/*: AST */ {
-  if (current.pattern[current.index] !== ARG_OPN) throw expected(current, ARG_OPN + ' to start sub-message')
-  if (current.tokens) current.tokens.push(['syntax', ARG_OPN])
-  ++current.index // move passed {
-  var message = parseAST(current, parentType)
-  if (current.pattern[current.index] !== ARG_CLS) throw expected(current, ARG_CLS + ' to end sub-message')
-  if (current.tokens) current.tokens.push(['syntax', ARG_CLS])
-  ++current.index // move passed }
-  return message
-}
-
-function expected (current/*: Context */, expected/*:: ?: ?string */, found/*:: ?: ?string */, message/*:: ?: string */) {
-  var pattern = current.pattern
-  var lines = pattern.slice(0, current.index).split(/\r?\n/)
-  var offset = current.index
-  var line = lines.length
-  var column = lines.slice(-1)[0].length
-  found = found || (
-    (current.index >= pattern.length) ? 'end of message pattern'
-      : (parseId(current) || pattern[current.index])
-  )
-  if (!message) message = errorMessage(expected, found)
-  message += ' in ' + pattern.replace(/\r?\n/g, '\n')
-  return new SyntaxError(message, expected, found, offset, line, column)
-}
-
-function errorMessage (expected/*: ?string */, found/* string */) {
-  if (!expected) return 'Unexpected ' + found + ' found'
-  return 'Expected ' + expected + ' but found ' + found
-}
-
-/**
- * SyntaxError
- *  Holds information about bad syntax found in a message pattern
- **/
-function SyntaxError (message/*: string */, expected/*: ?string */, found/*: ?string */, offset/*: number */, line/*: number */, column/*: number */) {
-  Error.call(this, message)
-  this.name = 'SyntaxError'
-  this.message = message
-  this.expected = expected
-  this.found = found
-  this.offset = offset
-  this.line = line
-  this.column = column
-}
-SyntaxError.prototype = Object.create(Error.prototype)
-exports.SyntaxError = SyntaxError
-
-
-/***/ }),
-
-/***/ "./node_modules/format-message/index.js":
-/*!**********************************************!*\
-  !*** ./node_modules/format-message/index.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// @flow
-
-var parse = __webpack_require__(/*! format-message-parse */ "./node_modules/format-message-parse/index.js")
-var interpret = __webpack_require__(/*! format-message-interpret */ "./node_modules/format-message-interpret/index.js")
-var plurals = __webpack_require__(/*! format-message-interpret/plurals */ "./node_modules/format-message-interpret/plurals.js")
-var lookupClosestLocale = __webpack_require__(/*! lookup-closest-locale */ "./node_modules/lookup-closest-locale/index.js")
-var origFormats = __webpack_require__(/*! format-message-formats */ "./node_modules/format-message-formats/index.js")
+var parse = __webpack_require__(/*! format-message-parse */ "./node_modules/scratch-vm/node_modules/format-message/node_modules/format-message-parse/index.js")
+var interpret = __webpack_require__(/*! format-message-interpret */ "./node_modules/scratch-vm/node_modules/format-message-interpret/index.js")
+var plurals = __webpack_require__(/*! format-message-interpret/plurals */ "./node_modules/scratch-vm/node_modules/format-message-interpret/plurals.js")
+var lookupClosestLocale = __webpack_require__(/*! lookup-closest-locale */ "./node_modules/scratch-vm/node_modules/format-message/node_modules/lookup-closest-locale/index.js")
+var origFormats = __webpack_require__(/*! format-message-formats */ "./node_modules/scratch-vm/node_modules/format-message/node_modules/format-message-formats/index.js")
 
 /*::
 import type { Types } from 'format-message-interpret'
@@ -1810,10 +1365,670 @@ module.exports = exports = namespace()
 
 /***/ }),
 
-/***/ "./node_modules/lookup-closest-locale/index.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/lookup-closest-locale/index.js ***!
-  \*****************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/format-message/node_modules/format-message-formats/index.js":
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/format-message/node_modules/format-message-formats/index.js ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// @flow
+var LONG = 'long'
+var SHORT = 'short'
+var NARROW = 'narrow'
+var NUMERIC = 'numeric'
+var TWODIGIT = '2-digit'
+
+/**
+ * formatting information
+ **/
+module.exports = {
+  number: {
+    decimal: {
+      style: 'decimal'
+    },
+    integer: {
+      style: 'decimal',
+      maximumFractionDigits: 0
+    },
+    currency: {
+      style: 'currency',
+      currency: 'USD'
+    },
+    percent: {
+      style: 'percent'
+    },
+    default: {
+      style: 'decimal'
+    }
+  },
+  date: {
+    short: {
+      month: NUMERIC,
+      day: NUMERIC,
+      year: TWODIGIT
+    },
+    medium: {
+      month: SHORT,
+      day: NUMERIC,
+      year: NUMERIC
+    },
+    long: {
+      month: LONG,
+      day: NUMERIC,
+      year: NUMERIC
+    },
+    full: {
+      month: LONG,
+      day: NUMERIC,
+      year: NUMERIC,
+      weekday: LONG
+    },
+    default: {
+      month: SHORT,
+      day: NUMERIC,
+      year: NUMERIC
+    }
+  },
+  time: {
+    short: {
+      hour: NUMERIC,
+      minute: NUMERIC
+    },
+    medium: {
+      hour: NUMERIC,
+      minute: NUMERIC,
+      second: NUMERIC
+    },
+    long: {
+      hour: NUMERIC,
+      minute: NUMERIC,
+      second: NUMERIC,
+      timeZoneName: SHORT
+    },
+    full: {
+      hour: NUMERIC,
+      minute: NUMERIC,
+      second: NUMERIC,
+      timeZoneName: SHORT
+    },
+    default: {
+      hour: NUMERIC,
+      minute: NUMERIC,
+      second: NUMERIC
+    }
+  },
+  duration: {
+    default: {
+      hours: {
+        minimumIntegerDigits: 1,
+        maximumFractionDigits: 0
+      },
+      minutes: {
+        minimumIntegerDigits: 2,
+        maximumFractionDigits: 0
+      },
+      seconds: {
+        minimumIntegerDigits: 2,
+        maximumFractionDigits: 3
+      }
+    }
+  },
+  parseNumberPattern: function (pattern/*: ?string */) {
+    if (!pattern) return
+    var options = {}
+    var currency = pattern.match(/\b[A-Z]{3}\b/i)
+    var syms = pattern.replace(/[^¤]/g, '').length
+    if (!syms && currency) syms = 1
+    if (syms) {
+      options.style = 'currency'
+      options.currencyDisplay = syms === 1 ? 'symbol' : syms === 2 ? 'code' : 'name'
+      options.currency = currency ? currency[0].toUpperCase() : 'USD'
+    } else if (pattern.indexOf('%') >= 0) {
+      options.style = 'percent'
+    }
+    if (!/[@#0]/.test(pattern)) return options.style ? options : undefined
+    options.useGrouping = pattern.indexOf(',') >= 0
+    if (/E\+?[@#0]+/i.test(pattern) || pattern.indexOf('@') >= 0) {
+      var size = pattern.replace(/E\+?[@#0]+|[^@#0]/gi, '')
+      options.minimumSignificantDigits = Math.min(Math.max(size.replace(/[^@0]/g, '').length, 1), 21)
+      options.maximumSignificantDigits = Math.min(Math.max(size.length, 1), 21)
+    } else {
+      var parts = pattern.replace(/[^#0.]/g, '').split('.')
+      var integer = parts[0]
+      var n = integer.length - 1
+      while (integer[n] === '0') --n
+      options.minimumIntegerDigits = Math.min(Math.max(integer.length - 1 - n, 1), 21)
+      var fraction = parts[1] || ''
+      n = 0
+      while (fraction[n] === '0') ++n
+      options.minimumFractionDigits = Math.min(Math.max(n, 0), 20)
+      while (fraction[n] === '#') ++n
+      options.maximumFractionDigits = Math.min(Math.max(n, 0), 20)
+    }
+    return options
+  },
+  parseDatePattern: function (pattern/*: ?string */) {
+    if (!pattern) return
+    var options = {}
+    for (var i = 0; i < pattern.length;) {
+      var current = pattern[i]
+      var n = 1
+      while (pattern[++i] === current) ++n
+      switch (current) {
+        case 'G':
+          options.era = n === 5 ? NARROW : n === 4 ? LONG : SHORT
+          break
+        case 'y':
+        case 'Y':
+          options.year = n === 2 ? TWODIGIT : NUMERIC
+          break
+        case 'M':
+        case 'L':
+          n = Math.min(Math.max(n - 1, 0), 4)
+          options.month = [ NUMERIC, TWODIGIT, SHORT, LONG, NARROW ][n]
+          break
+        case 'E':
+        case 'e':
+        case 'c':
+          options.weekday = n === 5 ? NARROW : n === 4 ? LONG : SHORT
+          break
+        case 'd':
+        case 'D':
+          options.day = n === 2 ? TWODIGIT : NUMERIC
+          break
+        case 'h':
+        case 'K':
+          options.hour12 = true
+          options.hour = n === 2 ? TWODIGIT : NUMERIC
+          break
+        case 'H':
+        case 'k':
+          options.hour12 = false
+          options.hour = n === 2 ? TWODIGIT : NUMERIC
+          break
+        case 'm':
+          options.minute = n === 2 ? TWODIGIT : NUMERIC
+          break
+        case 's':
+        case 'S':
+          options.second = n === 2 ? TWODIGIT : NUMERIC
+          break
+        case 'z':
+        case 'Z':
+        case 'v':
+        case 'V':
+          options.timeZoneName = n === 1 ? SHORT : LONG
+          break
+      }
+    }
+    return Object.keys(options).length ? options : undefined
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/scratch-vm/node_modules/format-message/node_modules/format-message-parse/index.js":
+/*!********************************************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/format-message/node_modules/format-message-parse/index.js ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// @flow
+
+
+/*::
+export type AST = Element[]
+export type Element = string | Placeholder
+export type Placeholder = Plural | Styled | Typed | Simple
+export type Plural = [ string, 'plural' | 'selectordinal', number, SubMessages ]
+export type Styled = [ string, string, string | SubMessages ]
+export type Typed = [ string, string ]
+export type Simple = [ string ]
+export type SubMessages = { [string]: AST }
+export type Token = [ TokenType, string ]
+export type TokenType = 'text' | 'space' | 'id' | 'type' | 'style' | 'offset' | 'number' | 'selector' | 'syntax'
+type Context = {|
+  pattern: string,
+  index: number,
+  tagsType: ?string,
+  tokens: ?Token[]
+|}
+*/
+
+var ARG_OPN = '{'
+var ARG_CLS = '}'
+var ARG_SEP = ','
+var NUM_ARG = '#'
+var TAG_OPN = '<'
+var TAG_CLS = '>'
+var TAG_END = '</'
+var TAG_SELF_CLS = '/>'
+var ESC = '\''
+var OFFSET = 'offset:'
+var simpleTypes = [
+  'number',
+  'date',
+  'time',
+  'ordinal',
+  'duration',
+  'spellout'
+]
+var submTypes = [
+  'plural',
+  'select',
+  'selectordinal'
+]
+
+/**
+ * parse
+ *
+ * Turns this:
+ *  `You have { numBananas, plural,
+ *       =0 {no bananas}
+ *      one {a banana}
+ *    other {# bananas}
+ *  } for sale`
+ *
+ * into this:
+ *  [ "You have ", [ "numBananas", "plural", 0, {
+ *       "=0": [ "no bananas" ],
+ *      "one": [ "a banana" ],
+ *    "other": [ [ '#' ], " bananas" ]
+ *  } ], " for sale." ]
+ *
+ * tokens:
+ *  [
+ *    [ "text", "You have " ],
+ *    [ "syntax", "{" ],
+ *    [ "space", " " ],
+ *    [ "id", "numBananas" ],
+ *    [ "syntax", ", " ],
+ *    [ "space", " " ],
+ *    [ "type", "plural" ],
+ *    [ "syntax", "," ],
+ *    [ "space", "\n     " ],
+ *    [ "selector", "=0" ],
+ *    [ "space", " " ],
+ *    [ "syntax", "{" ],
+ *    [ "text", "no bananas" ],
+ *    [ "syntax", "}" ],
+ *    [ "space", "\n    " ],
+ *    [ "selector", "one" ],
+ *    [ "space", " " ],
+ *    [ "syntax", "{" ],
+ *    [ "text", "a banana" ],
+ *    [ "syntax", "}" ],
+ *    [ "space", "\n  " ],
+ *    [ "selector", "other" ],
+ *    [ "space", " " ],
+ *    [ "syntax", "{" ],
+ *    [ "syntax", "#" ],
+ *    [ "text", " bananas" ],
+ *    [ "syntax", "}" ],
+ *    [ "space", "\n" ],
+ *    [ "syntax", "}" ],
+ *    [ "text", " for sale." ]
+ *  ]
+ **/
+exports = module.exports = function parse (
+  pattern/*: string */,
+  options/*:: ?: { tagsType?: string, tokens?: Token[] } */
+)/*: AST */ {
+  return parseAST({
+    pattern: String(pattern),
+    index: 0,
+    tagsType: (options && options.tagsType) || null,
+    tokens: (options && options.tokens) || null
+  }, '')
+}
+
+function parseAST (current/*: Context */, parentType/*: string */)/*: AST */ {
+  var pattern = current.pattern
+  var length = pattern.length
+  var elements/*: AST */ = []
+  var start = current.index
+  var text = parseText(current, parentType)
+  if (text) elements.push(text)
+  if (text && current.tokens) current.tokens.push([ 'text', pattern.slice(start, current.index) ])
+  while (current.index < length) {
+    if (pattern[current.index] === ARG_CLS) {
+      if (!parentType) throw expected(current)
+      break
+    }
+    if (parentType && current.tagsType && pattern.slice(current.index, current.index + TAG_END.length) === TAG_END) break
+    elements.push(parsePlaceholder(current))
+    start = current.index
+    text = parseText(current, parentType)
+    if (text) elements.push(text)
+    if (text && current.tokens) current.tokens.push([ 'text', pattern.slice(start, current.index) ])
+  }
+  return elements
+}
+
+function parseText (current/*: Context */, parentType/*: string */)/*: string */ {
+  var pattern = current.pattern
+  var length = pattern.length
+  var isHashSpecial = (parentType === 'plural' || parentType === 'selectordinal')
+  var isAngleSpecial = !!current.tagsType
+  var isArgStyle = (parentType === '{style}')
+  var text = ''
+  while (current.index < length) {
+    var char = pattern[current.index]
+    if (
+      char === ARG_OPN || char === ARG_CLS ||
+      (isHashSpecial && char === NUM_ARG) ||
+      (isAngleSpecial && char === TAG_OPN) ||
+      (isArgStyle && isWhitespace(char.charCodeAt(0)))
+    ) {
+      break
+    } else if (char === ESC) {
+      char = pattern[++current.index]
+      if (char === ESC) { // double is always 1 '
+        text += char
+        ++current.index
+      } else if (
+        // only when necessary
+        char === ARG_OPN || char === ARG_CLS ||
+        (isHashSpecial && char === NUM_ARG) ||
+        (isAngleSpecial && char === TAG_OPN) ||
+        isArgStyle
+      ) {
+        text += char
+        while (++current.index < length) {
+          char = pattern[current.index]
+          if (char === ESC && pattern[current.index + 1] === ESC) { // double is always 1 '
+            text += ESC
+            ++current.index
+          } else if (char === ESC) { // end of quoted
+            ++current.index
+            break
+          } else {
+            text += char
+          }
+        }
+      } else { // lone ' is just a '
+        text += ESC
+        // already incremented
+      }
+    } else {
+      text += char
+      ++current.index
+    }
+  }
+  return text
+}
+
+function isWhitespace (code/*: number */)/*: boolean */ {
+  return (
+    (code >= 0x09 && code <= 0x0D) ||
+    code === 0x20 || code === 0x85 || code === 0xA0 || code === 0x180E ||
+    (code >= 0x2000 && code <= 0x200D) ||
+    code === 0x2028 || code === 0x2029 || code === 0x202F || code === 0x205F ||
+    code === 0x2060 || code === 0x3000 || code === 0xFEFF
+  )
+}
+
+function skipWhitespace (current/*: Context */)/*: void */ {
+  var pattern = current.pattern
+  var length = pattern.length
+  var start = current.index
+  while (current.index < length && isWhitespace(pattern.charCodeAt(current.index))) {
+    ++current.index
+  }
+  if (start < current.index && current.tokens) {
+    current.tokens.push([ 'space', current.pattern.slice(start, current.index) ])
+  }
+}
+
+function parsePlaceholder (current/*: Context */)/*: Placeholder */ {
+  var pattern = current.pattern
+  if (pattern[current.index] === NUM_ARG) {
+    if (current.tokens) current.tokens.push([ 'syntax', NUM_ARG ])
+    ++current.index // move passed #
+    return [ NUM_ARG ]
+  }
+
+  var tag = parseTag(current)
+  if (tag) return tag
+
+  /* istanbul ignore if should be unreachable if parseAST and parseText are right */
+  if (pattern[current.index] !== ARG_OPN) throw expected(current, ARG_OPN)
+  if (current.tokens) current.tokens.push([ 'syntax', ARG_OPN ])
+  ++current.index // move passed {
+  skipWhitespace(current)
+
+  var id = parseId(current)
+  if (!id) throw expected(current, 'placeholder id')
+  if (current.tokens) current.tokens.push([ 'id', id ])
+  skipWhitespace(current)
+
+  var char = pattern[current.index]
+  if (char === ARG_CLS) { // end placeholder
+    if (current.tokens) current.tokens.push([ 'syntax', ARG_CLS ])
+    ++current.index // move passed }
+    return [ id ]
+  }
+
+  if (char !== ARG_SEP) throw expected(current, ARG_SEP + ' or ' + ARG_CLS)
+  if (current.tokens) current.tokens.push([ 'syntax', ARG_SEP ])
+  ++current.index // move passed ,
+  skipWhitespace(current)
+
+  var type = parseId(current)
+  if (!type) throw expected(current, 'placeholder type')
+  if (current.tokens) current.tokens.push([ 'type', type ])
+  skipWhitespace(current)
+  char = pattern[current.index]
+  if (char === ARG_CLS) { // end placeholder
+    if (current.tokens) current.tokens.push([ 'syntax', ARG_CLS ])
+    if (type === 'plural' || type === 'selectordinal' || type === 'select') {
+      throw expected(current, type + ' sub-messages')
+    }
+    ++current.index // move passed }
+    return [ id, type ]
+  }
+
+  if (char !== ARG_SEP) throw expected(current, ARG_SEP + ' or ' + ARG_CLS)
+  if (current.tokens) current.tokens.push([ 'syntax', ARG_SEP ])
+  ++current.index // move passed ,
+  skipWhitespace(current)
+
+  var arg
+  if (type === 'plural' || type === 'selectordinal') {
+    var offset = parsePluralOffset(current)
+    skipWhitespace(current)
+    arg = [ id, type, offset, parseSubMessages(current, type) ]
+  } else if (type === 'select') {
+    arg = [ id, type, parseSubMessages(current, type) ]
+  } else if (simpleTypes.indexOf(type) >= 0) {
+    arg = [ id, type, parseSimpleFormat(current) ]
+  } else { // custom placeholder type
+    var index = current.index
+    var format/*: string | SubMessages */ = parseSimpleFormat(current)
+    skipWhitespace(current)
+    if (pattern[current.index] === ARG_OPN) {
+      current.index = index // rewind, since should have been submessages
+      format = parseSubMessages(current, type)
+    }
+    arg = [ id, type, format ]
+  }
+
+  skipWhitespace(current)
+  if (pattern[current.index] !== ARG_CLS) throw expected(current, ARG_CLS)
+  if (current.tokens) current.tokens.push([ 'syntax', ARG_CLS ])
+  ++current.index // move passed }
+  return arg
+}
+
+function parseTag (current/*: Context */)/*: ?Placeholder */ {
+  var tagsType = current.tagsType
+  if (!tagsType || current.pattern[current.index] !== TAG_OPN) return
+
+  if (current.pattern.slice(current.index, current.index + TAG_END.length) === TAG_END) {
+    throw expected(current, null, 'closing tag without matching opening tag')
+  }
+  if (current.tokens) current.tokens.push([ 'syntax', TAG_OPN ])
+  ++current.index // move passed <
+
+  var id = parseId(current, true)
+  if (!id) throw expected(current, 'placeholder id')
+  if (current.tokens) current.tokens.push([ 'id', id ])
+  skipWhitespace(current)
+
+  if (current.pattern.slice(current.index, current.index + TAG_SELF_CLS.length) === TAG_SELF_CLS) {
+    if (current.tokens) current.tokens.push([ 'syntax', TAG_SELF_CLS ])
+    current.index += TAG_SELF_CLS.length
+    return [ id, tagsType ]
+  }
+  if (current.pattern[current.index] !== TAG_CLS) throw expected(current, TAG_CLS)
+  if (current.tokens) current.tokens.push([ 'syntax', TAG_CLS ])
+  ++current.index // move passed >
+
+  var children = parseAST(current, tagsType)
+
+  var end = current.index
+  if (current.pattern.slice(current.index, current.index + TAG_END.length) !== TAG_END) throw expected(current, TAG_END + id + TAG_CLS)
+  if (current.tokens) current.tokens.push([ 'syntax', TAG_END ])
+  current.index += TAG_END.length
+  var closeId = parseId(current, true)
+  if (closeId && current.tokens) current.tokens.push([ 'id', closeId ])
+  if (id !== closeId) {
+    current.index = end // rewind for better error message
+    throw expected(current, TAG_END + id + TAG_CLS, TAG_END + closeId + TAG_CLS)
+  }
+  skipWhitespace(current)
+  if (current.pattern[current.index] !== TAG_CLS) throw expected(current, TAG_CLS)
+  if (current.tokens) current.tokens.push([ 'syntax', TAG_CLS ])
+  ++current.index // move passed >
+
+  return [ id, tagsType, { children: children } ]
+}
+
+function parseId (current/*: Context */, isTag/*:: ?: boolean */)/*: string */ {
+  var pattern = current.pattern
+  var length = pattern.length
+  var id = ''
+  while (current.index < length) {
+    var char = pattern[current.index]
+    if (
+      char === ARG_OPN || char === ARG_CLS || char === ARG_SEP ||
+      char === NUM_ARG || char === ESC || isWhitespace(char.charCodeAt(0)) ||
+      (isTag && (char === TAG_OPN || char === TAG_CLS || char === '/'))
+    ) break
+    id += char
+    ++current.index
+  }
+  return id
+}
+
+function parseSimpleFormat (current/*: Context */)/*: string */ {
+  var start = current.index
+  var style = parseText(current, '{style}')
+  if (!style) throw expected(current, 'placeholder style name')
+  if (current.tokens) current.tokens.push([ 'style', current.pattern.slice(start, current.index) ])
+  return style
+}
+
+function parsePluralOffset (current/*: Context */)/*: number */ {
+  var pattern = current.pattern
+  var length = pattern.length
+  var offset = 0
+  if (pattern.slice(current.index, current.index + OFFSET.length) === OFFSET) {
+    if (current.tokens) current.tokens.push([ 'offset', 'offset' ], [ 'syntax', ':' ])
+    current.index += OFFSET.length // move passed offset:
+    skipWhitespace(current)
+    var start = current.index
+    while (current.index < length && isDigit(pattern.charCodeAt(current.index))) {
+      ++current.index
+    }
+    if (start === current.index) throw expected(current, 'offset number')
+    if (current.tokens) current.tokens.push([ 'number', pattern.slice(start, current.index) ])
+    offset = +pattern.slice(start, current.index)
+  }
+  return offset
+}
+
+function isDigit (code/*: number */)/*: boolean */ {
+  return (code >= 0x30 && code <= 0x39)
+}
+
+function parseSubMessages (current/*: Context */, parentType/*: string */)/*: SubMessages */ {
+  var pattern = current.pattern
+  var length = pattern.length
+  var options/*: SubMessages */ = {}
+  while (current.index < length && pattern[current.index] !== ARG_CLS) {
+    var selector = parseId(current)
+    if (!selector) throw expected(current, 'sub-message selector')
+    if (current.tokens) current.tokens.push([ 'selector', selector ])
+    skipWhitespace(current)
+    options[selector] = parseSubMessage(current, parentType)
+    skipWhitespace(current)
+  }
+  if (!options.other && submTypes.indexOf(parentType) >= 0) {
+    throw expected(current, null, null, '"other" sub-message must be specified in ' + parentType)
+  }
+  return options
+}
+
+function parseSubMessage (current/*: Context */, parentType/*: string */)/*: AST */ {
+  if (current.pattern[current.index] !== ARG_OPN) throw expected(current, ARG_OPN + ' to start sub-message')
+  if (current.tokens) current.tokens.push([ 'syntax', ARG_OPN ])
+  ++current.index // move passed {
+  var message = parseAST(current, parentType)
+  if (current.pattern[current.index] !== ARG_CLS) throw expected(current, ARG_CLS + ' to end sub-message')
+  if (current.tokens) current.tokens.push([ 'syntax', ARG_CLS ])
+  ++current.index // move passed }
+  return message
+}
+
+function expected (current/*: Context */, expected/*:: ?: ?string */, found/*:: ?: ?string */, message/*:: ?: string */) {
+  var pattern = current.pattern
+  var lines = pattern.slice(0, current.index).split(/\r?\n/)
+  var offset = current.index
+  var line = lines.length
+  var column = lines.slice(-1)[0].length
+  found = found || (
+    (current.index >= pattern.length) ? 'end of message pattern'
+      : (parseId(current) || pattern[current.index])
+  )
+  if (!message) message = errorMessage(expected, found)
+  message += ' in ' + pattern.replace(/\r?\n/g, '\n')
+  return new SyntaxError(message, expected, found, offset, line, column)
+}
+
+function errorMessage (expected/*: ?string */, found/* string */) {
+  if (!expected) return 'Unexpected ' + found + ' found'
+  return 'Expected ' + expected + ' but found ' + found
+}
+
+/**
+ * SyntaxError
+ *  Holds information about bad syntax found in a message pattern
+ **/
+function SyntaxError (message/*: string */, expected/*: ?string */, found/*: ?string */, offset/*: number */, line/*: number */, column/*: number */) {
+  Error.call(this, message)
+  this.name = 'SyntaxError'
+  this.message = message
+  this.expected = expected
+  this.found = found
+  this.offset = offset
+  this.line = line
+  this.column = column
+}
+SyntaxError.prototype = Object.create(Error.prototype)
+exports.SyntaxError = SyntaxError
+
+
+/***/ }),
+
+/***/ "./node_modules/scratch-vm/node_modules/format-message/node_modules/lookup-closest-locale/index.js":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/format-message/node_modules/lookup-closest-locale/index.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1836,10 +2051,10 @@ module.exports = function lookupClosestLocale (locale/*: string | string[] | voi
 
 /***/ }),
 
-/***/ "./node_modules/microee/index.js":
-/*!***************************************!*\
-  !*** ./node_modules/microee/index.js ***!
-  \***************************************/
+/***/ "./node_modules/scratch-vm/node_modules/microee/index.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/microee/index.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -1897,15 +2112,15 @@ module.exports = M;
 
 /***/ }),
 
-/***/ "./node_modules/minilog/lib/common/filter.js":
-/*!***************************************************!*\
-  !*** ./node_modules/minilog/lib/common/filter.js ***!
-  \***************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/common/filter.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/common/filter.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 // default filter
-var Transform = __webpack_require__(/*! ./transform.js */ "./node_modules/minilog/lib/common/transform.js");
+var Transform = __webpack_require__(/*! ./transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js");
 
 var levelMap = { debug: 1, info: 2, warn: 3, error: 4 };
 
@@ -1964,15 +2179,15 @@ module.exports = Filter;
 
 /***/ }),
 
-/***/ "./node_modules/minilog/lib/common/minilog.js":
-/*!****************************************************!*\
-  !*** ./node_modules/minilog/lib/common/minilog.js ***!
-  \****************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/common/minilog.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/common/minilog.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Transform = __webpack_require__(/*! ./transform.js */ "./node_modules/minilog/lib/common/transform.js"),
-    Filter = __webpack_require__(/*! ./filter.js */ "./node_modules/minilog/lib/common/filter.js");
+var Transform = __webpack_require__(/*! ./transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js"),
+    Filter = __webpack_require__(/*! ./filter.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/filter.js");
 
 var log = new Transform(),
     slice = Array.prototype.slice;
@@ -2020,14 +2235,14 @@ exports.enable = function() {
 
 /***/ }),
 
-/***/ "./node_modules/minilog/lib/common/transform.js":
-/*!******************************************************!*\
-  !*** ./node_modules/minilog/lib/common/transform.js ***!
-  \******************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var microee = __webpack_require__(/*! microee */ "./node_modules/microee/index.js");
+var microee = __webpack_require__(/*! microee */ "./node_modules/scratch-vm/node_modules/microee/index.js");
 
 // Implements a subset of Node's stream.Transform - in a cross-platform manner.
 function Transform() {}
@@ -2103,14 +2318,14 @@ module.exports = Transform;
 
 /***/ }),
 
-/***/ "./node_modules/minilog/lib/web/array.js":
-/*!***********************************************!*\
-  !*** ./node_modules/minilog/lib/web/array.js ***!
-  \***********************************************/
+/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/array.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/array.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/minilog/lib/common/transform.js"),
+var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js"),
     cache = [ ];
 
 var logger = new Transform();
@@ -2128,14 +2343,14 @@ module.exports = logger;
 
 /***/ }),
 
-/***/ "./node_modules/minilog/lib/web/console.js":
-/*!*************************************************!*\
-  !*** ./node_modules/minilog/lib/web/console.js ***!
-  \*************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/console.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/console.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/minilog/lib/common/transform.js");
+var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js");
 
 var newlines = /\n+$/,
     logger = new Transform();
@@ -2163,23 +2378,23 @@ logger.write = function(name, level, args) {
 };
 
 logger.formatters = ['color', 'minilog'];
-logger.color = __webpack_require__(/*! ./formatters/color.js */ "./node_modules/minilog/lib/web/formatters/color.js");
-logger.minilog = __webpack_require__(/*! ./formatters/minilog.js */ "./node_modules/minilog/lib/web/formatters/minilog.js");
+logger.color = __webpack_require__(/*! ./formatters/color.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/color.js");
+logger.minilog = __webpack_require__(/*! ./formatters/minilog.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/minilog.js");
 
 module.exports = logger;
 
 
 /***/ }),
 
-/***/ "./node_modules/minilog/lib/web/formatters/color.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/minilog/lib/web/formatters/color.js ***!
-  \**********************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/color.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/color.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Transform = __webpack_require__(/*! ../../common/transform.js */ "./node_modules/minilog/lib/common/transform.js"),
-    color = __webpack_require__(/*! ./util.js */ "./node_modules/minilog/lib/web/formatters/util.js");
+var Transform = __webpack_require__(/*! ../../common/transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js"),
+    color = __webpack_require__(/*! ./util.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/util.js");
 
 var colors = { debug: ['cyan'], info: ['purple' ], warn: [ 'yellow', true ], error: [ 'red', true ] },
     logger = new Transform();
@@ -2200,15 +2415,15 @@ module.exports = logger;
 
 /***/ }),
 
-/***/ "./node_modules/minilog/lib/web/formatters/minilog.js":
-/*!************************************************************!*\
-  !*** ./node_modules/minilog/lib/web/formatters/minilog.js ***!
-  \************************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/minilog.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/minilog.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Transform = __webpack_require__(/*! ../../common/transform.js */ "./node_modules/minilog/lib/common/transform.js"),
-    color = __webpack_require__(/*! ./util.js */ "./node_modules/minilog/lib/web/formatters/util.js"),
+var Transform = __webpack_require__(/*! ../../common/transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js"),
+    color = __webpack_require__(/*! ./util.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/util.js"),
     colors = { debug: ['gray'], info: ['purple' ], warn: [ 'yellow', true ], error: [ 'red', true ] },
     logger = new Transform();
 
@@ -2237,10 +2452,10 @@ module.exports = logger;
 
 /***/ }),
 
-/***/ "./node_modules/minilog/lib/web/formatters/util.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/minilog/lib/web/formatters/util.js ***!
-  \*********************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/util.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/formatters/util.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -2268,19 +2483,19 @@ module.exports = color;
 
 /***/ }),
 
-/***/ "./node_modules/minilog/lib/web/index.js":
-/*!***********************************************!*\
-  !*** ./node_modules/minilog/lib/web/index.js ***!
-  \***********************************************/
+/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/index.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/index.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Minilog = __webpack_require__(/*! ../common/minilog.js */ "./node_modules/minilog/lib/common/minilog.js");
+var Minilog = __webpack_require__(/*! ../common/minilog.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/minilog.js");
 
 var oldEnable = Minilog.enable,
     oldDisable = Minilog.disable,
     isChrome = (typeof navigator != 'undefined' && /chrome/i.test(navigator.userAgent)),
-    console = __webpack_require__(/*! ./console.js */ "./node_modules/minilog/lib/web/console.js");
+    console = __webpack_require__(/*! ./console.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/console.js");
 
 // Use a more capable logging backend if on Chrome
 Minilog.defaultBackend = (isChrome ? console.minilog : console);
@@ -2312,23 +2527,23 @@ Minilog.disable = function() {
 exports = module.exports = Minilog;
 
 exports.backends = {
-  array: __webpack_require__(/*! ./array.js */ "./node_modules/minilog/lib/web/array.js"),
+  array: __webpack_require__(/*! ./array.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/array.js"),
   browser: Minilog.defaultBackend,
-  localStorage: __webpack_require__(/*! ./localstorage.js */ "./node_modules/minilog/lib/web/localstorage.js"),
-  jQuery: __webpack_require__(/*! ./jquery_simple.js */ "./node_modules/minilog/lib/web/jquery_simple.js")
+  localStorage: __webpack_require__(/*! ./localstorage.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/localstorage.js"),
+  jQuery: __webpack_require__(/*! ./jquery_simple.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/jquery_simple.js")
 };
 
 
 /***/ }),
 
-/***/ "./node_modules/minilog/lib/web/jquery_simple.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/minilog/lib/web/jquery_simple.js ***!
-  \*******************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/jquery_simple.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/jquery_simple.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/minilog/lib/common/transform.js");
+var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js");
 
 var cid = new Date().valueOf().toString(36);
 
@@ -2406,14 +2621,14 @@ module.exports = AjaxLogger;
 
 /***/ }),
 
-/***/ "./node_modules/minilog/lib/web/localstorage.js":
-/*!******************************************************!*\
-  !*** ./node_modules/minilog/lib/web/localstorage.js ***!
-  \******************************************************/
+/***/ "./node_modules/scratch-vm/node_modules/minilog/lib/web/localstorage.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/scratch-vm/node_modules/minilog/lib/web/localstorage.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/minilog/lib/common/transform.js"),
+var Transform = __webpack_require__(/*! ../common/transform.js */ "./node_modules/scratch-vm/node_modules/minilog/lib/common/transform.js"),
     cache = false;
 
 var logger = new Transform();
@@ -2439,6 +2654,7 @@ module.exports = logger;
 /***/ (function(module, exports, __webpack_require__) {
 
 const log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/util/log.js");
+
 /**
  * @typedef {object} DispatchCallMessage - a message to the dispatch system representing a service method call
  * @property {*} responseId - send a response message with this response ID. See {@link DispatchResponseMessage}
@@ -2463,8 +2679,6 @@ const log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/sr
  * The SharedDispatch class is responsible for dispatch features shared by
  * {@link CentralDispatch} and {@link WorkerDispatch}.
  */
-
-
 class SharedDispatch {
   constructor() {
     /**
@@ -2474,13 +2688,14 @@ class SharedDispatch {
      * @type {Array.<Function[]>}
      */
     this.callbacks = [];
+
     /**
      * The next response ID to be used.
      * @type {int}
      */
-
     this.nextResponseId = 0;
   }
+
   /**
    * Call a particular method on a particular service, regardless of whether that service is provided locally or on
    * a worker. If the service is provided by a worker, the `args` will be copied using the Structured Clone
@@ -2495,11 +2710,13 @@ class SharedDispatch {
    * @param {*} [args] - the arguments to be copied to the method, if any.
    * @returns {Promise} - a promise for the return value of the service method.
    */
-
-
-  call(service, method, ...args) {
+  call(service, method) {
+    for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+      args[_key - 2] = arguments[_key];
+    }
     return this.transferCall(service, method, null, ...args);
   }
+
   /**
    * Call a particular method on a particular service, regardless of whether that service is provided locally or on
    * a worker. If the service is provided by a worker, the `args` will be copied using the Structured Clone
@@ -2515,40 +2732,38 @@ class SharedDispatch {
    * @param {*} [args] - the arguments to be copied to the method, if any.
    * @returns {Promise} - a promise for the return value of the service method.
    */
-
-
-  transferCall(service, method, transfer, ...args) {
+  transferCall(service, method, transfer) {
     try {
       const {
         provider,
         isRemote
       } = this._getServiceProvider(service);
-
       if (provider) {
+        for (var _len2 = arguments.length, args = new Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
+          args[_key2 - 3] = arguments[_key2];
+        }
         if (isRemote) {
           return this._remoteTransferCall(provider, service, method, transfer, ...args);
         }
-
         const result = provider[method].apply(provider, args);
         return Promise.resolve(result);
       }
-
       return Promise.reject(new Error("Service not found: ".concat(service)));
     } catch (e) {
       return Promise.reject(e);
     }
   }
+
   /**
    * Check if a particular service lives on another worker.
    * @param {string} service - the service to check.
    * @returns {boolean} - true if the service is remote (calls must cross a Worker boundary), false otherwise.
    * @private
    */
-
-
   _isRemoteService(service) {
     return this._getServiceProvider(service).isRemote;
   }
+
   /**
    * Like {@link call}, but force the call to be posted through a particular communication channel.
    * @param {object} provider - send the call through this object's `postMessage` function.
@@ -2557,11 +2772,13 @@ class SharedDispatch {
    * @param {*} [args] - the arguments to be copied to the method, if any.
    * @returns {Promise} - a promise for the return value of the service method.
    */
-
-
-  _remoteCall(provider, service, method, ...args) {
+  _remoteCall(provider, service, method) {
+    for (var _len3 = arguments.length, args = new Array(_len3 > 3 ? _len3 - 3 : 0), _key3 = 3; _key3 < _len3; _key3++) {
+      args[_key3 - 3] = arguments[_key3];
+    }
     return this._remoteTransferCall(provider, service, method, null, ...args);
   }
+
   /**
    * Like {@link transferCall}, but force the call to be posted through a particular communication channel.
    * @param {object} provider - send the call through this object's `postMessage` function.
@@ -2571,22 +2788,21 @@ class SharedDispatch {
    * @param {*} [args] - the arguments to be copied to the method, if any.
    * @returns {Promise} - a promise for the return value of the service method.
    */
-
-
-  _remoteTransferCall(provider, service, method, transfer, ...args) {
+  _remoteTransferCall(provider, service, method, transfer) {
+    for (var _len4 = arguments.length, args = new Array(_len4 > 4 ? _len4 - 4 : 0), _key4 = 4; _key4 < _len4; _key4++) {
+      args[_key4 - 4] = arguments[_key4];
+    }
     return new Promise((resolve, reject) => {
       const responseId = this._storeCallbacks(resolve, reject);
+
       /** @TODO: remove this hack! this is just here so we don't try to send `util` to a worker */
       // tw: upstream's logic is broken
       // Args is actually a 3 length list of [args, util, real block info]
       // We only want to send args. The others will throw errors when they try to be cloned
-
-
       if (args.length > 0 && typeof args[args.length - 1].func === 'function') {
         args.pop();
         args.pop();
       }
-
       if (transfer) {
         provider.postMessage({
           service,
@@ -2604,6 +2820,7 @@ class SharedDispatch {
       }
     });
   }
+
   /**
    * Store callback functions pending a response message.
    * @param {Function} resolve - function to call if the service method returns.
@@ -2611,26 +2828,22 @@ class SharedDispatch {
    * @returns {*} - a unique response ID for this set of callbacks. See {@link _deliverResponse}.
    * @protected
    */
-
-
   _storeCallbacks(resolve, reject) {
     const responseId = this.nextResponseId++;
     this.callbacks[responseId] = [resolve, reject];
     return responseId;
   }
+
   /**
    * Deliver call response from a worker. This should only be called as the result of a message from a worker.
    * @param {int} responseId - the response ID of the callback set to call.
    * @param {DispatchResponseMessage} message - the message containing the response value(s).
    * @protected
    */
-
-
   _deliverResponse(responseId, message) {
     try {
       const [resolve, reject] = this.callbacks[responseId];
       delete this.callbacks[responseId];
-
       if (message.error) {
         reject(message.error);
       } else {
@@ -2640,20 +2853,18 @@ class SharedDispatch {
       log.error("Dispatch callback failed: ".concat(e));
     }
   }
+
   /**
    * Handle a message event received from a connected worker.
    * @param {Worker} worker - the worker which sent the message, or the global object if running in a worker.
    * @param {MessageEvent} event - the message event to be handled.
    * @protected
    */
-
-
   _onMessage(worker, event) {
     /** @type {DispatchMessage} */
     const message = event.data;
     message.args = message.args || [];
     let promise;
-
     if (message.service) {
       if (message.service === 'dispatch') {
         promise = this._onDispatchMessage(worker, message);
@@ -2665,7 +2876,6 @@ class SharedDispatch {
     } else {
       this._deliverResponse(message.responseId, message);
     }
-
     if (promise) {
       if (typeof message.responseId === 'undefined') {
         log.error("Dispatch message missing required response ID: ".concat(JSON.stringify(event)));
@@ -2680,6 +2890,7 @@ class SharedDispatch {
       }
     }
   }
+
   /**
    * Fetch the service provider object for a particular service name.
    * @abstract
@@ -2687,11 +2898,10 @@ class SharedDispatch {
    * @returns {{provider:(object|Worker), isRemote:boolean}} - the means to contact the service, if found
    * @protected
    */
-
-
   _getServiceProvider(service) {
     throw new Error("Could not get provider for ".concat(service, ": _getServiceProvider not implemented"));
   }
+
   /**
    * Handle a call message sent to the dispatch service itself
    * @abstract
@@ -2700,14 +2910,10 @@ class SharedDispatch {
    * @returns {Promise|undefined} - a promise for the results of this operation, if appropriate
    * @private
    */
-
-
   _onDispatchMessage(worker, message) {
     throw new Error("Unimplemented dispatch message handler cannot handle ".concat(message.method, " method"));
   }
-
 }
-
 module.exports = SharedDispatch;
 
 /***/ }),
@@ -2720,12 +2926,11 @@ module.exports = SharedDispatch;
 /***/ (function(module, exports, __webpack_require__) {
 
 const SharedDispatch = __webpack_require__(/*! ./shared-dispatch */ "./node_modules/scratch-vm/src/dispatch/shared-dispatch.js");
-
 const log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/util/log.js");
-
 const {
   centralDispatchService
 } = __webpack_require__(/*! ../extension-support/tw-extension-worker-context */ "./node_modules/scratch-vm/src/extension-support/tw-extension-worker-context.js");
+
 /**
  * This class provides a Worker with the means to participate in the message dispatch system managed by CentralDispatch.
  * From any context in the messaging system, the dispatcher's "call" method can call any method on any "service"
@@ -2733,21 +2938,20 @@ const {
  * worker boundaries as needed.
  * @see {CentralDispatch}
  */
-
-
 class WorkerDispatch extends SharedDispatch {
   constructor() {
     super();
+
     /**
      * This promise will be resolved when we have successfully connected to central dispatch.
      * @type {Promise}
      * @see {waitForConnection}
      * @private
      */
-
     this._connectionPromise = new Promise(resolve => {
       this._onConnect = resolve;
     });
+
     /**
      * Map of service name to local service provider.
      * If a service is not listed here, it is assumed to be provided by another context (another Worker or the main
@@ -2755,14 +2959,13 @@ class WorkerDispatch extends SharedDispatch {
      * @see {setService}
      * @type {object}
      */
-
     this.services = {};
     this._onMessage = this._onMessage.bind(this, centralDispatchService);
-
     if (typeof self !== 'undefined') {
       self.onmessage = this._onMessage;
     }
   }
+
   /**
    * @returns {Promise} a promise which will resolve upon connection to central dispatch. If you need to make a call
    * immediately on "startup" you can attach a 'then' to this promise.
@@ -2771,11 +2974,10 @@ class WorkerDispatch extends SharedDispatch {
    *          dispatch.call('myService', 'hello');
    *      })
    */
-
-
   get waitForConnection() {
     return this._connectionPromise;
   }
+
   /**
    * Set a local object as the global provider of the specified service.
    * WARNING: Any method on the provider can be called from any worker within the dispatch system.
@@ -2783,16 +2985,14 @@ class WorkerDispatch extends SharedDispatch {
    * @param {object} provider - a local object which provides this service.
    * @returns {Promise} - a promise which will resolve once the service is registered.
    */
-
-
   setService(service, provider) {
     if (this.services.hasOwnProperty(service)) {
       log.warn("Worker dispatch replacing existing service provider for ".concat(service));
     }
-
     this.services[service] = provider;
     return this.waitForConnection.then(() => this._remoteCall(centralDispatchService, 'dispatch', 'setService', service));
   }
+
   /**
    * Fetch the service provider object for a particular service name.
    * @override
@@ -2800,8 +3000,6 @@ class WorkerDispatch extends SharedDispatch {
    * @returns {{provider:(object|Worker), isRemote:boolean}} - the means to contact the service, if found
    * @protected
    */
-
-
   _getServiceProvider(service) {
     // if we don't have a local service by this name, contact central dispatch by calling `postMessage` on self
     const provider = this.services[service];
@@ -2810,6 +3008,7 @@ class WorkerDispatch extends SharedDispatch {
       isRemote: !provider
     };
   }
+
   /**
    * Handle a call message sent to the dispatch service itself
    * @override
@@ -2818,31 +3017,23 @@ class WorkerDispatch extends SharedDispatch {
    * @returns {Promise|undefined} - a promise for the results of this operation, if appropriate
    * @protected
    */
-
-
   _onDispatchMessage(worker, message) {
     let promise;
-
     switch (message.method) {
       case 'handshake':
         promise = this._onConnect();
         break;
-
       case 'terminate':
         // Don't close until next tick, after sending confirmation back
         setTimeout(() => self.close(), 0);
         promise = Promise.resolve();
         break;
-
       default:
         log.error("Worker dispatch received message for unknown method: ".concat(message.method));
     }
-
     return promise;
   }
-
 }
-
 module.exports = new WorkerDispatch();
 
 /***/ }),
@@ -2863,47 +3054,38 @@ const ArgumentType = {
    * Numeric value with angle picker
    */
   ANGLE: 'angle',
-
   /**
    * Boolean value with hexagonal placeholder
    */
   BOOLEAN: 'Boolean',
-
   /**
    * Numeric value with color picker
    */
   COLOR: 'color',
-
   /**
    * Numeric value with text field
    */
   NUMBER: 'number',
-
   /**
    * String value with text field
    */
   STRING: 'string',
-
   /**
    * String value with matrix field
    */
   MATRIX: 'matrix',
-
   /**
    * MIDI note number with note picker (piano) field
    */
   NOTE: 'note',
-
   /**
    * Inline image on block (as part of the label)
    */
   IMAGE: 'image',
-
   /**
    * Name of costume in the current target
    */
   COSTUME: 'costume',
-
   /**
    * Name of sound in the current target
    */
@@ -2929,45 +3111,37 @@ const BlockType = {
    * Boolean reporter with hexagonal shape
    */
   BOOLEAN: 'Boolean',
-
   /**
    * A button (not an actual block) for some special action, like making a variable
    */
   BUTTON: 'button',
-
   /**
    * A text label (not an actual block) for adding comments or labling blocks
    */
   LABEL: 'label',
-
   /**
    * Command block
    */
   COMMAND: 'command',
-
   /**
    * Specialized command block which may or may not run a child branch
    * The thread continues with the next block whether or not a child branch ran.
    */
   CONDITIONAL: 'conditional',
-
   /**
    * Specialized hat block with no implementation function
    * This stack only runs if the corresponding event is emitted by other code.
    */
   EVENT: 'event',
-
   /**
    * Hat block which conditionally starts a block stack
    */
   HAT: 'hat',
-
   /**
    * Specialized command block which may or may not run a child branch
    * If a child branch runs, the thread evaluates the loop block again.
    */
   LOOP: 'loop',
-
   /**
    * General reporter with numeric or string value
    */
@@ -2985,39 +3159,30 @@ module.exports = BlockType;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/* eslint-env worker */
+
 const ScratchCommon = __webpack_require__(/*! ./tw-extension-api-common */ "./node_modules/scratch-vm/src/extension-support/tw-extension-api-common.js");
-
 const dispatch = __webpack_require__(/*! ../dispatch/worker-dispatch */ "./node_modules/scratch-vm/src/dispatch/worker-dispatch.js");
-
 const log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/util/log.js");
-
 const {
   isWorker
 } = __webpack_require__(/*! ./tw-extension-worker-context */ "./node_modules/scratch-vm/src/extension-support/tw-extension-worker-context.js");
-
 const createTranslate = __webpack_require__(/*! ./tw-l10n */ "./node_modules/scratch-vm/src/extension-support/tw-l10n.js");
-
 const translate = createTranslate(null);
-
 const loadScripts = url => {
   if (isWorker) {
     importScripts(url);
   } else {
     return new Promise((resolve, reject) => {
       const script = document.createElement('script');
-
       script.onload = () => resolve();
-
       script.onerror = () => {
         reject(new Error("Error in sandboxed script: ".concat(url, ". Check the console for more information.")));
       };
-
       script.src = url;
       document.body.appendChild(script);
     });
   }
 };
-
 class ExtensionWorker {
   constructor() {
     this.nextExtensionId = 0;
@@ -3029,7 +3194,6 @@ class ExtensionWorker {
       dispatch.call('extensions', 'allocateWorker').then(async x => {
         const [id, extension] = x;
         this.workerId = id;
-
         try {
           await loadScripts(extension);
           await this.firstRegistrationPromise;
@@ -3044,23 +3208,18 @@ class ExtensionWorker {
     });
     this.extensions = [];
   }
-
   register(extensionObject) {
     const extensionId = this.nextExtensionId++;
     this.extensions.push(extensionObject);
     const serviceName = "extension.".concat(this.workerId, ".").concat(extensionId);
     const promise = dispatch.setService(serviceName, extensionObject).then(() => dispatch.call('extensions', 'registerExtensionService', serviceName));
-
     if (this.initialRegistrations) {
       this.firstRegistrationCallback();
       this.initialRegistrations.push(promise);
     }
-
     return promise;
   }
-
 }
-
 global.Scratch = global.Scratch || {};
 Object.assign(global.Scratch, ScratchCommon, {
   canFetch: () => Promise.resolve(true),
@@ -3068,11 +3227,9 @@ Object.assign(global.Scratch, ScratchCommon, {
     function fetch(_x, _x2) {
       return _fetch.apply(this, arguments);
     }
-
     fetch.toString = function () {
       return _fetch.toString();
     };
-
     return fetch;
   }((url, options) => fetch(url, options)),
   canOpenWindow: () => Promise.resolve(false),
@@ -3085,10 +3242,10 @@ Object.assign(global.Scratch, ScratchCommon, {
   canNotify: () => Promise.resolve(false),
   translate
 });
+
 /**
  * Expose only specific parts of the worker to extensions.
  */
-
 const extensionWorker = new ExtensionWorker();
 global.Scratch.extensions = {
   register: extensionWorker.register.bind(extensionWorker)
@@ -3114,7 +3271,6 @@ const TargetType = {
    * Rendered target which can move, change costumes, etc.
    */
   SPRITE: 'sprite',
-
   /**
    * Rendered target which cannot move but can change backdrops
    */
@@ -3132,13 +3288,9 @@ module.exports = TargetType;
 /***/ (function(module, exports, __webpack_require__) {
 
 const ArgumentType = __webpack_require__(/*! ./argument-type */ "./node_modules/scratch-vm/src/extension-support/argument-type.js");
-
 const BlockType = __webpack_require__(/*! ./block-type */ "./node_modules/scratch-vm/src/extension-support/block-type.js");
-
 const TargetType = __webpack_require__(/*! ./target-type */ "./node_modules/scratch-vm/src/extension-support/target-type.js");
-
 const Cast = __webpack_require__(/*! ../util/cast */ "./node_modules/scratch-vm/src/util/cast.js");
-
 const Scratch = {
   ArgumentType,
   BlockType,
@@ -3178,120 +3330,97 @@ module.exports = {
  * small stubs of a few jQuery methods.
  * It's just supposed to be enough to make existing ScratchX extensions work, nothing more.
  */
-const log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/util/log.js");
 
+const log = __webpack_require__(/*! ../util/log */ "./node_modules/scratch-vm/src/util/log.js");
 const jQuery = () => {
   throw new Error('Not implemented');
 };
-
 jQuery.getScript = (src, callback) => {
   const script = document.createElement('script');
   script.src = src;
-
   if (callback) {
     // We don't implement callback arguments.
     script.onload = () => callback();
   }
-
   document.body.appendChild(script);
 };
+
 /**
  * @param {Record<string, any>|undefined} obj
  * @returns {URLSearchParams}
  */
-
-
 const objectToQueryString = obj => {
   const params = new URLSearchParams();
-
   if (obj) {
     for (const key of Object.keys(obj)) {
       params.set(key, obj[key]);
     }
   }
-
   return params;
 };
-
 let jsonpCallback = 0;
-
 jQuery.ajax = async (arg1, arg2) => {
   let options = {};
-
   if (arg1 && arg2) {
     options = arg2;
     options.url = arg1;
   } else if (arg1) {
     options = arg1;
   }
-
   const urlParameters = objectToQueryString(options.data);
-
   const getFinalURL = () => {
     const query = urlParameters.toString();
     let url = options.url;
-
     if (query) {
       url += "?".concat(query);
-    } // Forcibly upgrade all HTTP requests to HTTPS so that they don't error on HTTPS sites
+    }
+    // Forcibly upgrade all HTTP requests to HTTPS so that they don't error on HTTPS sites
     // All the extensions we care about work fine with this
-
-
     if (url.startsWith('http://')) {
       url = url.replace('http://', 'https://');
     }
-
     return url;
   };
-
   const successCallback = result => {
     if (options.success) {
       options.success(result);
     }
   };
-
   const errorCallback = error => {
     log.error(error);
-
     if (options.error) {
       // The error object we provide here might not match what jQuery provides but it's enough to
       // prevent extensions from throwing errors trying to access properties.
       options.error(error);
     }
   };
-
   try {
     if (options.dataType === 'jsonp') {
       const callbackName = "_jsonp_callback".concat(jsonpCallback++);
-
       global[callbackName] = data => {
         delete global[callbackName];
         successCallback(data);
       };
-
       const callbackParameterName = options.jsonp || 'callback';
       urlParameters.set(callbackParameterName, callbackName);
       jQuery.getScript(getFinalURL());
       return;
     }
-
     if (options.dataType === 'script') {
       jQuery.getScript(getFinalURL(), successCallback);
       return;
     }
-
     const res = await fetch(getFinalURL(), {
       headers: options.headers
-    }); // dataType defaults to "Intelligent Guess (xml, json, script, or html)"
+    });
+    // dataType defaults to "Intelligent Guess (xml, json, script, or html)"
     // It happens that all the ScratchX extensions we care about either set dataType to "json" or
     // leave it blank and implicitly request JSON, so this works good enough for now.
-
     successCallback(await res.json());
   } catch (e) {
     errorCallback(e);
   }
 };
-
 module.exports = jQuery;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
@@ -3304,18 +3433,17 @@ module.exports = jQuery;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const formatMessage = __webpack_require__(/*! format-message */ "./node_modules/format-message/index.js");
+const formatMessage = __webpack_require__(/*! format-message */ "./node_modules/scratch-vm/node_modules/format-message/index.js");
+
 /**
  * @param {VM|null} vm
  * @returns {object}
  */
-
-
 const createTranslate = vm => {
   const namespace = formatMessage.namespace();
-
   const translate = (message, args) => {
-    if (message && typeof message === 'object') {// already in the expected format
+    if (message && typeof message === 'object') {
+      // already in the expected format
     } else if (typeof message === 'string') {
       message = {
         default: message
@@ -3323,25 +3451,19 @@ const createTranslate = vm => {
     } else {
       throw new Error('unsupported data type in translate()');
     }
-
     return namespace(message, args);
   };
-
   const generateId = defaultMessage => "_".concat(defaultMessage);
-
   const getLocale = () => {
     if (vm) return vm.getLocale();
     if (typeof navigator !== 'undefined') return navigator.language;
     return 'en';
   };
-
   let storedTranslations = {};
-
   translate.setup = newTranslations => {
     if (newTranslations) {
       storedTranslations = newTranslations;
     }
-
     namespace.setup({
       locale: getLocale(),
       missingTranslation: 'ignore',
@@ -3349,18 +3471,14 @@ const createTranslate = vm => {
       translations: storedTranslations
     });
   };
-
   translate.setup({});
-
   if (vm) {
     vm.on('LOCALE_CHANGED', () => {
       translate.setup(null);
     });
   }
-
   return translate;
 };
-
 module.exports = createTranslate;
 
 /***/ }),
@@ -3373,17 +3491,17 @@ module.exports = createTranslate;
 /***/ (function(module, exports, __webpack_require__) {
 
 // ScratchX API Documentation: https://github.com/LLK/scratchx/wiki/
+
 // Global Scratch API from extension-worker.js
-
 /* globals Scratch */
+
 const ArgumentType = __webpack_require__(/*! ./argument-type */ "./node_modules/scratch-vm/src/extension-support/argument-type.js");
-
 const BlockType = __webpack_require__(/*! ./block-type */ "./node_modules/scratch-vm/src/extension-support/block-type.js");
-
 const {
   argumentIndexToId,
   generateExtensionId
 } = __webpack_require__(/*! ./tw-scratchx-utilities */ "./node_modules/scratch-vm/src/extension-support/tw-scratchx-utilities.js");
+
 /**
  * @typedef ScratchXDescriptor
  * @property {unknown[][]} blocks
@@ -3398,7 +3516,6 @@ const {
  * @property {string} msg
  */
 
-
 const parseScratchXBlockType = type => {
   if (type === '' || type === ' ' || type === 'w') {
     return {
@@ -3406,14 +3523,12 @@ const parseScratchXBlockType = type => {
       async: type === 'w'
     };
   }
-
   if (type === 'r' || type === 'R') {
     return {
       type: BlockType.REPORTER,
       async: type === 'R'
     };
   }
-
   if (type === 'b') {
     return {
       type: BlockType.BOOLEAN,
@@ -3421,42 +3536,34 @@ const parseScratchXBlockType = type => {
       async: false
     };
   }
-
   if (type === 'h') {
     return {
       type: BlockType.HAT,
       async: false
     };
   }
-
   throw new Error("Unknown ScratchX block type: ".concat(type));
 };
-
 const isScratchCompatibleValue = v => typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean';
+
 /**
  * @param {string} argument ScratchX argument with leading % removed.
  * @param {unknown} defaultValue Default value, if any
  */
-
-
 const parseScratchXArgument = (argument, defaultValue) => {
   const result = {};
   const hasDefaultValue = isScratchCompatibleValue(defaultValue);
-
   if (hasDefaultValue) {
     result.defaultValue = defaultValue;
-  } // TODO: ScratchX docs don't mention support for boolean arguments?
-
-
+  }
+  // TODO: ScratchX docs don't mention support for boolean arguments?
   if (argument === 's') {
     result.type = ArgumentType.STRING;
-
     if (!hasDefaultValue) {
       result.defaultValue = '';
     }
   } else if (argument === 'n') {
     result.type = ArgumentType.NUMBER;
-
     if (!hasDefaultValue) {
       result.defaultValue = 0;
     }
@@ -3468,33 +3575,27 @@ const parseScratchXArgument = (argument, defaultValue) => {
   } else {
     throw new Error("Unknown ScratchX argument type: ".concat(argument));
   }
-
   return result;
 };
-
 const wrapScratchXFunction = (originalFunction, argumentCount, async) => args => {
   // Convert Scratch 3's argument object to an argument list expected by ScratchX
   const argumentList = [];
-
   for (let i = 0; i < argumentCount; i++) {
     argumentList.push(args[argumentIndexToId(i)]);
   }
-
   if (async) {
     return new Promise(resolve => {
       originalFunction(...argumentList, resolve);
     });
   }
-
   return originalFunction(...argumentList);
 };
+
 /**
  * @param {string} name
  * @param {ScratchXDescriptor} descriptor
  * @param {Record<string, () => unknown>} functions
  */
-
-
 const convert = (name, descriptor, functions) => {
   const extensionId = generateExtensionId(name);
   const info = {
@@ -3509,18 +3610,15 @@ const convert = (name, descriptor, functions) => {
     getInfo: () => info,
     _getStatus: functions._getStatus
   };
-
   if (descriptor.url) {
     info.docsURI = descriptor.url;
   }
-
   for (const blockDescriptor of descriptor.blocks) {
     if (blockDescriptor.length === 1) {
       // Separator
       info.blocks.push('---');
       continue;
     }
-
     const scratchXBlockType = blockDescriptor[0];
     const blockText = blockDescriptor[1];
     const functionName = blockDescriptor[2];
@@ -3528,11 +3626,9 @@ const convert = (name, descriptor, functions) => {
     let scratchText = '';
     const argumentInfo = [];
     const blockTextParts = blockText.split(/%([\w.:]+)/g);
-
     for (let i = 0; i < blockTextParts.length; i++) {
       const part = blockTextParts[i];
       const isArgument = i % 2 === 1;
-
       if (isArgument) {
         parseScratchXArgument(part);
         const argumentIndex = Math.floor(i / 2).toString();
@@ -3544,7 +3640,6 @@ const convert = (name, descriptor, functions) => {
         scratchText += part;
       }
     }
-
     const scratch3BlockType = parseScratchXBlockType(scratchXBlockType);
     const blockInfo = {
       opcode: functionName,
@@ -3557,12 +3652,9 @@ const convert = (name, descriptor, functions) => {
     const argumentCount = argumentInfo.length;
     scratch3Extension[functionName] = wrapScratchXFunction(originalFunction, argumentCount, scratch3BlockType.async);
   }
-
   const menus = descriptor.menus;
-
   if (menus) {
     const scratch3Menus = {};
-
     for (const menuName of Object.keys(menus) || {}) {
       const menuItems = menus[menuName];
       const menuInfo = {
@@ -3570,39 +3662,31 @@ const convert = (name, descriptor, functions) => {
       };
       scratch3Menus[menuName] = menuInfo;
     }
-
     info.menus = scratch3Menus;
   }
-
   return scratch3Extension;
 };
-
 const extensionNameToExtension = new Map();
-
 const register = (name, descriptor, functions) => {
   const scratch3Extension = convert(name, descriptor, functions);
   extensionNameToExtension.set(name, scratch3Extension);
   Scratch.extensions.register(scratch3Extension);
 };
+
 /**
  * @param {string} extensionName
  * @returns {ScratchXStatus}
  */
-
-
 const getStatus = extensionName => {
   const extension = extensionNameToExtension.get(extensionName);
-
   if (extension) {
     return extension._getStatus();
   }
-
   return {
     status: 0,
     msg: 'does not exist'
   };
 };
-
 module.exports = {
   register,
   getStatus,
@@ -3633,14 +3717,12 @@ const generateExtensionId = scratchXName => {
   const sanitizedName = scratchXName.replace(/[^a-z0-9]/gi, '').toLowerCase();
   return "sbx".concat(sanitizedName);
 };
+
 /**
  * @param {number} i 0-indexed index of argument in list
  * @returns {string} Scratch 3 argument name
  */
-
-
 const argumentIndexToId = i => i.toString();
-
 module.exports = {
   generateExtensionId,
   argumentIndexToId
@@ -3656,6 +3738,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 const Color = __webpack_require__(/*! ../util/color */ "./node_modules/scratch-vm/src/util/color.js");
+
 /**
  * @fileoverview
  * Utilities for casting and comparing Scratch data-types.
@@ -3672,26 +3755,21 @@ const Color = __webpack_require__(/*! ../util/color */ "./node_modules/scratch-v
  * @param {*} val A value that evaluates to 0 in JS string-to-number conversation such as empty string, 0, or tab.
  * @returns {boolean} True if the value should not be treated as the number zero.
  */
-
-
 const isNotActuallyZero = val => {
   if (typeof val !== 'string') return false;
-
   for (let i = 0; i < val.length; i++) {
-    const code = val.charCodeAt(i); // '0'.charCodeAt(0) === 48
+    const code = val.charCodeAt(i);
+    // '0'.charCodeAt(0) === 48
     // '\t'.charCodeAt(0) === 9
     // We include tab for compatibility with scratch-www's broken trim() polyfill.
     // https://github.com/TurboWarp/scratch-vm/issues/115
     // https://scratch.mit.edu/projects/788261699/
-
     if (code === 48 || code === 9) {
       return false;
     }
   }
-
   return true;
 };
-
 class Cast {
   /**
    * Scratch cast to number.
@@ -3709,20 +3787,17 @@ class Cast {
       if (Number.isNaN(value)) {
         return 0;
       }
-
       return value;
     }
-
     const n = Number(value);
-
     if (Number.isNaN(n)) {
       // Scratch treats NaN as 0, when needed as a number.
       // E.g., 0 + NaN -> 0.
       return 0;
     }
-
     return n;
   }
+
   /**
    * Scratch cast to boolean.
    * In Scratch 2.0, this is captured by `interp.boolArg.`
@@ -3730,61 +3805,53 @@ class Cast {
    * @param {*} value Value to cast to boolean.
    * @return {boolean} The Scratch-casted boolean value.
    */
-
-
   static toBoolean(value) {
     // Already a boolean?
     if (typeof value === 'boolean') {
       return value;
     }
-
     if (typeof value === 'string') {
       // These specific strings are treated as false in Scratch.
       if (value === '' || value === '0' || value.toLowerCase() === 'false') {
         return false;
-      } // All other strings treated as true.
-
-
+      }
+      // All other strings treated as true.
       return true;
-    } // Coerce other values and numbers.
-
-
+    }
+    // Coerce other values and numbers.
     return Boolean(value);
   }
+
   /**
    * Scratch cast to string.
    * @param {*} value Value to cast to string.
    * @return {string} The Scratch-casted string value.
    */
-
-
   static toString(value) {
     return String(value);
   }
+
   /**
    * Cast any Scratch argument to an RGB color array to be used for the renderer.
    * @param {*} value Value to convert to RGB color array.
    * @return {Array.<number>} [r,g,b], values between 0-255.
    */
-
-
   static toRgbColorList(value) {
     const color = Cast.toRgbColorObject(value);
     return [color.r, color.g, color.b];
   }
+
   /**
    * Cast any Scratch argument to an RGB color object to be used for the renderer.
    * @param {*} value Value to convert to RGB color object.
    * @return {RGBOject} [r,g,b], values between 0-255.
    */
-
-
   static toRgbColorObject(value) {
     let color;
-
     if (typeof value === 'string' && value.substring(0, 1) === '#') {
-      color = Color.hexToRgb(value); // If the color wasn't *actually* a hex color, cast to black
+      color = Color.hexToRgb(value);
 
+      // If the color wasn't *actually* a hex color, cast to black
       if (!color) color = {
         r: 0,
         g: 0,
@@ -3794,19 +3861,18 @@ class Cast {
     } else {
       color = Color.decimalToRgb(Cast.toNumber(value));
     }
-
     return color;
   }
+
   /**
    * Determine if a Scratch argument is a white space string (or null / empty).
    * @param {*} val value to check.
    * @return {boolean} True if the argument is all white spaces or null / empty.
    */
-
-
   static isWhiteSpace(val) {
     return val === null || typeof val === 'string' && val.trim().length === 0;
   }
+
   /**
    * Compare two values, using Scratch cast, case-insensitive string compare, etc.
    * In Scratch 2.0, this is captured by `interp.compare.`
@@ -3814,57 +3880,47 @@ class Cast {
    * @param {*} v2 Second value to compare.
    * @returns {number} Negative number if v1 < v2; 0 if equal; positive otherwise.
    */
-
-
   static compare(v1, v2) {
     let n1 = Number(v1);
     let n2 = Number(v2);
-
     if (n1 === 0 && isNotActuallyZero(v1)) {
       n1 = NaN;
     } else if (n2 === 0 && isNotActuallyZero(v2)) {
       n2 = NaN;
     }
-
     if (isNaN(n1) || isNaN(n2)) {
       // At least one argument can't be converted to a number.
       // Scratch compares strings as case insensitive.
       const s1 = String(v1).toLowerCase();
       const s2 = String(v2).toLowerCase();
-
       if (s1 < s2) {
         return -1;
       } else if (s1 > s2) {
         return 1;
       }
-
       return 0;
-    } // Handle the special case of Infinity
-
-
+    }
+    // Handle the special case of Infinity
     if (n1 === Infinity && n2 === Infinity || n1 === -Infinity && n2 === -Infinity) {
       return 0;
-    } // Compare as numbers.
-
-
+    }
+    // Compare as numbers.
     return n1 - n2;
   }
+
   /**
    * Determine if a Scratch argument number represents a round integer.
    * @param {*} val Value to check.
    * @return {boolean} True if number looks like an integer.
    */
-
-
   static isInt(val) {
     // Values that are already numbers.
     if (typeof val === 'number') {
       if (isNaN(val)) {
         // NaN is considered an integer.
         return true;
-      } // True if it's "round" (e.g., 2.0 and 2).
-
-
+      }
+      // True if it's "round" (e.g., 2.0 and 2).
       return val === Math.floor(val);
     } else if (typeof val === 'boolean') {
       // `True` and `false` always represent integer after Scratch cast.
@@ -3873,17 +3929,15 @@ class Cast {
       // If it contains a decimal point, don't consider it an int.
       return val.indexOf('.') < 0;
     }
-
     return false;
   }
-
   static get LIST_INVALID() {
     return 'INVALID';
   }
-
   static get LIST_ALL() {
     return 'ALL';
   }
+
   /**
    * Compute a 1-based index into a list, based on a Scratch argument.
    * Two special cases may be returned:
@@ -3894,40 +3948,30 @@ class Cast {
    * @param {boolean} acceptAll Whether it should accept "all" or not.
    * @return {(number|string)} 1-based index for list, LIST_ALL, or LIST_INVALID.
    */
-
-
   static toListIndex(index, length, acceptAll) {
     if (typeof index !== 'number') {
       if (index === 'all') {
         return acceptAll ? Cast.LIST_ALL : Cast.LIST_INVALID;
       }
-
       if (index === 'last') {
         if (length > 0) {
           return length;
         }
-
         return Cast.LIST_INVALID;
       } else if (index === 'random' || index === 'any') {
         if (length > 0) {
           return 1 + Math.floor(Math.random() * length);
         }
-
         return Cast.LIST_INVALID;
       }
     }
-
     index = Math.floor(Cast.toNumber(index));
-
     if (index < 1 || index > length) {
       return Cast.LIST_INVALID;
     }
-
     return index;
   }
-
 }
-
 module.exports = Cast;
 
 /***/ }),
@@ -3962,9 +4006,8 @@ class Color {
       b: 0
     };
   }
+
   /** @type {RGBObject} */
-
-
   static get RGB_WHITE() {
     return {
       r: 255,
@@ -3972,29 +4015,26 @@ class Color {
       b: 255
     };
   }
+
   /**
    * Convert a Scratch decimal color to a hex string, #RRGGBB.
    * @param {number} decimal RGB color as a decimal.
    * @return {string} RGB color as #RRGGBB hex string.
    */
-
-
   static decimalToHex(decimal) {
     if (decimal < 0) {
       decimal += 0xFFFFFF + 1;
     }
-
     let hex = Number(decimal).toString(16);
     hex = "#".concat('000000'.substr(0, 6 - hex.length)).concat(hex);
     return hex;
   }
+
   /**
    * Convert a Scratch decimal color to an RGB color object.
    * @param {number} decimal RGB color as decimal.
    * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
    */
-
-
   static decimalToRgb(decimal) {
     const a = decimal >> 24 & 0xFF;
     const r = decimal >> 16 & 0xFF;
@@ -4007,24 +4047,20 @@ class Color {
       a: a > 0 ? a : 255
     };
   }
+
   /**
    * Convert a hex color (e.g., F00, #03F, #0033FF) to an RGB color object.
    * @param {!string} hex Hex representation of the color.
    * @return {RGBObject} null on failure, or rgb: {r: red [0,255], g: green [0,255], b: blue [0,255]}.
    */
-
-
   static hexToRgb(hex) {
     if (hex.startsWith('#')) {
       hex = hex.substring(1);
     }
-
     const parsed = parseInt(hex, 16);
-
     if (isNaN(parsed)) {
       return null;
     }
-
     if (hex.length === 6) {
       return {
         r: parsed >> 16 & 0xff,
@@ -4041,46 +4077,41 @@ class Color {
         b: b << 4 | b
       };
     }
-
     return null;
   }
+
   /**
    * Convert an RGB color object to a hex color.
    * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
    * @return {!string} Hex representation of the color.
    */
-
-
   static rgbToHex(rgb) {
     return Color.decimalToHex(Color.rgbToDecimal(rgb));
   }
+
   /**
    * Convert an RGB color object to a Scratch decimal color.
    * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
    * @return {!number} Number representing the color.
    */
-
-
   static rgbToDecimal(rgb) {
     return (rgb.r << 16) + (rgb.g << 8) + rgb.b;
   }
+
   /**
   * Convert a hex color (e.g., F00, #03F, #0033FF) to a decimal color number.
   * @param {!string} hex Hex representation of the color.
   * @return {!number} Number representing the color.
   */
-
-
   static hexToDecimal(hex) {
     return Color.rgbToDecimal(Color.hexToRgb(hex));
   }
+
   /**
    * Convert an HSV color to RGB format.
    * @param {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
    * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
    */
-
-
   static hsvToRgb(hsv) {
     let h = hsv.h % 360;
     if (h < 0) h += 360;
@@ -4094,7 +4125,6 @@ class Color {
     let r;
     let g;
     let b;
-
     switch (i) {
       default:
       case 0:
@@ -4102,74 +4132,67 @@ class Color {
         g = t;
         b = p;
         break;
-
       case 1:
         r = q;
         g = v;
         b = p;
         break;
-
       case 2:
         r = p;
         g = v;
         b = t;
         break;
-
       case 3:
         r = p;
         g = q;
         b = v;
         break;
-
       case 4:
         r = t;
         g = p;
         b = v;
         break;
-
       case 5:
         r = v;
         g = p;
         b = q;
         break;
     }
-
     return {
       r: Math.floor(r * 255),
       g: Math.floor(g * 255),
       b: Math.floor(b * 255)
     };
   }
+
   /**
    * Convert an RGB color to HSV format.
    * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
    * @return {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
    */
-
-
   static rgbToHsv(rgb) {
     const r = rgb.r / 255;
     const g = rgb.g / 255;
     const b = rgb.b / 255;
     const x = Math.min(Math.min(r, g), b);
-    const v = Math.max(Math.max(r, g), b); // For grays, hue will be arbitrarily reported as zero. Otherwise, calculate
+    const v = Math.max(Math.max(r, g), b);
 
+    // For grays, hue will be arbitrarily reported as zero. Otherwise, calculate
     let h = 0;
     let s = 0;
-
     if (x !== v) {
       const f = r === x ? g - b : g === x ? b - r : r - g;
       const i = r === x ? 3 : g === x ? 5 : 1;
       h = (i - f / (v - x)) * 60 % 360;
       s = (v - x) / v;
     }
-
     return {
       h: h,
       s: s,
       v: v
     };
   }
+
   /**
    * Linear interpolation between rgb0 and rgb1.
    * @param {RGBObject} rgb0 - the color corresponding to fraction1 <= 0.
@@ -4177,8 +4200,6 @@ class Color {
    * @param {number} fraction1 - the interpolation parameter. If this is 0.5, for example, mix the two colors equally.
    * @return {RGBObject} the interpolated color.
    */
-
-
   static mixRgb(rgb0, rgb1, fraction1) {
     if (fraction1 <= 0) return rgb0;
     if (fraction1 >= 1) return rgb1;
@@ -4189,9 +4210,7 @@ class Color {
       b: fraction0 * rgb0.b + fraction1 * rgb1.b
     };
   }
-
 }
-
 module.exports = Color;
 
 /***/ }),
@@ -4203,8 +4222,7 @@ module.exports = Color;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-const minilog = __webpack_require__(/*! minilog */ "./node_modules/minilog/lib/web/index.js");
-
+const minilog = __webpack_require__(/*! minilog */ "./node_modules/scratch-vm/node_modules/minilog/lib/web/index.js");
 minilog.enable();
 module.exports = minilog('vm');
 

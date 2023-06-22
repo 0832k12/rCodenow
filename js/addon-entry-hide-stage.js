@@ -28,7 +28,7 @@ exports.push([module.i, ".sa-stage-button-middle > [class*=\"stage-header_stage-
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgc3Ryb2tlPSIjRkY0QzRDIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTQgNGExIDEgMCAwIDAtMSAxdjEwYTEgMSAwIDAgMCAxIDFoMTJhMSAxIDAgMCAwIDEtMVY1LjVoLTRWNFoiLz48cGF0aCBkPSJNMTMgNGgzYTEgMSAwIDAgMSAxIDF2LjVoLTR6IiBmaWxsPSIjRkY0QzRDIi8+PC9nPjwvc3ZnPgo=");
+/* harmony default export */ __webpack_exports__["default"] = ("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgc3Ryb2tlPSIjNjA5ODM0IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTQgNGExIDEgMCAwIDAtMSAxdjEwYTEgMSAwIDAgMCAxIDFoMTJhMSAxIDAgMCAwIDEtMVY1LjVoLTRWNFoiLz48cGF0aCBkPSJNMTMgNGgzYTEgMSAwIDAgMSAxIDF2LjVoLTR6IiBmaWxsPSIjNjA5ODM0Ii8+PC9nPjwvc3ZnPgo=");
 
 /***/ }),
 
@@ -67,22 +67,22 @@ const resources = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console,
-  msg
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console,
+    msg
+  } = _ref;
   let stageHidden = false;
   let bodyWrapper;
   let smallStageButton;
   let largeStageButton;
   let hideStageButton;
-
   function hideStage() {
     stageHidden = true;
     if (!bodyWrapper) return;
-    document.body.classList.add("sa-stage-hidden-outer"); // Inner class is applied to body wrapper so that it won't affect the project page.
-
+    document.body.classList.add("sa-stage-hidden-outer");
+    // Inner class is applied to body wrapper so that it won't affect the project page.
     bodyWrapper.classList.add("sa-stage-hidden");
     hideStageButton.classList.remove(addon.tab.scratchClass("stage-header_stage-button-toggled-off"));
     window.dispatchEvent(new Event("resize")); // resizes the code area and paint editor canvas
@@ -98,7 +98,6 @@ __webpack_require__.r(__webpack_exports__);
   }
 
   addon.self.addEventListener("disabled", () => unhideStage());
-
   while (true) {
     const stageControls = await addon.tab.waitForElement("[class*='stage-header_stage-size-toggle-group_']", {
       markAsSeen: true,
@@ -118,9 +117,7 @@ __webpack_require__.r(__webpack_exports__);
     stageControls.insertBefore(hideStageButton, smallStageButton);
     hideStageButton.appendChild(Object.assign(document.createElement("img"), {
       className: addon.tab.scratchClass("stage-header_stage-button-icon"),
-      src: addon.self.getResource("/icon.svg")
-      /* rewritten by pull.js */
-      ,
+      src: addon.self.getResource("/icon.svg") /* rewritten by pull.js */,
       alt: msg("hide-stage"),
       draggable: false
     }));

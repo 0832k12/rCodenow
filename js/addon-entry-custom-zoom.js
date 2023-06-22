@@ -51,10 +51,11 @@ const resources = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console
+  } = _ref;
   await addon.tab.traps.getBlockly();
   let controlsRect;
   let previousIsHovered = false;
@@ -66,7 +67,6 @@ __webpack_require__.r(__webpack_exports__);
   };
   const customZoomAreaElement = document.createElement("div");
   customZoomAreaElement.className = "sa-custom-zoom-area";
-
   function update() {
     document.removeEventListener("mousemove", onMouseMove);
     if (addon.tab.editorMode !== "editor") return;
@@ -77,7 +77,6 @@ __webpack_require__.r(__webpack_exports__);
     const svgGroup = getZoomControls();
     const autohide = addon.settings.get("autohide");
     if (svgGroup) svgGroup.classList.toggle("sa-custom-zoom-hidden", autohide);
-
     if (autohide) {
       const injectionDiv = document.querySelector(".injectionDiv");
       injectionDiv.appendChild(customZoomAreaElement);
@@ -85,37 +84,30 @@ __webpack_require__.r(__webpack_exports__);
       document.addEventListener("mousemove", onMouseMove);
     }
   }
-
   function getZoomControls() {
     const zoomControls = Blockly.getMainWorkspace().zoomControls_;
     if (zoomControls) return zoomControls.svgGroup_;
     return null;
   }
-
   function onMouseMove(e) {
     const isHovered = e.x > controlsRect.left && e.x < controlsRect.right && e.y > controlsRect.top && e.y < controlsRect.bottom;
-
     if (isHovered !== previousIsHovered) {
       previousIsHovered = isHovered;
       const svgGroup = getZoomControls();
-
       if (svgGroup) {
         svgGroup.style.setProperty("--sa-custom-zoom-speed", speeds[addon.settings.get("speed")]);
         svgGroup.classList.toggle("sa-custom-zoom-hidden", !isHovered);
       }
     }
   }
-
   function updateRect() {
     controlsRect = customZoomAreaElement.getBoundingClientRect();
   }
-
   function onResize() {
     if (addon.tab.editorMode === "editor" && addon.settings.get("autohide")) {
       updateRect();
     }
   }
-
   await addon.tab.waitForElement(".blocklyZoom");
   update();
   addon.tab.addEventListener("urlChange", update);

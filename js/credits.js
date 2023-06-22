@@ -192,7 +192,7 @@ exports.locals = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* GUI */\n:root {\n    background: #111;\n    color: #eee;\n    color-scheme: dark;\n    /* see colors.csss */\n    --ui-primary: rgb(37, 41, 50);\n    --ui-secondary: rgb(45, 50, 60);\n    --ui-tertiary: rgb(40, 45, 55);\n    --ui-modal-overlay: #333a;\n    --ui-black-transparent: rgba(255, 255, 255, 0);\n    --text-primary: #eee;\n    /* scratch-paint */\n    --paint-ui-pane-border: var(--ui-black-transparent);\n    --paint-text-primary: #eee;\n    --paint-form-border: var(--ui-black-transparent);\n}\n\n/* Blockly */\n.blocklySvg {\n    background-color: var(--ui-secondary) !important;\n    color-scheme: light;\n}\n\n[id^=\"blocklyGridPattern\"]>line {\n    stroke: #ffffff08;\n}\n\n.blocklyFlyoutBackground {\n    fill: #272b34;\n}\n\n.blocklyFlyoutLabelText {\n    fill: #ccc;\n}\n\n.blocklyFlyoutButton .blocklyText {\n    fill: #ccc;\n}\n\n.blocklyFlyoutButton:hover {\n    fill: #111;\n}\n\n/* blocklyFlyoutCheckboxPath stroke and blocklyFlyoutCheckbox fill must match */\n.blocklyFlyoutCheckboxPath {\n    stroke: #111;\n}\n\n.blocklyFlyoutCheckbox {\n    fill: #111;\n}\n\n.checked>.blocklyFlyoutCheckbox {\n    stroke: #a1c6fa;\n}\n\n.checked>.blocklyFlyoutCheckboxPath {\n    stroke: white;\n}\n\n.scratchCategoryMenu {\n    color: #ccc;\n}\n\n.blocklyToolboxDiv,\n.scratchCategoryMenu {\n    background: rgb(34, 38, 46) !important;\n}\n\n.blocklyScrollbarHandle {\n    fill: #666;\n}\n\n.blocklyZoom {\n    filter: invert(100%);\n}\n\n.scratchCategoryMenuItem.categorySelected {\n    background: var(--ui-secondary);\n}\n\n.valueReportBox {\n    color: black;\n}\n\n.blocklyWidgetDiv {\n    color-scheme: light;\n}\n\n.blocklyWidgetDiv .goog-menu {\n    background: var(--ui-primary);\n    border-color: var(--ui-black-transparent);\n}\n\n.blocklyWidgetDiv .goog-menuitem {\n    color: var(--text-primary);\n}\n\n.blocklyWidgetDiv .goog-menuitem-disabled .goog-menuitem-content {\n    color: #666 !important;\n}\n\n.sa-blockly-menu-item-border {\n    border-top-color: var(--ui-black-transparent) !important;\n}\n\n.blocklyWidgetDiv .goog-menuitem.goog-menuitem-highlight {\n    background-color: var(--ui-tertiary);\n    border-color: transparent;\n    /* remove border */\n}\n\n.scratchCommentText {\n    color: black;\n}\n\n.blocklyInsertionMarker>.blocklyPath {\n    fill: #ccc;\n}\n\n/* Other / Multipurpose */\n.Popover {\n    /* weird Chrome bug displays white bar above popovers with color-scheme: dark */\n    color-scheme: light;\n}\n\n.Popover-body {\n    background: var(--ui-secondary);\n    border-color: var(--ui-black-transparent);\n    color: var(--text-primary);\n}\n\n.Popover-tipShape {\n    fill: var(--ui-secondary);\n    stroke: var(--ui-black-transparent);\n}"
+module.exports = "/* GUI */\n:root {\n    background: #111;\n    color: #eee;\n    color-scheme: dark;\n    /* see colors.csss */\n    --ui-primary: rgb(37, 41, 50);\n    --ui-secondary: rgb(45, 50, 60);\n    --ui-tertiary: rgb(40, 45, 55);\n    --ui-modal-overlay: #333a;\n    --ui-black-transparent: rgba(255, 255, 255, 0);\n    --text-primary: #eee;\n    /* scratch-paint */\n    --paint-ui-pane-border: var(--ui-black-transparent);\n    --paint-text-primary: #eee;\n    --paint-form-border: var(--ui-black-transparent);\n}\n\n/* Blockly */\n.blocklySvg {\n    background-color: var(--ui-secondary) !important;\n    color-scheme: light;\n}\n\n[id^=\"blocklyGridPattern\"]>line {\n    stroke: #ffffff08;\n}\n\n.blocklyFlyoutBackground {\n    fill: #272b34;\n}\n\n.blocklyFlyoutLabelText {\n    fill: #ccc;\n}\n\n.blocklyFlyoutButton .blocklyText {\n    fill: #ccc;\n}\n\n.blocklyFlyoutButton:hover {\n    fill: #111;\n}\n\n/* blocklyFlyoutCheckboxPath stroke and blocklyFlyoutCheckbox fill must match */\n.blocklyFlyoutCheckboxPath {\n    stroke: #111;\n}\n\n.blocklyFlyoutCheckbox {\n    fill: #111;\n}\n\n.checked>.blocklyFlyoutCheckbox {\n    stroke: #a1c6fa;\n}\n\n.checked>.blocklyFlyoutCheckboxPath {\n    stroke: white;\n}\n\n.scratchCategoryMenu {\n    color: #ccc;\n}\n\n.blocklyToolboxDiv,\n.scratchCategoryMenu {\n    background: rgb(34, 38, 46) !important;\n}\n\n.blocklyScrollbarHandle {\n    fill: #666;\n}\n\n.blocklyZoom {\n    filter: invert(100%);\n}\n\n.scratchCategoryMenuItem.categorySelected {\n    background: var(--ui-secondary);\n}\n\n.valueReportBox {\n    color: black;\n}\n\n.blocklyWidgetDiv {\n    color-scheme: light;\n}\n\n.blocklyWidgetDiv .goog-menu {\n    background: var(--ui-primary);\n    border-color: var(--ui-black-transparent);\n}\n\n.blocklyWidgetDiv .goog-menuitem {\n    color: var(--text-primary);\n}\n\n.blocklyWidgetDiv .goog-menuitem-disabled .goog-menuitem-content {\n    color: #666 !important;\n}\n\n.sa-blockly-menu-item-border {\n    border-top-color: var(--ui-black-transparent) !important;\n}\n\n.blocklyWidgetDiv .goog-menuitem.goog-menuitem-highlight {\n    background-color: var(--ui-tertiary);\n    border-color: transparent;\n    /* remove border */\n}\n\n.scratchCommentText {\n    color: black;\n}\n\n.blocklyInsertionMarker>.blocklyPath {\n    fill: #ccc;\n}\n\n/* Other / Multipurpose */\n.Popover {\n    /* weird Chrome bug displays white bar above popovers with color-scheme: dark */\n    color-scheme: light;\n}\n\n.Popover-body {\n    background: var(--ui-secondary);\n    border-color: var(--ui-black-transparent);\n    color: var(--text-primary);\n}\n\n.Popover-tipShape {\n    fill: var(--ui-secondary);\n    stroke: var(--ui-black-transparent);\n}\n"
 
 /***/ }),
 
@@ -211,8 +211,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _raw_loader_tw_theme_dark_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./tw-theme-dark.css */ "./node_modules/raw-loader/index.js!./src/lib/tw-theme-dark.css");
 /* harmony import */ var _raw_loader_tw_theme_dark_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_raw_loader_tw_theme_dark_css__WEBPACK_IMPORTED_MODULE_1__);
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
 const THEME_KEY = 'tw:theme';
@@ -220,18 +219,16 @@ const darkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 const getInitialDarkMode = () => {
   try {
     const item = localStorage.getItem(THEME_KEY);
-
     if (item !== null) {
       return item === 'dark';
     }
-  } catch (e) {// ignore
+  } catch (e) {
+    // ignore
   }
-
   return darkMediaQuery.matches;
 };
 const darkModeStylesheet = document.createElement('style');
 darkModeStylesheet.textContent = _raw_loader_tw_theme_dark_css__WEBPACK_IMPORTED_MODULE_1___default.a;
-
 const ThemeHOC = function ThemeHOC(WrappedComponent) {
   class ThemeComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor(props) {
@@ -242,36 +239,30 @@ const ThemeHOC = function ThemeHOC(WrappedComponent) {
         dark: getInitialDarkMode()
       };
     }
-
     componentDidMount() {
       // media query does not have listeners in legacy edge
       if (darkMediaQuery.addEventListener) {
         darkMediaQuery.addEventListener('change', this.handleQueryChange);
       }
-
       this.updateDark();
     }
-
     componentDidUpdate() {
       try {
         localStorage.setItem(THEME_KEY, this.state.dark ? 'dark' : 'light');
-      } catch (e) {// ignore
+      } catch (e) {
+        // ignore
       }
-
       this.updateDark();
     }
-
     componentWillUnmount() {
       // media query does not have listeners in legacy edge
       if (darkMediaQuery.removeEventListener) {
         darkMediaQuery.removeEventListener('change', this.handleQueryChange);
       }
     }
-
     updateDark() {
       const dark = this.state.dark;
       document.body.setAttribute('theme', dark ? 'dark' : 'light');
-
       if (dark && !darkModeStylesheet.parentNode) {
         // Append at the start of <body> we override scratch-gui styles in <head>
         // but are overridden by addon styles at the end of <body>
@@ -280,31 +271,25 @@ const ThemeHOC = function ThemeHOC(WrappedComponent) {
         darkModeStylesheet.parentNode.removeChild(darkModeStylesheet);
       }
     }
-
     handleQueryChange() {
       this.setState({
         dark: darkMediaQuery.matches
       });
     }
-
     handleClickTheme() {
       this.setState(state => ({
         dark: !state.dark
       }));
     }
-
     render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrappedComponent, _extends({
         onClickTheme: this.handleClickTheme,
         isDark: this.state.dark
       }, this.props));
     }
-
   }
-
   return ThemeComponent;
 };
-
 
 
 /***/ }),
@@ -318,12 +303,12 @@ const ThemeHOC = function ThemeHOC(WrappedComponent) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const appTarget = document.getElementById('app'); // Remove everything from the target to fix macOS Safari "Save Page As",
+const appTarget = document.getElementById('app');
 
+// Remove everything from the target to fix macOS Safari "Save Page As",
 while (appTarget.firstChild) {
   appTarget.removeChild(appTarget.firstChild);
 }
-
 document.body.classList.add('tw-loaded');
 /* harmony default export */ __webpack_exports__["default"] = (appTarget);
 
@@ -379,7 +364,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _credits_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_credits_css__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _lib_tw_theme_hoc_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../lib/tw-theme-hoc.jsx */ "./src/lib/tw-theme-hoc.jsx");
 /* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./users */ "./src/playground/credits/users.js");
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
 
@@ -391,59 +376,57 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 /* eslint-disable react/jsx-no-literals */
 
 document.documentElement.lang = 'en';
-
-const User = ({
-  image,
-  text,
-  href
-}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-  href: href,
-  target: "_blank",
-  rel: "noreferrer",
-  className: _credits_css__WEBPACK_IMPORTED_MODULE_4___default.a.user
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-  className: _credits_css__WEBPACK_IMPORTED_MODULE_4___default.a.userImage,
-  src: image,
-  width: "60",
-  height: "60"
-}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _credits_css__WEBPACK_IMPORTED_MODULE_4___default.a.userInfo
-}, text));
-
+const User = _ref => {
+  let {
+    image,
+    text,
+    href
+  } = _ref;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: href,
+    target: "_blank",
+    rel: "noreferrer",
+    className: _credits_css__WEBPACK_IMPORTED_MODULE_4___default.a.user
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: _credits_css__WEBPACK_IMPORTED_MODULE_4___default.a.userImage,
+    src: image,
+    width: "60",
+    height: "60"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _credits_css__WEBPACK_IMPORTED_MODULE_4___default.a.userInfo
+  }, text));
+};
 User.propTypes = {
   image: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired,
   text: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired,
   href: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string
 };
-
-const UserList = ({
-  users
-}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _credits_css__WEBPACK_IMPORTED_MODULE_4___default.a.users
-}, users.map((data, index) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(User, _extends({
-  key: index
-}, data))));
-
+const UserList = _ref2 => {
+  let {
+    users
+  } = _ref2;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _credits_css__WEBPACK_IMPORTED_MODULE_4___default.a.users
+  }, users.map((data, index) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(User, _extends({
+    key: index
+  }, data))));
+};
 UserList.propTypes = {
   users: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object)
 };
-
 const Credits = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
   className: _credits_css__WEBPACK_IMPORTED_MODULE_4___default.a.main
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
   className: _credits_css__WEBPACK_IMPORTED_MODULE_4___default.a.headerContainer
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
   className: _credits_css__WEBPACK_IMPORTED_MODULE_4___default.a.headerText
-}, "rCodenow \u8D21\u732E")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "rCodenow \u7684\u51FA\u73B0\u79BB\u4E0D\u5F00 ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-  href: "https://turbowarp.org/"
-}, "TurboWarp"), " \u9879\u76EE")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Scratch"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "TurboWarp is based on the work of the ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+}, "TurboWarp Credits")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "The TurboWarp project is made possible by the work of many volunteers.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Scratch"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "TurboWarp is based on the work of the ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
   href: "https://scratch.mit.edu/credits"
 }, "Scratch contributors"), " but is not endorsed by Scratch in any way."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
   href: "https://scratch.mit.edu/donate"
 }, "Donate to support Scratch."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Addons"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(UserList, {
   users: _users__WEBPACK_IMPORTED_MODULE_6__["default"].addonDevelopers
 })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Translators"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "More than 100 people have helped translate TurboWarp and its addons into many languages \u2014 far more than we could hope to list here.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", null, "Individual contributors are listed in no particular order. The order is randomized each visit."))));
-
 document.body.setAttribute('theme', Object(_lib_tw_theme_hoc_jsx__WEBPACK_IMPORTED_MODULE_5__["getInitialDarkMode"])() ? 'dark' : 'light');
 react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Credits, null), _app_target__WEBPACK_IMPORTED_MODULE_3__["default"]);
 
@@ -465,20 +448,20 @@ const shuffle = list => {
     list[i] = list[random];
     list[random] = tmp;
   }
-
   return list;
 };
-
-const fromHardcoded = ({
-  userId,
-  username,
-  name
-}) => ({
-  image: "https://trampoline.turbowarp.org/avatars/".concat(userId),
-  href: "https://scratch.mit.edu/users/".concat(username, "/"),
-  text: name || username
-});
-
+const fromHardcoded = _ref => {
+  let {
+    userId,
+    username,
+    name
+  } = _ref;
+  return {
+    image: "https://trampoline.turbowarp.org/avatars/".concat(userId),
+    href: "https://scratch.mit.edu/users/".concat(username, "/"),
+    text: name || username
+  };
+};
 const addonDevelopers = [{
   userId: '34018398',
   username: 'Jeffalo'
@@ -540,7 +523,8 @@ const addonDevelopers = [{
 }, {
   userId: '64691048',
   username: 'CST1229'
-} // TODO: retronbv is banned?
+}
+// TODO: retronbv is banned?
 ].map(fromHardcoded);
 /* harmony default export */ __webpack_exports__["default"] = ({
   addonDevelopers: shuffle(addonDevelopers)

@@ -53,11 +53,12 @@ const resources = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _libraries_common_cs_download_blob_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../libraries/common/cs/download-blob.js */ "./src/addons/libraries/common/cs/download-blob.js");
 
-/* harmony default export */ __webpack_exports__["default"] = (async ({
-  addon,
-  console,
-  msg
-}) => {
+/* harmony default export */ __webpack_exports__["default"] = (async _ref => {
+  let {
+    addon,
+    console,
+    msg
+  } = _ref;
   let recordElem;
   let isRecording = false;
   let isWaitingForFlag = false;
@@ -67,13 +68,11 @@ __webpack_require__.r(__webpack_exports__);
   let recordBuffer = [];
   let recorder;
   let timeout;
-
   while (true) {
     const elem = await addon.tab.waitForElement('div[class*="menu-bar_file-group"] > div:last-child:not(.sa-record)', {
       markAsSeen: true,
       reduxEvents: ["scratch-gui/mode/SET_PLAYER", "fontsLoaded/SET_FONTS_LOADED", "scratch-gui/locales/SELECT_LOCALE"]
     });
-
     const getOptions = () => {
       const {
         backdrop,
@@ -90,8 +89,9 @@ __webpack_require__.r(__webpack_exports__);
       content.appendChild(Object.assign(document.createElement("p"), {
         textContent: msg("record-description"),
         className: "recordOptionDescription"
-      })); // Seconds
+      }));
 
+      // Seconds
       const recordOptionSeconds = document.createElement("p");
       const recordOptionSecondsInput = Object.assign(document.createElement("input"), {
         type: "number",
@@ -107,8 +107,9 @@ __webpack_require__.r(__webpack_exports__);
       });
       recordOptionSeconds.appendChild(recordOptionSecondsLabel);
       recordOptionSeconds.appendChild(recordOptionSecondsInput);
-      content.appendChild(recordOptionSeconds); // Delay
+      content.appendChild(recordOptionSeconds);
 
+      // Delay
       const recordOptionDelay = document.createElement("p");
       const recordOptionDelayInput = Object.assign(document.createElement("input"), {
         type: "number",
@@ -124,8 +125,9 @@ __webpack_require__.r(__webpack_exports__);
       });
       recordOptionDelay.appendChild(recordOptionDelayLabel);
       recordOptionDelay.appendChild(recordOptionDelayInput);
-      content.appendChild(recordOptionDelay); // Audio
+      content.appendChild(recordOptionDelay);
 
+      // Audio
       const recordOptionAudio = Object.assign(document.createElement("p"), {
         className: "mediaRecorderPopupOption"
       });
@@ -141,8 +143,9 @@ __webpack_require__.r(__webpack_exports__);
       });
       recordOptionAudio.appendChild(recordOptionAudioInput);
       recordOptionAudio.appendChild(recordOptionAudioLabel);
-      content.appendChild(recordOptionAudio); // Mic
+      content.appendChild(recordOptionAudio);
 
+      // Mic
       const recordOptionMic = Object.assign(document.createElement("p"), {
         className: "mediaRecorderPopupOption"
       });
@@ -157,8 +160,9 @@ __webpack_require__.r(__webpack_exports__);
       });
       recordOptionMic.appendChild(recordOptionMicInput);
       recordOptionMic.appendChild(recordOptionMicLabel);
-      content.appendChild(recordOptionMic); // Green flag
+      content.appendChild(recordOptionMic);
 
+      // Green flag
       const recordOptionFlag = Object.assign(document.createElement("p"), {
         className: "mediaRecorderPopupOption"
       });
@@ -173,8 +177,9 @@ __webpack_require__.r(__webpack_exports__);
       });
       recordOptionFlag.appendChild(recordOptionFlagInput);
       recordOptionFlag.appendChild(recordOptionFlagLabel);
-      content.appendChild(recordOptionFlag); // Stop sign
+      content.appendChild(recordOptionFlag);
 
+      // Stop sign
       const recordOptionStop = Object.assign(document.createElement("p"), {
         className: "mediaRecorderPopupOption"
       });
@@ -189,7 +194,6 @@ __webpack_require__.r(__webpack_exports__);
       });
       recordOptionFlagInput.addEventListener("change", () => {
         const disabled = recordOptionStopInput.disabled = !recordOptionFlagInput.checked;
-
         if (disabled) {
           recordOptionStopLabel.title = msg("record-until-stop-disabled", {
             afterFlagOption: msg("record-after-flag")
@@ -206,12 +210,10 @@ __webpack_require__.r(__webpack_exports__);
       let handleOptionClose = null;
       backdrop.addEventListener("click", () => handleOptionClose(null));
       closeButton.addEventListener("click", () => handleOptionClose(null));
-
       handleOptionClose = value => {
         resolvePromise(value);
         remove();
       };
-
       const buttonRow = Object.assign(document.createElement("div"), {
         className: addon.tab.scratchClass("prompt_button-row", {
           others: "mediaRecorderPopupButtons"
@@ -242,7 +244,6 @@ __webpack_require__.r(__webpack_exports__);
       content.appendChild(buttonRow);
       return optionPromise;
     };
-
     const disposeRecorder = () => {
       isRecording = false;
       recordElem.textContent = msg("record");
@@ -251,13 +252,11 @@ __webpack_require__.r(__webpack_exports__);
       recordBuffer = [];
       clearTimeout(timeout);
       timeout = 0;
-
       if (stopSignFunc) {
         addon.tab.traps.vm.runtime.off("PROJECT_STOP_ALL", stopSignFunc);
         stopSignFunc = null;
       }
     };
-
     const stopRecording = force => {
       if (isWaitingForFlag) {
         addon.tab.traps.vm.runtime.off("PROJECT_START", waitingForFlagFunc);
@@ -268,9 +267,7 @@ __webpack_require__.r(__webpack_exports__);
         disposeRecorder();
         return;
       }
-
       if (!isRecording || !recorder || recorder.state === "inactive") return;
-
       if (force) {
         disposeRecorder();
       } else {
@@ -281,20 +278,18 @@ __webpack_require__.r(__webpack_exports__);
           Object(_libraries_common_cs_download_blob_js__WEBPACK_IMPORTED_MODULE_0__["default"])("video.webm", blob);
           disposeRecorder();
         };
-
         recorder.stop();
       }
     };
-
     const startRecording = async opts => {
       // Timer
-      const secs = Math.min(300, Math.max(1, opts.secs)); // Initialize MediaRecorder
+      const secs = Math.min(300, Math.max(1, opts.secs));
 
+      // Initialize MediaRecorder
       recordBuffer = [];
       isRecording = true;
       const vm = addon.tab.traps.vm;
       let micStream;
-
       if (opts.micEnabled) {
         // Show permission dialog before green flag is clicked
         try {
@@ -306,7 +301,6 @@ __webpack_require__.r(__webpack_exports__);
           opts.micEnabled = false;
         }
       }
-
       if (opts.waitUntilFlag) {
         isWaitingForFlag = true;
         Object.assign(recordElem, {
@@ -314,11 +308,9 @@ __webpack_require__.r(__webpack_exports__);
           title: msg("click-flag-description")
         });
         abortController = new AbortController();
-
         try {
           await Promise.race([new Promise(resolve => {
             waitingForFlagFunc = () => resolve();
-
             vm.runtime.once("PROJECT_START", waitingForFlagFunc);
           }), new Promise((_, reject) => {
             abortController.signal.addEventListener("abort", () => reject("aborted"), {
@@ -330,7 +322,6 @@ __webpack_require__.r(__webpack_exports__);
           throw e;
         }
       }
-
       isWaitingForFlag = false;
       waitingForFlagFunc = abortController = null;
       const stream = new MediaStream();
@@ -338,61 +329,49 @@ __webpack_require__.r(__webpack_exports__);
       stream.addTrack(videoStream.getVideoTracks()[0]);
       const ctx = new AudioContext();
       const dest = ctx.createMediaStreamDestination();
-
       if (opts.audioEnabled) {
         const mediaStreamDestination = vm.runtime.audioEngine.audioContext.createMediaStreamDestination();
         vm.runtime.audioEngine.inputNode.connect(mediaStreamDestination);
         const audioSource = ctx.createMediaStreamSource(mediaStreamDestination.stream);
         audioSource.connect(dest);
       }
-
       if (opts.micEnabled) {
         const micSource = ctx.createMediaStreamSource(micStream);
         micSource.connect(dest);
       }
-
       if (opts.audioEnabled || opts.micEnabled) {
         stream.addTrack(dest.stream.getAudioTracks()[0]);
       }
-
       recorder = new MediaRecorder(stream, {
         mimeType: "video/webm"
       });
-
       recorder.ondataavailable = e => {
         recordBuffer.push(e.data);
       };
-
       recorder.onerror = e => {
         console.warn("Recorder error:", e.error);
         stopRecording(true);
       };
-
       timeout = setTimeout(() => stopRecording(false), secs * 1000);
-
       if (opts.useStopSign) {
         stopSignFunc = () => stopRecording();
-
         vm.runtime.once("PROJECT_STOP_ALL", stopSignFunc);
-      } // Delay
+      }
 
-
+      // Delay
       const delay = opts.delay || 0;
       const roundedDelay = Math.floor(delay);
-
       for (let index = 0; index < roundedDelay; index++) {
         recordElem.textContent = msg("starting-in", {
           secs: roundedDelay - index
         });
         await new Promise(resolve => setTimeout(resolve, 975));
       }
-
       setTimeout(() => {
         recordElem.textContent = msg("stop");
         recorder.start(1000);
       }, (delay - roundedDelay) * 1000);
     };
-
     if (!recordElem) {
       recordElem = Object.assign(document.createElement("div"), {
         className: "sa-record " + elem.className,
@@ -403,17 +382,14 @@ __webpack_require__.r(__webpack_exports__);
           stopRecording();
         } else {
           const opts = await getOptions();
-
           if (!opts) {
             console.log("Canceled");
             return;
           }
-
           startRecording(opts);
         }
       });
     }
-
     elem.parentElement.appendChild(recordElem);
   }
 });
@@ -432,20 +408,20 @@ __webpack_require__.r(__webpack_exports__);
 // From https://github.com/LLK/scratch-gui/blob/develop/src/lib/download-blob.js
 /* harmony default export */ __webpack_exports__["default"] = ((filename, blob) => {
   const downloadLink = document.createElement("a");
-  document.body.appendChild(downloadLink); // Use special ms version if available to get it working on Edge.
+  document.body.appendChild(downloadLink);
 
+  // Use special ms version if available to get it working on Edge.
   if (navigator.msSaveOrOpenBlob) {
     navigator.msSaveOrOpenBlob(blob, filename);
     return;
   }
-
   if ("download" in HTMLAnchorElement.prototype) {
     const url = window.URL.createObjectURL(blob);
     downloadLink.href = url;
     downloadLink.download = filename;
     downloadLink.type = blob.type;
-    downloadLink.click(); // remove the link after a timeout to prevent a crash on iOS 13 Safari
-
+    downloadLink.click();
+    // remove the link after a timeout to prevent a crash on iOS 13 Safari
     window.setTimeout(() => {
       document.body.removeChild(downloadLink);
       window.URL.revokeObjectURL(url);
@@ -454,12 +430,10 @@ __webpack_require__.r(__webpack_exports__);
     // iOS 12 Safari, open a new page and set href to data-uri
     let popup = window.open("", "_blank");
     const reader = new FileReader();
-
     reader.onloadend = function () {
       popup.location.href = reader.result;
       popup = null;
     };
-
     reader.readAsDataURL(blob);
   }
 });

@@ -28,46 +28,47 @@ const resources = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (async ({
-  addon,
-  console
-}) => {
+/* harmony default export */ __webpack_exports__["default"] = (async _ref => {
+  let {
+    addon,
+    console
+  } = _ref;
   const vm = addon.tab.traps.vm;
   let shiftKeyPressed = false;
   document.addEventListener("mousedown", function (e) {
     shiftKeyPressed = e.shiftKey;
   }, {
     capture: true
-  }); // Do not focus sprite after dragging it
+  });
 
+  // Do not focus sprite after dragging it
   const oldStopDrag = vm.stopDrag;
-
-  vm.stopDrag = function (...args) {
+  vm.stopDrag = function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
     if (shiftKeyPressed || addon.self.disabled) return oldStopDrag.call(this, ...args);
     const setEditingTarget = this.setEditingTarget;
-
     this.setEditingTarget = () => {};
-
     const r = oldStopDrag.call(this, ...args);
     this.setEditingTarget = setEditingTarget;
     return r;
-  }; // Don't let the editor drag sprites that aren't marked as draggable
+  };
 
-
+  // Don't let the editor drag sprites that aren't marked as draggable
   const oldGetTargetIdForDrawableId = vm.getTargetIdForDrawableId;
-
-  vm.getTargetIdForDrawableId = function (...args) {
+  vm.getTargetIdForDrawableId = function () {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
     const targetId = oldGetTargetIdForDrawableId.call(this, ...args);
     if (shiftKeyPressed || addon.self.disabled) return targetId;
-
     if (targetId !== null) {
       const target = this.runtime.getTargetById(targetId);
-
       if (target && !target.draggable) {
         return null;
       }
     }
-
     return targetId;
   };
 });

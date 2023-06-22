@@ -28,26 +28,27 @@ const resources = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console
+  } = _ref;
   const Blockly = await addon.tab.traps.getBlockly();
-  let workspace = Blockly.getMainWorkspace(); // Handle future workspaces
-
+  let workspace = Blockly.getMainWorkspace();
+  // Handle future workspaces
   const originalInit = Blockly.init_;
-
-  Blockly.init_ = function (...args) {
+  Blockly.init_ = function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
     workspace = args[0];
     if (!addon.self.disabled) setGrid(true);
     return originalInit.call(this, ...args);
   };
-
   setGrid(true);
   addon.settings.addEventListener("change", () => setGrid(true));
   addon.self.addEventListener("disabled", () => setGrid(false));
   addon.self.addEventListener("reenabled", () => setGrid(true));
-
   function setGrid(enabled) {
     workspace.grid_.snapToGrid_ = enabled;
     if (enabled) workspace.grid_.spacing_ = addon.settings.get("grid");else workspace.grid_.spacing_ = 40;

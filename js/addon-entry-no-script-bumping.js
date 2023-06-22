@@ -28,13 +28,13 @@ const resources = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console
+  } = _ref;
   const ScratchBlocks = await addon.tab.traps.getBlockly();
   const originalBumpNeighbors = ScratchBlocks.BlockSvg.prototype.bumpNeighbours_;
-
   ScratchBlocks.BlockSvg.prototype.bumpNeighbours_ = function () {
     if (addon.self.disabled) {
       originalBumpNeighbors.call(this);

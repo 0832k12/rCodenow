@@ -71,23 +71,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _libraries_common_cs_rate_limiter_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../libraries/common/cs/rate-limiter.js */ "./src/addons/libraries/common/cs/rate-limiter.js");
 /* harmony import */ var _libraries_thirdparty_cs_tinycolor_min_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../libraries/thirdparty/cs/tinycolor-min.js */ "./src/addons/libraries/thirdparty/cs/tinycolor-min.js");
 // this script was happily stolen from the color-picker addon, developed by Richie Bendall and apple502j
+
 // import required libraries
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = (async ({
-  addon,
-  console,
-  msg
-}) => {
-  let prevEventHandler; // 250-ms rate limit
+/* harmony default export */ __webpack_exports__["default"] = (async _ref => {
+  let {
+    addon,
+    console,
+    msg
+  } = _ref;
+  let prevEventHandler;
+  // 250-ms rate limit
+  const rateLimiter = new _libraries_common_cs_rate_limiter_js__WEBPACK_IMPORTED_MODULE_1__["default"](250);
 
-  const rateLimiter = new _libraries_common_cs_rate_limiter_js__WEBPACK_IMPORTED_MODULE_1__["default"](250); // get the color from scratch
-
+  // get the color from scratch
   const getColor = element => {
     let fillOrStroke;
     const state = addon.tab.redux.state;
-
     if (state.scratchPaint.modals.fillColor) {
       fillOrStroke = "fill";
     } else if (state.scratchPaint.modals.strokeColor) {
@@ -95,25 +97,25 @@ __webpack_require__.r(__webpack_exports__);
     } else {
       return;
     }
-
     const colorType = state.scratchPaint.fillMode.colorIndex;
     const primaryOrSecondary = ["primary", "secondary"][colorType];
     const color = state.scratchPaint.color["".concat(fillOrStroke, "Color")][primaryOrSecondary];
-    if (color === null || color === "scratch-paint/style-path/mixed") return; // This value can be arbitrary - it can be HEX, RGB, etc.
+    if (color === null || color === "scratch-paint/style-path/mixed") return;
+    // This value can be arbitrary - it can be HEX, RGB, etc.
     // Use tinycolor to convert them.
-
     return Object(_libraries_thirdparty_cs_tinycolor_min_js__WEBPACK_IMPORTED_MODULE_2__["default"])(color).toHex8();
-  }; // load the new color to scratch
+  };
 
-
+  // load the new color to scratch
   const setColor = (hex, element) => {
     hex = Object(_libraries_common_cs_normalize_color_js__WEBPACK_IMPORTED_MODULE_0__["normalizeHex"])(hex);
-    if (!addon.tab.redux.state || !addon.tab.redux.state.scratchPaint) return; // The only way to reliably set color is to invoke eye dropper via click()
+    if (!addon.tab.redux.state || !addon.tab.redux.state.scratchPaint) return;
+    // The only way to reliably set color is to invoke eye dropper via click()
     // then faking that the eye dropper reported the value.
-
-    const onEyeDropperOpened = ({
-      detail
-    }) => {
+    const onEyeDropperOpened = _ref2 => {
+      let {
+        detail
+      } = _ref2;
       if (detail.action.type !== "scratch-paint/eye-dropper/ACTIVATE_COLOR_PICKER") return;
       addon.tab.redux.removeEventListener("statechanged", onEyeDropperOpened);
       setTimeout(() => {
@@ -125,20 +127,19 @@ __webpack_require__.r(__webpack_exports__);
         });
       }, 50);
     };
-
     addon.tab.redux.addEventListener("statechanged", onEyeDropperOpened);
     element.children[1].children[0].click();
-  }; // for the color picker's background color
+  };
 
-
+  // for the color picker's background color
   const convertToGeneralColor = hex => {
     let h = Object(_libraries_thirdparty_cs_tinycolor_min_js__WEBPACK_IMPORTED_MODULE_2__["default"])(hex).toHsv();
     h.s = 1;
     h.v = 1;
     return Object(_libraries_thirdparty_cs_tinycolor_min_js__WEBPACK_IMPORTED_MODULE_2__["default"])(h).toHex();
-  }; // le loop
+  };
 
-
+  // le loop
   while (true) {
     // wait for color dialog box appearance
     const element = await addon.tab.waitForElement('div[class*="color-picker_swatch-row"]', {
@@ -146,13 +147,12 @@ __webpack_require__.r(__webpack_exports__);
       reduxCondition: state => state.scratchGui.editorTab.activeTabIndex === 1 && !state.scratchGui.mode.isPlayerOnly
     });
     rateLimiter.abort(false);
-
     if (!("colorIndex" in addon.tab.redux.state.scratchPaint.fillMode)) {
       console.error("Detected new paint editor; this will be supported in future versions.");
       return;
-    } // update the bg color of the picker
+    }
 
-
+    // update the bg color of the picker
     function updateColor() {
       rateLimiter.limit(() => {
         let c = getColor(element);
@@ -160,36 +160,35 @@ __webpack_require__.r(__webpack_exports__);
         updateHandleFinal(chsv.s, chsv.v);
         saColorPicker.style.background = "#" + convertToGeneralColor(getColor(element));
       });
-    } // redux stuff
+    }
 
-
+    // redux stuff
     addon.tab.redux.initialize();
     addon.tab.redux.addEventListener("statechanged", e => e.detail.action.type === "scratch-paint/fill-style/CHANGE_FILL_COLOR" || e.detail.action.type === "scratch-paint/fill-style/CHANGE_FILL_COLOR_2" || e.detail.action.type === "scratch-paint/stroke-style/CHANGE_STROKE_COLOR" || e.detail.action.type === "scratch-paint/stroke-style/CHANGE_STROKE_COLOR_2" ? updateColor() : 0);
-
     if (addon.tab.redux && typeof prevEventHandler === "function") {
       addon.tab.redux.removeEventListener("statechanged", prevEventHandler);
       prevEventHandler = null;
-    } // get the color
+    }
 
-
+    // get the color
     if (addon.tab.editorMode !== "editor") continue;
-    let defaultColor = getColor(element); // create the color picker element and all it's child elements
+    let defaultColor = getColor(element);
 
+    // create the color picker element and all it's child elements
     const saColorPicker = document.createElement("div");
     saColorPicker.className = "sa-2dcolor-picker";
     saColorPicker.style.background = "#" + convertToGeneralColor(defaultColor || "ff0000");
     const saColorPickerImage = Object.assign(document.createElement("img"), {
       className: "sa-2dcolor-picker-image",
-      src: addon.self.getResource("/assets/sv-gr.png")
-      /* rewritten by pull.js */
-      ,
+      src: addon.self.getResource("/assets/sv-gr.png") /* rewritten by pull.js */,
       draggable: false
     });
     const saColorPickerHandle = Object.assign(document.createElement("div"), {
       className: addon.tab.scratchClass("slider_handle")
     });
-    saColorPickerHandle.style.pointerEvents = "none"; // create the label
+    saColorPickerHandle.style.pointerEvents = "none";
 
+    // create the label
     const saColorLabel = document.createElement("div");
     saColorLabel.className = addon.tab.scratchClass("color-picker_row-header", {
       others: "sa-2dcolor-label"
@@ -214,28 +213,24 @@ __webpack_require__.r(__webpack_exports__);
     window.addEventListener("keyup", () => keyPressed = -1);
     let origHue = 0;
     let el = null;
-
     let mousemovefunc = function mousemovefunc(e) {
       updateHandle(e, keyPressed, originalPos);
       return false;
     };
-
     let mouseupfunc = function mouseupfunc(e) {
       updateFinal(e, keyPressed, originalPos);
     };
-
     function updateHandle(e, keyPressed, originalPos) {
       let cx = Math.min(Math.max(e.clientX - saColorPicker.getBoundingClientRect().x, 0), 150);
       let cy = Math.min(Math.max(e.clientY - saColorPicker.getBoundingClientRect().y, 0), 150);
-
       if (keyPressed === 16) {
         if (Math.abs(cx - originalPos.x) > Math.abs(cy - originalPos.y)) cy = originalPos.y;else cx = originalPos.x;
       }
-
       saColorPickerHandle.style.left = cx - 8 + "px";
       saColorPickerHandle.style.top = cy - 8 + "px";
-      saColorLabelVal.innerText = "".concat(Math.round(cx / 150 * 100), ", ").concat(100 - Math.round(cy / 150 * 100)); //update color in real-time (i only bothered to do that for solid colors)
+      saColorLabelVal.innerText = "".concat(Math.round(cx / 150 * 100), ", ").concat(100 - Math.round(cy / 150 * 100));
 
+      //update color in real-time (i only bothered to do that for solid colors)
       if ((!addon.tab.redux.state.scratchPaint.fillMode.gradientType || addon.tab.redux.state.scratchPaint.fillMode.gradientType === "SOLID") && el) {
         let c = Object(_libraries_thirdparty_cs_tinycolor_min_js__WEBPACK_IMPORTED_MODULE_2__["default"])({
           h: origHue,
@@ -245,22 +240,18 @@ __webpack_require__.r(__webpack_exports__);
         if (c.startsWith("#")) el.style.background = c;else el.style.background = "#" + c;
       }
     }
-
     function updateHandleFinal(s, v) {
       saColorPickerHandle.style.left = s * 150 - 8 + "px";
       saColorPickerHandle.style.top = (1 - v) * 150 - 8 + "px";
       saColorLabelVal.innerText = "".concat(Math.round(s * 100), ", ").concat(Math.round(v * 100));
     }
-
     function updateFinal(e, keyPressed, originalPos) {
       rateLimiter.limit(() => {
         let ox = Math.min(Math.max(e.clientX - saColorPicker.getBoundingClientRect().x, 0), 150);
         let oy = Math.min(Math.max(e.clientY - saColorPicker.getBoundingClientRect().y, 0), 150);
-
         if (keyPressed === 16) {
           if (Math.abs(ox - originalPos.x) > Math.abs(oy - originalPos.y)) oy = originalPos.y;else ox = originalPos.x;
         }
-
         let color = Object(_libraries_thirdparty_cs_tinycolor_min_js__WEBPACK_IMPORTED_MODULE_2__["default"])(getColor(element)).toHsv();
         let s = ox / 150;
         let v = 1 - oy / 150;
@@ -276,12 +267,10 @@ __webpack_require__.r(__webpack_exports__);
       window.removeEventListener("pointermove", mousemovefunc);
       window.removeEventListener("pointerup", mouseupfunc);
     }
-
     if (defaultColor) {
       let defaultHexColor = Object(_libraries_thirdparty_cs_tinycolor_min_js__WEBPACK_IMPORTED_MODULE_2__["default"])(defaultColor).toHsv();
       updateHandleFinal(defaultHexColor.s, defaultHexColor.v);
     } else updateHandleFinal(1, 1);
-
     saColorPicker.addEventListener("pointerdown", e => {
       e.preventDefault();
       originalPos = {
@@ -290,7 +279,6 @@ __webpack_require__.r(__webpack_exports__);
       };
       let fillOrStroke;
       const state = addon.tab.redux.state;
-
       if (state.scratchPaint.modals.fillColor) {
         fillOrStroke = "fill";
       } else if (state.scratchPaint.modals.strokeColor) {
@@ -298,7 +286,6 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         fillOrStroke = "wh";
       }
-
       el = null;
       if (fillOrStroke === "fill") el = document.getElementsByClassName(addon.tab.scratchClass("color-button_color-button-swatch"))[0];else if (fillOrStroke === "stroke") el = document.getElementsByClassName(addon.tab.scratchClass("color-button_color-button-swatch"))[1];
       if (el) origHue = Object(_libraries_thirdparty_cs_tinycolor_min_js__WEBPACK_IMPORTED_MODULE_2__["default"])(el.style.background).toHsv().h;
@@ -306,17 +293,16 @@ __webpack_require__.r(__webpack_exports__);
       window.addEventListener("pointermove", mousemovefunc);
       window.addEventListener("pointerup", mouseupfunc);
     });
-
-    prevEventHandler = ({
-      detail
-    }) => {
+    prevEventHandler = _ref3 => {
+      let {
+        detail
+      } = _ref3;
       if (detail.action.type === "scratch-paint/color-index/CHANGE_COLOR_INDEX") {
         setTimeout(() => {
           updateColor();
         }, 100);
       }
     };
-
     addon.tab.redux.addEventListener("statechanged", prevEventHandler);
     saColorPicker.appendChild(saColorPickerImage);
     saColorPicker.appendChild(saColorPickerHandle);
@@ -363,12 +349,10 @@ const normalizeHex = input => {
   let hex = String(input);
   if (!getHexRegex().test(hex)) return "#000000";
   if (!hex.startsWith("#")) hex = "#".concat(hex);
-
   if (hex.length === 4) {
     const [_, r, g, b] = hex;
     hex = "#".concat(r).concat(r).concat(g).concat(g).concat(b).concat(b);
   }
-
   return hex.toLowerCase();
 };
 
@@ -390,15 +374,14 @@ class RateLimiter {
     this.callback = null;
     this.wait = wait;
   }
-
-  abort(call = true) {
+  abort() {
+    let call = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
     if (this.timeout) {
       clearTimeout(this.timeout);
       if (call) this.callback();
       this.timeout = this.callback = null;
     }
   }
-
   limit(callback) {
     this.abort(false);
     this.callback = callback;
@@ -407,7 +390,6 @@ class RateLimiter {
       callback();
     }, this.wait);
   }
-
 }
 
 /***/ }),
@@ -425,51 +407,47 @@ __webpack_require__.r(__webpack_exports__);
 // https://github.com/bgrins/TinyColor
 // Brian Grinstead, MIT License
 // Modified to use ES6 export
+
 const tinycolor = function (Math) {
   var trimLeft = /^\s+/,
-      trimRight = /\s+$/,
-      tinyCounter = 0,
-      mathRound = Math.round,
-      mathMin = Math.min,
-      mathMax = Math.max,
-      mathRandom = Math.random;
-
+    trimRight = /\s+$/,
+    tinyCounter = 0,
+    mathRound = Math.round,
+    mathMin = Math.min,
+    mathMax = Math.max,
+    mathRandom = Math.random;
   function tinycolor(color, opts) {
     color = color ? color : '';
-    opts = opts || {}; // If input is already a tinycolor, return itself
+    opts = opts || {};
 
+    // If input is already a tinycolor, return itself
     if (color instanceof tinycolor) {
       return color;
-    } // If we are called as a function, call using new instead
-
-
+    }
+    // If we are called as a function, call using new instead
     if (!(this instanceof tinycolor)) {
       return new tinycolor(color, opts);
     }
-
     var rgb = inputToRGB(color);
     this._originalInput = color, this._r = rgb.r, this._g = rgb.g, this._b = rgb.b, this._a = rgb.a, this._roundA = mathRound(100 * this._a) / 100, this._format = opts.format || rgb.format;
-    this._gradientType = opts.gradientType; // Don't let the range of [0,255] come back in [0,1].
+    this._gradientType = opts.gradientType;
+
+    // Don't let the range of [0,255] come back in [0,1].
     // Potentially lose a little bit of precision here, but will fix issues where
     // .5 gets interpreted as half of the total, instead of half of 1
     // If it was supposed to be 128, this was already taken care of by `inputToRgb`
-
     if (this._r < 1) {
       this._r = mathRound(this._r);
     }
-
     if (this._g < 1) {
       this._g = mathRound(this._g);
     }
-
     if (this._b < 1) {
       this._b = mathRound(this._b);
     }
-
     this._ok = rgb.ok;
     this._tc_id = tinyCounter++;
   }
-
   tinycolor.prototype = {
     isDark: function isDark() {
       return this.getBrightness() < 128;
@@ -501,25 +479,21 @@ const tinycolor = function (Math) {
       RsRGB = rgb.r / 255;
       GsRGB = rgb.g / 255;
       BsRGB = rgb.b / 255;
-
       if (RsRGB <= 0.03928) {
         R = RsRGB / 12.92;
       } else {
         R = Math.pow((RsRGB + 0.055) / 1.055, 2.4);
       }
-
       if (GsRGB <= 0.03928) {
         G = GsRGB / 12.92;
       } else {
         G = Math.pow((GsRGB + 0.055) / 1.055, 2.4);
       }
-
       if (BsRGB <= 0.03928) {
         B = BsRGB / 12.92;
       } else {
         B = Math.pow((BsRGB + 0.055) / 1.055, 2.4);
       }
-
       return 0.2126 * R + 0.7152 * G + 0.0722 * B;
     },
     setAlpha: function setAlpha(value) {
@@ -539,8 +513,8 @@ const tinycolor = function (Math) {
     toHsvString: function toHsvString() {
       var hsv = rgbToHsv(this._r, this._g, this._b);
       var h = mathRound(hsv.h * 360),
-          s = mathRound(hsv.s * 100),
-          v = mathRound(hsv.v * 100);
+        s = mathRound(hsv.s * 100),
+        v = mathRound(hsv.v * 100);
       return this._a == 1 ? "hsv(" + h + ", " + s + "%, " + v + "%)" : "hsva(" + h + ", " + s + "%, " + v + "%, " + this._roundA + ")";
     },
     toHsl: function toHsl() {
@@ -555,8 +529,8 @@ const tinycolor = function (Math) {
     toHslString: function toHslString() {
       var hsl = rgbToHsl(this._r, this._g, this._b);
       var h = mathRound(hsl.h * 360),
-          s = mathRound(hsl.s * 100),
-          l = mathRound(hsl.l * 100);
+        s = mathRound(hsl.s * 100),
+        l = mathRound(hsl.l * 100);
       return this._a == 1 ? "hsl(" + h + ", " + s + "%, " + l + "%)" : "hsla(" + h + ", " + s + "%, " + l + "%, " + this._roundA + ")";
     },
     toHex: function toHex(allow3Char) {
@@ -597,23 +571,19 @@ const tinycolor = function (Math) {
       if (this._a === 0) {
         return "transparent";
       }
-
       if (this._a < 1) {
         return false;
       }
-
       return hexNames[rgbToHex(this._r, this._g, this._b, true)] || false;
     },
     toFilter: function toFilter(secondColor) {
       var hex8String = '#' + rgbaToArgbHex(this._r, this._g, this._b, this._a);
       var secondHex8String = hex8String;
       var gradientType = this._gradientType ? "GradientType = 1, " : "";
-
       if (secondColor) {
         var s = tinycolor(secondColor);
         secondHex8String = '#' + rgbaToArgbHex(s._r, s._g, s._b, s._a);
       }
-
       return "progid:DXImageTransform.Microsoft.gradient(" + gradientType + "startColorstr=" + hex8String + ",endColorstr=" + secondHex8String + ")";
     },
     toString: function toString(format) {
@@ -622,53 +592,41 @@ const tinycolor = function (Math) {
       var formattedString = false;
       var hasAlpha = this._a < 1 && this._a >= 0;
       var needsAlphaFormat = !formatSet && hasAlpha && (format === "hex" || format === "hex6" || format === "hex3" || format === "hex4" || format === "hex8" || format === "name");
-
       if (needsAlphaFormat) {
         // Special case for "transparent", all other non-alpha formats
         // will return rgba when there is transparency.
         if (format === "name" && this._a === 0) {
           return this.toName();
         }
-
         return this.toRgbString();
       }
-
       if (format === "rgb") {
         formattedString = this.toRgbString();
       }
-
       if (format === "prgb") {
         formattedString = this.toPercentageRgbString();
       }
-
       if (format === "hex" || format === "hex6") {
         formattedString = this.toHexString();
       }
-
       if (format === "hex3") {
         formattedString = this.toHexString(true);
       }
-
       if (format === "hex4") {
         formattedString = this.toHex8String(true);
       }
-
       if (format === "hex8") {
         formattedString = this.toHex8String();
       }
-
       if (format === "name") {
         formattedString = this.toName();
       }
-
       if (format === "hsl") {
         formattedString = this.toHslString();
       }
-
       if (format === "hsv") {
         formattedString = this.toHsvString();
       }
-
       return formattedString || this.toHexString();
     },
     clone: function clone() {
@@ -724,13 +682,13 @@ const tinycolor = function (Math) {
     tetrad: function tetrad() {
       return this._applyCombination(_tetrad, arguments);
     }
-  }; // If input is an object, force 1 into "1.0" to handle ratios properly
-  // String input requires "1.0" as input, so 1 will be treated as 1
+  };
 
+  // If input is an object, force 1 into "1.0" to handle ratios properly
+  // String input requires "1.0" as input, so 1 will be treated as 1
   tinycolor.fromRatio = function (color, opts) {
     if (typeof color == "object") {
       var newColor = {};
-
       for (var i in color) {
         if (color.hasOwnProperty(i)) {
           if (i === "a") {
@@ -740,12 +698,12 @@ const tinycolor = function (Math) {
           }
         }
       }
-
       color = newColor;
     }
-
     return tinycolor(color, opts);
-  }; // Given a string or object, convert that input to RGB
+  };
+
+  // Given a string or object, convert that input to RGB
   // Possible string inputs:
   //
   //     "red"
@@ -760,8 +718,6 @@ const tinycolor = function (Math) {
   //     "hsla(0, 100%, 50%, 1)" or "hsla 0 100% 50%, 1"
   //     "hsv(0, 100%, 100%)" or "hsv 0 100% 100%"
   //
-
-
   function inputToRGB(color) {
     var rgb = {
       r: 0,
@@ -774,11 +730,9 @@ const tinycolor = function (Math) {
     var l = null;
     var ok = false;
     var format = false;
-
     if (typeof color == "string") {
       color = stringInputToObject(color);
     }
-
     if (typeof color == "object") {
       if (isValidCSSUnit(color.r) && isValidCSSUnit(color.g) && isValidCSSUnit(color.b)) {
         rgb = rgbToRgb(color.r, color.g, color.b);
@@ -797,12 +751,10 @@ const tinycolor = function (Math) {
         ok = true;
         format = "hsl";
       }
-
       if (color.hasOwnProperty("a")) {
         a = color.a;
       }
     }
-
     a = boundAlpha(a);
     return {
       ok: ok,
@@ -812,79 +764,74 @@ const tinycolor = function (Math) {
       b: mathMin(255, mathMax(rgb.b, 0)),
       a: a
     };
-  } // Conversion Functions
+  }
+
+  // Conversion Functions
   // --------------------
+
   // `rgbToHsl`, `rgbToHsv`, `hslToRgb`, `hsvToRgb` modified from:
   // <http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript>
+
   // `rgbToRgb`
   // Handle bounds / percentage checking to conform to CSS color spec
   // <http://www.w3.org/TR/css3-color/>
   // *Assumes:* r, g, b in [0, 255] or [0, 1]
   // *Returns:* { r, g, b } in [0, 255]
-
-
   function rgbToRgb(r, g, b) {
     return {
       r: bound01(r, 255) * 255,
       g: bound01(g, 255) * 255,
       b: bound01(b, 255) * 255
     };
-  } // `rgbToHsl`
+  }
+
+  // `rgbToHsl`
   // Converts an RGB color value to HSL.
   // *Assumes:* r, g, and b are contained in [0, 255] or [0, 1]
   // *Returns:* { h, s, l } in [0,1]
-
-
   function rgbToHsl(r, g, b) {
     r = bound01(r, 255);
     g = bound01(g, 255);
     b = bound01(b, 255);
     var max = mathMax(r, g, b),
-        min = mathMin(r, g, b);
+      min = mathMin(r, g, b);
     var h,
-        s,
-        l = (max + min) / 2;
-
+      s,
+      l = (max + min) / 2;
     if (max == min) {
       h = s = 0; // achromatic
     } else {
       var d = max - min;
       s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-
       switch (max) {
         case r:
           h = (g - b) / d + (g < b ? 6 : 0);
           break;
-
         case g:
           h = (b - r) / d + 2;
           break;
-
         case b:
           h = (r - g) / d + 4;
           break;
       }
-
       h /= 6;
     }
-
     return {
       h: h,
       s: s,
       l: l
     };
-  } // `hslToRgb`
+  }
+
+  // `hslToRgb`
   // Converts an HSL color value to RGB.
   // *Assumes:* h is contained in [0, 1] or [0, 360] and s and l are contained [0, 1] or [0, 100]
   // *Returns:* { r, g, b } in the set [0, 255]
-
-
   function hslToRgb(h, s, l) {
     var r, g, b;
     h = bound01(h, 360);
     s = bound01(s, 100);
     l = bound01(l, 100);
-
     function hue2rgb(p, q, t) {
       if (t < 0) t += 1;
       if (t > 1) t -= 1;
@@ -893,7 +840,6 @@ const tinycolor = function (Math) {
       if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
       return p;
     }
-
     if (s === 0) {
       r = g = b = l; // achromatic
     } else {
@@ -903,30 +849,28 @@ const tinycolor = function (Math) {
       g = hue2rgb(p, q, h);
       b = hue2rgb(p, q, h - 1 / 3);
     }
-
     return {
       r: r * 255,
       g: g * 255,
       b: b * 255
     };
-  } // `rgbToHsv`
+  }
+
+  // `rgbToHsv`
   // Converts an RGB color value to HSV
   // *Assumes:* r, g, and b are contained in the set [0, 255] or [0, 1]
   // *Returns:* { h, s, v } in [0,1]
-
-
   function rgbToHsv(r, g, b) {
     r = bound01(r, 255);
     g = bound01(g, 255);
     b = bound01(b, 255);
     var max = mathMax(r, g, b),
-        min = mathMin(r, g, b);
+      min = mathMin(r, g, b);
     var h,
-        s,
-        v = max;
+      s,
+      v = max;
     var d = max - min;
     s = max === 0 ? 0 : d / max;
-
     if (max == min) {
       h = 0; // achromatic
     } else {
@@ -934,107 +878,102 @@ const tinycolor = function (Math) {
         case r:
           h = (g - b) / d + (g < b ? 6 : 0);
           break;
-
         case g:
           h = (b - r) / d + 2;
           break;
-
         case b:
           h = (r - g) / d + 4;
           break;
       }
-
       h /= 6;
     }
-
     return {
       h: h,
       s: s,
       v: v
     };
-  } // `hsvToRgb`
+  }
+
+  // `hsvToRgb`
   // Converts an HSV color value to RGB.
   // *Assumes:* h is contained in [0, 1] or [0, 360] and s and v are contained in [0, 1] or [0, 100]
   // *Returns:* { r, g, b } in the set [0, 255]
-
-
   function hsvToRgb(h, s, v) {
     h = bound01(h, 360) * 6;
     s = bound01(s, 100);
     v = bound01(v, 100);
     var i = Math.floor(h),
-        f = h - i,
-        p = v * (1 - s),
-        q = v * (1 - f * s),
-        t = v * (1 - (1 - f) * s),
-        mod = i % 6,
-        r = [v, q, p, p, t, v][mod],
-        g = [t, v, v, q, p, p][mod],
-        b = [p, p, t, v, v, q][mod];
+      f = h - i,
+      p = v * (1 - s),
+      q = v * (1 - f * s),
+      t = v * (1 - (1 - f) * s),
+      mod = i % 6,
+      r = [v, q, p, p, t, v][mod],
+      g = [t, v, v, q, p, p][mod],
+      b = [p, p, t, v, v, q][mod];
     return {
       r: r * 255,
       g: g * 255,
       b: b * 255
     };
-  } // `rgbToHex`
+  }
+
+  // `rgbToHex`
   // Converts an RGB color to hex
   // Assumes r, g, and b are contained in the set [0, 255]
   // Returns a 3 or 6 character hex
-
-
   function rgbToHex(r, g, b, allow3Char) {
-    var hex = [pad2(mathRound(r).toString(16)), pad2(mathRound(g).toString(16)), pad2(mathRound(b).toString(16))]; // Return a 3 character hex if possible
+    var hex = [pad2(mathRound(r).toString(16)), pad2(mathRound(g).toString(16)), pad2(mathRound(b).toString(16))];
 
+    // Return a 3 character hex if possible
     if (allow3Char && hex[0].charAt(0) == hex[0].charAt(1) && hex[1].charAt(0) == hex[1].charAt(1) && hex[2].charAt(0) == hex[2].charAt(1)) {
       return hex[0].charAt(0) + hex[1].charAt(0) + hex[2].charAt(0);
     }
-
     return hex.join("");
-  } // `rgbaToHex`
+  }
+
+  // `rgbaToHex`
   // Converts an RGBA color plus alpha transparency to hex
   // Assumes r, g, b are contained in the set [0, 255] and
   // a in [0, 1]. Returns a 4 or 8 character rgba hex
-
-
   function rgbaToHex(r, g, b, a, allow4Char) {
-    var hex = [pad2(mathRound(r).toString(16)), pad2(mathRound(g).toString(16)), pad2(mathRound(b).toString(16)), pad2(convertDecimalToHex(a))]; // Return a 4 character hex if possible
+    var hex = [pad2(mathRound(r).toString(16)), pad2(mathRound(g).toString(16)), pad2(mathRound(b).toString(16)), pad2(convertDecimalToHex(a))];
 
+    // Return a 4 character hex if possible
     if (allow4Char && hex[0].charAt(0) == hex[0].charAt(1) && hex[1].charAt(0) == hex[1].charAt(1) && hex[2].charAt(0) == hex[2].charAt(1) && hex[3].charAt(0) == hex[3].charAt(1)) {
       return hex[0].charAt(0) + hex[1].charAt(0) + hex[2].charAt(0) + hex[3].charAt(0);
     }
-
     return hex.join("");
-  } // `rgbaToArgbHex`
+  }
+
+  // `rgbaToArgbHex`
   // Converts an RGBA color to an ARGB Hex8 string
   // Rarely used, but required for "toFilter()"
-
-
   function rgbaToArgbHex(r, g, b, a) {
     var hex = [pad2(convertDecimalToHex(a)), pad2(mathRound(r).toString(16)), pad2(mathRound(g).toString(16)), pad2(mathRound(b).toString(16))];
     return hex.join("");
-  } // `equals`
+  }
+
+  // `equals`
   // Can be called with any tinycolor input
-
-
   tinycolor.equals = function (color1, color2) {
     if (!color1 || !color2) {
       return false;
     }
-
     return tinycolor(color1).toRgbString() == tinycolor(color2).toRgbString();
   };
-
   tinycolor.random = function () {
     return tinycolor.fromRatio({
       r: mathRandom(),
       g: mathRandom(),
       b: mathRandom()
     });
-  }; // Modification Functions
+  };
+
+  // Modification Functions
   // ----------------------
   // Thanks to less.js for some of the basics here
   // <https://github.com/cloudhead/less.js/blob/master/lib/less/functions.js>
-
 
   function _desaturate(color, amount) {
     amount = amount === 0 ? 0 : amount || 10;
@@ -1043,7 +982,6 @@ const tinycolor = function (Math) {
     hsl.s = clamp01(hsl.s);
     return tinycolor(hsl);
   }
-
   function _saturate(color, amount) {
     amount = amount === 0 ? 0 : amount || 10;
     var hsl = tinycolor(color).toHsl();
@@ -1051,11 +989,9 @@ const tinycolor = function (Math) {
     hsl.s = clamp01(hsl.s);
     return tinycolor(hsl);
   }
-
   function _greyscale(color) {
     return tinycolor(color).desaturate(100);
   }
-
   function _lighten(color, amount) {
     amount = amount === 0 ? 0 : amount || 10;
     var hsl = tinycolor(color).toHsl();
@@ -1063,7 +999,6 @@ const tinycolor = function (Math) {
     hsl.l = clamp01(hsl.l);
     return tinycolor(hsl);
   }
-
   function _brighten(color, amount) {
     amount = amount === 0 ? 0 : amount || 10;
     var rgb = tinycolor(color).toRgb();
@@ -1072,34 +1007,33 @@ const tinycolor = function (Math) {
     rgb.b = mathMax(0, mathMin(255, rgb.b - mathRound(255 * -(amount / 100))));
     return tinycolor(rgb);
   }
-
   function _darken(color, amount) {
     amount = amount === 0 ? 0 : amount || 10;
     var hsl = tinycolor(color).toHsl();
     hsl.l -= amount / 100;
     hsl.l = clamp01(hsl.l);
     return tinycolor(hsl);
-  } // Spin takes a positive or negative amount within [-360, 360] indicating the change of hue.
+  }
+
+  // Spin takes a positive or negative amount within [-360, 360] indicating the change of hue.
   // Values outside of this range will be wrapped into this range.
-
-
   function _spin(color, amount) {
     var hsl = tinycolor(color).toHsl();
     var hue = (hsl.h + amount) % 360;
     hsl.h = hue < 0 ? 360 + hue : hue;
     return tinycolor(hsl);
-  } // Combination Functions
+  }
+
+  // Combination Functions
   // ---------------------
   // Thanks to jQuery xColor for some of the ideas behind these
   // <https://github.com/infusion/jQuery-xcolor/blob/master/jquery.xcolor.js>
-
 
   function _complement(color) {
     var hsl = tinycolor(color).toHsl();
     hsl.h = (hsl.h + 180) % 360;
     return tinycolor(hsl);
   }
-
   function _triad(color) {
     var hsl = tinycolor(color).toHsl();
     var h = hsl.h;
@@ -1113,7 +1047,6 @@ const tinycolor = function (Math) {
       l: hsl.l
     })];
   }
-
   function _tetrad(color) {
     var hsl = tinycolor(color).toHsl();
     var h = hsl.h;
@@ -1131,7 +1064,6 @@ const tinycolor = function (Math) {
       l: hsl.l
     })];
   }
-
   function _splitcomplement(color) {
     var hsl = tinycolor(color).toHsl();
     var h = hsl.h;
@@ -1145,31 +1077,26 @@ const tinycolor = function (Math) {
       l: hsl.l
     })];
   }
-
   function _analogous(color, results, slices) {
     results = results || 6;
     slices = slices || 30;
     var hsl = tinycolor(color).toHsl();
     var part = 360 / slices;
     var ret = [tinycolor(color)];
-
     for (hsl.h = (hsl.h - (part * results >> 1) + 720) % 360; --results;) {
       hsl.h = (hsl.h + part) % 360;
       ret.push(tinycolor(hsl));
     }
-
     return ret;
   }
-
   function _monochromatic(color, results) {
     results = results || 6;
     var hsv = tinycolor(color).toHsv();
     var h = hsv.h,
-        s = hsv.s,
-        v = hsv.v;
+      s = hsv.s,
+      v = hsv.v;
     var ret = [];
     var modification = 1 / results;
-
     while (results--) {
       ret.push(tinycolor({
         h: h,
@@ -1178,11 +1105,11 @@ const tinycolor = function (Math) {
       }));
       v = (v + modification) % 1;
     }
-
     return ret;
-  } // Utility Functions
-  // ---------------------
+  }
 
+  // Utility Functions
+  // ---------------------
 
   tinycolor.mix = function (color1, color2, amount) {
     amount = amount === 0 ? 0 : amount || 50;
@@ -1196,51 +1123,51 @@ const tinycolor = function (Math) {
       a: (rgb2.a - rgb1.a) * p + rgb1.a
     };
     return tinycolor(rgba);
-  }; // Readability Functions
+  };
+
+  // Readability Functions
   // ---------------------
   // <http://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef (WCAG Version 2)
+
   // `contrast`
   // Analyze the 2 colors and returns the color contrast defined by (WCAG Version 2)
-
-
   tinycolor.readability = function (color1, color2) {
     var c1 = tinycolor(color1);
     var c2 = tinycolor(color2);
     return (Math.max(c1.getLuminance(), c2.getLuminance()) + 0.05) / (Math.min(c1.getLuminance(), c2.getLuminance()) + 0.05);
-  }; // `isReadable`
+  };
+
+  // `isReadable`
   // Ensure that foreground and background color combinations meet WCAG2 guidelines.
   // The third argument is an optional Object.
   //      the 'level' property states 'AA' or 'AAA' - if missing or invalid, it defaults to 'AA';
   //      the 'size' property states 'large' or 'small' - if missing or invalid, it defaults to 'small'.
   // If the entire object is absent, isReadable defaults to {level:"AA",size:"small"}.
+
   // *Example*
   //    tinycolor.isReadable("#000", "#111") => false
   //    tinycolor.isReadable("#000", "#111",{level:"AA",size:"large"}) => false
-
-
   tinycolor.isReadable = function (color1, color2, wcag2) {
     var readability = tinycolor.readability(color1, color2);
     var wcag2Parms, out;
     out = false;
     wcag2Parms = validateWCAG2Parms(wcag2);
-
     switch (wcag2Parms.level + wcag2Parms.size) {
       case "AAsmall":
       case "AAAlarge":
         out = readability >= 4.5;
         break;
-
       case "AAlarge":
         out = readability >= 3;
         break;
-
       case "AAAsmall":
         out = readability >= 7;
         break;
     }
-
     return out;
-  }; // `mostReadable`
+  };
+
+  // `mostReadable`
   // Given a base color and a list of possible foreground or background
   // colors for that base, returns the most readable color.
   // Optionally returns Black or White if the most readable color is unreadable.
@@ -1249,8 +1176,6 @@ const tinycolor = function (Math) {
   //    tinycolor.mostReadable(tinycolor.mostReadable("#123", ["#124", "#125"],{includeFallbackColors:true}).toHexString();  // "#ffffff"
   //    tinycolor.mostReadable("#a8015a", ["#faf3f3"],{includeFallbackColors:true,level:"AAA",size:"large"}).toHexString(); // "#faf3f3"
   //    tinycolor.mostReadable("#a8015a", ["#faf3f3"],{includeFallbackColors:true,level:"AAA",size:"small"}).toHexString(); // "#ffffff"
-
-
   tinycolor.mostReadable = function (baseColor, colorList, args) {
     var bestColor = null;
     var bestScore = 0;
@@ -1260,16 +1185,13 @@ const tinycolor = function (Math) {
     includeFallbackColors = args.includeFallbackColors;
     level = args.level;
     size = args.size;
-
     for (var i = 0; i < colorList.length; i++) {
       readability = tinycolor.readability(baseColor, colorList[i]);
-
       if (readability > bestScore) {
         bestScore = readability;
         bestColor = tinycolor(colorList[i]);
       }
     }
-
     if (tinycolor.isReadable(baseColor, bestColor, {
       "level": level,
       "size": size
@@ -1279,11 +1201,11 @@ const tinycolor = function (Math) {
       args.includeFallbackColors = false;
       return tinycolor.mostReadable(baseColor, ["#fff", "#000"], args);
     }
-  }; // Big List of Colors
+  };
+
+  // Big List of Colors
   // ------------------
   // <http://www.w3.org/TR/css3-color/#svg-color>
-
-
   var names = tinycolor.names = {
     aliceblue: "f0f8ff",
     antiquewhite: "faebd7",
@@ -1434,112 +1356,111 @@ const tinycolor = function (Math) {
     whitesmoke: "f5f5f5",
     yellow: "ff0",
     yellowgreen: "9acd32"
-  }; // Make it easy to access colors via `hexNames[hex]`
+  };
 
-  var hexNames = tinycolor.hexNames = flip(names); // Utilities
+  // Make it easy to access colors via `hexNames[hex]`
+  var hexNames = tinycolor.hexNames = flip(names);
+
+  // Utilities
   // ---------
-  // `{ 'name1': 'val1' }` becomes `{ 'val1': 'name1' }`
 
+  // `{ 'name1': 'val1' }` becomes `{ 'val1': 'name1' }`
   function flip(o) {
     var flipped = {};
-
     for (var i in o) {
       if (o.hasOwnProperty(i)) {
         flipped[o[i]] = i;
       }
     }
-
     return flipped;
-  } // Return a valid alpha value [0,1] with all invalid values being set to 1
+  }
 
-
+  // Return a valid alpha value [0,1] with all invalid values being set to 1
   function boundAlpha(a) {
     a = parseFloat(a);
-
     if (isNaN(a) || a < 0 || a > 1) {
       a = 1;
     }
-
     return a;
-  } // Take input from [0, n] and return it as [0, 1]
+  }
 
-
+  // Take input from [0, n] and return it as [0, 1]
   function bound01(n, max) {
     if (isOnePointZero(n)) {
       n = "100%";
     }
-
     var processPercent = isPercentage(n);
-    n = mathMin(max, mathMax(0, parseFloat(n))); // Automatically convert percentage into number
+    n = mathMin(max, mathMax(0, parseFloat(n)));
 
+    // Automatically convert percentage into number
     if (processPercent) {
       n = parseInt(n * max, 10) / 100;
-    } // Handle floating point rounding errors
+    }
 
-
+    // Handle floating point rounding errors
     if (Math.abs(n - max) < 0.000001) {
       return 1;
-    } // Convert into [0, 1] range if it isn't already
+    }
 
-
+    // Convert into [0, 1] range if it isn't already
     return n % max / parseFloat(max);
-  } // Force a number between 0 and 1
+  }
 
-
+  // Force a number between 0 and 1
   function clamp01(val) {
     return mathMin(1, mathMax(0, val));
-  } // Parse a base-16 hex value into a base-10 integer
+  }
 
-
+  // Parse a base-16 hex value into a base-10 integer
   function parseIntFromHex(val) {
     return parseInt(val, 16);
-  } // Need to handle 1.0 as 100%, since once it is a number, there is no difference between it and 1
+  }
+
+  // Need to handle 1.0 as 100%, since once it is a number, there is no difference between it and 1
   // <http://stackoverflow.com/questions/7422072/javascript-how-to-detect-number-as-a-decimal-including-1-0>
-
-
   function isOnePointZero(n) {
     return typeof n == "string" && n.indexOf('.') != -1 && parseFloat(n) === 1;
-  } // Check to see if string passed in is a percentage
+  }
 
-
+  // Check to see if string passed in is a percentage
   function isPercentage(n) {
     return typeof n === "string" && n.indexOf('%') != -1;
-  } // Force a hex value to have 2 characters
+  }
 
-
+  // Force a hex value to have 2 characters
   function pad2(c) {
     return c.length == 1 ? '0' + c : '' + c;
-  } // Replace a decimal with it's percentage value
+  }
 
-
+  // Replace a decimal with it's percentage value
   function convertToPercentage(n) {
     if (n <= 1) {
       n = n * 100 + "%";
     }
-
     return n;
-  } // Converts a decimal to a hex value
+  }
 
-
+  // Converts a decimal to a hex value
   function convertDecimalToHex(d) {
     return Math.round(parseFloat(d) * 255).toString(16);
-  } // Converts a hex value to a decimal
-
-
+  }
+  // Converts a hex value to a decimal
   function convertHexToDecimal(h) {
     return parseIntFromHex(h) / 255;
   }
-
   var matchers = function () {
     // <http://www.w3.org/TR/css3-values/#integers>
-    var CSS_INTEGER = "[-\\+]?\\d+%?"; // <http://www.w3.org/TR/css3-values/#number-value>
+    var CSS_INTEGER = "[-\\+]?\\d+%?";
 
-    var CSS_NUMBER = "[-\\+]?\\d*\\.\\d+%?"; // Allow positive/negative integer/number.  Don't capture the either/or, just the entire outcome.
+    // <http://www.w3.org/TR/css3-values/#number-value>
+    var CSS_NUMBER = "[-\\+]?\\d*\\.\\d+%?";
 
-    var CSS_UNIT = "(?:" + CSS_NUMBER + ")|(?:" + CSS_INTEGER + ")"; // Actual matching.
+    // Allow positive/negative integer/number.  Don't capture the either/or, just the entire outcome.
+    var CSS_UNIT = "(?:" + CSS_NUMBER + ")|(?:" + CSS_INTEGER + ")";
+
+    // Actual matching.
     // Parentheses and commas are optional, but not required.
     // Whitespace can take the place of commas or opening paren
-
     var PERMISSIVE_MATCH3 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
     var PERMISSIVE_MATCH4 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
     return {
@@ -1555,22 +1476,21 @@ const tinycolor = function (Math) {
       hex4: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
       hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/
     };
-  }(); // `isValidCSSUnit`
+  }();
+
+  // `isValidCSSUnit`
   // Take in a single string / number and check to see if it looks like a CSS unit
   // (see `matchers` above for definition).
-
-
   function isValidCSSUnit(color) {
     return !!matchers.CSS_UNIT.exec(color);
-  } // `stringInputToObject`
+  }
+
+  // `stringInputToObject`
   // Permissive string parsing.  Take in a number of formats, and output an object
   // based on detected format.  Returns `{ r, g, b }` or `{ h, s, l }` or `{ h, s, v}`
-
-
   function stringInputToObject(color) {
     color = color.replace(trimLeft, '').replace(trimRight, '').toLowerCase();
     var named = false;
-
     if (names[color]) {
       color = names[color];
       named = true;
@@ -1582,14 +1502,13 @@ const tinycolor = function (Math) {
         a: 0,
         format: "name"
       };
-    } // Try to match string input using regular expressions.
+    }
+
+    // Try to match string input using regular expressions.
     // Keep most of the number bounding out of this function - don't worry about [0,1] or [0,100] or [0,360]
     // Just return an object and let the conversion functions handle that.
     // This way the result will be the same whether the tinycolor is initialized with string or object.
-
-
     var match;
-
     if (match = matchers.rgb.exec(color)) {
       return {
         r: match[1],
@@ -1597,7 +1516,6 @@ const tinycolor = function (Math) {
         b: match[3]
       };
     }
-
     if (match = matchers.rgba.exec(color)) {
       return {
         r: match[1],
@@ -1606,7 +1524,6 @@ const tinycolor = function (Math) {
         a: match[4]
       };
     }
-
     if (match = matchers.hsl.exec(color)) {
       return {
         h: match[1],
@@ -1614,7 +1531,6 @@ const tinycolor = function (Math) {
         l: match[3]
       };
     }
-
     if (match = matchers.hsla.exec(color)) {
       return {
         h: match[1],
@@ -1623,7 +1539,6 @@ const tinycolor = function (Math) {
         a: match[4]
       };
     }
-
     if (match = matchers.hsv.exec(color)) {
       return {
         h: match[1],
@@ -1631,7 +1546,6 @@ const tinycolor = function (Math) {
         v: match[3]
       };
     }
-
     if (match = matchers.hsva.exec(color)) {
       return {
         h: match[1],
@@ -1640,7 +1554,6 @@ const tinycolor = function (Math) {
         a: match[4]
       };
     }
-
     if (match = matchers.hex8.exec(color)) {
       return {
         r: parseIntFromHex(match[1]),
@@ -1650,7 +1563,6 @@ const tinycolor = function (Math) {
         format: named ? "name" : "hex8"
       };
     }
-
     if (match = matchers.hex6.exec(color)) {
       return {
         r: parseIntFromHex(match[1]),
@@ -1659,7 +1571,6 @@ const tinycolor = function (Math) {
         format: named ? "name" : "hex"
       };
     }
-
     if (match = matchers.hex4.exec(color)) {
       return {
         r: parseIntFromHex(match[1] + '' + match[1]),
@@ -1669,7 +1580,6 @@ const tinycolor = function (Math) {
         format: named ? "name" : "hex8"
       };
     }
-
     if (match = matchers.hex3.exec(color)) {
       return {
         r: parseIntFromHex(match[1] + '' + match[1]),
@@ -1678,10 +1588,8 @@ const tinycolor = function (Math) {
         format: named ? "name" : "hex"
       };
     }
-
     return false;
   }
-
   function validateWCAG2Parms(parms) {
     // return valid WCAG2 parms for isReadable.
     // If input parms are invalid, return {"level":"AA", "size":"small"}
@@ -1692,20 +1600,18 @@ const tinycolor = function (Math) {
     };
     level = (parms.level || "AA").toUpperCase();
     size = (parms.size || "small").toLowerCase();
-
     if (level !== "AA" && level !== "AAA") {
       level = "AA";
     }
-
     if (size !== "small" && size !== "large") {
       size = "small";
     }
-
     return {
       "level": level,
       "size": size
     };
   }
+
   /*// Node: Export function
   if (typeof module !== "undefined" && module.exports) {
       module.exports = tinycolor;
@@ -1719,10 +1625,8 @@ const tinycolor = function (Math) {
       window.tinycolor = tinycolor;
   }*/
 
-
   return tinycolor;
 }(Math);
-
 /* harmony default export */ __webpack_exports__["default"] = (tinycolor);
 
 /***/ })

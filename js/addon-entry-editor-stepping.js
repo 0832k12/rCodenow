@@ -29,8 +29,8 @@ const resources = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 const SVG_NS = "http://www.w3.org/2000/svg";
-const containerSvg = document.createElementNS(SVG_NS, "svg"); // unfortunately we can't use display: none on this as that breaks filters
-
+const containerSvg = document.createElementNS(SVG_NS, "svg");
+// unfortunately we can't use display: none on this as that breaks filters
 containerSvg.style.position = "fixed";
 containerSvg.style.top = "-999999px";
 containerSvg.style.width = "0";
@@ -38,43 +38,35 @@ containerSvg.style.height = "0";
 document.body.appendChild(containerSvg);
 let nextGlowerId = 0;
 const highlightsPerElement = new WeakMap();
-
 const getHighlightersForElement = element => {
   if (!highlightsPerElement.get(element)) {
     highlightsPerElement.set(element, new Set());
   }
-
   return highlightsPerElement.get(element);
 };
-
 const updateHighlight = (element, highlighters) => {
   let result;
-
   for (const i of highlighters) {
     if (!result || i.priority > result.priority) {
       result = i;
     }
   }
-
   if (result) {
     element.style.filter = result.filter;
   } else {
     element.style.filter = "";
   }
 };
-
 const addHighlight = (element, highlighter) => {
   const highlighters = getHighlightersForElement(element);
   highlighters.add(highlighter);
   updateHighlight(element, highlighters);
 };
-
 const removeHighlight = (element, highlighter) => {
   const highlighters = getHighlightersForElement(element);
   highlighters.delete(highlighter);
   updateHighlight(element, highlighters);
 };
-
 class Highlighter {
   constructor(priority, color) {
     this.priority = priority;
@@ -117,35 +109,27 @@ class Highlighter {
     containerSvg.appendChild(filterElement);
     this.setColor(color);
   }
-
   setColor(color) {
     this.filterFlood.setAttribute("flood-color", color);
   }
-
   setGlowingThreads(threads) {
     const elementsToHighlight = new Set();
     const workspace = Blockly.getMainWorkspace();
-
     if (workspace) {
       for (const thread of threads) {
         thread.stack.forEach(blockId => {
           const block = workspace.getBlockById(blockId);
-
           if (!block) {
             return;
           }
-
           const childblock = thread.stack.find(i => {
             let b = block;
-
             while (b.childBlocks_.length) {
               b = b.childBlocks_[b.childBlocks_.length - 1];
               if (i === b.id) return true;
             }
-
             return false;
           });
-
           if (!childblock && block.svgPath_) {
             const svgPath = block.svgPath_;
             elementsToHighlight.add(svgPath);
@@ -153,24 +137,19 @@ class Highlighter {
         });
       }
     }
-
     for (const element of this.previousElements) {
       if (!elementsToHighlight.has(element)) {
         removeHighlight(element, this);
       }
     }
-
     for (const element of elementsToHighlight) {
       if (!this.previousElements.has(element)) {
         addHighlight(element, this);
       }
     }
-
     this.previousElements = elementsToHighlight;
   }
-
 }
-
 /* harmony default export */ __webpack_exports__["default"] = (Highlighter);
 
 /***/ }),
@@ -188,10 +167,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _highlighter_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./highlighter.js */ "./src/addons/addons/editor-stepping/highlighter.js");
 
 
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console
+  } = _ref;
   const vm = addon.tab.traps.vm;
   const highlighter = new _highlighter_js__WEBPACK_IMPORTED_MODULE_1__["default"](0, addon.settings.get("highlight-color"));
   addon.settings.addEventListener("change", () => {
@@ -201,10 +181,11 @@ __webpack_require__.r(__webpack_exports__);
     highlighter.setGlowingThreads([]);
   });
   const oldStep = vm.runtime._step;
-
-  vm.runtime._step = function (...args) {
+  vm.runtime._step = function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
     oldStep.call(this, ...args);
-
     if (!addon.self.disabled) {
       const runningThread = Object(_debugger_module_js__WEBPACK_IMPORTED_MODULE_0__["getRunningThread"])();
       const threads = vm.runtime.threads.filter(thread => thread !== runningThread && !thread.target.blocks.forceNoGlow && !thread.isCompiled);

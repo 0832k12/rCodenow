@@ -404,13 +404,13 @@ module.exports = function escape(url) {
 "use strict";
 
 var token = '%[a-f0-9]{2}';
-var singleMatcher = new RegExp(token, 'gi');
+var singleMatcher = new RegExp('(' + token + ')|([^%]+?)', 'gi');
 var multiMatcher = new RegExp('(' + token + ')+', 'gi');
 
 function decodeComponents(components, split) {
 	try {
 		// Try to decode the entire string first
-		return decodeURIComponent(components.join(''));
+		return [decodeURIComponent(components.join(''))];
 	} catch (err) {
 		// Do nothing
 	}
@@ -432,12 +432,12 @@ function decode(input) {
 	try {
 		return decodeURIComponent(input);
 	} catch (err) {
-		var tokens = input.match(singleMatcher);
+		var tokens = input.match(singleMatcher) || [];
 
 		for (var i = 1; i < tokens.length; i++) {
 			input = decodeComponents(tokens, i).join('');
 
-			tokens = input.match(singleMatcher);
+			tokens = input.match(singleMatcher) || [];
 		}
 
 		return input;
@@ -743,7 +743,7 @@ exports.parseUrl = function (str, opts) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* GUI */\n:root {\n    background: #111;\n    color: #eee;\n    color-scheme: dark;\n    /* see colors.csss */\n    --ui-primary: rgb(37, 41, 50);\n    --ui-secondary: rgb(45, 50, 60);\n    --ui-tertiary: rgb(40, 45, 55);\n    --ui-modal-overlay: #333a;\n    --ui-black-transparent: rgba(255, 255, 255, 0);\n    --text-primary: #eee;\n    /* scratch-paint */\n    --paint-ui-pane-border: var(--ui-black-transparent);\n    --paint-text-primary: #eee;\n    --paint-form-border: var(--ui-black-transparent);\n}\n\n/* Blockly */\n.blocklySvg {\n    background-color: var(--ui-secondary) !important;\n    color-scheme: light;\n}\n\n[id^=\"blocklyGridPattern\"]>line {\n    stroke: #ffffff08;\n}\n\n.blocklyFlyoutBackground {\n    fill: #272b34;\n}\n\n.blocklyFlyoutLabelText {\n    fill: #ccc;\n}\n\n.blocklyFlyoutButton .blocklyText {\n    fill: #ccc;\n}\n\n.blocklyFlyoutButton:hover {\n    fill: #111;\n}\n\n/* blocklyFlyoutCheckboxPath stroke and blocklyFlyoutCheckbox fill must match */\n.blocklyFlyoutCheckboxPath {\n    stroke: #111;\n}\n\n.blocklyFlyoutCheckbox {\n    fill: #111;\n}\n\n.checked>.blocklyFlyoutCheckbox {\n    stroke: #a1c6fa;\n}\n\n.checked>.blocklyFlyoutCheckboxPath {\n    stroke: white;\n}\n\n.scratchCategoryMenu {\n    color: #ccc;\n}\n\n.blocklyToolboxDiv,\n.scratchCategoryMenu {\n    background: rgb(34, 38, 46) !important;\n}\n\n.blocklyScrollbarHandle {\n    fill: #666;\n}\n\n.blocklyZoom {\n    filter: invert(100%);\n}\n\n.scratchCategoryMenuItem.categorySelected {\n    background: var(--ui-secondary);\n}\n\n.valueReportBox {\n    color: black;\n}\n\n.blocklyWidgetDiv {\n    color-scheme: light;\n}\n\n.blocklyWidgetDiv .goog-menu {\n    background: var(--ui-primary);\n    border-color: var(--ui-black-transparent);\n}\n\n.blocklyWidgetDiv .goog-menuitem {\n    color: var(--text-primary);\n}\n\n.blocklyWidgetDiv .goog-menuitem-disabled .goog-menuitem-content {\n    color: #666 !important;\n}\n\n.sa-blockly-menu-item-border {\n    border-top-color: var(--ui-black-transparent) !important;\n}\n\n.blocklyWidgetDiv .goog-menuitem.goog-menuitem-highlight {\n    background-color: var(--ui-tertiary);\n    border-color: transparent;\n    /* remove border */\n}\n\n.scratchCommentText {\n    color: black;\n}\n\n.blocklyInsertionMarker>.blocklyPath {\n    fill: #ccc;\n}\n\n/* Other / Multipurpose */\n.Popover {\n    /* weird Chrome bug displays white bar above popovers with color-scheme: dark */\n    color-scheme: light;\n}\n\n.Popover-body {\n    background: var(--ui-secondary);\n    border-color: var(--ui-black-transparent);\n    color: var(--text-primary);\n}\n\n.Popover-tipShape {\n    fill: var(--ui-secondary);\n    stroke: var(--ui-black-transparent);\n}"
+module.exports = "/* GUI */\n:root {\n    background: #111;\n    color: #eee;\n    color-scheme: dark;\n    /* see colors.csss */\n    --ui-primary: rgb(37, 41, 50);\n    --ui-secondary: rgb(45, 50, 60);\n    --ui-tertiary: rgb(40, 45, 55);\n    --ui-modal-overlay: #333a;\n    --ui-black-transparent: rgba(255, 255, 255, 0);\n    --text-primary: #eee;\n    /* scratch-paint */\n    --paint-ui-pane-border: var(--ui-black-transparent);\n    --paint-text-primary: #eee;\n    --paint-form-border: var(--ui-black-transparent);\n}\n\n/* Blockly */\n.blocklySvg {\n    background-color: var(--ui-secondary) !important;\n    color-scheme: light;\n}\n\n[id^=\"blocklyGridPattern\"]>line {\n    stroke: #ffffff08;\n}\n\n.blocklyFlyoutBackground {\n    fill: #272b34;\n}\n\n.blocklyFlyoutLabelText {\n    fill: #ccc;\n}\n\n.blocklyFlyoutButton .blocklyText {\n    fill: #ccc;\n}\n\n.blocklyFlyoutButton:hover {\n    fill: #111;\n}\n\n/* blocklyFlyoutCheckboxPath stroke and blocklyFlyoutCheckbox fill must match */\n.blocklyFlyoutCheckboxPath {\n    stroke: #111;\n}\n\n.blocklyFlyoutCheckbox {\n    fill: #111;\n}\n\n.checked>.blocklyFlyoutCheckbox {\n    stroke: #a1c6fa;\n}\n\n.checked>.blocklyFlyoutCheckboxPath {\n    stroke: white;\n}\n\n.scratchCategoryMenu {\n    color: #ccc;\n}\n\n.blocklyToolboxDiv,\n.scratchCategoryMenu {\n    background: rgb(34, 38, 46) !important;\n}\n\n.blocklyScrollbarHandle {\n    fill: #666;\n}\n\n.blocklyZoom {\n    filter: invert(100%);\n}\n\n.scratchCategoryMenuItem.categorySelected {\n    background: var(--ui-secondary);\n}\n\n.valueReportBox {\n    color: black;\n}\n\n.blocklyWidgetDiv {\n    color-scheme: light;\n}\n\n.blocklyWidgetDiv .goog-menu {\n    background: var(--ui-primary);\n    border-color: var(--ui-black-transparent);\n}\n\n.blocklyWidgetDiv .goog-menuitem {\n    color: var(--text-primary);\n}\n\n.blocklyWidgetDiv .goog-menuitem-disabled .goog-menuitem-content {\n    color: #666 !important;\n}\n\n.sa-blockly-menu-item-border {\n    border-top-color: var(--ui-black-transparent) !important;\n}\n\n.blocklyWidgetDiv .goog-menuitem.goog-menuitem-highlight {\n    background-color: var(--ui-tertiary);\n    border-color: transparent;\n    /* remove border */\n}\n\n.scratchCommentText {\n    color: black;\n}\n\n.blocklyInsertionMarker>.blocklyPath {\n    fill: #ccc;\n}\n\n/* Other / Multipurpose */\n.Popover {\n    /* weird Chrome bug displays white bar above popovers with color-scheme: dark */\n    color-scheme: light;\n}\n\n.Popover-body {\n    background: var(--ui-secondary);\n    border-color: var(--ui-black-transparent);\n    color: var(--text-primary);\n}\n\n.Popover-tipShape {\n    fill: var(--ui-secondary);\n    stroke: var(--ui-black-transparent);\n}\n"
 
 /***/ }),
 
@@ -937,7 +937,7 @@ module.exports = JSON.parse("{\"cat-blocks/@description\":\"顯示來自 2020 �
 /*! exports provided: cat-blocks/@description, cat-blocks/@info-watch, cat-blocks/@name, cat-blocks/@settings-name-watch, editor-devtools/@description, editor-devtools/@name, editor-devtools/@settings-name-enableCleanUpPlus, editor-devtools/@settings-name-enablePasteBlocksAtMouse, find-bar/@description, find-bar/@info-developer-tools, find-bar/@name, middle-click-popup/@description, middle-click-popup/@info-developer-tools, middle-click-popup/@name, jump-to-def/@description, jump-to-def/@info-developer-tools, jump-to-def/@name, editor-searchable-dropdowns/@description, editor-searchable-dropdowns/@name, data-category-tweaks-v2/@description, data-category-tweaks-v2/@name, data-category-tweaks-v2/@settings-name-moveReportersDown, data-category-tweaks-v2/@settings-name-separateListCategory, data-category-tweaks-v2/@settings-name-separateLocalVariables, block-palette-icons/@description, block-palette-icons/@name, hide-flyout/@description, hide-flyout/@info-hoverExplanation, hide-flyout/@name, hide-flyout/@settings-name-speed, hide-flyout/@settings-name-toggle, hide-flyout/@settings-select-speed-default, hide-flyout/@settings-select-speed-long, hide-flyout/@settings-select-speed-none, hide-flyout/@settings-select-speed-short, hide-flyout/@settings-select-toggle-category, hide-flyout/@settings-select-toggle-cathover, hide-flyout/@settings-select-toggle-hover, hide-flyout/@update, mediarecorder/@description, mediarecorder/@name, drag-drop/@description, drag-drop/@name, drag-drop/@settings-name-use-hd-upload, debugger/@name, debugger/@settings-name-log_broadcasts, debugger/@settings-name-log_clear_greenflag, debugger/@settings-name-log_clone_create, debugger/@settings-name-log_failed_clone_creation, debugger/@settings-name-log_greenflag, debugger/@update, pause/@description, pause/@name, mute-project/@description, mute-project/@info-macOS, mute-project/@name, vol-slider/@description, vol-slider/@name, vol-slider/@settings-name-defVol, clones/@description, clones/@name, clones/@settings-name-showicononly, mouse-pos/@description, mouse-pos/@name, color-picker/@description, color-picker/@name, remove-sprite-confirm/@description, remove-sprite-confirm/@name, block-count/@description, block-count/@name, onion-skinning/@description, onion-skinning/@name, onion-skinning/@settings-name-afterTint, onion-skinning/@settings-name-beforeTint, onion-skinning/@settings-name-default, onion-skinning/@settings-name-layering, onion-skinning/@settings-name-mode, onion-skinning/@settings-name-next, onion-skinning/@settings-name-opacity, onion-skinning/@settings-name-opacityStep, onion-skinning/@settings-name-previous, onion-skinning/@settings-select-layering-behind, onion-skinning/@settings-select-layering-front, onion-skinning/@settings-select-mode-merge, onion-skinning/@settings-select-mode-tint, default-costume-editor-color/@description, default-costume-editor-color/@name, default-costume-editor-color/@settings-name-fill, default-costume-editor-color/@settings-name-persistence, default-costume-editor-color/@settings-name-stroke, default-costume-editor-color/@settings-name-strokeSize, bitmap-copy/@description, bitmap-copy/@info-norightclick, bitmap-copy/@name, 2d-color-picker/@description, 2d-color-picker/@name, better-img-uploads/@description, better-img-uploads/@info-notSuitableEdit, better-img-uploads/@name, better-img-uploads/@settings-name-fitting, better-img-uploads/@settings-select-fitting-fill, better-img-uploads/@settings-select-fitting-fit, better-img-uploads/@settings-select-fitting-full, pick-colors-from-stage/@description, pick-colors-from-stage/@name, custom-block-shape/@description, custom-block-shape/@info-paddingWarning, custom-block-shape/@name, custom-block-shape/@preset-description-default2, custom-block-shape/@preset-description-default3, custom-block-shape/@preset-description-flat2, custom-block-shape/@preset-description-flat3, custom-block-shape/@preset-name-default2, custom-block-shape/@preset-name-default3, custom-block-shape/@preset-name-flat2, custom-block-shape/@preset-name-flat3, custom-block-shape/@settings-name-cornerSize, custom-block-shape/@settings-name-notchSize, custom-block-shape/@settings-name-paddingSize, zebra-striping/@description, zebra-striping/@name, zebra-striping/@settings-name-intensity, zebra-striping/@settings-name-shade, zebra-striping/@settings-select-shade-darker, zebra-striping/@settings-select-shade-lighter, editor-theme3/@description, editor-theme3/@name, editor-theme3/@preset-description-black, editor-theme3/@preset-description-dark, editor-theme3/@preset-description-original, editor-theme3/@preset-description-tweaks, editor-theme3/@preset-name-black, editor-theme3/@preset-name-dark, editor-theme3/@preset-name-original, editor-theme3/@preset-name-tweaks, editor-theme3/@settings-name-Pen-color, editor-theme3/@settings-name-comment-color, editor-theme3/@settings-name-control-color, editor-theme3/@settings-name-custom-color, editor-theme3/@settings-name-data-color, editor-theme3/@settings-name-data-lists-color, editor-theme3/@settings-name-events-color, editor-theme3/@settings-name-input-color, editor-theme3/@settings-name-looks-color, editor-theme3/@settings-name-motion-color, editor-theme3/@settings-name-operators-color, editor-theme3/@settings-name-sensing-color, editor-theme3/@settings-name-sounds-color, editor-theme3/@settings-name-text, editor-theme3/@settings-select-text-black, editor-theme3/@settings-select-text-colorOnBlack, editor-theme3/@settings-select-text-colorOnWhite, editor-theme3/@settings-select-text-white, editor-theme3/@update, custom-block-text/@description, custom-block-text/@name, custom-block-text/@settings-name-bold, custom-block-text/@settings-name-shadow, editor-colored-context-menus/@description, editor-colored-context-menus/@name, editor-stage-left/@description, editor-stage-left/@info-reverseOrder, editor-stage-left/@name, editor-buttons-reverse-order/@description, editor-buttons-reverse-order/@name, variable-manager/@description, variable-manager/@name, variable-manager/@update, search-sprites/@description, search-sprites/@name, gamepad/@description, gamepad/@name, gamepad/@settings-name-hide, editor-sounds/@description, editor-sounds/@name, folders/@description, folders/@info-notice-folders-are-public, folders/@name, block-switching/@description, block-switching/@name, block-switching/@settings-name-control, block-switching/@settings-name-customargs, block-switching/@settings-name-customargsmode, block-switching/@settings-name-data, block-switching/@settings-name-event, block-switching/@settings-name-extension, block-switching/@settings-name-looks, block-switching/@settings-name-motion, block-switching/@settings-name-noop, block-switching/@settings-name-operator, block-switching/@settings-name-sensing, block-switching/@settings-name-sound, block-switching/@settings-select-customargsmode-all, block-switching/@settings-select-customargsmode-defOnly, load-extensions/@description, load-extensions/@name, load-extensions/@settings-name-music, load-extensions/@settings-name-pen, load-extensions/@settings-name-text2speech, load-extensions/@settings-name-translate, custom-zoom/@description, custom-zoom/@name, custom-zoom/@settings-name-autohide, custom-zoom/@settings-name-maxZoom, custom-zoom/@settings-name-minZoom, custom-zoom/@settings-name-speed, custom-zoom/@settings-name-startZoom, custom-zoom/@settings-name-zoomSpeed, custom-zoom/@settings-select-speed-default, custom-zoom/@settings-select-speed-long, custom-zoom/@settings-select-speed-none, custom-zoom/@settings-select-speed-short, initialise-sprite-position/@description, initialise-sprite-position/@name, initialise-sprite-position/@settings-name-duplicate, initialise-sprite-position/@settings-name-library, initialise-sprite-position/@settings-name-x, initialise-sprite-position/@settings-name-y, initialise-sprite-position/@settings-select-duplicate-custom, initialise-sprite-position/@settings-select-duplicate-keep, initialise-sprite-position/@settings-select-duplicate-randomize, blocks2image/@description, blocks2image/@name, remove-curved-stage-border/@description, remove-curved-stage-border/@name, transparent-orphans/@description, transparent-orphans/@name, transparent-orphans/@settings-name-block, transparent-orphans/@settings-name-dragged, transparent-orphans/@settings-name-orphan, paint-by-default/@description, paint-by-default/@name, paint-by-default/@settings-name-backdrop, paint-by-default/@settings-name-costume, paint-by-default/@settings-name-sound, paint-by-default/@settings-name-sprite, paint-by-default/@settings-select-backdrop-library, paint-by-default/@settings-select-backdrop-paint, paint-by-default/@settings-select-backdrop-surprise, paint-by-default/@settings-select-backdrop-upload, paint-by-default/@settings-select-costume-library, paint-by-default/@settings-select-costume-paint, paint-by-default/@settings-select-costume-surprise, paint-by-default/@settings-select-costume-upload, paint-by-default/@settings-select-sound-library, paint-by-default/@settings-select-sound-record, paint-by-default/@settings-select-sound-surprise, paint-by-default/@settings-select-sound-upload, paint-by-default/@settings-select-sprite-library, paint-by-default/@settings-select-sprite-paint, paint-by-default/@settings-select-sprite-surprise, paint-by-default/@settings-select-sprite-upload, block-cherry-picking/@description, block-cherry-picking/@info-flipControls, block-cherry-picking/@info-macContextDisabled, block-cherry-picking/@name, block-cherry-picking/@settings-name-invertDrag, hide-new-variables/@description, hide-new-variables/@name, editor-extra-keys/@description, editor-extra-keys/@info-experimentalKeysWarn, editor-extra-keys/@info-shiftKeysWarn, editor-extra-keys/@name, editor-extra-keys/@settings-name-experimentalKeys, editor-extra-keys/@settings-name-shiftKeys, hide-delete-button/@description, hide-delete-button/@name, hide-delete-button/@settings-name-costumes, hide-delete-button/@settings-name-sounds, hide-delete-button/@settings-name-sprites, no-script-bumping/@description, no-script-bumping/@name, disable-stage-drag-select/@description, disable-stage-drag-select/@name, move-to-top-bottom/@description, move-to-top-bottom/@info-developer-tools, move-to-top-bottom/@name, disable-paste-offset/@description, disable-paste-offset/@name, block-duplicate/@description, block-duplicate/@info-mac, block-duplicate/@name, rename-broadcasts/@description, rename-broadcasts/@name, swap-local-global/@description, swap-local-global/@name, editor-comment-previews/@description, editor-comment-previews/@name, editor-comment-previews/@settings-name-delay, editor-comment-previews/@settings-name-follow-mouse, editor-comment-previews/@settings-name-hover-view, editor-comment-previews/@settings-name-hover-view-block, editor-comment-previews/@settings-name-hover-view-procedure, editor-comment-previews/@settings-name-reduce-animation, editor-comment-previews/@settings-name-reduce-transparency, editor-comment-previews/@settings-select-delay-long, editor-comment-previews/@settings-select-delay-none, editor-comment-previews/@settings-select-delay-short, columns/@description, columns/@name, script-snap/@description, script-snap/@name, script-snap/@preset-name-default, script-snap/@preset-name-half-block, script-snap/@preset-name-whole-block, script-snap/@settings-name-grid, fullscreen/@description, fullscreen/@info-hideToolbarNotice, fullscreen/@name, fullscreen/@settings-name-browserFullscreen, fullscreen/@settings-name-hideToolbar, hide-stage/@description, hide-stage/@name, editor-stepping/@description, editor-stepping/@name, editor-stepping/@settings-name-highlight-color, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"cat-blocks/@description\":\"显示来自 2020 愚人节的猫猫积木。\",\"cat-blocks/@info-watch\":\"“观察鼠标光标”设置可能会影响编辑器打开时的性能。\",\"cat-blocks/@name\":\"猫积木\",\"cat-blocks/@settings-name-watch\":\"注视光标\",\"editor-devtools/@description\":\"向编辑器添加新的列表选项：复制 / 粘贴、更好地清理等！\",\"editor-devtools/@name\":\"开发者工具\",\"editor-devtools/@settings-name-enableCleanUpPlus\":\"增强的整理积木功能\",\"editor-devtools/@settings-name-enablePasteBlocksAtMouse\":\"在光标停驻处贴上积木\",\"find-bar/@description\":\"让你快速找到程序、造型、音效的查找工具。在你开始查找后，你还可以在程序编辑区里用 Ctrl+ 向左键、Ctrl+ 向右键来找到上一个、下一个所要查找的内容。\",\"find-bar/@info-developer-tools\":\"这个扩充功能之前是在「开发工具」里，现在移至这儿了！\",\"find-bar/@name\":\"查找程序功能\",\"middle-click-popup/@description\":\"中键单击编程区域，使用 Ctrl+Space 或 Shift+Space 调出一个浮动输入框，你可以在其中键入块（或部分块）的名称并将块拖到代码区域中。拖动时按住 Shift 键以避免在一次添加多个块时关闭框。\",\"middle-click-popup/@info-developer-tools\":\"此插件以前是“开发人员工具”插件的一部分，但已移至此处。\",\"middle-click-popup/@name\":\"编辑积木的名字\",\"jump-to-def/@description\":\"让你能用鼠标中键或是 Shift+ 左键来快速找到函式的定义。\",\"jump-to-def/@info-developer-tools\":\"这个扩充功能之前是在「开发工具」里，现在移至这儿了！\",\"jump-to-def/@name\":\"移至函数定义积木\",\"editor-searchable-dropdowns/@description\":\"在积木下拉清单多了一个可搜寻的字段。\",\"editor-searchable-dropdowns/@name\":\"可搜寻的下拉清单\",\"data-category-tweaks-v2/@description\":\"让积木类别中的资料（变量、清单）有更好的分类。\",\"data-category-tweaks-v2/@name\":\"更好的资料分类\",\"data-category-tweaks-v2/@settings-name-moveReportersDown\":\"将积木移动到创建资料的上方\",\"data-category-tweaks-v2/@settings-name-separateListCategory\":\"单独将清单分类\",\"data-category-tweaks-v2/@settings-name-separateLocalVariables\":\"把适用于当前角色的数据分类\",\"block-palette-icons/@description\":\"除了以颜色分类积木，在里面加上类别图标。\",\"block-palette-icons/@name\":\"积木分类图示\",\"hide-flyout/@description\":\"隐藏工具箱，在某些条件下才显示。显示的工具箱还可以用图钉按钮暂时固定它！\",\"hide-flyout/@info-hoverExplanation\":\"「悬停在工具箱上」模式可能会在你拖曳编辑区上的积木时不小心移除，如果你怕出事，可以先试试其它模式。\",\"hide-flyout/@name\":\"自动隐藏程序工具箱\",\"hide-flyout/@settings-name-speed\":\"动画速度\",\"hide-flyout/@settings-name-toggle\":\"触发条件\",\"hide-flyout/@settings-select-speed-default\":\"默认\",\"hide-flyout/@settings-select-speed-long\":\"慢\",\"hide-flyout/@settings-select-speed-none\":\"立即\",\"hide-flyout/@settings-select-speed-short\":\"快速\",\"hide-flyout/@settings-select-toggle-category\":\"点击类别时\",\"hide-flyout/@settings-select-toggle-cathover\":\"悬停在类别上\",\"hide-flyout/@settings-select-toggle-hover\":\"悬停在工具箱上\",\"hide-flyout/@update\":\"这个扩充功能修正过了，很多已知问题已经修复。\",\"mediarecorder/@description\":\"在程序编辑页上的工具栏添加一个「开始录像」的功能，让你可以将项目运行的过程录制下来。\",\"mediarecorder/@name\":\"项目视频录制\",\"drag-drop/@description\":\"让你可以把档案直接拖入角色面板区然后直接上传，当然，你还能将文字文件拖曳到文字输入框里。\",\"drag-drop/@name\":\"拖曳档案上传\",\"drag-drop/@settings-name-use-hd-upload\":\"使用高清图片上传\",\"debugger/@name\":\"侦错器\",\"debugger/@settings-name-log_broadcasts\":\"记录广播讯息\",\"debugger/@settings-name-log_clear_greenflag\":\"当绿旗被点击后清除纪录\",\"debugger/@settings-name-log_clone_create\":\"记录克隆体创建\",\"debugger/@settings-name-log_failed_clone_creation\":\"当克隆体的创建超过时记录\",\"debugger/@settings-name-log_greenflag\":\"记录绿旗点击\",\"debugger/@update\":\"侦错器面板里的新的「执行绪」与「效能」页签。\",\"pause/@description\":\"在点击绿旗按钮旁添加一个暂停的按钮。\",\"pause/@name\":\"编译器暂停按钮\",\"mute-project/@description\":\"在你点击绿旗时同时按住 Ctrl 键可以切换静音模式。\",\"mute-project/@info-macOS\":\"在 macOS 上，用 Cmd 键代替 Ctrl 键。\",\"mute-project/@name\":\"项目播放时静音\",\"vol-slider/@description\":\"在绿旗控制项旁添加一个可以调整音量的控制杆。\",\"vol-slider/@name\":\"项目音量控制杆\",\"vol-slider/@settings-name-defVol\":\"预设音量\",\"clones/@description\":\"在舞台上方添加一个计数器，显示当前建立的克隆体数量。\",\"clones/@name\":\"克隆体计数器\",\"clones/@settings-name-showicononly\":\"只显示图标\",\"mouse-pos/@description\":\"当鼠标在舞台上移动时，显示所停驻的坐标位置。\",\"mouse-pos/@name\":\"鼠标的坐标\",\"color-picker/@description\":\"在选色器里添加一个可以直接输入十六进制色码的字段。\",\"color-picker/@name\":\"代码选色器\",\"remove-sprite-confirm/@description\":\"当你删除项目的某个角色前，显示一个确认的询问窗口。\",\"remove-sprite-confirm/@name\":\"角色删除确认\",\"block-count/@description\":\"在编辑器的工具栏上显示当前项目已使用的程序积木数量。这个扩充功能是之前角色与程序计数的一部分。\",\"block-count/@name\":\"程序积木计数\",\"onion-skinning/@description\":\"当编辑造型时，以半透明的方式显示上一个或下一个造型，有助于制作动画。在编辑器下方缩放控制旁有额外的控制按钮。\",\"onion-skinning/@name\":\"动画描图纸\",\"onion-skinning/@settings-name-afterTint\":\"下个造型要染的颜色\",\"onion-skinning/@settings-name-beforeTint\":\"上个造型要染的颜色\",\"onion-skinning/@settings-name-default\":\"默认启用\",\"onion-skinning/@settings-name-layering\":\"默认图层排列\",\"onion-skinning/@settings-name-mode\":\"默认显示模式\",\"onion-skinning/@settings-name-next\":\"默认显示下个造型\",\"onion-skinning/@settings-name-opacity\":\"透明度（%）\",\"onion-skinning/@settings-name-opacityStep\":\"透明渐进（%）\",\"onion-skinning/@settings-name-previous\":\"默认显示上个造型\",\"onion-skinning/@settings-select-layering-behind\":\"在后面\",\"onion-skinning/@settings-select-layering-front\":\"在前面\",\"onion-skinning/@settings-select-mode-merge\":\"合并\",\"onion-skinning/@settings-select-mode-tint\":\"染色\",\"default-costume-editor-color/@description\":\"变更在造型编辑器上填满与外框的预选色彩，以及线条的预设宽度。\",\"default-costume-editor-color/@name\":\"自定义造型编辑器上工具预设值\",\"default-costume-editor-color/@settings-name-fill\":\"填满的预设色彩\",\"default-costume-editor-color/@settings-name-persistence\":\"切换工具后使用上一个颜色而非预设颜色\",\"default-costume-editor-color/@settings-name-stroke\":\"外框的预设色彩\",\"default-costume-editor-color/@settings-name-strokeSize\":\"外框的预设宽度\",\"bitmap-copy/@description\":\"允许你直接复制绘图编辑器上的点阵图，然后贴到其它的网站或是软件上。\",\"bitmap-copy/@info-norightclick\":\"不支持「鼠标右键→ 复制」的方式，请使用 Ctrl + C 的快捷键。\",\"bitmap-copy/@name\":\"点阵图像复制功能\",\"2d-color-picker/@description\":\"用二维选色器取代编辑器中的彩度与亮度控制杆。在拖曳游标的同时按住 Shift 键可以只调整直向或横向的值。\",\"2d-color-picker/@name\":\"二维选色器\",\"better-img-uploads/@description\":\"在「上传造型」按钮的上方添加一个按钮，可以将上传的点阵图自动转换成矢量图（SVG），以避免丢失质量。\",\"better-img-uploads/@info-notSuitableEdit\":\"如果你在上传图片还需要编辑，请不要使用高清图片上传功能。\",\"better-img-uploads/@name\":\"高清图片上传\",\"better-img-uploads/@settings-name-fitting\":\"图像尺寸\",\"better-img-uploads/@settings-select-fitting-fill\":\"放大以填满舞台\",\"better-img-uploads/@settings-select-fitting-fit\":\"缩小以适应舞台\",\"better-img-uploads/@settings-select-fitting-full\":\"原始尺寸\",\"pick-colors-from-stage/@description\":\"允许造型或背景编辑器上的拣色工具能够挑选舞台窗口里的颜色。\",\"pick-colors-from-stage/@name\":\"拣色工具能选到舞台里的色彩\",\"custom-block-shape/@description\":\"调整积木内边距、圆角、缺口高度。\",\"custom-block-shape/@info-paddingWarning\":\"这些设置的效果只有你才看得到，如果是其它用户观看你的程序时，可能会有程序重叠的问题。\",\"custom-block-shape/@name\":\"自定义程序积木外形\",\"custom-block-shape/@preset-description-default2\":\"与 Scratch 2.0 相似的积木外观\",\"custom-block-shape/@preset-description-default3\":\"Scratch 3.0 版所显示的积木形状\",\"custom-block-shape/@preset-description-flat2\":\"把 Scratch 2.0 的积木去除圆角与缺口\",\"custom-block-shape/@preset-description-flat3\":\"把 Scratch 3.0 的积木去除圆角与缺口\",\"custom-block-shape/@preset-name-default2\":\"2.0 积木外形\",\"custom-block-shape/@preset-name-default3\":\"3.0 积木外形\",\"custom-block-shape/@preset-name-flat2\":\"2.0 积木扁平化\",\"custom-block-shape/@preset-name-flat3\":\"3.0 积木扁平化\",\"custom-block-shape/@settings-name-cornerSize\":\"圆角率（0-300%）\",\"custom-block-shape/@settings-name-notchSize\":\"缺口高度（0-150%）\",\"custom-block-shape/@settings-name-paddingSize\":\"内边距（50-200%）\",\"zebra-striping/@description\":\"让控制类程序在巢状化的时候，能够替换里面程序的积木颜色，这样会比较好识别（这种高亮语法的方式叫 zebra striping）。\",\"zebra-striping/@name\":\"替换巢状程序颜色\",\"zebra-striping/@settings-name-intensity\":\"程序（0-100%）\",\"zebra-striping/@settings-name-shade\":\"阴影\",\"zebra-striping/@settings-select-shade-darker\":\"变暗\",\"zebra-striping/@settings-select-shade-lighter\":\"变亮\",\"editor-theme3/@description\":\"修改编辑器上每种积木的色彩。\",\"editor-theme3/@name\":\"自订积木色彩\",\"editor-theme3/@preset-description-black\":\"把所有的积木变黑\",\"editor-theme3/@preset-description-dark\":\"把原来的积木色彩变暗\",\"editor-theme3/@preset-description-original\":\"修改成与 Scratch 2.0 版一样的积木颜色\",\"editor-theme3/@preset-description-tweaks\":\"将事件、控制和函式积木调整成类似 2.0 版的颜色\",\"editor-theme3/@preset-name-black\":\"黑色调\",\"editor-theme3/@preset-name-dark\":\"暗色调\",\"editor-theme3/@preset-name-original\":\"2.0 色调\",\"editor-theme3/@preset-name-tweaks\":\"3.0 调整版\",\"editor-theme3/@settings-name-Pen-color\":\"扩充功能\",\"editor-theme3/@settings-name-comment-color\":\"注解\",\"editor-theme3/@settings-name-control-color\":\"控制\",\"editor-theme3/@settings-name-custom-color\":\"函式积木\",\"editor-theme3/@settings-name-data-color\":\"变数\",\"editor-theme3/@settings-name-data-lists-color\":\"清单\",\"editor-theme3/@settings-name-events-color\":\"事件\",\"editor-theme3/@settings-name-input-color\":\"函式积木输入字段\",\"editor-theme3/@settings-name-looks-color\":\"外观\",\"editor-theme3/@settings-name-motion-color\":\"动作\",\"editor-theme3/@settings-name-operators-color\":\"运算\",\"editor-theme3/@settings-name-sensing-color\":\"侦测\",\"editor-theme3/@settings-name-sounds-color\":\"音效\",\"editor-theme3/@settings-name-text\":\"文字颜色\",\"editor-theme3/@settings-select-text-black\":\"黑色\",\"editor-theme3/@settings-select-text-colorOnBlack\":\"为文字着色，背景改成黑色\",\"editor-theme3/@settings-select-text-colorOnWhite\":\"为文字着色，背景改成白色\",\"editor-theme3/@settings-select-text-white\":\"白色\",\"editor-theme3/@update\":\"在「编辑器深色模式与自定义色彩」中关于「深色调注解」的设置已移至此处并且可以进一步自定义。\",\"custom-block-text/@description\":\"变更文字的粗细度，并可选择增加阴影效果。\",\"custom-block-text/@name\":\"自定义积木文字样式\",\"custom-block-text/@settings-name-bold\":\"粗体字\",\"custom-block-text/@settings-name-shadow\":\"文字加阴影\",\"editor-colored-context-menus/@description\":\"在程序积木上点击右键会开启菜单，让开启的菜单有和积木相同的背景颜色。\",\"editor-colored-context-menus/@name\":\"让右键菜单有颜色\",\"editor-stage-left/@description\":\"将舞台区移动到编辑器画面的左侧，就像 Scratch 2.0 那样。\",\"editor-stage-left/@info-reverseOrder\":\"如果要修改项目预览窗口上的按钮位置，可以使用另一个扩充功能 - 「对调项目控制项工具的顺序」。\",\"editor-stage-left/@name\":\"将舞台显示在编辑器左侧\",\"editor-buttons-reverse-order/@description\":\"在项目预览窗口的上方有些按钮，把右边的绿旗与停止按钮，与左边的显示模式按钮对调显示顺序，就像 Scratch 2.0 那样。\",\"editor-buttons-reverse-order/@name\":\"对调项目控制项工具的顺序\",\"variable-manager/@description\":\"在编辑器的音效页签右侧添加一个变量与列表的页签，让你更方便的管理它们。\",\"variable-manager/@name\":\"变量管理器\",\"variable-manager/@update\":\"清单现在不需按住 Shift 键就可以插入项目。\",\"search-sprites/@description\":\"在角色面板添加一个搜寻字段，用来查找以名称查找角色。\",\"search-sprites/@name\":\"依名称搜寻角色\",\"gamepad/@description\":\"用 USB 或蓝牙控制器（游戏手柄）与项目互动。\",\"gamepad/@name\":\"游戏手柄支持\",\"gamepad/@settings-name-hide\":\"当未侦测到游戏手柄时隐藏设置按钮。\",\"editor-sounds/@description\":\"在你贴合或删除积木的时候发出音效。\",\"editor-sounds/@name\":\"编辑器音效\",\"folders/@description\":\"将文件夹添加到角色面板，造型和音效清单上也可以。要创建文件夹，请在任何物件上点击右键，使用菜单中「创建文件夹」功能。创建后，点击文件夹可以开启或是关闭它。在其它物件上点右键可以指定放进哪个文件夹，也可以用拖曳的方式。\",\"folders/@info-notice-folders-are-public\":\"启用这个功能后，只有你自己看得到文件夹，其他用户是看不到的。\",\"folders/@name\":\"角色文件夹\",\"block-switching/@description\":\"在编辑区上用鼠标右键点击积木，就能选择相关的积木进行切换。\",\"block-switching/@name\":\"程序积木切换\",\"block-switching/@settings-name-control\":\"控制类积木\",\"block-switching/@settings-name-customargs\":\"函式积木参数\",\"block-switching/@settings-name-customargsmode\":\"要显示的函数参数\",\"block-switching/@settings-name-data\":\"资料类积木\",\"block-switching/@settings-name-event\":\"事件类积木\",\"block-switching/@settings-name-extension\":\"扩展类积木\",\"block-switching/@settings-name-looks\":\"外观类积木\",\"block-switching/@settings-name-motion\":\"动作类积木\",\"block-switching/@settings-name-noop\":\"能切换的积木中包含自己\",\"block-switching/@settings-name-operator\":\"运算类积木\",\"block-switching/@settings-name-sensing\":\"侦测类积木\",\"block-switching/@settings-name-sound\":\"音效类积木\",\"block-switching/@settings-select-customargsmode-all\":\"全部函数用到的参数\",\"block-switching/@settings-select-customargsmode-defOnly\":\"函式本身的参数\",\"load-extensions/@description\":\"在新建项目时自动添加音乐、画笔或其它的扩展到编辑器上。\",\"load-extensions/@name\":\"自动添加扩展应用\",\"load-extensions/@settings-name-music\":\"音乐\",\"load-extensions/@settings-name-pen\":\"画笔\",\"load-extensions/@settings-name-text2speech\":\"文字转语音\",\"load-extensions/@settings-name-translate\":\"翻译\",\"custom-zoom/@description\":\"自定义缩小、放大的阈值、速度还有初始的缩放率，还可以设定是否显示缩放控制项。\",\"custom-zoom/@name\":\"自定义程序编辑区的缩放率\",\"custom-zoom/@settings-name-autohide\":\"自动隐藏缩放控制项\",\"custom-zoom/@settings-name-maxZoom\":\"最大可放大到（100-500%）\",\"custom-zoom/@settings-name-minZoom\":\"最小可缩小到（1-100%）\",\"custom-zoom/@settings-name-speed\":\"自动隐藏动画速度\",\"custom-zoom/@settings-name-startZoom\":\"初始缩放率（50-500%）\",\"custom-zoom/@settings-name-zoomSpeed\":\"缩放速度（50-200%）\",\"custom-zoom/@settings-select-speed-default\":\"默认\",\"custom-zoom/@settings-select-speed-long\":\"慢\",\"custom-zoom/@settings-select-speed-none\":\"立即\",\"custom-zoom/@settings-select-speed-short\":\"快速\",\"initialise-sprite-position/@description\":\"更改新的角色的初始 x/y 坐标。\",\"initialise-sprite-position/@name\":\"自定义新建角色位置\",\"initialise-sprite-position/@settings-name-duplicate\":\"复制角色时的行为\",\"initialise-sprite-position/@settings-name-library\":\"角色库的角色位置随机\",\"initialise-sprite-position/@settings-name-x\":\"X 坐标\",\"initialise-sprite-position/@settings-name-y\":\"Y 坐标\",\"initialise-sprite-position/@settings-select-duplicate-custom\":\"移至指定的坐标位置\",\"initialise-sprite-position/@settings-select-duplicate-keep\":\"与原来的角色位置一致\",\"initialise-sprite-position/@settings-select-duplicate-randomize\":\"随机位置\",\"blocks2image/@description\":\"在程序编辑区上点击鼠标右键，可以把指定的积木导出成 SVG/PNG 图像。\",\"blocks2image/@name\":\"保存积木为图像\",\"remove-curved-stage-border/@description\":\"移除舞台四周的圆角修饰，让你能看见舞台的四个角。\",\"remove-curved-stage-border/@name\":\"移除舞台边缘圆角\",\"transparent-orphans/@description\":\"调整编辑器中积木的透明度，可以为单一块积木或是正在拖曳的积木个别设定透明值。\",\"transparent-orphans/@name\":\"积木透明度\",\"transparent-orphans/@settings-name-block\":\"代码块透明度（%）\",\"transparent-orphans/@settings-name-dragged\":\"正在拖曳的积木透明度（%）\",\"transparent-orphans/@settings-name-orphan\":\"单一积木透明度（%）\",\"paint-by-default/@description\":\"选个角色/选个造型/选个背景/选个音效这些大按钮默认都是从示例库中选择，改成其他操作，像是画个造型、画个背景...\",\"paint-by-default/@name\":\"更改选个 xx 按钮的默认操作\",\"paint-by-default/@settings-name-backdrop\":\"添加背景\",\"paint-by-default/@settings-name-costume\":\"添加造型\",\"paint-by-default/@settings-name-sound\":\"添加音效\",\"paint-by-default/@settings-name-sprite\":\"添加角色\",\"paint-by-default/@settings-select-backdrop-library\":\"范例库\",\"paint-by-default/@settings-select-backdrop-paint\":\"绘画\",\"paint-by-default/@settings-select-backdrop-surprise\":\"惊喜\",\"paint-by-default/@settings-select-backdrop-upload\":\"上传\",\"paint-by-default/@settings-select-costume-library\":\"范例库\",\"paint-by-default/@settings-select-costume-paint\":\"绘画\",\"paint-by-default/@settings-select-costume-surprise\":\"惊喜\",\"paint-by-default/@settings-select-costume-upload\":\"上传\",\"paint-by-default/@settings-select-sound-library\":\"范例库\",\"paint-by-default/@settings-select-sound-record\":\"录制\",\"paint-by-default/@settings-select-sound-surprise\":\"惊喜\",\"paint-by-default/@settings-select-sound-upload\":\"上传\",\"paint-by-default/@settings-select-sprite-library\":\"范例库\",\"paint-by-default/@settings-select-sprite-paint\":\"绘画\",\"paint-by-default/@settings-select-sprite-surprise\":\"惊喜\",\"paint-by-default/@settings-select-sprite-upload\":\"上传\",\"block-cherry-picking/@description\":\"让你可以按住 Ctrl 键把单个积木从程序区块里拖曳出来（原来会拖曳出黏在后面的所有积木）。\",\"block-cherry-picking/@info-flipControls\":\"如果启用「功能反转」，那么拖曳单个积木就会变成预设动作，按住 Ctrl 则会变成拖曳整个程序区块。\",\"block-cherry-picking/@info-macContextDisabled\":\"在 macOS 上，用 Cmd 键代替 Ctrl 键。\",\"block-cherry-picking/@name\":\"按住 Ctrl 键拖曳单个程序积木\",\"block-cherry-picking/@settings-name-invertDrag\":\"功能反转\",\"hide-new-variables/@description\":\"建立新的变量后，不要自动在舞台上显示变量面板（清单也适用）。\",\"hide-new-variables/@name\":\"隐藏新的变量面板\",\"editor-extra-keys/@description\":\"添加更多的键到“key （） pressed？”和“按下（）键时”，例如'enter'、点、逗号等。这些键甚至对没有 Scratch Addons 的用户也有效。\",\"editor-extra-keys/@info-experimentalKeysWarn\":\"「实验中按键」包含等号、斜槓号、分号等。它们可能不适用于所有操作系统或是键盘布局。\",\"editor-extra-keys/@info-shiftKeysWarn\":\"「Shift 按键」通常是结合键，像是 Shift+ 数字键，像是井字符号、感叹号等。这些按键仅适用于「当（）键被按下」积木，而且也不一定能在所有操作系统或键盘布局上使用。\",\"editor-extra-keys/@name\":\"额外的按钮选项\",\"editor-extra-keys/@settings-name-experimentalKeys\":\"显示实验键\",\"editor-extra-keys/@settings-name-shiftKeys\":\"显示 shift 按钮\",\"hide-delete-button/@description\":\"隐藏角色、造型、音效上的删除按钮（垃圾桶图标）。如果要删除，要在项目上点击鼠标右键，使用菜单上的删除功能。\",\"hide-delete-button/@name\":\"隐藏删除按钮\",\"hide-delete-button/@settings-name-costumes\":\"造型与背景\",\"hide-delete-button/@settings-name-sounds\":\"音效\",\"hide-delete-button/@settings-name-sprites\":\"角色\",\"no-script-bumping/@description\":\"让你在移动或修改程序时，不会因为一时的程序重叠导致程序原来的位置被乱改变。\",\"no-script-bumping/@name\":\"停止自动分开重叠的程序\",\"disable-stage-drag-select/@description\":\"移除原来在编辑器上可以任意拖曳舞台上的角色的功能。除非设定该角色为可拖曳，或是你可以按住 Shift 键加以拖曳。\",\"disable-stage-drag-select/@name\":\"编辑器内不可拖曳角色\",\"move-to-top-bottom/@description\":\"在造型或是音效项目右键开启菜单时，会有移至最上面、移至最下面的选项。\",\"move-to-top-bottom/@info-developer-tools\":\"这个扩充功能之前是在「开发工具」里，现在移至这儿了！\",\"move-to-top-bottom/@name\":\"移至最上面或最下面\",\"disable-paste-offset/@description\":\"在造型编辑器上使用复制粘贴功能时，在原位置贴上，不要向右下偏移。\",\"disable-paste-offset/@name\":\"复制图案时不要偏移\",\"block-duplicate/@description\":\"透过按住 Alt 按键与拖曳程序积木，能让你更快的复制整个程序区块。加上 Ctrl 键则可以复制出你停驻的单个积木。\",\"block-duplicate/@info-mac\":\"macOS 上使用 Option 按键代替 Alt 键，Command 键取代 Ctrl 键。\",\"block-duplicate/@name\":\"按住 Alt 键以复制积木\",\"rename-broadcasts/@description\":\"添加一个选项以在 boardcasts 块的下拉列表中重命名广播消息的名字。\",\"rename-broadcasts/@name\":\"重命名广播讯息\",\"swap-local-global/@description\":\"在本来的重新命名变量或清单的面板上添加了更多功能：在「适用于所有角色」和「仅适用当前角色」之间转换。也可以用鼠标右键点击变量，在菜单中直接转换。\",\"swap-local-global/@name\":\"在「适用于所有角色」和「仅适用当前角色」之间转换\",\"editor-comment-previews/@description\":\"当你把光标停驻在积木或者折叠的注解上，能够马上预览到注解的内容。当连接的注解离积木太远，或是很多注解需要折叠时，这会很有用。\",\"editor-comment-previews/@name\":\"预览注解\",\"editor-comment-previews/@settings-name-delay\":\"延迟时间\",\"editor-comment-previews/@settings-name-follow-mouse\":\"跟随鼠标光标\",\"editor-comment-previews/@settings-name-hover-view\":\"停驻在已折叠注解时预览内容\",\"editor-comment-previews/@settings-name-hover-view-block\":\"停驻在已连接注解的积木上时预览注解内容\",\"editor-comment-previews/@settings-name-hover-view-procedure\":\"停驻在函式积木上时显示定义的注解内容\",\"editor-comment-previews/@settings-name-reduce-animation\":\"减少弹出动画\",\"editor-comment-previews/@settings-name-reduce-transparency\":\"减少透明度\",\"editor-comment-previews/@settings-select-delay-long\":\"较长\",\"editor-comment-previews/@settings-select-delay-none\":\"无\",\"editor-comment-previews/@settings-select-delay-short\":\"较短\",\"columns/@description\":\"把工具箱的积木分类改成两列显示，并把面板放置在编辑器顶部，就像 Scratch 2.0 版那样。\",\"columns/@name\":\"两列式积木菜单\",\"script-snap/@description\":\"在程序编辑区上拖曳程序时，会自动与画面的网格贴齐。\",\"script-snap/@name\":\"程序积木贴齐网格\",\"script-snap/@preset-name-default\":\"默认\",\"script-snap/@preset-name-half-block\":\"半个积木\",\"script-snap/@preset-name-whole-block\":\"整个积木\",\"script-snap/@settings-name-grid\":\"格点间距（像素）\",\"fullscreen/@description\":\"修复了一些全屏显示模式下的一些问题，让全屏时同时让浏览器也以全屏展开，且可以选择隐藏绿旗等工具栏。\",\"fullscreen/@info-hideToolbarNotice\":\"如果你启用全屏时隐藏工具栏，你可以用 ESC 键来退出全屏模式。\",\"fullscreen/@name\":\"增强全屏\",\"fullscreen/@settings-name-browserFullscreen\":\"全屏模式时同时让浏览器进入全屏\",\"fullscreen/@settings-name-hideToolbar\":\"全屏模式时隐藏工具栏\",\"hide-stage/@description\":\"在项目预览窗口上添加一个按钮，用来隐藏舞台和角色面板，按钮按钮后能让编辑区的空间变大。\",\"hide-stage/@name\":\"添加隐藏舞台与角色面板按钮\",\"editor-stepping/@description\":\"项目运行时，以颜色高亮正在执行的程序积木。\",\"editor-stepping/@name\":\"高亮执行中的程序\",\"editor-stepping/@settings-name-highlight-color\":\"高亮颜色\"}");
+module.exports = JSON.parse("{\"cat-blocks/@description\":\"显示来自 2020 愚人节的猫猫积木。\",\"cat-blocks/@info-watch\":\"“观察鼠标光标”设置可能会影响编辑器打开时的性能。\",\"cat-blocks/@name\":\"猫积木\",\"cat-blocks/@settings-name-watch\":\"注视光标\",\"editor-devtools/@description\":\"向编辑器添加新的列表选项：复制 / 粘贴、更好地清理等！\",\"editor-devtools/@name\":\"开发者工具\",\"editor-devtools/@settings-name-enableCleanUpPlus\":\"增强的整理积木功能\",\"editor-devtools/@settings-name-enablePasteBlocksAtMouse\":\"在光标停驻处贴上积木\",\"find-bar/@description\":\"让你快速找到程序、造型、音效的查找工具。在你开始查找后，你还可以在程序编辑区里用 Ctrl+ 向左键、Ctrl+ 向右键来找到上一个、下一个所要查找的内容。\",\"find-bar/@info-developer-tools\":\"这个扩充功能之前是在「开发工具」里，现在移至这儿了！\",\"find-bar/@name\":\"查找程序功能\",\"middle-click-popup/@description\":\"中键单击编程区域，使用 Ctrl+Space 或 Shift+Space 调出一个浮动输入框，你可以在其中键入块（或部分块）的名称并将块拖到代码区域中。拖动时按住 Shift 键以避免在一次添加多个块时关闭框。\",\"middle-click-popup/@info-developer-tools\":\"此插件以前是“开发人员工具”插件的一部分，但已移至此处。\",\"middle-click-popup/@name\":\"编辑积木的名字\",\"jump-to-def/@description\":\"让你能用鼠标中键或是 Shift+ 左键来快速找到函式的定义。\",\"jump-to-def/@info-developer-tools\":\"这个扩充功能之前是在「开发工具」里，现在移至这儿了！\",\"jump-to-def/@name\":\"移至函数定义积木\",\"editor-searchable-dropdowns/@description\":\"在积木下拉清单多了一个可搜寻的字段。\",\"editor-searchable-dropdowns/@name\":\"可搜寻的下拉清单\",\"data-category-tweaks-v2/@description\":\"让积木类别中的资料（变量、清单）有更好的分类。\",\"data-category-tweaks-v2/@name\":\"更好的资料分类\",\"data-category-tweaks-v2/@settings-name-moveReportersDown\":\"将积木移动到创建资料的上方\",\"data-category-tweaks-v2/@settings-name-separateListCategory\":\"单独将清单分类\",\"data-category-tweaks-v2/@settings-name-separateLocalVariables\":\"把适用于当前角色的数据分类\",\"block-palette-icons/@description\":\"除了以颜色分类积木，在里面加上类别图标。\",\"block-palette-icons/@name\":\"积木分类图示\",\"hide-flyout/@description\":\"隐藏工具箱，在某些条件下才显示。显示的工具箱还可以用图钉按钮暂时固定它！\",\"hide-flyout/@info-hoverExplanation\":\"「悬停在工具箱上」模式可能会在你拖曳编辑区上的积木时不小心移除，如果你怕出事，可以先试试其它模式。\",\"hide-flyout/@name\":\"自动隐藏程序工具箱\",\"hide-flyout/@settings-name-speed\":\"动画速度\",\"hide-flyout/@settings-name-toggle\":\"触发条件\",\"hide-flyout/@settings-select-speed-default\":\"默认\",\"hide-flyout/@settings-select-speed-long\":\"慢\",\"hide-flyout/@settings-select-speed-none\":\"立即\",\"hide-flyout/@settings-select-speed-short\":\"快速\",\"hide-flyout/@settings-select-toggle-category\":\"点击类别时\",\"hide-flyout/@settings-select-toggle-cathover\":\"悬停在类别上\",\"hide-flyout/@settings-select-toggle-hover\":\"悬停在工具箱上\",\"hide-flyout/@update\":\"这个扩充功能修正过了，很多已知问题已经修复。\",\"mediarecorder/@description\":\"在程序编辑页上的工具栏添加一个「开始录像」的功能，让你可以将项目运行的过程录制下来。\",\"mediarecorder/@name\":\"项目视频录制\",\"drag-drop/@description\":\"让你可以把档案直接拖入角色面板区然后直接上传，当然，你还能将文字文件拖曳到文字输入框里。\",\"drag-drop/@name\":\"拖曳档案上传\",\"drag-drop/@settings-name-use-hd-upload\":\"使用高清图片上传\",\"debugger/@name\":\"侦错器\",\"debugger/@settings-name-log_broadcasts\":\"记录广播讯息\",\"debugger/@settings-name-log_clear_greenflag\":\"当绿旗被点击后清除纪录\",\"debugger/@settings-name-log_clone_create\":\"记录克隆体创建\",\"debugger/@settings-name-log_failed_clone_creation\":\"当克隆体的创建超过时记录\",\"debugger/@settings-name-log_greenflag\":\"记录绿旗点击\",\"debugger/@update\":\"侦错器面板里的新的「执行绪」与「效能」页签。\",\"pause/@description\":\"在点击绿旗按钮旁添加一个暂停的按钮。\",\"pause/@name\":\"编译器暂停按钮\",\"mute-project/@description\":\"在你点击绿旗时同时按住 Ctrl 键可以切换静音模式。\",\"mute-project/@info-macOS\":\"在 macOS 上，用 Cmd 键代替 Ctrl 键。\",\"mute-project/@name\":\"项目播放时静音\",\"vol-slider/@description\":\"在绿旗控制项旁添加一个可以调整音量的控制杆。\",\"vol-slider/@name\":\"项目音量控制杆\",\"vol-slider/@settings-name-defVol\":\"预设音量\",\"clones/@description\":\"在舞台上方添加一个计数器，显示当前建立的克隆体数量。\",\"clones/@name\":\"克隆体计数器\",\"clones/@settings-name-showicononly\":\"只显示图标\",\"mouse-pos/@description\":\"当鼠标在舞台上移动时，显示所停驻的坐标位置。\",\"mouse-pos/@name\":\"鼠标的坐标\",\"color-picker/@description\":\"在选色器里添加一个可以直接输入十六进制色码的字段。\",\"color-picker/@name\":\"代码选色器\",\"remove-sprite-confirm/@description\":\"当你删除项目的某个角色前，显示一个确认的询问窗口。\",\"remove-sprite-confirm/@name\":\"角色删除确认\",\"block-count/@description\":\"在编辑器的工具栏上显示当前项目已使用的程序积木数量。这个扩充功能是之前角色与程序计数的一部分。\",\"block-count/@name\":\"程序积木计数\",\"onion-skinning/@description\":\"当编辑造型时，以半透明的方式显示上一个或下一个造型，有助于制作动画。在编辑器下方缩放控制旁有额外的控制按钮。\",\"onion-skinning/@name\":\"动画描图纸\",\"onion-skinning/@settings-name-afterTint\":\"下个造型要染的颜色\",\"onion-skinning/@settings-name-beforeTint\":\"上个造型要染的颜色\",\"onion-skinning/@settings-name-default\":\"默认启用\",\"onion-skinning/@settings-name-layering\":\"默认图层排列\",\"onion-skinning/@settings-name-mode\":\"默认显示模式\",\"onion-skinning/@settings-name-next\":\"默认显示下个造型\",\"onion-skinning/@settings-name-opacity\":\"透明度（%）\",\"onion-skinning/@settings-name-opacityStep\":\"透明渐进（%）\",\"onion-skinning/@settings-name-previous\":\"默认显示上个造型\",\"onion-skinning/@settings-select-layering-behind\":\"在后面\",\"onion-skinning/@settings-select-layering-front\":\"在前面\",\"onion-skinning/@settings-select-mode-merge\":\"合并\",\"onion-skinning/@settings-select-mode-tint\":\"染色\",\"default-costume-editor-color/@description\":\"变更在造型编辑器上填满与外框的预选色彩，以及线条的预设宽度。\",\"default-costume-editor-color/@name\":\"自定义造型编辑器上工具预设值\",\"default-costume-editor-color/@settings-name-fill\":\"填满的预设色彩\",\"default-costume-editor-color/@settings-name-persistence\":\"切换工具后使用上一个颜色而非预设颜色\",\"default-costume-editor-color/@settings-name-stroke\":\"外框的预设色彩\",\"default-costume-editor-color/@settings-name-strokeSize\":\"外框的预设宽度\",\"bitmap-copy/@description\":\"允许你直接复制绘图编辑器上的点阵图，然后贴到其它的网站或是软件上。\",\"bitmap-copy/@info-norightclick\":\"不支持「鼠标右键→ 复制」的方式，请使用 Ctrl + C 的快捷键。\",\"bitmap-copy/@name\":\"点阵图像复制功能\",\"2d-color-picker/@description\":\"用二维选色器取代编辑器中的彩度与亮度控制杆。在拖曳游标的同时按住 Shift 键可以只调整直向或横向的值。\",\"2d-color-picker/@name\":\"二维选色器\",\"better-img-uploads/@description\":\"在「上传造型」按钮的上方添加一个按钮，可以将上传的点阵图自动转换成矢量图（SVG），以避免丢失质量。\",\"better-img-uploads/@info-notSuitableEdit\":\"如果你在上传图片还需要编辑，请不要使用高清图片上传功能。\",\"better-img-uploads/@name\":\"高清图片上传\",\"better-img-uploads/@settings-name-fitting\":\"图像尺寸\",\"better-img-uploads/@settings-select-fitting-fill\":\"放大以填满舞台\",\"better-img-uploads/@settings-select-fitting-fit\":\"缩小以适应舞台\",\"better-img-uploads/@settings-select-fitting-full\":\"原始尺寸\",\"pick-colors-from-stage/@description\":\"允许造型或背景编辑器上的拣色工具能够挑选舞台窗口里的颜色。\",\"pick-colors-from-stage/@name\":\"拣色工具能选到舞台里的色彩\",\"custom-block-shape/@description\":\"调整积木内边距、圆角、缺口高度。\",\"custom-block-shape/@info-paddingWarning\":\"这些设置的效果只有你才看得到，如果是其它用户观看你的程序时，可能会有程序重叠的问题。\",\"custom-block-shape/@name\":\"自定义程序积木外形\",\"custom-block-shape/@preset-description-default2\":\"与 Scratch 2.0 相似的积木外观\",\"custom-block-shape/@preset-description-default3\":\"Scratch 3.0 版所显示的积木形状\",\"custom-block-shape/@preset-description-flat2\":\"把 Scratch 2.0 的积木去除圆角与缺口\",\"custom-block-shape/@preset-description-flat3\":\"把 Scratch 3.0 的积木去除圆角与缺口\",\"custom-block-shape/@preset-name-default2\":\"2.0 积木外形\",\"custom-block-shape/@preset-name-default3\":\"3.0 积木外形\",\"custom-block-shape/@preset-name-flat2\":\"2.0 积木扁平化\",\"custom-block-shape/@preset-name-flat3\":\"3.0 积木扁平化\",\"custom-block-shape/@settings-name-cornerSize\":\"圆角率（0-300%）\",\"custom-block-shape/@settings-name-notchSize\":\"缺口高度（0-150%）\",\"custom-block-shape/@settings-name-paddingSize\":\"内边距（50-200%）\",\"zebra-striping/@description\":\"让控制类程序在巢状化的时候，能够替换里面程序的积木颜色，这样会比较好识别（这种高亮语法的方式叫 zebra striping）。\",\"zebra-striping/@name\":\"替换巢状程序颜色\",\"zebra-striping/@settings-name-intensity\":\"程序（0-100%）\",\"zebra-striping/@settings-name-shade\":\"阴影\",\"zebra-striping/@settings-select-shade-darker\":\"变暗\",\"zebra-striping/@settings-select-shade-lighter\":\"变亮\",\"editor-theme3/@description\":\"修改编辑器上每种积木的色彩。\",\"editor-theme3/@name\":\"自订积木色彩\",\"editor-theme3/@preset-description-black\":\"把所有的积木变黑\",\"editor-theme3/@preset-description-dark\":\"把原来的积木色彩变暗\",\"editor-theme3/@preset-description-original\":\"修改成与 Scratch 2.0 版一样的积木颜色\",\"editor-theme3/@preset-description-tweaks\":\"将事件、控制和函式积木调整成类似 2.0 版的颜色\",\"editor-theme3/@preset-name-black\":\"黑色调\",\"editor-theme3/@preset-name-dark\":\"暗色调\",\"editor-theme3/@preset-name-original\":\"2.0 色调\",\"editor-theme3/@preset-name-tweaks\":\"3.0 调整版\",\"editor-theme3/@settings-name-Pen-color\":\"扩充功能\",\"editor-theme3/@settings-name-comment-color\":\"注解\",\"editor-theme3/@settings-name-control-color\":\"控制\",\"editor-theme3/@settings-name-custom-color\":\"函数\",\"editor-theme3/@settings-name-data-color\":\"变数\",\"editor-theme3/@settings-name-data-lists-color\":\"清单\",\"editor-theme3/@settings-name-events-color\":\"事件\",\"editor-theme3/@settings-name-input-color\":\"函数输入字段\",\"editor-theme3/@settings-name-looks-color\":\"外观\",\"editor-theme3/@settings-name-motion-color\":\"动作\",\"editor-theme3/@settings-name-operators-color\":\"运算\",\"editor-theme3/@settings-name-sensing-color\":\"侦测\",\"editor-theme3/@settings-name-sounds-color\":\"音效\",\"editor-theme3/@settings-name-text\":\"文字颜色\",\"editor-theme3/@settings-select-text-black\":\"黑色\",\"editor-theme3/@settings-select-text-colorOnBlack\":\"为文字着色，背景改成黑色\",\"editor-theme3/@settings-select-text-colorOnWhite\":\"为文字着色，背景改成白色\",\"editor-theme3/@settings-select-text-white\":\"白色\",\"editor-theme3/@update\":\"在「编辑器深色模式与自定义色彩」中关于「深色调注解」的设置已移至此处并且可以进一步自定义。\",\"custom-block-text/@description\":\"变更文字的粗细度，并可选择增加阴影效果。\",\"custom-block-text/@name\":\"自定义积木文字样式\",\"custom-block-text/@settings-name-bold\":\"粗体字\",\"custom-block-text/@settings-name-shadow\":\"文字加阴影\",\"editor-colored-context-menus/@description\":\"在程序积木上点击右键会开启菜单，让开启的菜单有和积木相同的背景颜色。\",\"editor-colored-context-menus/@name\":\"让右键菜单有颜色\",\"editor-stage-left/@description\":\"将舞台区移动到编辑器画面的左侧，就像 Scratch 2.0 那样。\",\"editor-stage-left/@info-reverseOrder\":\"如果要修改项目预览窗口上的按钮位置，可以使用另一个扩充功能 - 「对调项目控制项工具的顺序」。\",\"editor-stage-left/@name\":\"将舞台显示在编辑器左侧\",\"editor-buttons-reverse-order/@description\":\"在项目预览窗口的上方有些按钮，把右边的绿旗与停止按钮，与左边的显示模式按钮对调显示顺序，就像 Scratch 2.0 那样。\",\"editor-buttons-reverse-order/@name\":\"对调项目控制项工具的顺序\",\"variable-manager/@description\":\"在编辑器的音效页签右侧添加一个变量与列表的页签，让你更方便的管理它们。\",\"variable-manager/@name\":\"变量管理器\",\"variable-manager/@update\":\"清单现在不需按住 Shift 键就可以插入项目。\",\"search-sprites/@description\":\"在角色面板添加一个搜寻字段，用来查找以名称查找角色。\",\"search-sprites/@name\":\"依名称搜寻角色\",\"gamepad/@description\":\"用 USB 或蓝牙控制器（游戏手柄）与项目互动。\",\"gamepad/@name\":\"游戏手柄支持\",\"gamepad/@settings-name-hide\":\"当未侦测到游戏手柄时隐藏设置按钮。\",\"editor-sounds/@description\":\"在你贴合或删除积木的时候发出音效。\",\"editor-sounds/@name\":\"编辑器音效\",\"folders/@description\":\"将文件夹添加到角色面板，造型和音效清单上也可以。要创建文件夹，请在任何物件上点击右键，使用菜单中「创建文件夹」功能。创建后，点击文件夹可以开启或是关闭它。在其它物件上点右键可以指定放进哪个文件夹，也可以用拖曳的方式。\",\"folders/@info-notice-folders-are-public\":\"启用这个功能后，只有你自己看得到文件夹，其他用户是看不到的。\",\"folders/@name\":\"角色文件夹\",\"block-switching/@description\":\"在编辑区上用鼠标右键点击积木，就能选择相关的积木进行切换。\",\"block-switching/@name\":\"程序积木切换\",\"block-switching/@settings-name-control\":\"控制类积木\",\"block-switching/@settings-name-customargs\":\"函式积木参数\",\"block-switching/@settings-name-customargsmode\":\"要显示的函数参数\",\"block-switching/@settings-name-data\":\"资料类积木\",\"block-switching/@settings-name-event\":\"事件类积木\",\"block-switching/@settings-name-extension\":\"扩展类积木\",\"block-switching/@settings-name-looks\":\"外观类积木\",\"block-switching/@settings-name-motion\":\"动作类积木\",\"block-switching/@settings-name-noop\":\"能切换的积木中包含自己\",\"block-switching/@settings-name-operator\":\"运算类积木\",\"block-switching/@settings-name-sensing\":\"侦测类积木\",\"block-switching/@settings-name-sound\":\"音效类积木\",\"block-switching/@settings-select-customargsmode-all\":\"全部函数用到的参数\",\"block-switching/@settings-select-customargsmode-defOnly\":\"函式本身的参数\",\"load-extensions/@description\":\"在新建项目时自动添加音乐、画笔或其它的扩展到编辑器上。\",\"load-extensions/@name\":\"自动添加扩展应用\",\"load-extensions/@settings-name-music\":\"音乐\",\"load-extensions/@settings-name-pen\":\"画笔\",\"load-extensions/@settings-name-text2speech\":\"文字转语音\",\"load-extensions/@settings-name-translate\":\"翻译\",\"custom-zoom/@description\":\"自定义缩小、放大的阈值、速度还有初始的缩放率，还可以设定是否显示缩放控制项。\",\"custom-zoom/@name\":\"自定义程序编辑区的缩放率\",\"custom-zoom/@settings-name-autohide\":\"自动隐藏缩放控制项\",\"custom-zoom/@settings-name-maxZoom\":\"最大可放大到（100-500%）\",\"custom-zoom/@settings-name-minZoom\":\"最小可缩小到（1-100%）\",\"custom-zoom/@settings-name-speed\":\"自动隐藏动画速度\",\"custom-zoom/@settings-name-startZoom\":\"初始缩放率（50-500%）\",\"custom-zoom/@settings-name-zoomSpeed\":\"缩放速度（50-200%）\",\"custom-zoom/@settings-select-speed-default\":\"默认\",\"custom-zoom/@settings-select-speed-long\":\"慢\",\"custom-zoom/@settings-select-speed-none\":\"立即\",\"custom-zoom/@settings-select-speed-short\":\"快速\",\"initialise-sprite-position/@description\":\"更改新的角色的初始 x/y 坐标。\",\"initialise-sprite-position/@name\":\"自定义新建角色位置\",\"initialise-sprite-position/@settings-name-duplicate\":\"复制角色时的行为\",\"initialise-sprite-position/@settings-name-library\":\"角色库的角色位置随机\",\"initialise-sprite-position/@settings-name-x\":\"X 坐标\",\"initialise-sprite-position/@settings-name-y\":\"Y 坐标\",\"initialise-sprite-position/@settings-select-duplicate-custom\":\"移至指定的坐标位置\",\"initialise-sprite-position/@settings-select-duplicate-keep\":\"与原来的角色位置一致\",\"initialise-sprite-position/@settings-select-duplicate-randomize\":\"随机位置\",\"blocks2image/@description\":\"在程序编辑区上点击鼠标右键，可以把指定的积木导出成 SVG/PNG 图像。\",\"blocks2image/@name\":\"保存积木为图像\",\"remove-curved-stage-border/@description\":\"移除舞台四周的圆角修饰，让你能看见舞台的四个角。\",\"remove-curved-stage-border/@name\":\"移除舞台边缘圆角\",\"transparent-orphans/@description\":\"调整编辑器中积木的透明度，可以为单一块积木或是正在拖曳的积木个别设定透明值。\",\"transparent-orphans/@name\":\"积木透明度\",\"transparent-orphans/@settings-name-block\":\"代码块透明度（%）\",\"transparent-orphans/@settings-name-dragged\":\"正在拖曳的积木透明度（%）\",\"transparent-orphans/@settings-name-orphan\":\"单一积木透明度（%）\",\"paint-by-default/@description\":\"选个角色/选个造型/选个背景/选个音效这些大按钮默认都是从示例库中选择，改成其他操作，像是画个造型、画个背景...\",\"paint-by-default/@name\":\"更改选个 xx 按钮的默认操作\",\"paint-by-default/@settings-name-backdrop\":\"添加背景\",\"paint-by-default/@settings-name-costume\":\"添加造型\",\"paint-by-default/@settings-name-sound\":\"添加音效\",\"paint-by-default/@settings-name-sprite\":\"添加角色\",\"paint-by-default/@settings-select-backdrop-library\":\"范例库\",\"paint-by-default/@settings-select-backdrop-paint\":\"绘画\",\"paint-by-default/@settings-select-backdrop-surprise\":\"惊喜\",\"paint-by-default/@settings-select-backdrop-upload\":\"上传\",\"paint-by-default/@settings-select-costume-library\":\"范例库\",\"paint-by-default/@settings-select-costume-paint\":\"绘画\",\"paint-by-default/@settings-select-costume-surprise\":\"惊喜\",\"paint-by-default/@settings-select-costume-upload\":\"上传\",\"paint-by-default/@settings-select-sound-library\":\"范例库\",\"paint-by-default/@settings-select-sound-record\":\"录制\",\"paint-by-default/@settings-select-sound-surprise\":\"惊喜\",\"paint-by-default/@settings-select-sound-upload\":\"上传\",\"paint-by-default/@settings-select-sprite-library\":\"范例库\",\"paint-by-default/@settings-select-sprite-paint\":\"绘画\",\"paint-by-default/@settings-select-sprite-surprise\":\"惊喜\",\"paint-by-default/@settings-select-sprite-upload\":\"上传\",\"block-cherry-picking/@description\":\"让你可以按住 Ctrl 键把单个积木从程序区块里拖曳出来（原来会拖曳出黏在后面的所有积木）。\",\"block-cherry-picking/@info-flipControls\":\"如果启用「功能反转」，那么拖曳单个积木就会变成预设动作，按住 Ctrl 则会变成拖曳整个程序区块。\",\"block-cherry-picking/@info-macContextDisabled\":\"在 macOS 上，用 Cmd 键代替 Ctrl 键。\",\"block-cherry-picking/@name\":\"按住 Ctrl 键拖曳单个程序积木\",\"block-cherry-picking/@settings-name-invertDrag\":\"功能反转\",\"hide-new-variables/@description\":\"建立新的变量后，不要自动在舞台上显示变量面板（清单也适用）。\",\"hide-new-variables/@name\":\"隐藏新的变量面板\",\"editor-extra-keys/@description\":\"添加更多的键到“key （） pressed？”和“按下（）键时”，例如'enter'、点、逗号等。这些键甚至对没有 Scratch Addons 的用户也有效。\",\"editor-extra-keys/@info-experimentalKeysWarn\":\"「实验中按键」包含等号、斜槓号、分号等。它们可能不适用于所有操作系统或是键盘布局。\",\"editor-extra-keys/@info-shiftKeysWarn\":\"「Shift 按键」通常是结合键，像是 Shift+ 数字键，像是井字符号、感叹号等。这些按键仅适用于「当（）键被按下」积木，而且也不一定能在所有操作系统或键盘布局上使用。\",\"editor-extra-keys/@name\":\"额外的按钮选项\",\"editor-extra-keys/@settings-name-experimentalKeys\":\"显示实验键\",\"editor-extra-keys/@settings-name-shiftKeys\":\"显示 shift 按钮\",\"hide-delete-button/@description\":\"隐藏角色、造型、音效上的删除按钮（垃圾桶图标）。如果要删除，要在项目上点击鼠标右键，使用菜单上的删除功能。\",\"hide-delete-button/@name\":\"隐藏删除按钮\",\"hide-delete-button/@settings-name-costumes\":\"造型与背景\",\"hide-delete-button/@settings-name-sounds\":\"音效\",\"hide-delete-button/@settings-name-sprites\":\"角色\",\"no-script-bumping/@description\":\"让你在移动或修改程序时，不会因为一时的程序重叠导致程序原来的位置被乱改变。\",\"no-script-bumping/@name\":\"停止自动分开重叠的程序\",\"disable-stage-drag-select/@description\":\"移除原来在编辑器上可以任意拖曳舞台上的角色的功能。除非设定该角色为可拖曳，或是你可以按住 Shift 键加以拖曳。\",\"disable-stage-drag-select/@name\":\"编辑器内不可拖曳角色\",\"move-to-top-bottom/@description\":\"在造型或是音效项目右键开启菜单时，会有移至最上面、移至最下面的选项。\",\"move-to-top-bottom/@info-developer-tools\":\"这个扩充功能之前是在「开发工具」里，现在移至这儿了！\",\"move-to-top-bottom/@name\":\"移至最上面或最下面\",\"disable-paste-offset/@description\":\"在造型编辑器上使用复制粘贴功能时，在原位置贴上，不要向右下偏移。\",\"disable-paste-offset/@name\":\"复制图案时不要偏移\",\"block-duplicate/@description\":\"透过按住 Alt 按键与拖曳程序积木，能让你更快的复制整个程序区块。加上 Ctrl 键则可以复制出你停驻的单个积木。\",\"block-duplicate/@info-mac\":\"macOS 上使用 Option 按键代替 Alt 键，Command 键取代 Ctrl 键。\",\"block-duplicate/@name\":\"按住 Alt 键以复制积木\",\"rename-broadcasts/@description\":\"添加一个选项以在 boardcasts 块的下拉列表中重命名广播消息的名字。\",\"rename-broadcasts/@name\":\"重命名广播讯息\",\"swap-local-global/@description\":\"在本来的重新命名变量或清单的面板上添加了更多功能：在「适用于所有角色」和「仅适用当前角色」之间转换。也可以用鼠标右键点击变量，在菜单中直接转换。\",\"swap-local-global/@name\":\"在「适用于所有角色」和「仅适用当前角色」之间转换\",\"editor-comment-previews/@description\":\"当你把光标停驻在积木或者折叠的注解上，能够马上预览到注解的内容。当连接的注解离积木太远，或是很多注解需要折叠时，这会很有用。\",\"editor-comment-previews/@name\":\"预览注解\",\"editor-comment-previews/@settings-name-delay\":\"延迟时间\",\"editor-comment-previews/@settings-name-follow-mouse\":\"跟随鼠标光标\",\"editor-comment-previews/@settings-name-hover-view\":\"停驻在已折叠注解时预览内容\",\"editor-comment-previews/@settings-name-hover-view-block\":\"停驻在已连接注解的积木上时预览注解内容\",\"editor-comment-previews/@settings-name-hover-view-procedure\":\"停驻在函式积木上时显示定义的注解内容\",\"editor-comment-previews/@settings-name-reduce-animation\":\"减少弹出动画\",\"editor-comment-previews/@settings-name-reduce-transparency\":\"减少透明度\",\"editor-comment-previews/@settings-select-delay-long\":\"较长\",\"editor-comment-previews/@settings-select-delay-none\":\"无\",\"editor-comment-previews/@settings-select-delay-short\":\"较短\",\"columns/@description\":\"把工具箱的积木分类改成两列显示，并把面板放置在编辑器顶部，就像 Scratch 2.0 版那样。\",\"columns/@name\":\"两列式积木菜单\",\"script-snap/@description\":\"在程序编辑区上拖曳程序时，会自动与画面的网格贴齐。\",\"script-snap/@name\":\"程序积木贴齐网格\",\"script-snap/@preset-name-default\":\"默认\",\"script-snap/@preset-name-half-block\":\"半个积木\",\"script-snap/@preset-name-whole-block\":\"整个积木\",\"script-snap/@settings-name-grid\":\"格点间距（像素）\",\"fullscreen/@description\":\"修复了一些全屏显示模式下的一些问题，让全屏时同时让浏览器也以全屏展开，且可以选择隐藏绿旗等工具栏。\",\"fullscreen/@info-hideToolbarNotice\":\"如果你启用全屏时隐藏工具栏，你可以用 ESC 键来退出全屏模式。\",\"fullscreen/@name\":\"增强全屏\",\"fullscreen/@settings-name-browserFullscreen\":\"全屏模式时同时让浏览器进入全屏\",\"fullscreen/@settings-name-hideToolbar\":\"全屏模式时隐藏工具栏\",\"hide-stage/@description\":\"在项目预览窗口上添加一个按钮，用来隐藏舞台和角色面板，按钮按钮后能让编辑区的空间变大。\",\"hide-stage/@name\":\"添加隐藏舞台与角色面板按钮\",\"editor-stepping/@description\":\"项目运行时，以颜色高亮正在执行的程序积木。\",\"editor-stepping/@name\":\"高亮执行中的程序\",\"editor-stepping/@settings-name-highlight-color\":\"高亮颜色\"}");
 
 /***/ }),
 
@@ -952,12 +952,10 @@ module.exports = JSON.parse("{\"cat-blocks/@description\":\"显示来自 2020 �
 __webpack_require__.r(__webpack_exports__);
 let changeChannel;
 let reloadChannel;
-
 if (typeof BroadcastChannel !== 'undefined') {
   changeChannel = new BroadcastChannel('addons-change');
   reloadChannel = new BroadcastChannel('addons-reload');
 }
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   changeChannel,
   reloadChannel
@@ -1004,24 +1002,21 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 /* eslint-disable no-extend-native */
+
 if (!Blob.prototype.text) {
   Blob.prototype.text = function () {
     return new Promise((resolve, reject) => {
       const fr = new FileReader();
-
       fr.onload = () => resolve(fr.result);
-
       fr.onerror = () => reject(new Error('Cannot read blob as text'));
-
       fr.readAsText(this);
     });
   };
 }
-
 if (!Array.prototype.flat) {
-  Array.prototype.flat = function (depth = 1) {
+  Array.prototype.flat = function () {
+    let depth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     const result = [];
-
     for (const i of this) {
       if (Array.isArray(i)) {
         if (depth < 1) {
@@ -1035,11 +1030,9 @@ if (!Array.prototype.flat) {
         result.push(i);
       }
     }
-
     return result;
   };
 }
-
 if (typeof queueMicrotask !== 'function') {
   window.queueMicrotask = callback => {
     Promise.resolve().then(callback);
@@ -1171,13 +1164,11 @@ __webpack_require__.r(__webpack_exports__);
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/['"()\-+,./[\]]/g, ' ').trim();
-
 const splitToWords = text => normalize(text).split(' ').filter(i => i);
-
 const parseTexts = texts => {
   const result = [];
-
   for (const {
     score,
     text
@@ -1187,60 +1178,45 @@ const parseTexts = texts => {
       words: splitToWords(text)
     });
   }
-
   return result;
 };
-
 class Search {
   constructor(texts) {
     this.items = texts.map(parseTexts);
   }
-
   search(query) {
     const terms = splitToWords(query);
     const result = [];
-
     const processItem = item => {
       let totalScore = 0;
-
       for (const term of terms) {
         let highestScoreForTerm = 0;
-
         for (const group of item) {
           for (const word of group.words) {
             const wordIndex = word.indexOf(term);
-
             if (wordIndex !== -1) {
               let multiplier;
-
               if (wordIndex === 0) {
                 multiplier = 1.5;
               } else {
                 multiplier = 1;
               }
-
               const itemScore = group.score * multiplier;
-
               if (itemScore > highestScoreForTerm) {
                 highestScoreForTerm = itemScore;
               }
             }
           }
         }
-
         if (highestScoreForTerm === 0) {
           return;
         }
-
         totalScore += highestScoreForTerm;
       }
-
       return totalScore;
     };
-
     for (let i = 0; i < this.items.length; i++) {
       const score = processItem(this.items[i]);
-
       if (score > 0) {
         result.push({
           index: i,
@@ -1248,13 +1224,10 @@ class Search {
         });
       }
     }
-
     result.sort((a, b) => b.score - a.score);
     return result;
   }
-
 }
-
 /* harmony default export */ __webpack_exports__["default"] = (Search);
 
 /***/ }),
@@ -1334,19 +1307,14 @@ var _generated_upstream_meta_json__WEBPACK_IMPORTED_MODULE_8___namespace = /*#__
 /* harmony import */ var _lib_normalize_css__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../lib/normalize.css */ "./src/lib/normalize.css");
 /* harmony import */ var _lib_normalize_css__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_lib_normalize_css__WEBPACK_IMPORTED_MODULE_20__);
 const _excluded = ["onChange", "value"];
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
 /**
  * Copyright (C) 2021 Thomas Weber
  *
@@ -1383,38 +1351,31 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 
+
+
 /* eslint-disable no-alert */
-
 /* eslint-disable no-console */
-
 /* eslint-disable react/no-multi-comp */
-
 /* eslint-disable react/jsx-no-bind */
 
 const locale = Object(_lib_detect_locale__WEBPACK_IMPORTED_MODULE_9__["detectLocale"])(Object.keys(_generated_l10n_settings_entries__WEBPACK_IMPORTED_MODULE_5__["default"]));
 document.documentElement.lang = locale;
 const addonTranslations = _generated_l10n_settings_entries__WEBPACK_IMPORTED_MODULE_5__["default"][locale] ? _generated_l10n_settings_entries__WEBPACK_IMPORTED_MODULE_5__["default"][locale]() : {};
 const settingsTranslations = _en_json__WEBPACK_IMPORTED_MODULE_6__;
-
 if (locale !== 'en') {
   const messages = _translations_json__WEBPACK_IMPORTED_MODULE_7__[locale] || _translations_json__WEBPACK_IMPORTED_MODULE_7__[locale.split('-')[0]];
-
   if (messages) {
     Object.assign(settingsTranslations, messages);
   }
 }
-
 document.title = "".concat(settingsTranslations.title, " - TurboWarp");
 const theme = Object(_lib_tw_theme_hoc_jsx__WEBPACK_IMPORTED_MODULE_10__["getInitialDarkMode"])() ? 'dark' : 'light';
 document.body.setAttribute('theme', theme);
-
 let _throttleTimeout;
-
 const postThrottledSettingsChange = store => {
   if (_throttleTimeout) {
     clearTimeout(_throttleTimeout);
   }
-
   _throttleTimeout = setTimeout(() => {
     _channels__WEBPACK_IMPORTED_MODULE_12__["default"].changeChannel.postMessage({
       version: _generated_upstream_meta_json__WEBPACK_IMPORTED_MODULE_8__.commit,
@@ -1422,11 +1383,9 @@ const postThrottledSettingsChange = store => {
     });
   }, 100);
 };
-
 const filterAddonsBySupport = () => {
   const supported = {};
   const unsupported = {};
-
   for (const [id, manifest] of Object.entries(_generated_addon_manifests__WEBPACK_IMPORTED_MODULE_4__["default"])) {
     if (manifest.unsupported) {
       unsupported[id] = manifest;
@@ -1434,18 +1393,15 @@ const filterAddonsBySupport = () => {
       supported[id] = manifest;
     }
   }
-
   return {
     supported,
     unsupported
   };
 };
-
 const {
   supported: supportedAddons,
   unsupported: unsupportedAddons
 } = filterAddonsBySupport();
-
 const groupAddons = () => {
   const groups = {
     new: {
@@ -1465,10 +1421,8 @@ const groupAddons = () => {
     }
   };
   const manifests = Object.values(supportedAddons);
-
   for (let index = 0; index < manifests.length; index++) {
     const manifest = manifests[index];
-
     if (manifest.tags.includes('new')) {
       groups.new.addons.push(index);
     } else if (manifest.tags.includes('danger') || manifest.noCompiler) {
@@ -1477,40 +1431,37 @@ const groupAddons = () => {
       groups.others.addons.push(index);
     }
   }
-
   return groups;
 };
-
 const groupedAddons = groupAddons();
-
-const CreditList = ({
-  credits
-}) => credits.map((author, index) => {
-  const isLast = index === credits.length - 1;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.credit,
-    key: index
-  }, author.link ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: author.link,
-    target: "_blank",
-    rel: "noreferrer"
-  }, author.name) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, author.name), isLast ? null : ', ');
-});
-
+const CreditList = _ref => {
+  let {
+    credits
+  } = _ref;
+  return credits.map((author, index) => {
+    const isLast = index === credits.length - 1;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.credit,
+      key: index
+    }, author.link ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      href: author.link,
+      target: "_blank",
+      rel: "noreferrer"
+    }, author.name) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, author.name), isLast ? null : ', ');
+  });
+};
 CreditList.propTypes = {
   credits: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
     name: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
     link: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string
   }))
 };
-
-const Switch = _ref => {
+const Switch = _ref2 => {
   let {
-    onChange,
-    value
-  } = _ref,
-      props = _objectWithoutProperties(_ref, _excluded);
-
+      onChange,
+      value
+    } = _ref2,
+    props = _objectWithoutProperties(_ref2, _excluded);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", _extends({
     className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.switch,
     state: value ? 'on' : 'off',
@@ -1520,30 +1471,30 @@ const Switch = _ref => {
     onClick: () => onChange(!value)
   }, props));
 };
-
 Switch.propTypes = {
   onChange: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
   value: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool
 };
-
-const Select = ({
-  onChange,
-  value,
-  values
-}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.select
-}, values.map(potentialValue => {
-  const id = potentialValue.id;
-  const selected = id === value;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    key: id,
-    onClick: () => onChange(id),
-    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.selectOption, {
-      [_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.selected]: selected
-    })
-  }, potentialValue.name);
-}));
-
+const Select = _ref3 => {
+  let {
+    onChange,
+    value,
+    values
+  } = _ref3;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.select
+  }, values.map(potentialValue => {
+    const id = potentialValue.id;
+    const selected = id === value;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      key: id,
+      onClick: () => onChange(id),
+      className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.selectOption, {
+        [_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.selected]: selected
+      })
+    }, potentialValue.name);
+  }));
+};
 Select.propTypes = {
   onChange: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
   value: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
@@ -1552,29 +1503,29 @@ Select.propTypes = {
     name: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string
   }))
 };
-
-const Tags = ({
-  manifest
-}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tagContainer
-}, manifest.tags.includes('recommended') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-  className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tag, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tagRecommended)
-}, settingsTranslations.tagRecommended), manifest.tags.includes('theme') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-  className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tag, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tagTheme)
-}, settingsTranslations.tagTheme), manifest.tags.includes('beta') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-  className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tag, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tagBeta)
-}, settingsTranslations.tagBeta), manifest.tags.includes('new') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-  className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tag, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tagNew)
-}, settingsTranslations.tagNew), manifest.tags.includes('danger') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-  className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tag, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tagDanger)
-}, settingsTranslations.tagDanger));
-
+const Tags = _ref4 => {
+  let {
+    manifest
+  } = _ref4;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tagContainer
+  }, manifest.tags.includes('recommended') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tag, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tagRecommended)
+  }, settingsTranslations.tagRecommended), manifest.tags.includes('theme') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tag, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tagTheme)
+  }, settingsTranslations.tagTheme), manifest.tags.includes('beta') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tag, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tagBeta)
+  }, settingsTranslations.tagBeta), manifest.tags.includes('new') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tag, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tagNew)
+  }, settingsTranslations.tagNew), manifest.tags.includes('danger') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tag, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.tagDanger)
+  }, settingsTranslations.tagDanger));
+};
 Tags.propTypes = {
   manifest: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
     tags: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired).isRequired
   }).isRequired
 };
-
 class TextInput extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
@@ -1587,29 +1538,24 @@ class TextInput extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       focused: false
     };
   }
-
   handleKeyPress(e) {
     if (e.key === 'Enter') {
       this.handleFlush(e);
       e.target.blur();
     }
   }
-
   handleFocus() {
     this.setState({
       focused: true
     });
   }
-
   handleFlush(e) {
     this.setState({
       focused: false
     });
-
     if (this.state.value === null) {
       return;
     }
-
     if (this.props.type === 'number') {
       let value = +this.state.value;
       const min = e.target.min;
@@ -1622,12 +1568,10 @@ class TextInput extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     } else {
       this.props.onChange(this.state.value);
     }
-
     this.setState({
       value: null
     });
   }
-
   handleChange(e) {
     e.persist();
     this.setState({
@@ -1639,7 +1583,6 @@ class TextInput extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       }
     });
   }
-
   render() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", _extends({}, this.props, {
       value: this.state.value === null ? this.props.value : this.state.value,
@@ -1649,57 +1592,53 @@ class TextInput extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       onKeyPress: this.handleKeyPress
     }));
   }
-
 }
-
 TextInput.propTypes = {
   onChange: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
   type: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   value: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number])
 };
-
 const ColorInput = props => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
   type: "color",
   id: props.id,
   value: props.value,
   onChange: props.onChange
 });
-
 ColorInput.propTypes = {
   id: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
   onChange: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
   value: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired
 };
-
-const ResetButton = ({
-  addonId,
-  settingId,
-  forTextInput
-}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-  className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.button, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.resetSettingButton),
-  onClick: () => _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].setAddonSetting(addonId, settingId, null),
-  title: settingsTranslations.reset,
-  "data-for-text-input": forTextInput
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-  src: _icons_undo_svg__WEBPACK_IMPORTED_MODULE_15___default.a,
-  alt: settingsTranslations.reset
-}));
-
+const ResetButton = _ref5 => {
+  let {
+    addonId,
+    settingId,
+    forTextInput
+  } = _ref5;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.button, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.resetSettingButton),
+    onClick: () => _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].setAddonSetting(addonId, settingId, null),
+    title: settingsTranslations.reset,
+    "data-for-text-input": forTextInput
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: _icons_undo_svg__WEBPACK_IMPORTED_MODULE_15___default.a,
+    alt: settingsTranslations.reset
+  }));
+};
 ResetButton.propTypes = {
   addonId: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   settingId: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   forTextInput: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool
 };
-
-const Setting = ({
-  addonId,
-  setting,
-  value
-}) => {
+const Setting = _ref6 => {
+  let {
+    addonId,
+    setting,
+    value
+  } = _ref6;
   if (!_settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].evaluateCondition(addonId, setting.if)) {
     return null;
   }
-
   const settingId = setting.id;
   const settingName = addonTranslations["".concat(addonId, "/@settings-name-").concat(settingId)] || setting.name;
   const uniqueId = "setting/".concat(addonId, "/").concat(settingId);
@@ -1735,18 +1674,20 @@ const Setting = ({
     settingId: settingId
   })), setting.type === 'select' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, label, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Select, {
     value: value,
-    values: setting.potentialValues.map(({
-      id,
-      name
-    }) => ({
-      id,
-      name: addonTranslations["".concat(addonId, "/@settings-select-").concat(settingId, "-").concat(id)] || name
-    })),
+    values: setting.potentialValues.map(_ref7 => {
+      let {
+        id,
+        name
+      } = _ref7;
+      return {
+        id,
+        name: addonTranslations["".concat(addonId, "/@settings-select-").concat(settingId, "-").concat(id)] || name
+      };
+    }),
     onChange: v => _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].setAddonSetting(addonId, settingId, v),
     setting: setting
   })));
 };
-
 Setting.propTypes = {
   addonId: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   setting: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
@@ -1768,44 +1709,46 @@ Setting.propTypes = {
   }),
   value: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.number])
 };
-
-const Notice = ({
-  type,
-  text
-}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.notice,
-  type: type
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.noticeIcon,
-  src: _icons_info_svg__WEBPACK_IMPORTED_MODULE_17___default.a,
-  alt: "",
-  draggable: false
-})), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, text));
-
+const Notice = _ref8 => {
+  let {
+    type,
+    text
+  } = _ref8;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.notice,
+    type: type
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.noticeIcon,
+    src: _icons_info_svg__WEBPACK_IMPORTED_MODULE_17___default.a,
+    alt: "",
+    draggable: false
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, text));
+};
 Notice.propTypes = {
   type: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   text: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string
 };
-
-const Presets = ({
-  addonId,
-  presets
-}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.setting, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.presets)
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.settingLabel
-}, settingsTranslations.presets), presets.map(preset => {
-  const presetId = preset.id;
-  const name = addonTranslations["".concat(addonId, "/@preset-name-").concat(presetId)] || preset.name;
-  const description = addonTranslations["".concat(addonId, "/@preset-description-").concat(presetId)] || preset.description;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    key: presetId,
-    title: description,
-    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.button, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.presetButton),
-    onClick: () => _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].applyAddonPreset(addonId, presetId)
-  }, name);
-}));
-
+const Presets = _ref9 => {
+  let {
+    addonId,
+    presets
+  } = _ref9;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.setting, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.presets)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.settingLabel
+  }, settingsTranslations.presets), presets.map(preset => {
+    const presetId = preset.id;
+    const name = addonTranslations["".concat(addonId, "/@preset-name-").concat(presetId)] || preset.name;
+    const description = addonTranslations["".concat(addonId, "/@preset-description-").concat(presetId)] || preset.description;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      key: presetId,
+      title: description,
+      className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.button, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.presetButton),
+      onClick: () => _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].applyAddonPreset(addonId, presetId)
+    }, name);
+  }));
+};
 Presets.propTypes = {
   addonId: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   presets: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
@@ -1815,87 +1758,88 @@ Presets.propTypes = {
     values: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({})
   }))
 };
-
-const Addon = ({
-  id,
-  settings,
-  manifest,
-  extended
-}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addon, {
-    [_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonDirty]: settings.dirty
-  })
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonHeader
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonTitle
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonSwitch
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Switch, {
-  value: settings.enabled,
-  onChange: value => {
-    if (!value || !manifest.tags.includes('danger') || confirm(settingsTranslations.enableDangerous)) {
-      _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].setAddonEnabled(id, value);
+const Addon = _ref10 => {
+  let {
+    id,
+    settings,
+    manifest,
+    extended
+  } = _ref10;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addon, {
+      [_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonDirty]: settings.dirty
+    })
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonHeader
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonTitle
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonSwitch
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Switch, {
+    value: settings.enabled,
+    onChange: value => {
+      if (!value || !manifest.tags.includes('danger') || confirm(settingsTranslations.enableDangerous)) {
+        _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].setAddonEnabled(id, value);
+      }
     }
-  }
-})), manifest.tags.includes('theme') ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.extensionImage,
-  src: _icons_brush_svg__WEBPACK_IMPORTED_MODULE_14___default.a,
-  draggable: false,
-  alt: ""
-}) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.extensionImage,
-  src: _icons_extension_svg__WEBPACK_IMPORTED_MODULE_13___default.a,
-  draggable: false,
-  alt: ""
-}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonTitleText
-}, addonTranslations["".concat(id, "/@name")] || manifest.name), extended && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonId
-}, "(".concat(id, ")"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Tags, {
-  manifest: manifest
-}), !settings.enabled && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.inlineDescription
-}, addonTranslations["".concat(id, "/@description")] || manifest.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonOperations
-}, settings.enabled && manifest.settings && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.resetButton,
-  onClick: () => _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].resetAddon(id),
-  title: settingsTranslations.reset
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-  src: _icons_undo_svg__WEBPACK_IMPORTED_MODULE_15___default.a,
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.resetButtonImage,
-  alt: settingsTranslations.reset,
-  draggable: false
-})))), settings.enabled && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonDetails
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.description
-}, addonTranslations["".concat(id, "/@description")] || manifest.description), manifest.credits && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.creditContainer
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.creditTitle
-}, settingsTranslations.credits), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CreditList, {
-  credits: manifest.credits
-})), manifest.info && manifest.info.map(info => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Notice, {
-  key: info.id,
-  type: info.type,
-  text: addonTranslations["".concat(id, "/@info-").concat(info.id)] || info.text
-})), manifest.noCompiler && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Notice, {
-  type: "warning",
-  text: settingsTranslations.noCompiler
-}), manifest.settings && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.settingContainer
-}, manifest.settings.map(setting => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Setting, {
-  key: setting.id,
-  addonId: id,
-  setting: setting,
-  value: settings[setting.id]
-})), manifest.presets && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Presets, {
-  addonId: id,
-  presets: manifest.presets
-}))));
-
+  })), manifest.tags.includes('theme') ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.extensionImage,
+    src: _icons_brush_svg__WEBPACK_IMPORTED_MODULE_14___default.a,
+    draggable: false,
+    alt: ""
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.extensionImage,
+    src: _icons_extension_svg__WEBPACK_IMPORTED_MODULE_13___default.a,
+    draggable: false,
+    alt: ""
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonTitleText
+  }, addonTranslations["".concat(id, "/@name")] || manifest.name), extended && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonId
+  }, "(".concat(id, ")"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Tags, {
+    manifest: manifest
+  }), !settings.enabled && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.inlineDescription
+  }, addonTranslations["".concat(id, "/@description")] || manifest.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonOperations
+  }, settings.enabled && manifest.settings && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.resetButton,
+    onClick: () => _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].resetAddon(id),
+    title: settingsTranslations.reset
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: _icons_undo_svg__WEBPACK_IMPORTED_MODULE_15___default.a,
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.resetButtonImage,
+    alt: settingsTranslations.reset,
+    draggable: false
+  })))), settings.enabled && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonDetails
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.description
+  }, addonTranslations["".concat(id, "/@description")] || manifest.description), manifest.credits && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.creditContainer
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.creditTitle
+  }, settingsTranslations.credits), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CreditList, {
+    credits: manifest.credits
+  })), manifest.info && manifest.info.map(info => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Notice, {
+    key: info.id,
+    type: info.type,
+    text: addonTranslations["".concat(id, "/@info-").concat(info.id)] || info.text
+  })), manifest.noCompiler && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Notice, {
+    type: "warning",
+    text: settingsTranslations.noCompiler
+  }), manifest.settings && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.settingContainer
+  }, manifest.settings.map(setting => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Setting, {
+    key: setting.id,
+    addonId: id,
+    setting: setting,
+    value: settings[setting.id]
+  })), manifest.presets && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Presets, {
+    addonId: id,
+    presets: manifest.presets
+  }))));
+};
 Addon.propTypes = {
   id: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   settings: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
@@ -1918,7 +1862,6 @@ Addon.propTypes = {
   }),
   extended: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool
 };
-
 const Dirty = props => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
   className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.dirtyOuter
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1927,25 +1870,28 @@ const Dirty = props => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a
   className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(_settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.button, _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.dirtyButton),
   onClick: props.onReloadNow
 }, settingsTranslations.dirtyButton)));
-
 Dirty.propTypes = {
   onReloadNow: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func
 };
-
-const UnsupportedAddons = ({
-  addons: addonList
-}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.unsupportedContainer
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.unsupportedText
-}, settingsTranslations.unsupported), addonList.map(({
-  id,
-  manifest
-}, index) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-  key: id,
-  className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.unsupportedAddon
-}, addonTranslations["".concat(id, "/@name")] || manifest.name, index !== addonList.length - 1 && ', ')));
-
+const UnsupportedAddons = _ref11 => {
+  let {
+    addons: addonList
+  } = _ref11;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.unsupportedContainer
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.unsupportedText
+  }, settingsTranslations.unsupported), addonList.map((_ref12, index) => {
+    let {
+      id,
+      manifest
+    } = _ref12;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      key: id,
+      className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.unsupportedAddon
+    }, addonTranslations["".concat(id, "/@name")] || manifest.name, index !== addonList.length - 1 && ', ');
+  }));
+};
 UnsupportedAddons.propTypes = {
   addons: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
     id: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
@@ -1954,22 +1900,26 @@ UnsupportedAddons.propTypes = {
     })
   }))
 };
-
-const InternalAddonList = ({
-  addons,
-  extended
-}) => addons.map(({
-  id,
-  manifest,
-  state
-}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Addon, {
-  key: id,
-  id: id,
-  settings: state,
-  manifest: manifest,
-  extended: extended
-}));
-
+const InternalAddonList = _ref13 => {
+  let {
+    addons,
+    extended
+  } = _ref13;
+  return addons.map(_ref14 => {
+    let {
+      id,
+      manifest,
+      state
+    } = _ref14;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Addon, {
+      key: id,
+      id: id,
+      settings: state,
+      manifest: manifest,
+      extended: extended
+    });
+  });
+};
 class AddonGroup extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
@@ -1977,12 +1927,10 @@ class AddonGroup extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
       open: props.open
     };
   }
-
   render() {
     if (this.props.addons.length === 0) {
       return null;
     }
-
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.addonGroup
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -2002,9 +1950,7 @@ class AddonGroup extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component 
       extended: this.props.extended
     }));
   }
-
 }
-
 AddonGroup.propTypes = {
   label: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   open: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
@@ -2015,13 +1961,12 @@ AddonGroup.propTypes = {
   })).isRequired,
   extended: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool.isRequired
 };
-
-const addonToSearchItem = ({
-  id,
-  manifest
-}) => {
+const addonToSearchItem = _ref15 => {
+  let {
+    id,
+    manifest
+  } = _ref15;
   const texts = new Set();
-
   const addText = (score, text) => {
     if (text) {
       texts.add({
@@ -2030,20 +1975,17 @@ const addonToSearchItem = ({
       });
     }
   };
-
   addText(1, id);
   addText(1, manifest.name);
   addText(1, addonTranslations["".concat(id, "/@name")]);
   addText(0.5, manifest.description);
   addText(0.5, addonTranslations["".concat(id, "/@description")]);
-
   if (manifest.settings) {
     for (const setting of manifest.settings) {
       addText(0.25, setting.name);
       addText(0.25, addonTranslations["".concat(id, "/@settings-name-").concat(setting.id)]);
     }
   }
-
   if (manifest.presets) {
     for (const preset of manifest.presets) {
       addText(0.1, preset.name);
@@ -2052,65 +1994,60 @@ const addonToSearchItem = ({
       addText(0.1, addonTranslations["".concat(id, "/@preset-description-").concat(preset.id)]);
     }
   }
-
   for (const tag of manifest.tags) {
     const key = "tags.".concat(tag);
-
     if (settingsTranslations[key]) {
       addText(0.25, settingsTranslations[key]);
     }
   }
-
   if (manifest.info) {
     for (const info of manifest.info) {
       addText(0.25, info.text);
       addText(0.25, addonTranslations["".concat(id, "/@info-").concat(info.id)]);
     }
   }
-
   return texts;
 };
-
 class AddonList extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
     this.search = new _search__WEBPACK_IMPORTED_MODULE_3__["default"](this.props.addons.map(addonToSearchItem));
     this.groups = [];
   }
-
   render() {
     if (this.props.search) {
-      const addons = this.search.search(this.props.search).slice(0, 20).map(({
-        index
-      }) => this.props.addons[index]);
-
+      const addons = this.search.search(this.props.search).slice(0, 20).map(_ref16 => {
+        let {
+          index
+        } = _ref16;
+        return this.props.addons[index];
+      });
       if (addons.length === 0) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.noResults
         }, settingsTranslations.noResults);
       }
-
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(InternalAddonList, {
         addons: addons,
         extended: this.props.extended
       }));
     }
-
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, Object.entries(groupedAddons).map(([id, {
-      label,
-      addons,
-      open
-    }]) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AddonGroup, {
-      key: id,
-      label: label,
-      open: open,
-      addons: addons.map(index => this.props.addons[index]),
-      extended: this.props.extended
-    })));
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, Object.entries(groupedAddons).map(_ref17 => {
+      let [id, {
+        label,
+        addons,
+        open
+      }] = _ref17;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AddonGroup, {
+        key: id,
+        label: label,
+        open: open,
+        addons: addons.map(index => this.props.addons[index]),
+        extended: this.props.extended
+      });
+    }));
   }
-
 }
-
 AddonList.propTypes = {
   addons: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
     id: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
@@ -2120,7 +2057,6 @@ AddonList.propTypes = {
   search: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
   extended: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool.isRequired
 };
-
 class AddonSettingsComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
@@ -2141,7 +2077,6 @@ class AddonSettingsComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.
       search: location.hash ? location.hash.substr(1) : '',
       extended: false
     }, this.readFullAddonState());
-
     if (_channels__WEBPACK_IMPORTED_MODULE_12__["default"].changeChannel) {
       _channels__WEBPACK_IMPORTED_MODULE_12__["default"].changeChannel.addEventListener('message', () => {
         _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].readLocalStorage();
@@ -2149,46 +2084,38 @@ class AddonSettingsComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.
       });
     }
   }
-
   componentDidMount() {
     _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].addEventListener('setting-changed', this.handleSettingStoreChanged);
     document.body.addEventListener('keydown', this.handleKeyDown);
   }
-
   componentWillUnmount() {
     _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].removeEventListener('setting-changed', this.handleSettingStoreChanged);
     document.body.removeEventListener('keydown', this.handleKeyDown);
   }
-
   readFullAddonState() {
     const result = {};
-
     for (const [id, manifest] of Object.entries(supportedAddons)) {
       const enabled = _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].getAddonEnabled(id);
       const addonState = {
         enabled: enabled,
         dirty: false
       };
-
       if (manifest.settings) {
         for (const setting of manifest.settings) {
           addonState[setting.id] = _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].getAddonSetting(id, setting.id);
         }
       }
-
       result[id] = addonState;
     }
-
     return result;
   }
-
   handleSettingStoreChanged(e) {
     const {
       addonId,
       settingId,
       value
-    } = e.detail; // If channels are unavailable, every change requires reload.
-
+    } = e.detail;
+    // If channels are unavailable, every change requires reload.
     const reloadRequired = e.detail.reloadRequired || !_channels__WEBPACK_IMPORTED_MODULE_12__["default"].changeChannel;
     this.setState(state => {
       const newState = {
@@ -2197,26 +2124,21 @@ class AddonSettingsComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.
           dirty: true
         })
       };
-
       if (reloadRequired) {
         newState.dirty = true;
       }
-
       return newState;
     });
-
     if (!reloadRequired) {
       postThrottledSettingsChange(_settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].store);
     }
   }
-
   handleReloadNow() {
     // Value posted does not matter
     _channels__WEBPACK_IMPORTED_MODULE_12__["default"].reloadChannel.postMessage(0);
     this.setState({
       dirty: false
     });
-
     for (const addonId of Object.keys(supportedAddons)) {
       if (this.state[addonId].dirty) {
         this.setState(state => ({
@@ -2227,7 +2149,6 @@ class AddonSettingsComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.
       }
     }
   }
-
   handleResetAll() {
     if (confirm(settingsTranslations.confirmResetAll)) {
       _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].resetAllAddons();
@@ -2236,14 +2157,12 @@ class AddonSettingsComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.
       });
     }
   }
-
   handleExport() {
     const exportedData = _settings_store_singleton__WEBPACK_IMPORTED_MODULE_11__["default"].export({
       theme
     });
     this.props.onExportSettings(exportedData);
   }
-
   handleImport() {
     const fileSelector = document.createElement('input');
     fileSelector.type = 'file';
@@ -2253,11 +2172,9 @@ class AddonSettingsComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.
     document.body.removeChild(fileSelector);
     fileSelector.addEventListener('change', async () => {
       const file = fileSelector.files[0];
-
       if (!file) {
         return;
       }
-
       try {
         const text = await file.text();
         const data = JSON.parse(text);
@@ -2271,56 +2188,54 @@ class AddonSettingsComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.
       }
     });
   }
-
   handleSearch(e) {
     const value = e.target.value;
     this.setState({
       search: value
     });
   }
-
   handleClickSearchButton() {
     this.setState({
       search: ''
     });
     this.searchBar.focus();
   }
-
   handleClickVersion() {
     this.setState({
       extended: !this.state.extended
     });
   }
-
   searchRef(searchBar) {
     this.searchBar = searchBar;
   }
-
   handleKeyDown(e) {
     const key = e.key;
-
     if (key.length === 1 && key !== ' ' && e.target === document.body && !(e.ctrlKey || e.metaKey || e.altKey)) {
       this.searchBar.focus();
-    } // Only preventDefault() if the search bar isn't already focused so
+    }
+    // Only preventDefault() if the search bar isn't already focused so
     // that we don't break the browser's builtin ctrl+f
-
-
     if (key === 'f' && (e.ctrlKey || e.metaKey) && document.activeElement !== this.searchBar) {
       this.searchBar.focus();
       e.preventDefault();
     }
   }
-
   render() {
-    const addonState = Object.entries(supportedAddons).map(([id, manifest]) => ({
-      id,
-      manifest,
-      state: this.state[id]
-    }));
-    const unsupported = Object.entries(unsupportedAddons).map(([id, manifest]) => ({
-      id,
-      manifest
-    }));
+    const addonState = Object.entries(supportedAddons).map(_ref18 => {
+      let [id, manifest] = _ref18;
+      return {
+        id,
+        manifest,
+        state: this.state[id]
+      };
+    });
+    const unsupported = Object.entries(unsupportedAddons).map(_ref19 => {
+      let [id, manifest] = _ref19;
+      return {
+        id,
+        manifest
+      };
+    });
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: _settings_css__WEBPACK_IMPORTED_MODULE_18___default.a.container
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2380,9 +2295,7 @@ class AddonSettingsComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.
     // eslint-disable-next-line max-len
     "You have enabled debug mode. (Addons version ".concat(_generated_upstream_meta_json__WEBPACK_IMPORTED_MODULE_8__.commit, ")") : "Addons version ".concat(_generated_upstream_meta_json__WEBPACK_IMPORTED_MODULE_8__.commit))))));
   }
-
 }
-
 AddonSettingsComponent.propTypes = {
   onExportSettings: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func
 };
@@ -2418,60 +2331,50 @@ __webpack_require__.r(__webpack_exports__);
  * @fileoverview
  * Utility function to detect locale from the browser setting or paramenter on the URL.
  */
- // tw: read language from localStorage
 
+
+
+// tw: read language from localStorage
 const LANGUAGE_KEY = 'tw:language';
+
 /**
  * look for language setting in the browser. Check against supported locales.
  * If there's a parameter in the URL, override the browser setting
  * @param {Array.string} supportedLocales An array of supported locale codes.
  * @return {string} the preferred locale
  */
-
 const detectLocale = supportedLocales => {
   // tw: read language from localStorage
   try {
     const storedLanguage = localStorage.getItem(LANGUAGE_KEY);
-
     if (storedLanguage && supportedLocales.includes(storedLanguage)) {
       return storedLanguage;
     }
-  } catch (e) {
-    /* ignore */
-  }
-
+  } catch (e) {/* ignore */}
   let locale = 'en'; // default
-
   let browserLocale = window.navigator.userLanguage || window.navigator.language;
-  browserLocale = browserLocale.toLowerCase(); // try to set locale from browserLocale
-
+  browserLocale = browserLocale.toLowerCase();
+  // try to set locale from browserLocale
   if (supportedLocales.includes(browserLocale)) {
     locale = browserLocale;
   } else {
     browserLocale = browserLocale.split('-')[0];
-
     if (supportedLocales.includes(browserLocale)) {
       locale = browserLocale;
     }
   }
-
-  const queryParams = query_string__WEBPACK_IMPORTED_MODULE_0___default.a.parse(location.search); // Flatten potential arrays and remove falsy values
-
+  const queryParams = query_string__WEBPACK_IMPORTED_MODULE_0___default.a.parse(location.search);
+  // Flatten potential arrays and remove falsy values
   const potentialLocales = [].concat(queryParams.locale, queryParams.lang).filter(l => l);
-
   if (!potentialLocales.length) {
     return locale;
   }
-
   const urlLocale = potentialLocales[0].toLowerCase();
-
   if (supportedLocales.includes(urlLocale)) {
     return urlLocale;
   }
-
   return locale;
 };
-
 
 
 /***/ }),
@@ -2487,20 +2390,20 @@ const detectLocale = supportedLocales => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ((filename, blob) => {
   const downloadLink = document.createElement('a');
-  document.body.appendChild(downloadLink); // Use special ms version if available to get it working on Edge.
+  document.body.appendChild(downloadLink);
 
+  // Use special ms version if available to get it working on Edge.
   if (navigator.msSaveOrOpenBlob) {
     navigator.msSaveOrOpenBlob(blob, filename);
     return;
   }
-
   if ('download' in HTMLAnchorElement.prototype) {
     const url = window.URL.createObjectURL(blob);
     downloadLink.href = url;
     downloadLink.download = filename;
     downloadLink.type = blob.type;
-    downloadLink.click(); // remove the link after a timeout to prevent a crash on iOS 13 Safari
-
+    downloadLink.click();
+    // remove the link after a timeout to prevent a crash on iOS 13 Safari
     window.setTimeout(() => {
       document.body.removeChild(downloadLink);
       window.URL.revokeObjectURL(url);
@@ -2509,12 +2412,10 @@ __webpack_require__.r(__webpack_exports__);
     // iOS 12 Safari, open a new page and set href to data-uri
     let popup = window.open('', '_blank');
     const reader = new FileReader();
-
     reader.onloadend = function () {
       popup.location.href = reader.result;
       popup = null;
     };
-
     reader.readAsDataURL(blob);
   }
 });
@@ -2566,8 +2467,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _raw_loader_tw_theme_dark_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./tw-theme-dark.css */ "./node_modules/raw-loader/index.js!./src/lib/tw-theme-dark.css");
 /* harmony import */ var _raw_loader_tw_theme_dark_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_raw_loader_tw_theme_dark_css__WEBPACK_IMPORTED_MODULE_1__);
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
 const THEME_KEY = 'tw:theme';
@@ -2575,18 +2475,16 @@ const darkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 const getInitialDarkMode = () => {
   try {
     const item = localStorage.getItem(THEME_KEY);
-
     if (item !== null) {
       return item === 'dark';
     }
-  } catch (e) {// ignore
+  } catch (e) {
+    // ignore
   }
-
   return darkMediaQuery.matches;
 };
 const darkModeStylesheet = document.createElement('style');
 darkModeStylesheet.textContent = _raw_loader_tw_theme_dark_css__WEBPACK_IMPORTED_MODULE_1___default.a;
-
 const ThemeHOC = function ThemeHOC(WrappedComponent) {
   class ThemeComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor(props) {
@@ -2597,36 +2495,30 @@ const ThemeHOC = function ThemeHOC(WrappedComponent) {
         dark: getInitialDarkMode()
       };
     }
-
     componentDidMount() {
       // media query does not have listeners in legacy edge
       if (darkMediaQuery.addEventListener) {
         darkMediaQuery.addEventListener('change', this.handleQueryChange);
       }
-
       this.updateDark();
     }
-
     componentDidUpdate() {
       try {
         localStorage.setItem(THEME_KEY, this.state.dark ? 'dark' : 'light');
-      } catch (e) {// ignore
+      } catch (e) {
+        // ignore
       }
-
       this.updateDark();
     }
-
     componentWillUnmount() {
       // media query does not have listeners in legacy edge
       if (darkMediaQuery.removeEventListener) {
         darkMediaQuery.removeEventListener('change', this.handleQueryChange);
       }
     }
-
     updateDark() {
       const dark = this.state.dark;
       document.body.setAttribute('theme', dark ? 'dark' : 'light');
-
       if (dark && !darkModeStylesheet.parentNode) {
         // Append at the start of <body> we override scratch-gui styles in <head>
         // but are overridden by addon styles at the end of <body>
@@ -2635,31 +2527,25 @@ const ThemeHOC = function ThemeHOC(WrappedComponent) {
         darkModeStylesheet.parentNode.removeChild(darkModeStylesheet);
       }
     }
-
     handleQueryChange() {
       this.setState({
         dark: darkMediaQuery.matches
       });
     }
-
     handleClickTheme() {
       this.setState(state => ({
         dark: !state.dark
       }));
     }
-
     render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrappedComponent, _extends({
         onClickTheme: this.handleClickTheme,
         isDark: this.state.dark
       }, this.props));
     }
-
   }
-
   return ThemeComponent;
 };
-
 
 
 /***/ }),
@@ -2705,7 +2591,6 @@ const onExportSettings = settings => {
   const blob = new Blob([JSON.stringify(settings)]);
   Object(_lib_download_blob_js__WEBPACK_IMPORTED_MODULE_2__["default"])('turbowarp-addon-settings.json', blob);
 };
-
 react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_addons_settings_settings_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
   onExportSettings: onExportSettings
 }), _app_target__WEBPACK_IMPORTED_MODULE_4__["default"]);
@@ -2721,12 +2606,12 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEB
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const appTarget = document.getElementById('app'); // Remove everything from the target to fix macOS Safari "Save Page As",
+const appTarget = document.getElementById('app');
 
+// Remove everything from the target to fix macOS Safari "Save Page As",
 while (appTarget.firstChild) {
   appTarget.removeChild(appTarget.firstChild);
 }
-
 document.body.classList.add('tw-loaded');
 /* harmony default export */ __webpack_exports__["default"] = (appTarget);
 

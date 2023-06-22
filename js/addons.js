@@ -93,13 +93,12 @@ __webpack_require__.r(__webpack_exports__);
 // applied in. Items later in this list are given higher precedence. Addons not listed
 // here are implied to have the lowest possible precedence.
 const addonPrecedence = ['columns', 'editor-stage-left', 'editor-theme3'];
+
 /**
  * @param {string} addonId The addon ID
  * @returns {number} An integer >= 0
  */
-
 const getPrecedence = addonId => addonPrecedence.indexOf(addonId) + 1;
-
 /* harmony default export */ __webpack_exports__["default"] = (getPrecedence);
 
 /***/ }),
@@ -132,10 +131,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "singleStep", function() { return singleStep; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setup", function() { return setup; });
 /* harmony import */ var _event_target_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../event-target.js */ "./src/addons/event-target.js");
+ /* inserted by pull.js */
 
-/* inserted by pull.js */
 // https://github.com/LLK/scratch-vm/blob/bb352913b57991713a5ccf0b611fda91056e14ec/src/engine/thread.js#L198
-
 const STATUS_RUNNING = 0;
 const STATUS_PROMISE_WAIT = 1;
 const STATUS_YIELD = 2;
@@ -149,18 +147,18 @@ let steppingThread = null;
 const eventTarget = new _event_target_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
 let audioContextStateChange = Promise.resolve();
 const isPaused = () => paused;
-
 const pauseThread = thread => {
   if (thread.updateMonitor || pausedThreadState.has(thread)) {
     // Thread is already paused or shouldn't be paused.
     return;
   }
-
   const pauseState = {
     time: vm.runtime.currentMSecs,
     status: thread.status
   };
-  pausedThreadState.set(thread, pauseState); // Pausing a thread now works by just setting its status to STATUS_PROMISE_WAIT.
+  pausedThreadState.set(thread, pauseState);
+
+  // Pausing a thread now works by just setting its status to STATUS_PROMISE_WAIT.
   // At the start of each frame, we make sure each paused thread is still paused.
   // This is really the best way to implement this.
   // Converting thread.status into a getter/setter causes Scratch's sequencer to permanently
@@ -168,18 +166,14 @@ const pauseThread = thread => {
   //    very hot functions to be deoptimized.
   // Trapping sequencer.stepThread to no-op for a paused thread causes Scratch's sequencer
   //    to waste 24ms of CPU time every frame because it thinks a thread is running.
-
   thread.status = STATUS_PROMISE_WAIT;
 };
-
 const ensurePausedThreadIsStillPaused = thread => {
   if (thread.status === STATUS_DONE) {
     // If a paused thread is finished by single stepping, let it keep being done.
     return;
   }
-
   const pauseState = pausedThreadState.get(thread);
-
   if (pauseState) {
     if (thread.status !== STATUS_PROMISE_WAIT) {
       // We'll record the change so we can properly resume the thread, but the thread must still be paused for now.
@@ -188,35 +182,28 @@ const ensurePausedThreadIsStillPaused = thread => {
     }
   }
 };
-
 const setSteppingThread = thread => {
   steppingThread = thread;
 };
-
 const compensateForTimePassedWhilePaused = (thread, pauseState) => {
   // TW: Compiled threads store their timer in a different place.
   if (thread.timer) {
     thread.timer.startTime += vm.runtime.currentMSecs - pauseState.time;
   }
-
   const stackFrame = thread.peekStackFrame();
-
   if (stackFrame && stackFrame.executionContext && stackFrame.executionContext.timer) {
     stackFrame.executionContext.timer.startTime += vm.runtime.currentMSecs - pauseState.time;
   }
 };
-
 const stepUnsteppedThreads = lastSteppedThread => {
   // If we paused in the middle of a tick, we need to make sure to step the scripts that didn't get
   // stepped in that tick to avoid affecting project behavior.
   const threads = vm.runtime.threads;
   const startingIndex = getThreadIndex(lastSteppedThread);
-
   if (startingIndex !== -1) {
     for (let i = startingIndex; i < threads.length; i++) {
       const thread = threads[i];
       const status = thread.status;
-
       if (status === STATUS_RUNNING || status === STATUS_YIELD || status === STATUS_YIELD_TICK) {
         vm.runtime.sequencer.activeThread = thread;
         vm.runtime.sequencer.stepThread(thread);
@@ -224,53 +211,45 @@ const stepUnsteppedThreads = lastSteppedThread => {
     }
   }
 };
-
 const setPaused = _paused => {
   const didChange = paused !== _paused;
-
   if (didChange) {
     paused = _paused;
     eventTarget.dispatchEvent(new CustomEvent("change"));
-  } // Don't check didChange as new threads could've started that we need to pause.
+  }
 
-
+  // Don't check didChange as new threads could've started that we need to pause.
   if (paused) {
     audioContextStateChange = audioContextStateChange.then(() => {
       return vm.runtime.audioEngine.audioContext.suspend();
     });
-
     if (!vm.runtime.ioDevices.clock._paused) {
       vm.runtime.ioDevices.clock.pause();
     }
-
     vm.runtime.threads.forEach(pauseThread);
     const activeThread = vm.runtime.sequencer.activeThread;
-
     if (activeThread) {
       setSteppingThread(activeThread);
       eventTarget.dispatchEvent(new CustomEvent("step"));
     }
-  } // Only run unpausing logic when pause state changed to avoid unnecessary work
+  }
 
-
+  // Only run unpausing logic when pause state changed to avoid unnecessary work
   if (!paused && didChange) {
     audioContextStateChange = audioContextStateChange.then(() => {
       return vm.runtime.audioEngine.audioContext.resume();
     });
     vm.runtime.ioDevices.clock.resume();
-
     for (const thread of vm.runtime.threads) {
       const pauseState = pausedThreadState.get(thread);
-
       if (pauseState) {
         compensateForTimePassedWhilePaused(thread, pauseState);
         thread.status = pauseState.status;
       }
     }
-
     pausedThreadState = new WeakMap();
-    const lastSteppedThread = steppingThread; // This must happen after the "change" event is fired to fix https://github.com/ScratchAddons/ScratchAddons/issues/4281
-
+    const lastSteppedThread = steppingThread;
+    // This must happen after the "change" event is fired to fix https://github.com/ScratchAddons/ScratchAddons/issues/4281
     stepUnsteppedThreads(lastSteppedThread);
     steppingThread = null;
   }
@@ -281,33 +260,30 @@ const onPauseChanged = listener => {
 const onSingleStep = listener => {
   eventTarget.addEventListener("step", listener);
 };
-const getRunningThread = () => steppingThread; // A modified version of this function
+const getRunningThread = () => steppingThread;
+
+// A modified version of this function
 // https://github.com/LLK/scratch-vm/blob/0e86a78a00db41af114df64255e2cd7dd881329f/src/engine/sequencer.js#L179
 // Returns if we should continue executing this thread.
-
 const singleStepThread = thread => {
   if (thread.status === STATUS_DONE) {
     return false;
-  } // TW: Can't single-step compiled threads
-
-
+  }
+  // TW: Can't single-step compiled threads
   if (thread.isCompiled) {
     return false;
   }
-
   const currentBlockId = thread.peekStack();
-
   if (!currentBlockId) {
     thread.popStack();
-
     if (thread.stack.length === 0) {
       thread.status = STATUS_DONE;
       return false;
     }
   }
-
   pauseNewThreads = true;
   vm.runtime.sequencer.activeThread = thread;
+
   /*
     We need to call execute(this, thread) like the original sequencer. We don't
     have access to that method, so we need to force the original stepThread to run
@@ -317,47 +293,38 @@ const singleStepThread = thread => {
     will end the function early. We then have to set it back to normal afterward.
      Why are we here just to suffer?
   */
-
   const specialError = ["special error used by Scratch Addons for implementing single-stepping"];
   Object.defineProperty(thread, "blockGlowInFrame", {
     set(_block) {
       throw specialError;
     }
-
   });
-
   try {
-    thread.status = STATUS_RUNNING; // Restart the warp timer on each step.
-    // If we don't do this, Scratch will think a lot of time has passed and may yield this thread.
+    thread.status = STATUS_RUNNING;
 
+    // Restart the warp timer on each step.
+    // If we don't do this, Scratch will think a lot of time has passed and may yield this thread.
     if (thread.warpTimer) {
       thread.warpTimer.start();
     }
-
     try {
       vm.runtime.sequencer.stepThread(thread);
     } catch (err) {
       if (err !== specialError) throw err;
     }
-
     if (thread.status !== STATUS_RUNNING) {
       return false;
     }
-
     if (thread.peekStack() === currentBlockId) {
       thread.goToNextBlock();
     }
-
     while (!thread.peekStack()) {
       thread.popStack();
-
       if (thread.stack.length === 0) {
         thread.status = STATUS_DONE;
         return false;
       }
-
       const stackFrame = thread.peekStackFrame();
-
       if (stackFrame.isLoop) {
         if (thread.peekStackFrame().warpMode) {
           continue;
@@ -367,10 +334,8 @@ const singleStepThread = thread => {
       } else if (stackFrame.waitingReporter) {
         return false;
       }
-
       thread.goToNextBlock();
     }
-
     return true;
   } finally {
     pauseNewThreads = false;
@@ -380,24 +345,21 @@ const singleStepThread = thread => {
       configurable: true,
       enumerable: true,
       writable: true
-    }); // Strictly this doesn't seem to be necessary, but let's make sure the thread is still paused after we step it.
+    });
 
+    // Strictly this doesn't seem to be necessary, but let's make sure the thread is still paused after we step it.
     if (thread.status !== STATUS_DONE) {
       thread.status = STATUS_PROMISE_WAIT;
     }
   }
 };
-
 const getRealStatus = thread => {
   const pauseState = pausedThreadState.get(thread);
-
   if (pauseState) {
     return pauseState.status;
   }
-
   return thread.status;
 };
-
 const getThreadIndex = thread => {
   // We can't use vm.runtime.threads.indexOf(thread) because threads can be restarted.
   // This can happens when, for example, a "when I receive message1" script broadcasts message1.
@@ -405,159 +367,135 @@ const getThreadIndex = thread => {
   if (!thread) return -1;
   return vm.runtime.threads.findIndex(otherThread => otherThread.target === thread.target && otherThread.topBlock === thread.topBlock && otherThread.stackClick === thread.stackClick && otherThread.updateMonitor === thread.updateMonitor);
 };
-
 const findNewSteppingThread = startingIndex => {
   const threads = vm.runtime.threads;
-
   for (let i = startingIndex; i < threads.length; i++) {
     const possibleNewThread = threads[i];
-
     if (possibleNewThread.updateMonitor) {
       // Never single-step monitor update threads.
       continue;
-    } // TW: Can't single-step compiled threads
-
-
+    }
+    // TW: Can't single-step compiled threads
     if (possibleNewThread.isCompiled) {
       continue;
     }
-
     const status = getRealStatus(possibleNewThread);
-
     if (status === STATUS_RUNNING || status === STATUS_YIELD || status === STATUS_YIELD_TICK) {
       // Thread must not be running for single stepping to work.
       pauseThread(possibleNewThread);
       return possibleNewThread;
     }
   }
-
   return null;
 };
-
 const singleStep = () => {
   if (steppingThread) {
-    const pauseState = pausedThreadState.get(steppingThread); // We can assume pauseState is defined as any single stepping threads must already be paused.
+    const pauseState = pausedThreadState.get(steppingThread);
+    // We can assume pauseState is defined as any single stepping threads must already be paused.
+
     // Make it look like no time has passed
-
     compensateForTimePassedWhilePaused(steppingThread, pauseState);
-    pauseState.time = vm.runtime.currentMSecs; // Execute the block
+    pauseState.time = vm.runtime.currentMSecs;
 
+    // Execute the block
     const continueExecuting = singleStepThread(steppingThread);
-
     if (!continueExecuting) {
       // Try to move onto the next thread
       steppingThread = findNewSteppingThread(getThreadIndex(steppingThread) + 1);
     }
-  } // If we don't have a thread, than we are between VM steps and should search for a new thread
+  }
 
-
+  // If we don't have a thread, than we are between VM steps and should search for a new thread
   if (!steppingThread) {
-    setSteppingThread(findNewSteppingThread(0)); // End of VM step, emulate one frame of time passing.
+    setSteppingThread(findNewSteppingThread(0));
 
-    vm.runtime.ioDevices.clock._pausedTime += vm.runtime.currentStepTime; // Skip all sounds forward by vm.runtime.currentStepTime milliseconds so it's as
+    // End of VM step, emulate one frame of time passing.
+    vm.runtime.ioDevices.clock._pausedTime += vm.runtime.currentStepTime;
+    // Skip all sounds forward by vm.runtime.currentStepTime milliseconds so it's as
     //  if they where playing for one frame.
-
     const audioContext = vm.runtime.audioEngine.audioContext;
-
     for (const target of vm.runtime.targets) {
       for (const soundId of Object.keys(target.sprite.soundBank.soundPlayers)) {
         const soundPlayer = target.sprite.soundBank.soundPlayers[soundId];
-
         if (soundPlayer.outputNode) {
           soundPlayer.outputNode.stop(audioContext.currentTime);
-
           soundPlayer._createSource();
-
           soundPlayer.outputNode.start(audioContext.currentTime, audioContext.currentTime - soundPlayer.startingUntil + vm.runtime.currentStepTime / 1000);
           soundPlayer.startingUntil -= vm.runtime.currentStepTime / 1000;
         }
       }
-    } // Move all threads forward one frame in time. For blocks like `wait () seconds`
-
-
+    }
+    // Move all threads forward one frame in time. For blocks like `wait () seconds`
     for (const thread of vm.runtime.threads) {
       if (pausedThreadState.has(thread)) {
         pausedThreadState.get(thread).time += vm.runtime.currentStepTime;
       }
-    } // Try to run edge activated hats
+    }
 
-
+    // Try to run edge activated hats
     pauseNewThreads = true;
     const hats = vm.runtime._hats;
-
     for (const hatType in hats) {
       if (!Object.prototype.hasOwnProperty.call(hats, hatType)) continue;
       const hat = hats[hatType];
-
       if (hat.edgeActivated) {
         vm.runtime.startHats(hatType);
       }
     }
-
     pauseNewThreads = false;
   }
-
   eventTarget.dispatchEvent(new CustomEvent("step"));
 };
 const setup = _vm => {
   if (vm) {
     return;
   }
-
   vm = _vm;
   const originalStepThreads = vm.runtime.sequencer.stepThreads;
-
   vm.runtime.sequencer.stepThreads = function () {
     if (isPaused()) {
       for (const thread of this.runtime.threads) {
         ensurePausedThreadIsStillPaused(thread);
       }
     }
-
     return originalStepThreads.call(this);
-  }; // Unpause when green flag
+  };
 
-
+  // Unpause when green flag
   const originalGreenFlag = vm.runtime.greenFlag;
-
   vm.runtime.greenFlag = function () {
     setPaused(false);
     return originalGreenFlag.call(this);
-  }; // Disable edge-activated hats and hats like "when key pressed" while paused.
+  };
 
-
+  // Disable edge-activated hats and hats like "when key pressed" while paused.
   const originalStartHats = vm.runtime.startHats;
-
-  vm.runtime.startHats = function (...args) {
-    const hat = args[0]; // These hats can be manually started by the user when paused or while single stepping.
-
+  vm.runtime.startHats = function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    const hat = args[0];
+    // These hats can be manually started by the user when paused or while single stepping.
     const isUserInitiated = hat === "event_whenbroadcastreceived" || hat === "control_start_as_clone";
-
     if (pauseNewThreads) {
       if (!isUserInitiated && !this.getIsEdgeActivatedHat(hat)) {
         return [];
       }
-
       const newThreads = originalStartHats.apply(this, args);
-
       for (const thread of newThreads) {
         pauseThread(thread);
       }
-
       return newThreads;
     } else if (paused && !isUserInitiated) {
       return [];
     }
-
     return originalStartHats.apply(this, args);
-  }; // Paused threads should not be counted as running when updating GUI state.
+  };
 
-
+  // Paused threads should not be counted as running when updating GUI state.
   const originalGetMonitorThreadCount = vm.runtime._getMonitorThreadCount;
-
   vm.runtime._getMonitorThreadCount = function (threads) {
     let count = originalGetMonitorThreadCount.call(this, threads);
-
     if (paused) {
       for (const thread of threads) {
         if (pausedThreadState.has(thread)) {
@@ -565,7 +503,6 @@ const setup = _vm => {
         }
       }
     }
-
     return count;
   };
 };
@@ -600,31 +537,32 @@ const resources = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console
+  } = _ref;
   /** @type {HTMLElement|null} */
   let currentDraggingElement = null;
-  /** @type {WeakMap<HTMLElement, Animation>} */
 
+  /** @type {WeakMap<HTMLElement, Animation>} */
   const allAnimations = new WeakMap();
   const FORWARD = 1;
   const REVERSE = -1;
+
   /**
    * @param {HTMLElement} element
    * @param {number} direction
    * @returns {Animation}
    */
-
   const animateElement = (element, direction) => {
     /** @type {Animation} */
     let animation;
-
     if (allAnimations.has(element)) {
       animation = allAnimations.get(element);
     } else {
-      animation = element.animate([{// this object intentionally empty so the element animates from whatever its default value
+      animation = element.animate([{
+        // this object intentionally empty so the element animates from whatever its default value
         // is in CSS.
       }, {
         backgroundColor: "hsla(0, 100%, 77%, 1)"
@@ -635,29 +573,22 @@ __webpack_require__.r(__webpack_exports__);
       });
       allAnimations.set(element, animation);
     }
-
     animation.playbackRate = direction;
   };
-
   const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
-
   const reactAwareSetValue = (el, value) => {
     nativeInputValueSetter.call(el, value);
     el.dispatchEvent(new Event("change", {
       bubbles: true
     }));
   };
-
   const globalHandleDragOver = e => {
     if (addon.self.disabled) return;
-
     if (!e.dataTransfer.types.includes("Files")) {
       return;
     }
-
     let el;
     let callback;
-
     if ((el = e.target.closest('div[class*="sprite-selector_sprite-selector"]')) || (el = e.target.closest('div[class*="stage-selector_stage-selector"]')) || (el = e.target.closest('div[class*="selector_wrapper"]'))) {
       callback = files => {
         const hdFilter = addon.settings.get("use-hd-upload") ? "" : ":not(.sa-better-img-uploads-input)";
@@ -669,34 +600,31 @@ __webpack_require__.r(__webpack_exports__);
       };
     } else if (el = e.target.closest('div[class*="monitor_list-monitor"]')) {
       callback = files => {
-        const contextMenuBefore = document.querySelector("body > .react-contextmenu.react-contextmenu--visible"); // Simulate a right click on the list monitor
-
+        const contextMenuBefore = document.querySelector("body > .react-contextmenu.react-contextmenu--visible");
+        // Simulate a right click on the list monitor
         el.dispatchEvent(new MouseEvent("contextmenu", {
           bubbles: true
-        })); // Get the right click menu that opened (monitor context menus are
+        }));
+        // Get the right click menu that opened (monitor context menus are
         // children of <body>)
-
-        const contextMenuAfter = document.querySelector("body > .react-contextmenu.react-contextmenu--visible"); // `contextMenuAfter` is only null if the context menu was already open
+        const contextMenuAfter = document.querySelector("body > .react-contextmenu.react-contextmenu--visible");
+        // `contextMenuAfter` is only null if the context menu was already open
         // for the list monitor, in which case we can use the context menu from
         // before the simulated right click
-
-        const contextMenu = contextMenuAfter === null ? contextMenuBefore : contextMenuAfter; // Sometimes the menu flashes open, so force hide it.
-
-        contextMenu.style.display = "none"; // Override DOM methods to import the text file directly
+        const contextMenu = contextMenuAfter === null ? contextMenuBefore : contextMenuAfter;
+        // Sometimes the menu flashes open, so force hide it.
+        contextMenu.style.display = "none";
+        // Override DOM methods to import the text file directly
         // See: https://github.com/LLK/scratch-gui/blob/develop/src/lib/import-csv.js#L21-L22
-
         const appendChild = document.body.appendChild;
-
         document.body.appendChild = fileInput => {
           // Restore appendChild to <body>
           document.body.appendChild = appendChild;
-
           if (fileInput instanceof HTMLInputElement) {
-            document.body.appendChild(fileInput); // Prevent Scratch from opening the file input dialog
-
-            fileInput.click = () => {}; // Insert files from the drop event into the file input
-
-
+            document.body.appendChild(fileInput);
+            // Prevent Scratch from opening the file input dialog
+            fileInput.click = () => {};
+            // Insert files from the drop event into the file input
             fileInput.files = files;
             fileInput.dispatchEvent(new Event("change"));
             window.requestAnimationFrame(() => {
@@ -712,77 +640,63 @@ __webpack_require__.r(__webpack_exports__);
             console.error('File input was not immediately given to appendChild upon clicking "Import"!');
             return appendChild(fileInput);
           }
-        }; // Simulate clicking on the "Import" option
-
-
+        };
+        // Simulate clicking on the "Import" option
         contextMenu.children[0].click();
       };
     } else if (el = e.target.closest('div[class*="question_question-input"] > input[class*="input_input-form_l9eYg"]')) {
       callback = async files => {
-        const text = (await Promise.all(Array.from(files, file => file.text()))).join("") // Match pasting behavior: remove all newline characters at the end
+        const text = (await Promise.all(Array.from(files, file => file.text()))).join("")
+        // Match pasting behavior: remove all newline characters at the end
         .replace(/[\r\n]+$/, "").replace(/\r?\n|\r/g, " ");
         const selectionStart = el.selectionStart;
         reactAwareSetValue(el, el.value.slice(0, selectionStart) + text + el.value.slice(el.selectionEnd));
         el.setSelectionRange(selectionStart, selectionStart + text.length);
       };
     }
-
     if (!el) {
       return;
     }
-
     e.preventDefault();
-
     if (el === currentDraggingElement) {
       return;
     }
-
     currentDraggingElement = el;
+
     /** @type {HTMLElement[]} */
-
     const elementsToAnimate = [el, el.querySelector('div[class*="stage-selector_header_"]'), el.querySelector('div[class*="sprite-info_sprite-info"]'), el.querySelector('div[class*="monitor_list-body"]')].filter(i => i);
-
     for (const el of elementsToAnimate) {
       animateElement(el, FORWARD);
     }
-
     const handleDrop = e => {
       e.preventDefault();
       cleanup();
-
       if (e.dataTransfer.types.includes("Files") && e.dataTransfer.files.length > 0) {
         callback(e.dataTransfer.files);
       }
     };
-
     const handleDragOver = e => {
       e.preventDefault();
       e.dataTransfer.dropEffect = "copy";
     };
-
     e.dataTransfer.dropEffect = "copy";
-
     const handleDragLeave = e => {
       e.preventDefault();
       cleanup();
     };
-
     const cleanup = () => {
       currentDraggingElement = null;
       el.removeEventListener("dragover", handleDragOver);
       el.removeEventListener("dragleave", handleDragLeave);
       el.removeEventListener("drop", handleDrop);
-
       for (const el of elementsToAnimate) {
         animateElement(el, REVERSE);
       }
     };
-
     el.addEventListener("dragover", handleDragOver);
     el.addEventListener("dragleave", handleDragLeave);
     el.addEventListener("drop", handleDrop);
   };
-
   document.addEventListener("dragover", globalHandleDragOver, {
     useCapture: true
   });
@@ -811,28 +725,24 @@ class BlockFlasher {
   static flash(block) {
     if (myFlash.timerID > 0) {
       clearTimeout(myFlash.timerID);
-
       if (myFlash.block.svgPath_) {
         myFlash.block.svgPath_.style.fill = "";
       }
     }
-
     let count = 4;
     let flashOn = true;
     myFlash.block = block;
+
     /**
      * Internal method to switch the colour of a block between light yellow and it's original colour
      * @private
      */
-
     function _flash() {
       if (myFlash.block.svgPath_) {
         myFlash.block.svgPath_.style.fill = flashOn ? "#ffff80" : "";
       }
-
       flashOn = !flashOn;
       count--;
-
       if (count > 0) {
         myFlash.timerID = setTimeout(_flash, 200);
       } else {
@@ -840,10 +750,8 @@ class BlockFlasher {
         myFlash.block = null;
       }
     }
-
     _flash();
   }
-
 }
 const myFlash = {
   block: null,
@@ -870,7 +778,6 @@ class BlockInstance {
     this.targetId = target.id;
     this.id = block.id;
   }
-
 }
 
 /***/ }),
@@ -888,8 +795,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _BlockInstance_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BlockInstance.js */ "./src/addons/addons/find-bar/blockly/BlockInstance.js");
 /* harmony import */ var _BlockFlasher_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BlockFlasher.js */ "./src/addons/addons/find-bar/blockly/BlockFlasher.js");
 
- // Make these global so that every addon uses the same arrays.
 
+
+// Make these global so that every addon uses the same arrays.
 let views = [];
 let forward = [];
 class Utils {
@@ -902,136 +810,118 @@ class Utils {
      * Scratch Virtual Machine
      * @type {null|*}
      */
-
-    this.vm = this.addon.tab.traps.vm; // this._myFlash = { block: null, timerID: null, colour: null };
-
+    this.vm = this.addon.tab.traps.vm;
+    // this._myFlash = { block: null, timerID: null, colour: null };
     this.offsetX = 32;
     this.offsetY = 32;
     this.navigationHistory = new NavigationHistory();
     /**
      * The workspace
      */
-
     this._workspace = null;
   }
+
   /**
    * Get the Scratch Editing Target
    * @returns {?Target} the scratch editing target
    */
-
-
   getEditingTarget() {
     return this.vm.runtime.getEditingTarget();
   }
+
   /**
    * Set the current workspace (switches sprites)
    * @param targetID {string}
    */
-
-
   setEditingTarget(targetID) {
     if (this.getEditingTarget().id !== targetID) {
       this.vm.setEditingTarget(targetID);
     }
   }
+
   /**
    * Returns the main workspace
    * @returns !Blockly.Workspace
    */
-
-
   getWorkspace() {
     const currentWorkspace = Blockly.getMainWorkspace();
-
     if (currentWorkspace.getToolbox()) {
       // Sadly get get workspace does not always return the 'real' workspace... Not sure how to get that at the moment,
       //  but we can work out whether it's the right one by whether it has a toolbox.
       this._workspace = currentWorkspace;
     }
-
     return this._workspace;
   }
+
   /**
    * Based on wksp.centerOnBlock(li.data.labelID);
    * @param blockOrId {Blockly.Block|{id}|BlockInstance} A Blockly Block, a block id, or a BlockInstance
    */
-
-
   scrollBlockIntoView(blockOrId) {
     var _this$blockly;
-
     let workspace = this.getWorkspace();
     /** @type {Blockly.Block} */
-
     let block; // or is it really a Blockly.BlockSvg?
 
     if (blockOrId instanceof _BlockInstance_js__WEBPACK_IMPORTED_MODULE_0__["default"]) {
       // Switch to sprite
-      this.setEditingTarget(blockOrId.targetId); // Highlight the block!
-
+      this.setEditingTarget(blockOrId.targetId);
+      // Highlight the block!
       block = workspace.getBlockById(blockOrId.id);
     } else {
       block = blockOrId && blockOrId.id ? blockOrId : workspace.getBlockById(blockOrId);
     }
-
     if (!block) {
       return;
     }
+
     /**
      * !Blockly.Block
      */
-
-
     let root = block.getRootBlock();
     let base = this.getTopOfStackFor(block);
     let ePos = base.getRelativeToSurfaceXY(),
-        // Align with the top of the block
-    rPos = root.getRelativeToSurfaceXY(),
-        // Align with the left of the block 'stack'
-    scale = workspace.scale,
-        x = rPos.x * scale,
-        y = ePos.y * scale,
-        xx = block.width + x,
-        // Turns out they have their x & y stored locally, and they are the actual size rather than scaled or including children...
-    yy = block.height + y,
-        s = workspace.getMetrics();
-
+      // Align with the top of the block
+      rPos = root.getRelativeToSurfaceXY(),
+      // Align with the left of the block 'stack'
+      scale = workspace.scale,
+      x = rPos.x * scale,
+      y = ePos.y * scale,
+      xx = block.width + x,
+      // Turns out they have their x & y stored locally, and they are the actual size rather than scaled or including children...
+      yy = block.height + y,
+      s = workspace.getMetrics();
     if (x < s.viewLeft + this.offsetX - 4 || xx > s.viewLeft + s.viewWidth || y < s.viewTop + this.offsetY - 4 || yy > s.viewTop + s.viewHeight) {
       // sx = s.contentLeft + s.viewWidth / 2 - x,
       let sx = x - s.contentLeft - this.offsetX,
-          // sy = s.contentTop - y + Math.max(Math.min(32, 32 * scale), (s.viewHeight - yh) / 2);
-      sy = y - s.contentTop - this.offsetY;
-      this.navigationHistory.storeView(this.navigationHistory.peek(), 64); // workspace.hideChaff(),
+        // sy = s.contentTop - y + Math.max(Math.min(32, 32 * scale), (s.viewHeight - yh) / 2);
+        sy = y - s.contentTop - this.offsetY;
+      this.navigationHistory.storeView(this.navigationHistory.peek(), 64);
 
+      // workspace.hideChaff(),
       workspace.scrollbar.set(sx, sy);
       this.navigationHistory.storeView({
         left: sx,
         top: sy
       }, 64);
     }
-
     (_this$blockly = this.blockly) === null || _this$blockly === void 0 ? void 0 : _this$blockly.hideChaff();
     _BlockFlasher_js__WEBPACK_IMPORTED_MODULE_1__["default"].flash(block);
   }
+
   /**
    * Find the top stack block of a  stack
    * @param block a block in a stack
    * @returns {*} a block that is the top of the stack of blocks
    */
-
-
   getTopOfStackFor(block) {
     let base = block;
-
     while (base.getOutputShape() && base.getSurroundParent()) {
       base = base.getSurroundParent();
     }
-
     return base;
   }
-
 }
-
 class NavigationHistory {
   /**
    * Keep a record of the scroll and zoom position
@@ -1039,34 +929,29 @@ class NavigationHistory {
   storeView(next, dist) {
     forward = [];
     let workspace = Blockly.getMainWorkspace(),
-        s = workspace.getMetrics();
+      s = workspace.getMetrics();
     let pos = {
       left: s.viewLeft,
       top: s.viewTop
     };
-
     if (!next || distance(pos, next) > dist) {
       views.push(pos);
     }
   }
-
   peek() {
     return views.length > 0 ? views[views.length - 1] : null;
   }
-
   goBack() {
     const workspace = Blockly.getMainWorkspace(),
-          s = workspace.getMetrics();
+      s = workspace.getMetrics();
     let pos = {
       left: s.viewLeft,
       top: s.viewTop
     };
     let view = this.peek();
-
     if (!view) {
       return;
     }
-
     if (distance(pos, view) < 64) {
       // Go back to current if we are already far away from it
       if (views.length > 1) {
@@ -1074,17 +959,17 @@ class NavigationHistory {
         forward.push(view);
       }
     }
-
     view = this.peek();
-
     if (!view) {
       return;
     }
-
     let sx = view.left - s.contentLeft,
-        sy = view.top - s.contentTop; // transform.setTranslate(-600,0);
+      sy = view.top - s.contentTop;
+
+    // transform.setTranslate(-600,0);
 
     workspace.scrollbar.set(sx, sy);
+
     /*
               let blocklySvg = document.getElementsByClassName('blocklySvg')[0];
               let blocklyBlockCanvas = blocklySvg.getElementsByClassName('blocklyBlockCanvas')[0];
@@ -1102,21 +987,17 @@ class NavigationHistory {
 
   goForward() {
     let view = forward.pop();
-
     if (!view) {
       return;
     }
-
     views.push(view);
     let workspace = Blockly.getMainWorkspace(),
-        s = workspace.getMetrics();
+      s = workspace.getMetrics();
     let sx = view.left - s.contentLeft,
-        sy = view.top - s.contentTop;
+      sy = view.top - s.contentTop;
     workspace.scrollbar.set(sx, sy);
   }
-
 }
-
 function distance(pos, next) {
   return Math.sqrt(Math.pow(pos.left - next.left, 2) + Math.pow(pos.top - next.top, 2));
 }
@@ -1153,37 +1034,33 @@ const resources = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _find_bar_blockly_Utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../find-bar/blockly/Utils.js */ "./src/addons/addons/find-bar/blockly/Utils.js");
 
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  msg,
-  console
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    msg,
+    console
+  } = _ref;
   const utils = new _find_bar_blockly_Utils_js__WEBPACK_IMPORTED_MODULE_0__["default"](addon);
   const Blockly = await addon.tab.traps.getBlockly();
   Object.defineProperty(Blockly.Gesture.prototype, "jumpToDef", {
     get() {
       return !addon.self.disabled;
     }
-
   });
   const _doBlockClick_ = Blockly.Gesture.prototype.doBlockClick_;
-
   Blockly.Gesture.prototype.doBlockClick_ = function () {
     if (!addon.self.disabled && (this.mostRecentEvent_.button === 1 || this.mostRecentEvent_.shiftKey)) {
       // Wheel button...
       // Intercept clicks to allow jump to...?
       let block = this.startBlock_;
-
       for (; block; block = block.getSurroundParent()) {
         if (block.type === "procedures_call") {
           let findProcCode = block.getProcCode();
           let topBlocks = utils.getWorkspace().getTopBlocks();
-
           for (const root of topBlocks) {
             if (root.type === "procedures_definition") {
               let label = root.getChildren()[0];
               let procCode = label.getProcCode();
-
               if (procCode && procCode === findProcCode) {
                 // Found... navigate to it!
                 utils.scrollBlockIntoView(root);
@@ -1194,7 +1071,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     }
-
     _doBlockClick_.call(this);
   };
 });
@@ -1234,28 +1110,24 @@ const resources = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vol_slider_module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../vol-slider/module.js */ "./src/addons/addons/vol-slider/module.js");
 
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console
+  } = _ref;
   const vm = addon.tab.traps.vm;
   Object(_vol_slider_module_js__WEBPACK_IMPORTED_MODULE_0__["setup"])(vm);
   const icon = document.createElement("img");
   icon.loading = "lazy";
-  icon.src = addon.self.getResource("/mute.svg")
-  /* rewritten by pull.js */
-  ;
+  icon.src = addon.self.getResource("/mute.svg") /* rewritten by pull.js */;
   icon.className = "sa-mute-project-icon";
   icon.style.userSelect = "none";
   addon.tab.displayNoneWhileDisabled(icon);
-
   const updateIcon = () => {
     icon.style.display = addon.self.disabled || !Object(_vol_slider_module_js__WEBPACK_IMPORTED_MODULE_0__["isMuted"])() ? "none" : "";
   };
-
   Object(_vol_slider_module_js__WEBPACK_IMPORTED_MODULE_0__["onVolumeChanged"])(updateIcon);
   updateIcon();
-
   const clickMuteButton = e => {
     if (!addon.self.disabled && (e.ctrlKey || e.metaKey)) {
       e.cancelBubble = true;
@@ -1263,13 +1135,11 @@ __webpack_require__.r(__webpack_exports__);
       Object(_vol_slider_module_js__WEBPACK_IMPORTED_MODULE_0__["setMuted"])(!Object(_vol_slider_module_js__WEBPACK_IMPORTED_MODULE_0__["isMuted"])());
     }
   };
-
   addon.self.addEventListener("disabled", () => {
     if (Object(_vol_slider_module_js__WEBPACK_IMPORTED_MODULE_0__["isMuted"])()) {
       Object(_vol_slider_module_js__WEBPACK_IMPORTED_MODULE_0__["setMuted"])(false);
     }
   });
-
   while (true) {
     let button = await addon.tab.waitForElement("[class^='green-flag_green-flag']", {
       markAsSeen: true,
@@ -1327,27 +1197,23 @@ const resources = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _debugger_module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../debugger/module.js */ "./src/addons/addons/debugger/module.js");
 
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console,
-  msg
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console,
+    msg
+  } = _ref;
   Object(_debugger_module_js__WEBPACK_IMPORTED_MODULE_0__["setup"])(addon.tab.traps.vm);
   const img = document.createElement("img");
   img.className = "pause-btn";
   img.draggable = false;
   img.title = msg("pause");
-
-  const setSrc = () => img.src = addon.self.getResource(Object(_debugger_module_js__WEBPACK_IMPORTED_MODULE_0__["isPaused"])() ? "/play.svg" : "/pause.svg")
-  /* rewritten by pull.js */
-  ;
-
+  const setSrc = () => img.src = addon.self.getResource(Object(_debugger_module_js__WEBPACK_IMPORTED_MODULE_0__["isPaused"])() ? "/play.svg" : "/pause.svg") /* rewritten by pull.js */;
   img.addEventListener("click", () => Object(_debugger_module_js__WEBPACK_IMPORTED_MODULE_0__["setPaused"])(!Object(_debugger_module_js__WEBPACK_IMPORTED_MODULE_0__["isPaused"])()));
   addon.tab.displayNoneWhileDisabled(img);
   addon.self.addEventListener("disabled", () => Object(_debugger_module_js__WEBPACK_IMPORTED_MODULE_0__["setPaused"])(false));
   setSrc();
   Object(_debugger_module_js__WEBPACK_IMPORTED_MODULE_0__["onPauseChanged"])(setSrc);
-
   while (true) {
     await addon.tab.waitForElement("[class^='green-flag']", {
       markAsSeen: true,
@@ -1380,9 +1246,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onVolumeChanged", function() { return onVolumeChanged; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setup", function() { return setup; });
 // Volumes in this file are always in 0-1.
+
 let hasSetup = false;
 /** @type {AudioParam|null} */
-
 let gainNode = null;
 let unmuteVolume = 1;
 let volumeBeforeFinishSetup = 1;
@@ -1393,14 +1259,12 @@ const setVolume = newVolume => {
   } else {
     volumeBeforeFinishSetup = newVolume;
   }
-
   callbacks.forEach(i => i());
 };
 const getVolume = () => {
   if (gainNode) {
     return gainNode.value;
   }
-
   return volumeBeforeFinishSetup;
 };
 const isMuted = () => {
@@ -1420,20 +1284,16 @@ const setMuted = newMuted => {
 const onVolumeChanged = callback => {
   callbacks.push(callback);
 };
-
 const gotAudioEngine = audioEngine => {
   gainNode = audioEngine.inputNode.gain;
   gainNode.value = volumeBeforeFinishSetup;
 };
-
 const setup = vm => {
   if (hasSetup) {
     return;
   }
-
   hasSetup = true;
   const audioEngine = vm.runtime.audioEngine;
-
   if (audioEngine) {
     gotAudioEngine(audioEngine);
   } else {
@@ -1502,20 +1362,19 @@ var _addons_l10n_en_json__WEBPACK_IMPORTED_MODULE_6___namespace = /*#__PURE__*/_
 
 
 
+
+
 /* eslint-disable no-console */
 
 const escapeHTML = str => str.replace(/([<>'"&])/g, (_, l) => "&#".concat(l.charCodeAt(0), ";"));
-
 const kebabCaseToCamelCase = str => str.replace(/-([a-z])/g, g => g[1].toUpperCase());
-
 let _scratchClassNames = null;
-
 const getScratchClassNames = () => {
   if (_scratchClassNames) {
     return _scratchClassNames;
   }
-
-  const cssRules = Array.from(document.styleSheets) // Ignore some scratch-paint stylesheets
+  const cssRules = Array.from(document.styleSheets)
+  // Ignore some scratch-paint stylesheets
   .filter(styleSheet => !(styleSheet.ownerNode.textContent.startsWith('/* DO NOT EDIT\n@todo This file is copied from GUI and should be pulled out into a shared library.') && (styleSheet.ownerNode.textContent.includes('input_input-form') || styleSheet.ownerNode.textContent.includes('label_input-group_')))).map(e => {
     try {
       return [...e.cssRules];
@@ -1541,11 +1400,8 @@ const getScratchClassNames = () => {
   });
   return _scratchClassNames;
 };
-
 let _mutationObserver;
-
 let _mutationObserverCallbacks = [];
-
 const addMutationObserverCallback = newCallback => {
   if (!_mutationObserver) {
     _mutationObserver = new MutationObserver(() => {
@@ -1553,21 +1409,17 @@ const addMutationObserverCallback = newCallback => {
         cb();
       }
     });
-
     _mutationObserver.observe(document.documentElement, {
       attributes: false,
       childList: true,
       subtree: true
     });
   }
-
   _mutationObserverCallbacks.push(newCallback);
 };
-
 const removeMutationObserverCallback = callback => {
   _mutationObserverCallbacks = _mutationObserverCallbacks.filter(i => i !== callback);
 };
-
 class Redux extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
   constructor() {
     super();
@@ -1575,7 +1427,6 @@ class Redux extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
     this._initialized = false;
     this._nextState = null;
   }
-
   initialize() {
     if (!this._initialized) {
       _hooks__WEBPACK_IMPORTED_MODULE_4__["default"].appStateReducer = (action, prev, next) => {
@@ -1591,11 +1442,9 @@ class Redux extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
         this._nextState = null;
         this._isInReducer = false;
       };
-
       this._initialized = true;
     }
   }
-
   dispatch(m) {
     if (this._isInReducer) {
       queueMicrotask(() => _hooks__WEBPACK_IMPORTED_MODULE_4__["default"].appStateStore.dispatch(m));
@@ -1603,14 +1452,11 @@ class Redux extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
       _hooks__WEBPACK_IMPORTED_MODULE_4__["default"].appStateStore.dispatch(m);
     }
   }
-
   get state() {
     if (this._nextState) return this._nextState;
     return _hooks__WEBPACK_IMPORTED_MODULE_4__["default"].appStateStore.getState();
   }
-
 }
-
 const getEditorMode = () => {
   // eslint-disable-next-line no-use-before-define
   const mode = tabReduxInstance.state.scratchGui.mode;
@@ -1619,24 +1465,19 @@ const getEditorMode = () => {
   if (mode.isPlayerOnly) return 'projectpage';
   return 'editor';
 };
-
 const tabReduxInstance = new Redux();
 const language = tabReduxInstance.state.locales.locale.split('-')[0];
-
 const getTranslations = async () => {
   if (_generated_l10n_entries__WEBPACK_IMPORTED_MODULE_7__["default"][language]) {
     const localeMessages = await _generated_l10n_entries__WEBPACK_IMPORTED_MODULE_7__["default"][language]();
     Object.assign(_addons_l10n_en_json__WEBPACK_IMPORTED_MODULE_6__, localeMessages);
   }
 };
-
 const addonMessagesPromise = getTranslations();
-
 const untilInEditor = () => {
   if (!tabReduxInstance.state.scratchGui.mode.isPlayerOnly || tabReduxInstance.state.scratchGui.mode.isEmbedded) {
     return;
   }
-
   return new Promise(resolve => {
     const handler = () => {
       if (!tabReduxInstance.state.scratchGui.mode.isPlayerOnly) {
@@ -1644,20 +1485,14 @@ const untilInEditor = () => {
         tabReduxInstance.removeEventListener('statechanged', handler);
       }
     };
-
     tabReduxInstance.initialize();
     tabReduxInstance.addEventListener('statechanged', handler);
   });
 };
-
 const getDisplayNoneWhileDisabledClass = id => "addons-display-none-".concat(id);
-
 const parseArguments = code => code.split(/(?=[^\\]%[nbs])/g).map(i => i.trim()).filter(i => i.charAt(0) === '%').map(i => i.substring(0, 2));
-
 const fixDisplayName = displayName => displayName.replace(/([^\s])(%[nbs])/g, (_, before, arg) => "".concat(before, " ").concat(arg));
-
 const compareArrays = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-
 let _firstAddBlockRan = false;
 const addonBlockColor = {
   color: '#29beb8',
@@ -1667,25 +1502,21 @@ const addonBlockColor = {
 const contextMenuCallbacks = [];
 const CONTEXT_MENU_ORDER = ['editor-devtools', 'block-switching', 'blocks2image', 'swap-local-global'];
 let createdAnyBlockContextMenus = false;
-
 const getInternalKey = element => Object.keys(element).find(key => key.startsWith('__reactInternalInstance$'));
-
 class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
   constructor(id) {
     super();
     this._id = id;
-    this._seenElements = new WeakSet(); // traps is public API
-
+    this._seenElements = new WeakSet();
+    // traps is public API
     this.traps = {
       get vm() {
         return tabReduxInstance.state.scratchGui.vm;
       },
-
       getBlockly: () => {
         if (_hooks__WEBPACK_IMPORTED_MODULE_4__["default"].blockly) {
           return Promise.resolve(_hooks__WEBPACK_IMPORTED_MODULE_4__["default"].blockly);
         }
-
         return new Promise(resolve => {
           _hooks__WEBPACK_IMPORTED_MODULE_4__["default"].blocklyCallbacks.push(() => resolve(_hooks__WEBPACK_IMPORTED_MODULE_4__["default"].blockly));
         });
@@ -1695,119 +1526,100 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
           reduxCondition: state => state.scratchGui.editorTab.activeTabIndex === 1 && !state.scratchGui.mode.isPlayerOnly
         });
         const reactInternalKey = Object.keys(modeSelector).find(key => key.startsWith('__reactInternalInstance$'));
-        const internalState = modeSelector[reactInternalKey].child; // .tool or .blob.tool only exists on the selected tool
-
+        const internalState = modeSelector[reactInternalKey].child;
+        // .tool or .blob.tool only exists on the selected tool
         let toolState = internalState;
         let tool;
-
         while (toolState) {
           const toolInstance = toolState.child.stateNode;
-
           if (toolInstance.tool) {
             tool = toolInstance.tool;
             break;
           }
-
           if (toolInstance.blob && toolInstance.blob.tool) {
             tool = toolInstance.blob.tool;
             break;
           }
-
           toolState = toolState.sibling;
         }
-
         if (tool) {
           const paperScope = tool._scope;
           return paperScope;
         }
-
         throw new Error('cannot find paper :(');
       },
       getInternalKey
     };
   }
-
   get redux() {
     return tabReduxInstance;
   }
-
-  waitForElement(selector, {
-    markAsSeen = false,
-    condition,
-    reduxCondition,
-    reduxEvents
-  } = {}) {
+  waitForElement(selector) {
+    let {
+      markAsSeen = false,
+      condition,
+      reduxCondition,
+      reduxEvents
+    } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     let externalEventSatisfied = true;
-
     const evaluateCondition = () => {
       if (!externalEventSatisfied) return false;
       if (condition && !condition()) return false;
       if (reduxCondition && !reduxCondition(tabReduxInstance.state)) return false;
       return true;
     };
-
     if (evaluateCondition()) {
       const firstQuery = document.querySelectorAll(selector);
-
       for (const element of firstQuery) {
         if (this._seenElements.has(element)) continue;
         if (markAsSeen) this._seenElements.add(element);
         return Promise.resolve(element);
       }
     }
-
     let reduxListener;
-
     if (reduxEvents) {
       externalEventSatisfied = false;
-
-      reduxListener = ({
-        detail
-      }) => {
-        const type = detail.action.type; // As addons can't run before DOM exists here, ignore fontsLoaded/SET_FONTS_LOADED
+      reduxListener = _ref => {
+        let {
+          detail
+        } = _ref;
+        const type = detail.action.type;
+        // As addons can't run before DOM exists here, ignore fontsLoaded/SET_FONTS_LOADED
         // Otherwise, as our font loading is very async, we could activate more often than required.
-
         if (reduxEvents.includes(type) && type !== 'fontsLoaded/SET_FONTS_LOADED') {
           externalEventSatisfied = true;
         }
       };
-
       this.redux.initialize();
       this.redux.addEventListener('statechanged', reduxListener);
     }
-
     return new Promise(resolve => {
       const callback = () => {
         if (!evaluateCondition()) {
           return;
         }
-
         const elements = document.querySelectorAll(selector);
-
         for (const element of elements) {
           if (this._seenElements.has(element)) continue;
           resolve(element);
           removeMutationObserverCallback(callback);
           if (markAsSeen) this._seenElements.add(element);
-
           if (reduxListener) {
             this.redux.removeEventListener('statechanged', reduxListener);
           }
-
           break;
         }
       };
-
       addMutationObserverCallback(callback);
     });
   }
-
-  appendToSharedSpace({
-    space,
-    element,
-    order,
-    scope
-  }) {
+  appendToSharedSpace(_ref2) {
+    let {
+      space,
+      element,
+      order,
+      scope
+    } = _ref2;
     const SHARED_SPACES = {
       stageHeader: {
         element: () => document.querySelector("[class^='stage-header_stage-size-row']"),
@@ -1818,14 +1630,12 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
         element: () => document.querySelector("[class^='stage-header_stage-menu-wrapper']"),
         from: function from() {
           let emptyDiv = this.element().querySelector('.addon-spacer');
-
           if (!emptyDiv) {
             emptyDiv = document.createElement('div');
             emptyDiv.style.marginLeft = 'auto';
             emptyDiv.className = 'addon-spacer';
             this.element().insertBefore(emptyDiv, this.element().lastChild);
           }
-
           return [emptyDiv];
         },
         until: () => [document.querySelector("[class^='stage-header_stage-menu-wrapper']").lastChild]
@@ -1879,26 +1689,27 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
     const until = spaceInfo.until();
     element.dataset.saSharedSpaceOrder = order;
     let foundFrom = false;
-    if (from.length === 0) foundFrom = true; // insertAfter = element whose nextSibling will be the new element
+    if (from.length === 0) foundFrom = true;
+
+    // insertAfter = element whose nextSibling will be the new element
     // -1 means append at beginning of space (prepend)
     // This will stay null if we need to append at the end of space
-
     let insertAfter = null;
     const children = Array.from(spaceElement.children);
-
     for (const indexString of children.keys()) {
       const child = children[indexString];
-      const i = Number(indexString); // Find either element from "from" before doing anything
+      const i = Number(indexString);
 
+      // Find either element from "from" before doing anything
       if (!foundFrom) {
         if (from.includes(child)) {
-          foundFrom = true; // If this is the last child, insertAfter will stay null
+          foundFrom = true;
+          // If this is the last child, insertAfter will stay null
           // and the element will be appended at the end of space
         }
 
         continue;
       }
-
       if (until.includes(child)) {
         // This is the first SA element appended to this space
         // If from = [] then prepend, otherwise append after
@@ -1906,7 +1717,6 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
         if (i === 0) insertAfter = -1;else insertAfter = children[i - 1];
         break;
       }
-
       if (child.dataset.saSharedSpaceOrder) {
         if (Number(child.dataset.saSharedSpaceOrder) > order) {
           // We found another SA element with higher order number
@@ -1917,8 +1727,8 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
         }
       }
     }
-
-    if (!foundFrom) return false; // It doesn't matter if we didn't find an "until"
+    if (!foundFrom) return false;
+    // It doesn't matter if we didn't find an "until"
 
     if (insertAfter === null) {
       // This might happen with until = []
@@ -1932,25 +1742,21 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
       // is always set to children[i-1], so it must exist
       spaceElement.insertBefore(element, insertAfter.nextSibling);
     }
-
     return true;
   }
-
-  addBlock(procedureCode, {
-    args,
-    displayName,
-    callback
-  }) {
+  addBlock(procedureCode, _ref3) {
+    let {
+      args,
+      displayName,
+      callback
+    } = _ref3;
     const procCodeArguments = parseArguments(procedureCode);
-
     if (args.length !== procCodeArguments.length) {
       throw new Error('Procedure code and argument list do not match');
     }
-
     if (displayName) {
       displayName = fixDisplayName(displayName);
       const displayNameArguments = parseArguments(displayName);
-
       if (!compareArrays(procCodeArguments, displayNameArguments)) {
         console.warn("displayName ".concat(displayName, " for ").concat(procedureCode, " has invalid arguments, ignoring it."));
         displayName = procedureCode;
@@ -1958,9 +1764,7 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
     } else {
       displayName = procedureCode;
     }
-
     const wrappedCallback = (a, util) => callback(a, util.thread);
-
     const vm = this.traps.vm;
     vm.addAddonBlock({
       procedureCode,
@@ -1969,18 +1773,15 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
       // Ignored by VM but used by scratch-blocks traps
       displayName
     });
-
     if (!_firstAddBlockRan) {
       _firstAddBlockRan = true;
       this.traps.getBlockly().then(ScratchBlocks => {
         const BlockSvg = ScratchBlocks.BlockSvg;
         const oldUpdateColour = BlockSvg.prototype.updateColour;
-
-        BlockSvg.prototype.updateColour = function (...args2) {
+        BlockSvg.prototype.updateColour = function () {
           // procedures_prototype also has a procedure code but we do not want to color them.
           if (!this.isInsertionMarker() && this.type === 'procedures_call') {
             const block = this.procCode_ && vm.runtime.getAddonBlock(this.procCode_);
-
             if (block) {
               this.colour_ = addonBlockColor.color;
               this.colourSecondary_ = addonBlockColor.secondaryColor;
@@ -1988,15 +1789,17 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
               this.customContextMenu = null;
             }
           }
-
+          for (var _len = arguments.length, args2 = new Array(_len), _key = 0; _key < _len; _key++) {
+            args2[_key] = arguments[_key];
+          }
           return oldUpdateColour.call(this, ...args2);
         };
-
         const originalCreateAllInputs = ScratchBlocks.Blocks.procedures_call.createAllInputs_;
-
-        ScratchBlocks.Blocks.procedures_call.createAllInputs_ = function (...args2) {
+        ScratchBlocks.Blocks.procedures_call.createAllInputs_ = function () {
           const block = this.procCode_ && vm.runtime.getAddonBlock(this.procCode_);
-
+          for (var _len2 = arguments.length, args2 = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+            args2[_key2] = arguments[_key2];
+          }
           if (block && block.displayName) {
             const originalProcCode = this.procCode_;
             this.procCode_ = block.displayName;
@@ -2004,36 +1807,31 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
             this.procCode_ = originalProcCode;
             return ret;
           }
-
           return originalCreateAllInputs.call(this, ...args2);
         };
-
         if (vm.editingTarget) {
           vm.emitWorkspaceUpdate();
         }
       });
     }
   }
-
   getCustomBlock(procedureCode) {
     const vm = this.traps.vm;
     return vm.getAddonBlock(procedureCode);
   }
-
   getCustomBlockColor() {
     return addonBlockColor;
   }
-
   setCustomBlockColor(newColor) {
     Object.assign(addonBlockColor, newColor);
   }
-
-  createBlockContextMenu(callback, {
-    workspace = false,
-    blocks = false,
-    flyout = false,
-    comments = false
-  } = {}) {
+  createBlockContextMenu(callback) {
+    let {
+      workspace = false,
+      blocks = false,
+      flyout = false,
+      comments = false
+    } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     contextMenuCallbacks.push({
       addonId: this._id,
       callback,
@@ -2047,11 +1845,11 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
     createdAnyBlockContextMenus = true;
     this.traps.getBlockly().then(ScratchBlocks => {
       const oldShow = ScratchBlocks.ContextMenu.show;
-
       ScratchBlocks.ContextMenu.show = function (event, items, rtl) {
         const gesture = ScratchBlocks.mainWorkspace.currentGesture_;
-        const block = gesture.targetBlock_; // eslint-disable-next-line no-shadow
+        const block = gesture.targetBlock_;
 
+        // eslint-disable-next-line no-shadow
         for (const {
           callback,
           workspace,
@@ -2059,9 +1857,15 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
           flyout,
           comments
         } of contextMenuCallbacks) {
-          const injectMenu = // Workspace
-          workspace && !block && !gesture.flyout_ && !gesture.startBubble_ || blocks && block && !gesture.flyout_ || flyout && gesture.flyout_ || comments && gesture.startBubble_;
-
+          const injectMenu =
+          // Workspace
+          workspace && !block && !gesture.flyout_ && !gesture.startBubble_ ||
+          // Block in workspace
+          blocks && block && !gesture.flyout_ ||
+          // Block in flyout
+          flyout && gesture.flyout_ ||
+          // Comments
+          comments && gesture.startBubble_;
           if (injectMenu) {
             try {
               items = callback(items, block);
@@ -2070,7 +1874,6 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
             }
           }
         }
-
         oldShow.call(this, event, items, rtl);
         const blocklyContextMenu = ScratchBlocks.WidgetDiv.DIV.firstChild;
         items.forEach((item, i) => {
@@ -2084,31 +1887,29 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
       };
     });
   }
-
   createEditorContextMenu(callback, options) {
     Object(_contextmenu__WEBPACK_IMPORTED_MODULE_9__["addContextMenu"])(this, callback, options);
   }
-
   copyImage(dataURL) {
     if (!navigator.clipboard.write) {
       return Promise.reject(new Error('Clipboard API not supported'));
     }
-
-    const items = [// eslint-disable-next-line no-undef
+    const items = [
+    // eslint-disable-next-line no-undef
     new ClipboardItem({
       'image/png': Object(_lib_data_uri_to_blob__WEBPACK_IMPORTED_MODULE_2__["default"])(dataURL)
     })];
     return navigator.clipboard.write(items);
   }
-
   scratchMessage(id) {
     return tabReduxInstance.state.locales.messages[id];
   }
-
-  scratchClass(...args) {
+  scratchClass() {
     const scratchClasses = getScratchClassNames();
     const classes = [];
-
+    for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+      args[_key3] = arguments[_key3];
+    }
     for (const arg of args) {
       if (typeof arg === 'string') {
         for (const scratchClass of scratchClasses) {
@@ -2119,63 +1920,55 @@ class Tab extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
         }
       }
     }
-
     const options = args[args.length - 1];
-
     if (typeof options === 'object') {
       const others = Array.isArray(options.others) ? options.others : [options.others];
-
       for (const className of others) {
         classes.push(className);
       }
     }
-
     return classes.join(' ');
   }
-
   get editorMode() {
     return getEditorMode();
   }
-
   displayNoneWhileDisabled(el) {
     el.classList.add(getDisplayNoneWhileDisabledClass(this._id));
   }
-
   get direction() {
     return this.redux.state.locales.isRtl ? 'rtl' : 'ltr';
   }
-
-  createModal(title, {
-    isOpen = false
-  } = {}) {
+  createModal(title) {
+    let {
+      isOpen = false
+    } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     return _modal__WEBPACK_IMPORTED_MODULE_10__["createEditorModal"](this, title, {
       isOpen
     });
   }
-
-  confirm(...args) {
+  confirm() {
+    for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+      args[_key4] = arguments[_key4];
+    }
     return _modal__WEBPACK_IMPORTED_MODULE_10__["confirm"](this, ...args);
   }
-
-  prompt(...args) {
+  prompt() {
+    for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+      args[_key5] = arguments[_key5];
+    }
     return _modal__WEBPACK_IMPORTED_MODULE_10__["prompt"](this, ...args);
   }
-
 }
-
 class Settings extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
   constructor(addonId, manifest) {
     super();
     this._addonId = addonId;
     this._manifest = manifest;
   }
-
   get(id) {
     return _settings_store_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].getAddonSetting(this._addonId, id);
   }
-
 }
-
 class Self extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
   constructor(id, getResource) {
     super();
@@ -2183,9 +1976,7 @@ class Self extends _event_target__WEBPACK_IMPORTED_MODULE_3__["default"] {
     this.disabled = false;
     this.getResource = getResource;
   }
-
 }
-
 class AddonRunner {
   constructor(id) {
     AddonRunner.instances.push(this);
@@ -2194,10 +1985,10 @@ class AddonRunner {
     this.manifest = manifest;
     this.messageCache = {};
     this.loading = true;
+
     /**
      * @type {Record<string, unknown>}
      */
-
     this.resources = null;
     this.publicAPI = {
       global,
@@ -2211,56 +2002,42 @@ class AddonRunner {
       safeMsg: this.safeMsg.bind(this)
     };
   }
-
   _msg(key, vars, handler) {
     const namespacedKey = "".concat(this.id, "/").concat(key);
-
     if (this.messageCache[namespacedKey]) {
       return this.messageCache[namespacedKey].format(vars);
     }
-
     let translation = _addons_l10n_en_json__WEBPACK_IMPORTED_MODULE_6__[namespacedKey];
-
     if (!translation) {
       return namespacedKey;
     }
-
     if (handler) {
       translation = handler(translation);
     }
-
     const messageFormat = new intl_messageformat__WEBPACK_IMPORTED_MODULE_0___default.a(translation, language);
     this.messageCache[namespacedKey] = messageFormat;
     return messageFormat.format(vars);
   }
-
   msg(key, vars) {
     return this._msg(key, vars, null);
   }
-
   safeMsg(key, vars) {
     return this._msg(key, vars, escapeHTML);
   }
-
   getResource(path) {
     const withoutSlash = path.substring(1);
     const url = this.resources[withoutSlash];
-
     if (typeof url !== 'string') {
       throw new Error("Unknown asset: ".concat(path));
     }
-
     return url;
   }
-
   updateAllStyles() {
     _conditional_style__WEBPACK_IMPORTED_MODULE_13__["updateAll"]();
     this.updateCssVariables();
   }
-
   updateCssVariables() {
     const addonId = kebabCaseToCamelCase(this.id);
-
     if (this.manifest.settings) {
       for (const setting of this.manifest.settings) {
         const settingId = setting.id;
@@ -2269,7 +2046,6 @@ class AddonRunner {
         document.documentElement.style.setProperty(cssProperty, value);
       }
     }
-
     if (this.manifest.customCssVariables) {
       for (const variable of this.manifest.customCssVariables) {
         const name = variable.name;
@@ -2280,12 +2056,10 @@ class AddonRunner {
       }
     }
   }
-
   evaluateCustomCssVariable(variable) {
     if (typeof variable !== 'object' || variable === null) {
       return variable;
     }
-
     switch (variable.type) {
       case 'alphaBlend':
         {
@@ -2293,26 +2067,21 @@ class AddonRunner {
           const transparentSource = this.evaluateCustomCssVariable(variable.transparentSource);
           return _libraries_common_cs_text_color_esm_js__WEBPACK_IMPORTED_MODULE_11__["alphaBlend"](opaqueSource, transparentSource);
         }
-
       case 'alphaThreshold':
         {
           const source = this.evaluateCustomCssVariable(variable.source);
           const alpha = _libraries_common_cs_text_color_esm_js__WEBPACK_IMPORTED_MODULE_11__["parseHex"](source).a;
           const threshold = this.evaluateCustomCssVariable(variable.threshold) || 0.5;
-
           if (alpha >= threshold) {
             return this.evaluateCustomCssVariable(variable.opaque);
           }
-
           return this.evaluateCustomCssVariable(variable.transparent);
         }
-
       case 'brighten':
         {
           const source = this.evaluateCustomCssVariable(variable.source);
           return _libraries_common_cs_text_color_esm_js__WEBPACK_IMPORTED_MODULE_11__["brighten"](source, variable);
         }
-
       case 'makeHsv':
         {
           const h = this.evaluateCustomCssVariable(variable.h);
@@ -2320,29 +2089,24 @@ class AddonRunner {
           const v = this.evaluateCustomCssVariable(variable.v);
           return _libraries_common_cs_text_color_esm_js__WEBPACK_IMPORTED_MODULE_11__["makeHsv"](h, s, v);
         }
-
       case 'map':
         {
           return variable.options[this.evaluateCustomCssVariable(variable.source)];
         }
-
       case 'multiply':
         {
           const hex = this.evaluateCustomCssVariable(variable.source);
           return _libraries_common_cs_text_color_esm_js__WEBPACK_IMPORTED_MODULE_11__["multiply"](hex, variable);
         }
-
       case 'recolorFilter':
         {
           const source = this.evaluateCustomCssVariable(variable.source);
           return _libraries_common_cs_text_color_esm_js__WEBPACK_IMPORTED_MODULE_11__["recolorFilter"](source);
         }
-
       case 'settingValue':
         {
           return this.publicAPI.addon.settings.get(variable.settingId);
         }
-
       case 'textColor':
         {
           const hex = this.evaluateCustomCssVariable(variable.source);
@@ -2352,106 +2116,86 @@ class AddonRunner {
           return _libraries_common_cs_text_color_esm_js__WEBPACK_IMPORTED_MODULE_11__["textColor"](hex, black, white, threshold);
         }
     }
-
     console.warn("Unknown customCssVariable", variable);
     return '#000000';
   }
-
   settingsChanged() {
     this.updateAllStyles();
     this.publicAPI.addon.settings.dispatchEvent(new CustomEvent('change'));
   }
-
   dynamicEnable() {
     if (this.loading) {
       return;
-    } // This order is important. We need to update styles before calling the addon's dynamic
+    }
+
+    // This order is important. We need to update styles before calling the addon's dynamic
     // toggle event. We also need to update `disabled` before we can update styles because
     // the ConditionalStyle callbacks are implemented using the API.
-
-
     this.publicAPI.addon.self.disabled = false;
     this.updateAllStyles();
     this.publicAPI.addon.self.dispatchEvent(new CustomEvent('reenabled'));
   }
-
   dynamicDisable() {
     if (this.loading) {
       return;
-    } // See comment in dynamicEnable().
+    }
 
-
+    // See comment in dynamicEnable().
     this.publicAPI.addon.self.disabled = true;
     this.updateAllStyles();
     this.publicAPI.addon.self.dispatchEvent(new CustomEvent('disabled'));
   }
-
   async run() {
     if (this.manifest.editorOnly) {
       await untilInEditor();
     }
-
     const mod = await _generated_addon_entries__WEBPACK_IMPORTED_MODULE_8__["default"][this.id]();
     this.resources = mod.resources;
-
     if (!this.manifest.noTranslations) {
       await addonMessagesPromise;
-    } // Multiply by big number because the first userstyle is + 0, second is + 1, third is + 2, etc.
+    }
+
+    // Multiply by big number because the first userstyle is + 0, second is + 1, third is + 2, etc.
     // This number just has to be larger than the maximum number of userstyles in a single addon.
-
-
     const baseStylePrecedence = Object(_addon_precedence__WEBPACK_IMPORTED_MODULE_14__["default"])(this.id) * 100;
-
     if (this.manifest.userstyles) {
       for (let i = 0; i < this.manifest.userstyles.length; i++) {
         const userstyle = this.manifest.userstyles[i];
         const userstylePrecedence = baseStylePrecedence + i;
-
         const userstyleCondition = () => !this.publicAPI.addon.self.disabled && _settings_store_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].evaluateCondition(this.id, userstyle.if);
-
         for (const [moduleId, cssText] of this.resources[userstyle.url]) {
           const sheet = _conditional_style__WEBPACK_IMPORTED_MODULE_13__["create"](moduleId, cssText);
           sheet.addDependent(this.id, userstylePrecedence, userstyleCondition);
         }
       }
     }
-
     const disabledCSS = ".".concat(getDisplayNoneWhileDisabledClass(this.id), "{display:none !important;}");
     const disabledStylesheet = _conditional_style__WEBPACK_IMPORTED_MODULE_13__["create"]("_disabled/".concat(this.id), disabledCSS);
     disabledStylesheet.addDependent(this.id, baseStylePrecedence, () => this.publicAPI.addon.self.disabled);
     this.updateCssVariables();
-
     if (this.manifest.userscripts) {
       for (const userscript of this.manifest.userscripts) {
         if (!_settings_store_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].evaluateCondition(userscript.if)) {
           continue;
         }
-
         const fn = this.resources[userscript.url];
         fn(this.publicAPI);
       }
     }
-
     this.loading = false;
   }
-
 }
-
 AddonRunner.instances = [];
-
 const runAddon = addonId => {
   const runner = new AddonRunner(addonId);
   runner.run();
 };
-
 let oldMode = getEditorMode();
-
 const emitUrlChange = () => {
   // In Scratch, URL changes usually mean someone went from editor to fullscreen or something like that.
   // This is not the case in TW -- the URL can change for many other reasons that addons probably aren't prepared
   // to handle.
   const newMode = getEditorMode();
-
   if (newMode !== oldMode) {
     oldMode = newMode;
     setTimeout(() => {
@@ -2461,29 +2205,28 @@ const emitUrlChange = () => {
     });
   }
 };
-
 const originalReplaceState = history.replaceState;
-
-history.replaceState = function (...args) {
+history.replaceState = function () {
+  for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+    args[_key6] = arguments[_key6];
+  }
   originalReplaceState.apply(this, args);
   emitUrlChange();
 };
-
 const originalPushState = history.pushState;
-
-history.pushState = function (...args) {
+history.pushState = function () {
+  for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+    args[_key7] = arguments[_key7];
+  }
   originalPushState.apply(this, args);
   emitUrlChange();
 };
-
 _settings_store_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addEventListener('addon-changed', e => {
   const addonId = e.detail.addonId;
   const runner = AddonRunner.instances.find(i => i.id === addonId);
-
   if (runner) {
     runner.settingsChanged();
   }
-
   if (e.detail.dynamicEnable) {
     if (runner) {
       runner.dynamicEnable();
@@ -2496,12 +2239,10 @@ _settings_store_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].addEventListen
     }
   }
 });
-
 for (const id of Object.keys(_generated_addon_manifests__WEBPACK_IMPORTED_MODULE_5__["default"])) {
   if (!_settings_store_singleton__WEBPACK_IMPORTED_MODULE_1__["default"].getAddonEnabled(id)) {
     continue;
   }
-
   runAddon(id);
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
@@ -2524,39 +2265,35 @@ __webpack_require__.r(__webpack_exports__);
 const stylesheetContainer = document.createElement('div');
 stylesheetContainer.style.display = 'none';
 document.body.appendChild(stylesheetContainer);
+
 /**
  * Maps opaque module IDs to its ConditionalStyle.
  * @type {Map<unknown, ConditionalStyle>}
  */
-
 const allSheets = new Map();
+
 /**
  * Determine if the contents of a list are equal (===) to each other.
  * @param {unknown[]} a The first list
  * @param {unknown[]} b The second list
  * @returns {boolean} true if the lists are identical
  */
-
 const areArraysEqual = (a, b) => {
   if (a.length !== b.length) {
     return false;
   }
-
   for (let i = 0; i < a.length; a++) {
     if (a[i] !== b[i]) {
       return false;
     }
   }
-
   return true;
 };
-
 const updateAll = () => {
   for (const sheet of allSheets.values()) {
     sheet.update();
   }
 };
-
 class ConditionalStyle {
   /**
    * @param {string} styleText CSS text
@@ -2567,62 +2304,53 @@ class ConditionalStyle {
      * @type {HTMLStyleElement}
      */
     this.el = null;
+
     /**
      * Temporary storing place for the CSS text until the style sheet is created.
      * @type {string|null}
      */
-
     this.styleText = styleText;
+
     /**
      * Higher number indicates this element should override lower numbers.
      * @type {number}
      */
-
     this.precedence = 0;
+
     /**
      * List of [addonId, condition] tuples.
      * @type {Array<[string, () => boolean>]}
      */
-
     this.dependents = [];
+
     /**
      * List of addonIds that were enabled on the previous call to update()
      * @type {string[]}
      */
-
     this.previousEnabledDependents = [];
   }
-
   addDependent(addonId, precedence, condition) {
     this.dependents.push([addonId, condition]);
-
     if (precedence > this.precedence) {
       this.precedence = precedence;
-
       if (this.el) {
         this.el.dataset.precedence = precedence;
       }
     }
-
     this.update();
   }
-
   getEnabledDependents() {
     const enabledDependents = [];
-
     for (const [addonId, condition] of this.dependents) {
       if (condition()) {
         enabledDependents.push(addonId);
       }
     }
-
     return enabledDependents;
   }
-
   dependsOn(addonId) {
     return this.dependents.some(dependent => dependent[0] === addonId);
   }
-
   getElement() {
     if (!this.el) {
       const el = document.createElement('style');
@@ -2632,52 +2360,41 @@ class ConditionalStyle {
       this.styleText = null;
       this.el = el;
     }
-
     return this.el;
   }
-
   update() {
     const enabledDependents = this.getEnabledDependents();
-
     if (areArraysEqual(enabledDependents, this.previousEnabledDependents)) {
       // Nothing to do.
       return;
     }
-
     this.previousEnabledDependents = enabledDependents;
-
     if (enabledDependents.length > 0) {
       const el = this.getElement();
       el.dataset.addons = enabledDependents.join(',');
-
       for (const child of stylesheetContainer.children) {
         const otherPrecedence = +child.dataset.precedence || 0;
-
         if (otherPrecedence >= this.precedence) {
           // We need to be before this style.
           stylesheetContainer.insertBefore(el, child);
           return;
         }
-      } // We have higher precedence than all existing stylesheets.
+      }
 
-
+      // We have higher precedence than all existing stylesheets.
       stylesheetContainer.appendChild(el);
     } else if (this.el) {
       this.el.remove();
     }
   }
-
 }
-
 const create = (moduleId, styleText) => {
   if (!allSheets.get(moduleId)) {
     const newSheet = new ConditionalStyle(styleText);
     allSheets.set(moduleId, newSheet);
   }
-
   return allSheets.get(moduleId);
 };
-
 
 
 /***/ }),
@@ -2692,30 +2409,27 @@ const create = (moduleId, styleText) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addContextMenu", function() { return addContextMenu; });
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 // This file is imported from
 // https://github.com/ScratchAddons/ScratchAddons/blob/master/addon-api/content-script/contextmenu.js
 
 /* eslint-disable */
+
 let initialized = false;
 let hasDynamicContextMenu = false;
 let contextMenus = [];
-
 const onReactContextMenu = function onReactContextMenu(e) {
   var _ctxTarget$this$traps10, _ctxTarget$this$traps11, _ctxTarget$this$traps12, _ctxTarget$this$traps13, _ctxTarget$this$traps14, _ctxTarget$this$traps15;
-
   if (!e.target) return;
   const ctxTarget = e.target.closest(".react-contextmenu-wrapper");
   if (!ctxTarget) return;
   let ctxMenu = ctxTarget.querySelector("nav.react-contextmenu");
   let type;
   const extra = {};
-
   if (false) { var _ctxTarget$this$traps, _ctxTarget$this$traps2, _ctxTarget$this$traps3, _ctxTarget$this$traps4, _ctxTarget$this$traps5, _ctxTarget$this$traps6, _ctxTarget$this$traps7, _ctxTarget$this$traps8, _ctxTarget$this$traps9; } else if ((_ctxTarget$this$traps10 = ctxTarget[this.traps.getInternalKey(ctxTarget)]) !== null && _ctxTarget$this$traps10 !== void 0 && (_ctxTarget$this$traps11 = _ctxTarget$this$traps10.return) !== null && _ctxTarget$this$traps11 !== void 0 && (_ctxTarget$this$traps12 = _ctxTarget$this$traps11.return) !== null && _ctxTarget$this$traps12 !== void 0 && (_ctxTarget$this$traps13 = _ctxTarget$this$traps12.return) !== null && _ctxTarget$this$traps13 !== void 0 && (_ctxTarget$this$traps14 = _ctxTarget$this$traps13.stateNode) !== null && _ctxTarget$this$traps14 !== void 0 && (_ctxTarget$this$traps15 = _ctxTarget$this$traps14.props) !== null && _ctxTarget$this$traps15 !== void 0 && _ctxTarget$this$traps15.dragType) {
     // SpriteSelectorItem which despite its name is used for costumes, sounds, backpacked script etc
     const props = ctxTarget[this.traps.getInternalKey(ctxTarget)].return.return.return.stateNode.props;
@@ -2726,17 +2440,14 @@ const onReactContextMenu = function onReactContextMenu(e) {
   } else {
     return;
   }
-
   const ctx = _objectSpread({
     menuItem: ctxMenu,
     target: ctxTarget,
     type
   }, extra);
-
   Array.from(ctxMenu.children).forEach(existing => {
     if (existing.classList.contains("sa-ctx-menu")) existing.remove();
   });
-
   for (const item of hasDynamicContextMenu ? contextMenus.flatMap(menu => typeof menu === "function" ? menu(type, ctx) : menu) : contextMenus) {
     if (!item) continue;
     if (item.types && !item.types.some(itemType => type === itemType)) continue;
@@ -2770,10 +2481,8 @@ const onReactContextMenu = function onReactContextMenu(e) {
       element: itemElem
     });
   }
-
   return;
 };
-
 const initialize = tab => {
   if (initialized) return;
   initialized = true;
@@ -2781,7 +2490,6 @@ const initialize = tab => {
     capture: true
   });
 };
-
 const addContextMenu = (tab, callback, opts) => {
   if (typeof opts === "undefined") {
     contextMenus.push(callback);
@@ -2791,7 +2499,6 @@ const addContextMenu = (tab, callback, opts) => {
       callback
     }));
   }
-
   initialize(tab);
 };
 
@@ -2944,13 +2651,11 @@ function parseHex(hex) {
     a: hex.length >= 9 ? parseInt(hex.substring(7, 9), 16) / 255 : 1
   };
 }
-
 function convertComponentToHex(a) {
   a = Math.round(a).toString(16);
   if (a.length === 1) return "0".concat(a);
   return a;
 }
-
 function convertToHex(obj) {
   const r = convertComponentToHex(obj.r);
   const g = convertComponentToHex(obj.g);
@@ -2958,12 +2663,12 @@ function convertToHex(obj) {
   const a = obj.a !== undefined ? convertComponentToHex(255 * obj.a) : "";
   return "#".concat(r).concat(g).concat(b).concat(a);
 }
-
-function convertFromHsv({
-  h,
-  s,
-  v
-}) {
+function convertFromHsv(_ref) {
+  let {
+    h,
+    s,
+    v
+  } = _ref;
   if (s === 0) return {
     r: 255 * v,
     g: 255 * v,
@@ -2976,7 +2681,6 @@ function convertFromHsv({
   const x = v * (1 - s * (1 - h1 + hi));
   const y = v * (1 - s * (h1 - hi));
   const z = v * (1 - s);
-
   switch (hi) {
     case 0:
       return {
@@ -2984,35 +2688,30 @@ function convertFromHsv({
         g: 255 * x,
         b: 255 * z
       };
-
     case 1:
       return {
         r: 255 * y,
         g: 255 * v,
         b: 255 * z
       };
-
     case 2:
       return {
         r: 255 * z,
         g: 255 * v,
         b: 255 * x
       };
-
     case 3:
       return {
         r: 255 * z,
         g: 255 * y,
         b: 255 * v
       };
-
     case 4:
       return {
         r: 255 * x,
         g: 255 * z,
         b: 255 * v
       };
-
     case 5:
       return {
         r: 255 * v,
@@ -3021,12 +2720,12 @@ function convertFromHsv({
       };
   }
 }
-
-function convertToHsv({
-  r,
-  g,
-  b
-}) {
+function convertToHsv(_ref2) {
+  let {
+    r,
+    g,
+    b
+  } = _ref2;
   r /= 255;
   g /= 255;
   b /= 255;
@@ -3037,7 +2736,6 @@ function convertToHsv({
     s: 0,
     v: v
   }; // gray
-
   const s = d / v;
   const hr = (v - r) / d;
   const hg = (v - g) / d;
@@ -3051,7 +2749,6 @@ function convertToHsv({
     v
   };
 }
-
 function brightness(hex) {
   const {
     r,
@@ -3060,11 +2757,9 @@ function brightness(hex) {
   } = parseHex(hex);
   return r * 0.299 + g * 0.587 + b * 0.114;
 }
-
 function textColor(hex, black, white, threshold) {
   threshold = threshold !== undefined ? threshold : 170;
   if (typeof threshold !== "number") threshold = brightness(threshold);
-
   if (brightness(hex) > threshold) {
     // https://stackoverflow.com/a/3943023
     return black !== undefined ? black : "#575e75";
@@ -3072,7 +2767,6 @@ function textColor(hex, black, white, threshold) {
     return white !== undefined ? white : "#ffffff";
   }
 }
-
 function multiply(hex, c) {
   const {
     r,
@@ -3091,7 +2785,6 @@ function multiply(hex, c) {
     a: c.a * a
   });
 }
-
 function brighten(hex, c) {
   const {
     r,
@@ -3110,7 +2803,6 @@ function brighten(hex, c) {
     a: 1 - c.a + c.a * a
   });
 }
-
 function alphaBlend(opaqueHex, transparentHex) {
   const {
     r: r1,
@@ -3129,11 +2821,9 @@ function alphaBlend(opaqueHex, transparentHex) {
     b: (1 - a) * b1 + a * b2
   });
 }
-
 function removeAlpha(hex) {
   return hex.substring(0, 7);
 }
-
 function makeHsv(hSource, sSource, vSource) {
   const h = typeof hSource === "number" ? hSource : convertToHsv(parseHex(hSource)).h;
   const s = typeof hSource !== "number" && convertToHsv(parseHex(hSource)).s === 0 ? 0 : typeof sSource === "number" ? sSource : convertToHsv(parseHex(sSource)).s;
@@ -3144,7 +2834,6 @@ function makeHsv(hSource, sSource, vSource) {
     v
   }));
 }
-
 function recolorFilter(hex) {
   const {
     r,
@@ -3153,7 +2842,6 @@ function recolorFilter(hex) {
   } = parseHex(hex);
   return "url(\"data:image/svg+xml,\n    <svg xmlns='http://www.w3.org/2000/svg'>\n      <filter id='recolor'>\n        <feColorMatrix color-interpolation-filters='sRGB' values='\n          0 0 0 0 ".concat(r / 255, "\n          0 0 0 0 ").concat(g / 255, "\n          0 0 0 0 ").concat(b / 255, "\n          0 0 0 1 0\n        '/>\n      </filter>\n    </svg>#recolor\n  \")").split("\n").join("");
 }
-
 
 
 /***/ }),
@@ -3208,9 +2896,11 @@ __webpack_require__.r(__webpack_exports__);
 // https://github.com/ScratchAddons/ScratchAddons/blob/master/addon-api/content-script/modal.js
 
 
-const createEditorModal = (tab, title, {
-  isOpen = false
-} = {}) => {
+
+const createEditorModal = function createEditorModal(tab, title) {
+  let {
+    isOpen = false
+  } = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   const container = Object.assign(document.createElement('div'), {
     className: tab.scratchClass('modal_modal-overlay'),
     dir: tab.direction
@@ -3260,7 +2950,6 @@ const createEditorModal = (tab, title, {
     remove: container.remove.bind(container)
   };
 };
-
 const createButtonRow = tab => {
   const buttonRow = Object.assign(document.createElement('div'), {
     className: tab.scratchClass('prompt_button-row')
@@ -3281,10 +2970,10 @@ const createButtonRow = tab => {
     okButton
   };
 };
-
-const confirm = (tab, title, message, {
-  useEditorClasses = false
-} = {}) => {
+const confirm = function confirm(tab, title, message) {
+  let {
+    useEditorClasses = false
+  } = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
   const {
     remove,
     container,
@@ -3297,12 +2986,10 @@ const confirm = (tab, title, message, {
     useSizesClass: true
   });
   const mode = tab.editorMode !== null && useEditorClasses ? 'editor' : tab.clientVersion;
-
   if (mode === 'editor') {
     container.classList.add(tab.scratchClass('prompt_modal-content'));
     content.classList.add(tab.scratchClass('prompt_body'));
   }
-
   content.appendChild(Object.assign(document.createElement('div'), {
     className: tab.scratchClass('prompt_label'),
     innerText: message
@@ -3319,12 +3006,10 @@ const confirm = (tab, title, message, {
       remove();
       resolve(false);
     };
-
     const ok = () => {
       remove();
       resolve(true);
     };
-
     backdrop.addEventListener('click', cancel);
     closeButton.addEventListener('click', cancel);
     cancelButton.addEventListener('click', cancel);
@@ -3335,9 +3020,11 @@ const confirm = (tab, title, message, {
     });
   });
 };
-const prompt = (tab, title, message, defaultValue = '', {
-  useEditorClasses = false
-} = {}) => {
+const prompt = function prompt(tab, title, message) {
+  let defaultValue = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
+  let {
+    useEditorClasses = false
+  } = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
   const {
     remove,
     container,
@@ -3373,12 +3060,10 @@ const prompt = (tab, title, message, defaultValue = '', {
       remove();
       resolve(null);
     };
-
     const ok = () => {
       remove();
       resolve(input.value);
     };
-
     backdrop.addEventListener('click', cancel);
     closeButton.addEventListener('click', cancel);
     cancelButton.addEventListener('click', cancel);
@@ -3400,24 +3085,21 @@ const prompt = (tab, title, message, defaultValue = '', {
 /***/ (function(module, exports) {
 
 /* eslint-disable no-extend-native */
+
 if (!Blob.prototype.text) {
   Blob.prototype.text = function () {
     return new Promise((resolve, reject) => {
       const fr = new FileReader();
-
       fr.onload = () => resolve(fr.result);
-
       fr.onerror = () => reject(new Error('Cannot read blob as text'));
-
       fr.readAsText(this);
     });
   };
 }
-
 if (!Array.prototype.flat) {
-  Array.prototype.flat = function (depth = 1) {
+  Array.prototype.flat = function () {
+    let depth = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
     const result = [];
-
     for (const i of this) {
       if (Array.isArray(i)) {
         if (depth < 1) {
@@ -3431,11 +3113,9 @@ if (!Array.prototype.flat) {
         result.push(i);
       }
     }
-
     return result;
   };
 }
-
 if (typeof queueMicrotask !== 'function') {
   window.queueMicrotask = callback => {
     Promise.resolve().then(callback);

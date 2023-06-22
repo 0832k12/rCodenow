@@ -1277,7 +1277,7 @@ module.exports = toString;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* GUI */\n:root {\n    background: #111;\n    color: #eee;\n    color-scheme: dark;\n    /* see colors.csss */\n    --ui-primary: rgb(37, 41, 50);\n    --ui-secondary: rgb(45, 50, 60);\n    --ui-tertiary: rgb(40, 45, 55);\n    --ui-modal-overlay: #333a;\n    --ui-black-transparent: rgba(255, 255, 255, 0);\n    --text-primary: #eee;\n    /* scratch-paint */\n    --paint-ui-pane-border: var(--ui-black-transparent);\n    --paint-text-primary: #eee;\n    --paint-form-border: var(--ui-black-transparent);\n}\n\n/* Blockly */\n.blocklySvg {\n    background-color: var(--ui-secondary) !important;\n    color-scheme: light;\n}\n\n[id^=\"blocklyGridPattern\"]>line {\n    stroke: #ffffff08;\n}\n\n.blocklyFlyoutBackground {\n    fill: #272b34;\n}\n\n.blocklyFlyoutLabelText {\n    fill: #ccc;\n}\n\n.blocklyFlyoutButton .blocklyText {\n    fill: #ccc;\n}\n\n.blocklyFlyoutButton:hover {\n    fill: #111;\n}\n\n/* blocklyFlyoutCheckboxPath stroke and blocklyFlyoutCheckbox fill must match */\n.blocklyFlyoutCheckboxPath {\n    stroke: #111;\n}\n\n.blocklyFlyoutCheckbox {\n    fill: #111;\n}\n\n.checked>.blocklyFlyoutCheckbox {\n    stroke: #a1c6fa;\n}\n\n.checked>.blocklyFlyoutCheckboxPath {\n    stroke: white;\n}\n\n.scratchCategoryMenu {\n    color: #ccc;\n}\n\n.blocklyToolboxDiv,\n.scratchCategoryMenu {\n    background: rgb(34, 38, 46) !important;\n}\n\n.blocklyScrollbarHandle {\n    fill: #666;\n}\n\n.blocklyZoom {\n    filter: invert(100%);\n}\n\n.scratchCategoryMenuItem.categorySelected {\n    background: var(--ui-secondary);\n}\n\n.valueReportBox {\n    color: black;\n}\n\n.blocklyWidgetDiv {\n    color-scheme: light;\n}\n\n.blocklyWidgetDiv .goog-menu {\n    background: var(--ui-primary);\n    border-color: var(--ui-black-transparent);\n}\n\n.blocklyWidgetDiv .goog-menuitem {\n    color: var(--text-primary);\n}\n\n.blocklyWidgetDiv .goog-menuitem-disabled .goog-menuitem-content {\n    color: #666 !important;\n}\n\n.sa-blockly-menu-item-border {\n    border-top-color: var(--ui-black-transparent) !important;\n}\n\n.blocklyWidgetDiv .goog-menuitem.goog-menuitem-highlight {\n    background-color: var(--ui-tertiary);\n    border-color: transparent;\n    /* remove border */\n}\n\n.scratchCommentText {\n    color: black;\n}\n\n.blocklyInsertionMarker>.blocklyPath {\n    fill: #ccc;\n}\n\n/* Other / Multipurpose */\n.Popover {\n    /* weird Chrome bug displays white bar above popovers with color-scheme: dark */\n    color-scheme: light;\n}\n\n.Popover-body {\n    background: var(--ui-secondary);\n    border-color: var(--ui-black-transparent);\n    color: var(--text-primary);\n}\n\n.Popover-tipShape {\n    fill: var(--ui-secondary);\n    stroke: var(--ui-black-transparent);\n}"
+module.exports = "/* GUI */\n:root {\n    background: #111;\n    color: #eee;\n    color-scheme: dark;\n    /* see colors.csss */\n    --ui-primary: rgb(37, 41, 50);\n    --ui-secondary: rgb(45, 50, 60);\n    --ui-tertiary: rgb(40, 45, 55);\n    --ui-modal-overlay: #333a;\n    --ui-black-transparent: rgba(255, 255, 255, 0);\n    --text-primary: #eee;\n    /* scratch-paint */\n    --paint-ui-pane-border: var(--ui-black-transparent);\n    --paint-text-primary: #eee;\n    --paint-form-border: var(--ui-black-transparent);\n}\n\n/* Blockly */\n.blocklySvg {\n    background-color: var(--ui-secondary) !important;\n    color-scheme: light;\n}\n\n[id^=\"blocklyGridPattern\"]>line {\n    stroke: #ffffff08;\n}\n\n.blocklyFlyoutBackground {\n    fill: #272b34;\n}\n\n.blocklyFlyoutLabelText {\n    fill: #ccc;\n}\n\n.blocklyFlyoutButton .blocklyText {\n    fill: #ccc;\n}\n\n.blocklyFlyoutButton:hover {\n    fill: #111;\n}\n\n/* blocklyFlyoutCheckboxPath stroke and blocklyFlyoutCheckbox fill must match */\n.blocklyFlyoutCheckboxPath {\n    stroke: #111;\n}\n\n.blocklyFlyoutCheckbox {\n    fill: #111;\n}\n\n.checked>.blocklyFlyoutCheckbox {\n    stroke: #a1c6fa;\n}\n\n.checked>.blocklyFlyoutCheckboxPath {\n    stroke: white;\n}\n\n.scratchCategoryMenu {\n    color: #ccc;\n}\n\n.blocklyToolboxDiv,\n.scratchCategoryMenu {\n    background: rgb(34, 38, 46) !important;\n}\n\n.blocklyScrollbarHandle {\n    fill: #666;\n}\n\n.blocklyZoom {\n    filter: invert(100%);\n}\n\n.scratchCategoryMenuItem.categorySelected {\n    background: var(--ui-secondary);\n}\n\n.valueReportBox {\n    color: black;\n}\n\n.blocklyWidgetDiv {\n    color-scheme: light;\n}\n\n.blocklyWidgetDiv .goog-menu {\n    background: var(--ui-primary);\n    border-color: var(--ui-black-transparent);\n}\n\n.blocklyWidgetDiv .goog-menuitem {\n    color: var(--text-primary);\n}\n\n.blocklyWidgetDiv .goog-menuitem-disabled .goog-menuitem-content {\n    color: #666 !important;\n}\n\n.sa-blockly-menu-item-border {\n    border-top-color: var(--ui-black-transparent) !important;\n}\n\n.blocklyWidgetDiv .goog-menuitem.goog-menuitem-highlight {\n    background-color: var(--ui-tertiary);\n    border-color: transparent;\n    /* remove border */\n}\n\n.scratchCommentText {\n    color: black;\n}\n\n.blocklyInsertionMarker>.blocklyPath {\n    fill: #ccc;\n}\n\n/* Other / Multipurpose */\n.Popover {\n    /* weird Chrome bug displays white bar above popovers with color-scheme: dark */\n    color-scheme: light;\n}\n\n.Popover-body {\n    background: var(--ui-secondary);\n    border-color: var(--ui-black-transparent);\n    color: var(--text-primary);\n}\n\n.Popover-tipShape {\n    fill: var(--ui-secondary);\n    stroke: var(--ui-black-transparent);\n}\n"
 
 /***/ }),
 
@@ -1368,12 +1368,10 @@ module.exports = function reactStringReplace(source, match, fn) {
 __webpack_require__.r(__webpack_exports__);
 let changeChannel;
 let reloadChannel;
-
 if (typeof BroadcastChannel !== 'undefined') {
   changeChannel = new BroadcastChannel('addons-change');
   reloadChannel = new BroadcastChannel('addons-reload');
 }
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   changeChannel,
   reloadChannel
@@ -1431,7 +1429,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const CloudVariableBadge = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
   className: _cloud_variable_badge_css__WEBPACK_IMPORTED_MODULE_3___default.a.badge
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1443,7 +1440,8 @@ const CloudVariableBadge = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__
   height: "32"
 })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
   className: _cloud_variable_badge_css__WEBPACK_IMPORTED_MODULE_3___default.a.text
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_1__["FormattedMessage"] // eslint-disable-next-line max-len
+}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_1__["FormattedMessage"]
+// eslint-disable-next-line max-len
 , {
   defaultMessage: "This project uses cloud variables. TurboWarp uses its own cloud variable server independent of Scratch. Beware of impersonation as anyone can change their username to anything. {learnMore}",
   id: "tw.cloudVariableBadge",
@@ -1458,7 +1456,6 @@ const CloudVariableBadge = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__
     }))
   }
 })));
-
 /* harmony default export */ __webpack_exports__["default"] = (CloudVariableBadge);
 
 /***/ }),
@@ -1527,59 +1524,62 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const decorate = text => {
   // https://github.com/LLK/scratch-www/blob/25232a06bcceeaddec8fcb24fb63a44d870cf1cf/src/lib/decorate-text.jsx
+
   // Make @mentions clickable
   text = react_string_replace__WEBPACK_IMPORTED_MODULE_4___default()(text, /@([\w-]+)/, (match, i) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "https://scratch.mit.edu/users/".concat(match, "/"),
     rel: "noreferrer",
     key: match + i
-  }, "@".concat(match))); // Make links clickable
+  }, "@".concat(match)));
 
+  // Make links clickable
   const linkRegex = /(https?:\/\/[\w\d_\-.]{1,256}(?:\/(?:\S*[\w:/#[\]@$&'()*+=])?)?(?![^?!,:;\w\s]\S))/g;
   text = react_string_replace__WEBPACK_IMPORTED_MODULE_4___default()(text, linkRegex, (match, i) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: match,
     rel: "noreferrer",
     key: match + i
-  }, match)); // Make hashtags clickable
+  }, match));
 
+  // Make hashtags clickable
   text = react_string_replace__WEBPACK_IMPORTED_MODULE_4___default()(text, /#([\w-]+)/g, (match, i) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "https://scratch.mit.edu/search/projects?q=".concat(match),
     key: match + i
   }, "#".concat(match)));
   return text;
 };
-
-const Description = ({
-  instructions,
-  credits,
-  projectId
-}) => instructions !== 'unshared' && credits !== 'unshared' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _description_css__WEBPACK_IMPORTED_MODULE_3___default.a.description
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _description_css__WEBPACK_IMPORTED_MODULE_3___default.a.projectLink
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-  href: "https://scratch.mit.edu/projects/".concat(projectId, "/"),
-  target: "_blank",
-  rel: "noreferrer"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_2__["FormattedMessage"], {
-  defaultMessage: "View project on Scratch",
-  id: "tw.viewOnScratch"
-}))), instructions ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-  className: _description_css__WEBPACK_IMPORTED_MODULE_3___default.a.header
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_2__["FormattedMessage"], {
-  defaultMessage: "Instructions",
-  id: "tw.home.instructions"
-})), decorate(instructions)) : null, instructions && credits ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-  className: _description_css__WEBPACK_IMPORTED_MODULE_3___default.a.divider
-}) : null, credits && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-  className: _description_css__WEBPACK_IMPORTED_MODULE_3___default.a.header
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_2__["FormattedMessage"], {
-  defaultMessage: "Notes and Credits",
-  id: "tw.home.credit"
-})), decorate(credits)));
-
+const Description = _ref => {
+  let {
+    instructions,
+    credits,
+    projectId
+  } = _ref;
+  return instructions !== 'unshared' && credits !== 'unshared' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _description_css__WEBPACK_IMPORTED_MODULE_3___default.a.description
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _description_css__WEBPACK_IMPORTED_MODULE_3___default.a.projectLink
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "https://scratch.mit.edu/projects/".concat(projectId, "/"),
+    target: "_blank",
+    rel: "noreferrer"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_2__["FormattedMessage"], {
+    defaultMessage: "View project on Scratch",
+    id: "tw.viewOnScratch"
+  }))), instructions ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+    className: _description_css__WEBPACK_IMPORTED_MODULE_3___default.a.header
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_2__["FormattedMessage"], {
+    defaultMessage: "Instructions",
+    id: "tw.home.instructions"
+  })), decorate(instructions)) : null, instructions && credits ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: _description_css__WEBPACK_IMPORTED_MODULE_3___default.a.divider
+  }) : null, credits && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+    className: _description_css__WEBPACK_IMPORTED_MODULE_3___default.a.header
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_2__["FormattedMessage"], {
+    defaultMessage: "Notes and Credits",
+    id: "tw.home.credit"
+  })), decorate(credits)));
+};
 Description.propTypes = {
   instructions: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   credits: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
@@ -1651,7 +1651,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 class FeaturedProjects extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
   constructor(props) {
     super(props);
@@ -1661,7 +1660,6 @@ class FeaturedProjects extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Comp
       transition: true
     };
   }
-
   componentDidUpdate(prevProps) {
     if (this.props.projectId === '0' && prevProps.projectId === null) {
       // eslint-disable-next-line react/no-did-update-set-state
@@ -1671,17 +1669,14 @@ class FeaturedProjects extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Comp
       });
     }
   }
-
   handleSelect(id) {
     this.props.setProjectId(id);
   }
-
   handleOpenProjects() {
     this.setState({
       opened: true
     });
   }
-
   render() {
     const opened = this.state.opened;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
@@ -1714,23 +1709,18 @@ class FeaturedProjects extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Comp
       id: "tw.featuredProjectsStudio"
     }))));
   }
-
 }
-
 FeaturedProjects.propTypes = {
   setProjectId: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
   projectId: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   studio: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string
 };
-
 const mapStateToProps = state => ({
   projectId: state.scratchGui.projectState.projectId
 });
-
 const mapDispatchToProps = dispatch => ({
   setProjectId: projectId => Object(_lib_tw_navigation_utils_js__WEBPACK_IMPORTED_MODULE_7__["setProjectId"])(dispatch, projectId)
 });
-
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToProps, mapDispatchToProps)(FeaturedProjects));
 
 /***/ }),
@@ -1804,7 +1794,6 @@ const messages = Object(react_intl__WEBPACK_IMPORTED_MODULE_5__["defineMessages"
     "defaultMessage": "Copy and paste a Scratch project link here!"
   }
 });
-
 class ProjectInput extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Component {
   constructor(props) {
     super(props);
@@ -1813,7 +1802,6 @@ class ProjectInput extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Componen
       projectId: this.props.projectId
     };
   }
-
   componentDidUpdate(prevProps) {
     if (this.props.projectId !== prevProps.projectId) {
       if (this.props.projectId === _reducers_project_state__WEBPACK_IMPORTED_MODULE_6__["defaultProjectId"]) {
@@ -1821,61 +1809,49 @@ class ProjectInput extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Componen
         this.input.selectionStart = this.input.value.length;
       } else {
         this.input.blur();
-      } // eslint-disable-next-line react/no-did-update-set-state
-
-
+      }
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         projectId: this.props.projectId
       });
     }
   }
-
   extractProjectId(text) {
     const numberMatch = text.match(/\d+/);
     return numberMatch ? numberMatch[0] : null;
   }
-
   readProjectId(e) {
     const id = this.extractProjectId(e.target.value);
     return id || _reducers_project_state__WEBPACK_IMPORTED_MODULE_6__["defaultProjectId"];
   }
-
   handleKeyDown(e) {
     if (e.key === 'Enter' && this.state.projectId) {
       this.input.blur();
     }
   }
-
   handleChange(e) {
     this.setState({
       projectId: this.readProjectId(e) || _reducers_project_state__WEBPACK_IMPORTED_MODULE_6__["defaultProjectId"]
     });
   }
-
   handleBlur() {
     if (this.state.projectId && this.state.projectId !== this.props.projectId) {
       this.props.setProjectId(this.state.projectId);
     }
-
     react_tooltip__WEBPACK_IMPORTED_MODULE_4___default.a.hide(this.tooltip);
   }
-
   handleFocus(e) {
     if (this.extractProjectId(e.target.value)) {
       e.target.select();
     }
-
     react_tooltip__WEBPACK_IMPORTED_MODULE_4___default.a.show(this.tooltip);
   }
-
   inputRef(el) {
     this.input = el;
   }
-
   tooltipRef(el) {
     this.tooltip = el;
   }
-
   render() {
     const projectId = this.state.projectId === _reducers_project_state__WEBPACK_IMPORTED_MODULE_6__["defaultProjectId"] ? '' : this.state.projectId || '';
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -1896,23 +1872,18 @@ class ProjectInput extends react__WEBPACK_IMPORTED_MODULE_1___default.a.Componen
       onFocus: this.handleFocus
     }));
   }
-
 }
-
 ProjectInput.propTypes = {
   intl: react_intl__WEBPACK_IMPORTED_MODULE_5__["intlShape"],
   projectId: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
   setProjectId: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func
 };
-
 const mapStateToProps = state => ({
   projectId: state.scratchGui.projectState.projectId
 });
-
 const mapDispatchToProps = dispatch => ({
   setProjectId: projectId => Object(_lib_tw_navigation_utils__WEBPACK_IMPORTED_MODULE_8__["setProjectId"])(dispatch, projectId)
 });
-
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_intl__WEBPACK_IMPORTED_MODULE_5__["injectIntl"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(ProjectInput)));
 
 /***/ }),
@@ -1968,10 +1939,11 @@ __webpack_require__.r(__webpack_exports__);
 // todo: use react-intl for translations
 
 
+
+
 /**
  * @class
  */
-
 var StudioView = function StudioView(studioId) {
   this.studioId = studioId;
   this.offset = 0;
@@ -1983,7 +1955,6 @@ var StudioView = function StudioView(studioId) {
   this.projectList = document.createElement('div');
   this.projectList.className = _studioview_css__WEBPACK_IMPORTED_MODULE_0___default.a.studioviewList;
   this.root.appendChild(this.projectList);
-
   if ('IntersectionObserver' in window) {
     this.intersectionObserver = new IntersectionObserver(this.handleIntersection.bind(this), {
       root: this.projectList
@@ -1994,41 +1965,36 @@ var StudioView = function StudioView(studioId) {
   } else {
     this.intersectionObserver = null;
     this.loadNextPageObserver = null;
-  } // will be filled in by studioview.jsx
+  }
 
-
+  // will be filled in by studioview.jsx
   this.messages = {
     AUTHOR_ATTRIBUTION: '',
     PROJECT_HOVER_TEXT: '',
     LOAD_ERROR: ''
   };
 };
+
 /**
  * Add a project to the view.
  * An unused placeholder element may be used, or it may be created.
  */
-
-
 StudioView.prototype.addProject = function (details) {
   var el;
-
   if (this.unusedPlaceholders.length) {
     el = this.unusedPlaceholders.shift();
   } else {
     el = this.createPlaceholder();
     this.projectList.appendChild(el);
   }
-
   this.placeholderToProject(el, details.id, details.title, details.author);
 };
+
 /**
  * Create an <img> element that will load only when it becomes visible.
  */
-
-
 StudioView.prototype.createLazyImage = function (src) {
   var el = document.createElement('img');
-
   if (this.intersectionObserver) {
     this.intersectionObserver.observe(el);
     el.dataset.src = src;
@@ -2036,14 +2002,12 @@ StudioView.prototype.createLazyImage = function (src) {
     // then we just won't lazy load it
     el.src = src;
   }
-
   return el;
 };
+
 /**
  * Create a placeholder or placeholder element.
  */
-
-
 StudioView.prototype.createPlaceholder = function () {
   var el = document.createElement('a');
   el.className = classnames__WEBPACK_IMPORTED_MODULE_1___default()(_studioview_css__WEBPACK_IMPORTED_MODULE_0___default.a.studioviewProject, _studioview_css__WEBPACK_IMPORTED_MODULE_0___default.a.studioviewPlaceholder);
@@ -2061,11 +2025,10 @@ StudioView.prototype.createPlaceholder = function () {
   el.appendChild(author);
   return el;
 };
+
 /**
  * Convert a placeholder element made by createPlaceholder to a project element.
  */
-
-
 StudioView.prototype.placeholderToProject = function (el, id, title, author) {
   el.className = classnames__WEBPACK_IMPORTED_MODULE_1___default()(_studioview_css__WEBPACK_IMPORTED_MODULE_0___default.a.studioviewProject, _studioview_css__WEBPACK_IMPORTED_MODULE_0___default.a.studioviewLoaded);
   el.dataset.id = id;
@@ -2082,54 +2045,50 @@ StudioView.prototype.placeholderToProject = function (el, id, title, author) {
   el.addEventListener('keydown', this.handleKeyDown.bind(this), true);
   return el;
 };
+
 /**
  * Adds an error message to the list.
  */
-
-
 StudioView.prototype.addErrorElement = function () {
   var el = document.createElement('div');
   el.innerText = this.messages.LOAD_ERROR;
   el.className = _studioview_css__WEBPACK_IMPORTED_MODULE_0___default.a.studioviewError;
   this.projectList.appendChild(el);
 };
-
 StudioView.prototype.handleLoadNextPageIntersection = function (e) {
   for (var i = 0; i < e.length; i++) {
     var intersection = e[i];
-
     if (intersection.isIntersecting && this.canLoadNext()) {
       this.loadNextPage();
     }
   }
-}; // Click a project element or a child of a project element
+};
 
-
+// Click a project element or a child of a project element
 StudioView.prototype.clickProject = function (el) {
   while (!el.classList.contains(_studioview_css__WEBPACK_IMPORTED_MODULE_0___default.a.studioviewProject)) {
     el = el.parentNode;
   }
-
   var id = el.dataset.id;
   this.onselect(id, el);
-}; // Called when click is fired on a project element
+};
 
-
+// Called when click is fired on a project element
 StudioView.prototype.handleClick = function (e) {
   e.preventDefault();
   this.clickProject(e.target);
-}; // Called when keydown is fired on a project element
+};
 
-
+// Called when keydown is fired on a project element
 StudioView.prototype.handleKeyDown = function (e) {
   if (e.keyCode === 13) {
     // treat enter (13) as click
     e.preventDefault();
     this.clickProject(e.target);
   }
-}; // Called by the IntersectionObserver when it sees an intersection
+};
 
-
+// Called by the IntersectionObserver when it sees an intersection
 StudioView.prototype.handleIntersection = function (entries, observer) {
   entries.forEach(function (entry) {
     if (entry.isIntersecting) {
@@ -2141,30 +2100,27 @@ StudioView.prototype.handleIntersection = function (entries, observer) {
     }
   });
 };
+
 /**
  * Determines whether it is safe to attempt to load the next page.
  */
-
-
 StudioView.prototype.canLoadNext = function () {
   return !this.loadingPage && !this.ended;
 };
+
 /**
  * Remove all unused placeholder elements.
  */
-
-
 StudioView.prototype.cleanupPlaceholders = function () {
   while (this.unusedPlaceholders.length) {
     var el = this.unusedPlaceholders.pop();
     this.projectList.removeChild(el);
   }
 };
+
 /**
  * Add placeholder placeholder elements.
  */
-
-
 StudioView.prototype.addPlaceholders = function () {
   for (var i = 0; i < StudioView.PLACEHOLDER_COUNT; i++) {
     var el = this.createPlaceholder();
@@ -2172,52 +2128,42 @@ StudioView.prototype.addPlaceholders = function () {
     this.projectList.appendChild(el);
   }
 };
+
 /**
  * Make changes to the order of projects.
  * Default shuffler does nothing.
  */
-
-
 StudioView.prototype.shuffler = function (projects) {
   return projects;
 };
+
 /**
  * Begins loading the next page.
  */
-
-
 StudioView.prototype.loadNextPage = function () {
   if (this.loadingPage) {
     throw new Error('Already loading the next page');
   }
-
   if (this.ended) {
     throw new Error('There are no more pages to load');
   }
-
   if (this.unusedPlaceholders.length === 0) {
     this.addPlaceholders();
   }
-
   if (this.loadNextPageObserver) {
     this.loadNextPageObserver.disconnect();
   }
-
   this.root.setAttribute('loading', '');
   this.loadingPage = true;
   var xhr = new XMLHttpRequest();
   xhr.responseType = 'json';
-
   xhr.onload = function () {
     var rawProjects = xhr.response;
-
     if (!Array.isArray(rawProjects)) {
       xhr.onerror();
       return;
     }
-
     var projects = [];
-
     for (var i = 0; i < rawProjects.length; i++) {
       var p = rawProjects[i];
       projects.push({
@@ -2226,15 +2172,11 @@ StudioView.prototype.loadNextPage = function () {
         author: p.username
       });
     }
-
     projects = this.shuffler(projects);
-
     for (var i = 0; i < projects.length; i++) {
       this.addProject(projects[i]);
     }
-
     this.cleanupPlaceholders();
-
     if (rawProjects.length === 40) {
       if (this.loadNextPageObserver) {
         this.loadNextPageObserver.observe(this.projectList.lastChild);
@@ -2243,46 +2185,42 @@ StudioView.prototype.loadNextPage = function () {
       this.ended = true;
       this.onend();
     }
-
     this.offset += projects.length;
     this.loadingPage = false;
     this.root.removeAttribute('loading');
     this.onpageload();
   }.bind(this);
-
   xhr.onerror = function () {
     this.root.setAttribute('error', '');
     this.cleanupPlaceholders();
     this.addErrorElement();
     this.ended = true;
   }.bind(this);
-
   var url = StudioView.STUDIO_API.replace('$id', this.studioId).replace('$offset', '' + this.offset);
   xhr.open('GET', url);
   xhr.send();
 };
-
 StudioView.prototype.getURL = function () {
   return StudioView.STUDIO_PAGE.replace('$id', this.studioId);
 };
-
 StudioView.prototype.onselect = function (id, el) {};
-
 StudioView.prototype.onpageload = function () {};
-
 StudioView.prototype.onend = function () {};
+StudioView.STUDIO_API = 'https://trampoline.turbowarp.org/api/studios/$id/projects?offset=$offset';
 
-StudioView.STUDIO_API = 'https://trampoline.turbowarp.org/api/studios/$id/projects?offset=$offset'; // The URL to download thumbnails from.
+// The URL to download thumbnails from.
 // $id is replaced with the project's ID.
+StudioView.THUMBNAIL_SRC = 'https://trampoline.turbowarp.org/thumbnails/$id?width=144&height=108';
 
-StudioView.THUMBNAIL_SRC = 'https://trampoline.turbowarp.org/thumbnails/$id?width=144&height=108'; // The URL for project pages.
+// The URL for project pages.
 // $id is replaced with the project ID.
+StudioView.PROJECT_PAGE = 'https://turbowarp.org/$id';
 
-StudioView.PROJECT_PAGE = 'https://turbowarp.org/$id'; // The URL for studio pages.
+// The URL for studio pages.
 // $id is replaced with the studio ID.
+StudioView.STUDIO_PAGE = 'https://scratch.mit.edu/studios/$id/';
 
-StudioView.STUDIO_PAGE = 'https://scratch.mit.edu/studios/$id/'; // The amount of "placeholders" to insert before the next page loads.
-
+// The amount of "placeholders" to insert before the next page loads.
 StudioView.PLACEHOLDER_COUNT = 9;
 /* harmony default export */ __webpack_exports__["default"] = (StudioView);
 
@@ -2330,13 +2268,11 @@ const messages = Object(react_intl__WEBPACK_IMPORTED_MODULE_4__["defineMessages"
     "defaultMessage": "There was an error loading the next page of projects."
   }
 });
-
 class StudioViewComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   constructor(props) {
     super(props);
     lodash_bindall__WEBPACK_IMPORTED_MODULE_2___default()(this, ['handleSelect', 'ref']);
   }
-
   componentDidMount() {
     this.studioView = new _studioview__WEBPACK_IMPORTED_MODULE_5__["default"](this.props.id);
     this.studioView.messages.AUTHOR_ATTRIBUTION = this.props.intl.formatMessage(messages.authorAttribution, {
@@ -2349,40 +2285,32 @@ class StudioViewComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.a.C
       title: '$title'
     });
     this.studioView.messages.LOAD_ERROR = this.props.intl.formatMessage(messages.error);
-
     if (this.props.placeholder) {
       this.studioView.addPlaceholders();
     } else {
       this.studioView.loadNextPage();
     }
-
     this.studioView.onselect = this.handleSelect;
     this.el.appendChild(this.studioView.root);
   }
-
   componentDidUpdate(prevProps) {
     if (prevProps.placeholder && !this.props.placeholder) {
       this.studioView.loadNextPage();
     }
   }
-
   handleSelect(id) {
     this.props.onSelect(id);
   }
-
   ref(el) {
     this.el = el;
   }
-
   render() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: classnames__WEBPACK_IMPORTED_MODULE_3___default()(_studioview_css__WEBPACK_IMPORTED_MODULE_6___default.a.wrapper),
       ref: this.ref
     });
   }
-
 }
-
 StudioViewComponent.propTypes = {
   id: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
   intl: react_intl__WEBPACK_IMPORTED_MODULE_4__["intlShape"].isRequired,
@@ -2405,19 +2333,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _log__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./log */ "./src/lib/log.js");
 
 const originalReplaceState = history.replaceState;
-
-history.replaceState = function (...args) {
+history.replaceState = function () {
   try {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
     return originalReplaceState.call(this, ...args);
   } catch (e) {
     _log__WEBPACK_IMPORTED_MODULE_0__["default"].error(e);
   }
 };
-
 const originalPushState = history.pushState;
-
-history.pushState = function (...args) {
+history.pushState = function () {
   try {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
     return originalPushState.call(this, ...args);
   } catch (e) {
     _log__WEBPACK_IMPORTED_MODULE_0__["default"].error(e);
@@ -2444,13 +2375,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _log__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./log */ "./src/lib/log.js");
 /* harmony import */ var _reducers_project_state__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reducers/project-state */ "./src/reducers/project-state.js");
 const _excluded = ["canOpenPackager"];
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
 
 
 
@@ -2458,17 +2385,12 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 const PACKAGER_URL = 'https://0832k12.github.io/rCodenow-packager';
 const PACKAGER_ORIGIN = PACKAGER_URL;
-
 const readBlobAsArrayBuffer = blob => new Promise((resolve, reject) => {
   const fr = new FileReader();
-
   fr.onload = () => resolve(fr.result);
-
   fr.onerror = () => reject(new Error('Cannot read blob as array buffer'));
-
   fr.readAsArrayBuffer(blob);
 });
-
 const PackagerIntegrationHOC = function PackagerIntegrationHOC(WrappedComponent) {
   class PackagerIntegrationComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor(props) {
@@ -2476,37 +2398,30 @@ const PackagerIntegrationHOC = function PackagerIntegrationHOC(WrappedComponent)
       this.handleClickPackager = this.handleClickPackager.bind(this);
       this.handleMessage = this.handleMessage.bind(this);
     }
-
     componentDidMount() {
       window.addEventListener('message', this.handleMessage);
     }
-
     componentWillUnmount() {
       window.removeEventListener('message', this.handleMessage);
     }
-
     handleClickPackager() {
       if (this.props.canOpenPackager) {
         window.open("".concat(PACKAGER_URL, "/?import_from=").concat(location.origin));
       }
     }
-
     handleMessage(e) {
       if (e.origin !== PACKAGER_ORIGIN) {
         return;
       }
-
       if (!this.props.canOpenPackager) {
         return;
       }
-
       const packagerData = e.data.p4;
-
       if (packagerData.type !== 'ready-for-import') {
         return;
-      } // The packager needs to know that we will be importing something so it can display a loading screen
+      }
 
-
+      // The packager needs to know that we will be importing something so it can display a loading screen
       e.source.postMessage({
         p4: {
           type: 'start-import'
@@ -2530,22 +2445,19 @@ const PackagerIntegrationHOC = function PackagerIntegrationHOC(WrappedComponent)
         }, e.origin);
       });
     }
-
     render() {
       const _this$props = this.props,
-            {
-        /* eslint-disable no-unused-vars */
-        canOpenPackager
-      } = _this$props,
-            props = _objectWithoutProperties(_this$props, _excluded);
-
+        {
+          /* eslint-disable no-unused-vars */
+          canOpenPackager
+          /* eslint-enable no-unused-vars */
+        } = _this$props,
+        props = _objectWithoutProperties(_this$props, _excluded);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrappedComponent, _extends({
         onClickPackager: this.handleClickPackager
       }, props));
     }
-
   }
-
   PackagerIntegrationComponent.propTypes = {
     canOpenPackager: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool,
     reduxProjectTitle: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string,
@@ -2553,18 +2465,14 @@ const PackagerIntegrationHOC = function PackagerIntegrationHOC(WrappedComponent)
       saveProjectSb3: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func
     })
   };
-
   const mapStateToProps = state => ({
     canOpenPackager: Object(_reducers_project_state__WEBPACK_IMPORTED_MODULE_4__["getIsShowingProject"])(state.scratchGui.projectState.loadingState),
     reduxProjectTitle: state.scratchGui.projectTitle,
     vm: state.scratchGui.vm
   });
-
   const mapDispatchToProps = () => ({});
-
   return Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(PackagerIntegrationComponent);
 };
-
 
 
 /***/ }),
@@ -2592,9 +2500,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var scratch_vm__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(scratch_vm__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _tw_restore_point_api__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tw-restore-point-api */ "./src/lib/tw-restore-point-api.js");
 const _excluded = ["projectChanged", "onAutosavingStart", "onAutosavingFinish", "vm"];
-
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 
@@ -2612,9 +2518,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 const INTERVAL = 1000 * 60 * 5;
 let bailed = false;
-
 const disabled = () => bailed || window.DISABLE_RESTORE_POINTS;
-
 const TWRestorePointHOC = function TWRestorePointHOC(WrappedComponent) {
   class RestorePointComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor(props) {
@@ -2622,12 +2526,10 @@ const TWRestorePointHOC = function TWRestorePointHOC(WrappedComponent) {
       lodash_bindall__WEBPACK_IMPORTED_MODULE_5___default()(this, ['createRestorePoint']);
       this.timeout = null;
     }
-
     componentDidUpdate(prevProps) {
       if (disabled()) {
         return;
       }
-
       if (this.props.projectChanged !== prevProps.projectChanged || this.props.isShowingProject !== prevProps.isShowingProject) {
         if (this.props.projectChanged && this.props.isShowingProject) {
           // Project was modified; queue restore point.
@@ -2639,50 +2541,42 @@ const TWRestorePointHOC = function TWRestorePointHOC(WrappedComponent) {
         }
       }
     }
-
     componentWillUnmount() {
       clearTimeout(this.timeout);
     }
-
     async createRestorePoint() {
       if (disabled()) {
         return;
       }
-
       try {
         this.props.onAutosavingStart();
         await _tw_restore_point_api__WEBPACK_IMPORTED_MODULE_7__["default"].save(this.props.vm);
       } catch (error) {
         bailed = true;
       }
-
-      this.timeout = null; // Intentional delay.
-
+      this.timeout = null;
+      // Intentional delay.
       setTimeout(() => {
         this.props.onAutosavingFinish();
-
         if (this.timeout === null && !bailed && this.props.projectChanged && this.props.isShowingProject) {
           this.timeout = setTimeout(this.createRestorePoint, INTERVAL);
         }
       }, 250);
     }
-
     render() {
       const _this$props = this.props,
-            {
-        /* eslint-disable no-unused-vars */
-        projectChanged,
-        onAutosavingStart,
-        onAutosavingFinish,
-        vm
-      } = _this$props,
-            props = _objectWithoutProperties(_this$props, _excluded);
-
+        {
+          /* eslint-disable no-unused-vars */
+          projectChanged,
+          onAutosavingStart,
+          onAutosavingFinish,
+          vm
+          /* eslint-enable no-unused-vars */
+        } = _this$props,
+        props = _objectWithoutProperties(_this$props, _excluded);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrappedComponent, props);
     }
-
   }
-
   RestorePointComponent.propTypes = {
     isShowingProject: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
     projectChanged: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
@@ -2690,21 +2584,17 @@ const TWRestorePointHOC = function TWRestorePointHOC(WrappedComponent) {
     onAutosavingFinish: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
     vm: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.instanceOf(scratch_vm__WEBPACK_IMPORTED_MODULE_6___default.a)
   };
-
   const mapStateToProps = state => ({
     isShowingProject: Object(_reducers_project_state__WEBPACK_IMPORTED_MODULE_4__["getIsShowingProject"])(state.scratchGui.projectState.loadingState),
     projectChanged: state.scratchGui.projectChanged,
     vm: state.scratchGui.vm
   });
-
   const mapDispatchToProps = dispatch => ({
     onAutosavingStart: () => dispatch(Object(_reducers_alerts__WEBPACK_IMPORTED_MODULE_3__["showStandardAlert"])('twAutosaving')),
     onAutosavingFinish: () => dispatch(Object(_reducers_alerts__WEBPACK_IMPORTED_MODULE_3__["closeAlertWithId"])('twAutosaving'))
   });
-
   return Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(RestorePointComponent);
 };
-
 
 
 /***/ }),
@@ -2724,8 +2614,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _raw_loader_tw_theme_dark_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./tw-theme-dark.css */ "./node_modules/raw-loader/index.js!./src/lib/tw-theme-dark.css");
 /* harmony import */ var _raw_loader_tw_theme_dark_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_raw_loader_tw_theme_dark_css__WEBPACK_IMPORTED_MODULE_1__);
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
 const THEME_KEY = 'tw:theme';
@@ -2733,18 +2622,16 @@ const darkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 const getInitialDarkMode = () => {
   try {
     const item = localStorage.getItem(THEME_KEY);
-
     if (item !== null) {
       return item === 'dark';
     }
-  } catch (e) {// ignore
+  } catch (e) {
+    // ignore
   }
-
   return darkMediaQuery.matches;
 };
 const darkModeStylesheet = document.createElement('style');
 darkModeStylesheet.textContent = _raw_loader_tw_theme_dark_css__WEBPACK_IMPORTED_MODULE_1___default.a;
-
 const ThemeHOC = function ThemeHOC(WrappedComponent) {
   class ThemeComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     constructor(props) {
@@ -2755,36 +2642,30 @@ const ThemeHOC = function ThemeHOC(WrappedComponent) {
         dark: getInitialDarkMode()
       };
     }
-
     componentDidMount() {
       // media query does not have listeners in legacy edge
       if (darkMediaQuery.addEventListener) {
         darkMediaQuery.addEventListener('change', this.handleQueryChange);
       }
-
       this.updateDark();
     }
-
     componentDidUpdate() {
       try {
         localStorage.setItem(THEME_KEY, this.state.dark ? 'dark' : 'light');
-      } catch (e) {// ignore
+      } catch (e) {
+        // ignore
       }
-
       this.updateDark();
     }
-
     componentWillUnmount() {
       // media query does not have listeners in legacy edge
       if (darkMediaQuery.removeEventListener) {
         darkMediaQuery.removeEventListener('change', this.handleQueryChange);
       }
     }
-
     updateDark() {
       const dark = this.state.dark;
       document.body.setAttribute('theme', dark ? 'dark' : 'light');
-
       if (dark && !darkModeStylesheet.parentNode) {
         // Append at the start of <body> we override scratch-gui styles in <head>
         // but are overridden by addon styles at the end of <body>
@@ -2793,31 +2674,25 @@ const ThemeHOC = function ThemeHOC(WrappedComponent) {
         darkModeStylesheet.parentNode.removeChild(darkModeStylesheet);
       }
     }
-
     handleQueryChange() {
       this.setState({
         dark: darkMediaQuery.matches
       });
     }
-
     handleClickTheme() {
       this.setState(state => ({
         dark: !state.dark
       }));
     }
-
     render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrappedComponent, _extends({
         onClickTheme: this.handleClickTheme,
         isDark: this.state.dark
       }, this.props));
     }
-
   }
-
   return ThemeComponent;
 };
-
 
 
 /***/ }),
@@ -2855,6 +2730,7 @@ __webpack_require__.r(__webpack_exports__);
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 
 
 
@@ -2915,17 +2791,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let loaded = false;
-
 const actuallyLoadServiceWorker = () => {
   navigator.serviceWorker.register(_file_loader_name_sw_js_service_worker_js__WEBPACK_IMPORTED_MODULE_1___default.a).catch(err => {
     _lib_log__WEBPACK_IMPORTED_MODULE_0__["default"].error('sw error', err);
   });
 };
-
 const loadServiceWorker = () => {
   if (false) {}
 };
-
 
 
 /***/ }),
@@ -2975,13 +2848,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _interface_css__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./interface.css */ "./src/playground/interface.css");
 /* harmony import */ var _interface_css__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(_interface_css__WEBPACK_IMPORTED_MODULE_30__);
 const _excluded = ["intl", "hasCloudVariables", "description", "isFullScreen", "isLoading", "isPlayerOnly", "isRtl", "onClickTheme", "projectId"];
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
 /**
  * Copyright (C) 2021 Thomas Weber
  *
@@ -3034,16 +2903,12 @@ if (window.parent !== window) {
   alert('This page is embedding TurboWarp in a way that is unsupported and will cease to function in the near future. Please read https://docs.turbowarp.org/embedding');
   throw new Error('Invalid embed');
 }
-
 let announcement = null;
-
 if (false) {}
-
 const handleClickAddonSettings = () => {
   const path =  false ? undefined : 'addons.html';
   window.open("".concat("").concat(path));
 };
-
 const messages = Object(react_intl__WEBPACK_IMPORTED_MODULE_5__["defineMessages"])({
   defaultTitle: {
     "id": "tw.guiDefaultTitle",
@@ -3051,28 +2916,25 @@ const messages = Object(react_intl__WEBPACK_IMPORTED_MODULE_5__["defineMessages"
   }
 });
 const WrappedMenuBar = Object(redux__WEBPACK_IMPORTED_MODULE_4__["compose"])(_lib_sb_file_uploader_hoc_jsx__WEBPACK_IMPORTED_MODULE_13__["default"], _lib_tw_packager_integration_hoc_jsx__WEBPACK_IMPORTED_MODULE_14__["default"])(_components_menu_bar_menu_bar_jsx__WEBPACK_IMPORTED_MODULE_19__["default"]);
-
 if (_addons_channels__WEBPACK_IMPORTED_MODULE_27__["default"].reloadChannel) {
   _addons_channels__WEBPACK_IMPORTED_MODULE_27__["default"].reloadChannel.addEventListener('message', () => {
     location.reload();
   });
 }
-
 if (_addons_channels__WEBPACK_IMPORTED_MODULE_27__["default"].changeChannel) {
   _addons_channels__WEBPACK_IMPORTED_MODULE_27__["default"].changeChannel.addEventListener('message', e => {
     _addons_settings_store_singleton__WEBPACK_IMPORTED_MODULE_16__["default"].setStoreWithVersionCheck(e.data);
   });
 }
-
 Object(_addons_entry__WEBPACK_IMPORTED_MODULE_29__["default"])();
-
 const Footer = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("footer", {
   className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.footer
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
   className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.footerContent
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
   className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.footerText
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"] // eslint-disable-next-line max-len
+}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"]
+// eslint-disable-next-line max-len
 , {
   defaultMessage: "TurboWarp is not affiliated with Scratch, the Scratch Team, or the Scratch Foundation.",
   id: "tw.footer.disclaimer"
@@ -3129,19 +2991,16 @@ const Footer = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.c
   defaultMessage: "Privacy Policy",
   id: "tw.privacy"
 }))))));
-
 class Interface extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
   constructor(props) {
     super(props);
     this.handleUpdateProjectTitle = this.handleUpdateProjectTitle.bind(this);
   }
-
   componentDidUpdate(prevProps) {
     if (prevProps.isLoading && !this.props.isLoading) {
       Object(_load_service_worker__WEBPACK_IMPORTED_MODULE_28__["loadServiceWorker"])();
     }
   }
-
   handleUpdateProjectTitle(title, isDefault) {
     if (isDefault || !title) {
       document.title = "rCodenow";
@@ -3149,23 +3008,22 @@ class Interface extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
       document.title = "".concat(title, " - rCodenow");
     }
   }
-
   render() {
     const _this$props = this.props,
-          {
-      /* eslint-disable no-unused-vars */
-      intl,
-      hasCloudVariables,
-      description,
-      isFullScreen,
-      isLoading,
-      isPlayerOnly,
-      isRtl,
-      onClickTheme,
-      projectId
-    } = _this$props,
-          props = _objectWithoutProperties(_this$props, _excluded);
-
+      {
+        /* eslint-disable no-unused-vars */
+        intl,
+        hasCloudVariables,
+        description,
+        isFullScreen,
+        isLoading,
+        isPlayerOnly,
+        isRtl,
+        onClickTheme,
+        projectId
+        /* eslint-enable no-unused-vars */
+      } = _this$props,
+      props = _objectWithoutProperties(_this$props, _excluded);
     const isHomepage = isPlayerOnly && !isFullScreen;
     const isEditor = !isPlayerOnly;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
@@ -3199,7 +3057,8 @@ class Interface extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
       isRtl: isRtl
     }), Object(_lib_tw_environment_support_prober__WEBPACK_IMPORTED_MODULE_26__["isBrowserSupported"])() ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_browser_modal_browser_modal_jsx__WEBPACK_IMPORTED_MODULE_24__["default"], {
       isRtl: isRtl
-    }), ( // eslint-disable-next-line max-len
+    }), (
+    // eslint-disable-next-line max-len
     description.instructions === 'unshared' || description.credits === 'unshared') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.unsharedUpdate
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
@@ -3215,11 +3074,13 @@ class Interface extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
           rel: "noopener noreferrer"
         }, 'https://docs.turbowarp.org/unshared-projects')
       }
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"] // eslint-disable-next-line max-len
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"]
+    // eslint-disable-next-line max-len
     , {
       defaultMessage: "If the project was shared recently, this message may appear incorrectly for a few minutes.",
       id: "tw.unshared.cache"
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"] // eslint-disable-next-line max-len
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"]
+    // eslint-disable-next-line max-len
     , {
       defaultMessage: "If this project is actually shared, please report a bug.",
       id: "tw.unshared.bug"
@@ -3235,9 +3096,7 @@ class Interface extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
       className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.section
     })) : null));
   }
-
 }
-
 Interface.propTypes = {
   intl: react_intl__WEBPACK_IMPORTED_MODULE_5__["intlShape"],
   hasCloudVariables: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
@@ -3256,7 +3115,6 @@ Interface.propTypes = {
   onClickTheme: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
   projectId: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string
 };
-
 const mapStateToProps = state => ({
   hasCloudVariables: state.scratchGui.tw.hasCloudVariables,
   customStageSize: state.scratchGui.customStageSize,
@@ -3267,9 +3125,7 @@ const mapStateToProps = state => ({
   isRtl: state.locales.isRtl,
   projectId: state.scratchGui.projectState.projectId
 });
-
 const mapDispatchToProps = () => ({});
-
 const ConnectedInterface = Object(react_intl__WEBPACK_IMPORTED_MODULE_5__["injectIntl"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(Interface));
 const WrappedInterface = Object(redux__WEBPACK_IMPORTED_MODULE_4__["compose"])(_lib_app_state_hoc_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], Object(_lib_error_boundary_hoc_jsx__WEBPACK_IMPORTED_MODULE_9__["default"])('TW Interface'), _lib_tw_project_meta_fetcher_hoc_jsx__WEBPACK_IMPORTED_MODULE_10__["default"], _lib_tw_state_manager_hoc_jsx__WEBPACK_IMPORTED_MODULE_11__["default"], _lib_tw_theme_hoc_jsx__WEBPACK_IMPORTED_MODULE_12__["default"], _lib_tw_restore_point_hoc_jsx__WEBPACK_IMPORTED_MODULE_15__["default"], _lib_tw_packager_integration_hoc_jsx__WEBPACK_IMPORTED_MODULE_14__["default"])(ConnectedInterface);
 /* harmony default export */ __webpack_exports__["default"] = (WrappedInterface);

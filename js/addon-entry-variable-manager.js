@@ -29,7 +29,7 @@ exports.push([module.i, "/* Change z-indexes to allow more than 3 tabs */\n[clas
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0iI0ZGNEM0QyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNC42NDkgMy4wODRBMSAxIDAgMCAxIDUuMTYzIDQuNCAxMy45NSAxMy45NSAwIDAgMCA0IDEwYzAgMS45OTMuNDE2IDMuODg2IDEuMTY0IDUuNmExIDEgMCAwIDEtMS44MzIuOEExNS45NSAxNS45NSAwIDAgMSAyIDEwYzAtMi4yNzQuNDc1LTQuNDQgMS4zMzItNi40YTEgMSAwIDAgMSAxLjMxNy0uNTE2ek0xMi45NiA3YTMgMyAwIDAgMC0yLjM0MiAxLjEyNmwtLjMyOC40MS0uMTExLS4yNzlBMiAyIDAgMCAwIDguMzIzIDdIOGExIDEgMCAwIDAgMCAyaC4zMjNsLjUzMiAxLjMzLTEuMDM1IDEuMjk1YTEgMSAwIDAgMS0uNzgxLjM3NUg3YTEgMSAwIDEgMCAwIDJoLjAzOWEzIDMgMCAwIDAgMi4zNDItMS4xMjZsLjMyOC0uNDEuMTExLjI3OUEyIDIgMCAwIDAgMTEuNjc3IDE0SDEyYTEgMSAwIDEgMCAwLTJoLS4zMjNsLS41MzItMS4zMyAxLjAzNS0xLjI5NUExIDEgMCAwIDEgMTIuOTYxIDlIMTNhMSAxIDAgMSAwIDAtMmgtLjAzOXptMS44NzQtMi42YTEgMSAwIDAgMSAxLjgzMy0uOEExNS45NSAxNS45NSAwIDAgMSAxOCAxMGMwIDIuMjc0LS40NzUgNC40NC0xLjMzMiA2LjRhMSAxIDAgMSAxLTEuODMyLS44QTEzLjk0OSAxMy45NDkgMCAwIDAgMTYgMTBjMC0xLjk5My0uNDE2LTMuODg2LTEuMTY1LTUuNnoiIGNsaXAtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPgo=");
+/* harmony default export */ __webpack_exports__["default"] = ("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0iIzYwOTgzNCI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNC42NDkgMy4wODRBMSAxIDAgMCAxIDUuMTYzIDQuNCAxMy45NSAxMy45NSAwIDAgMCA0IDEwYzAgMS45OTMuNDE2IDMuODg2IDEuMTY0IDUuNmExIDEgMCAwIDEtMS44MzIuOEExNS45NSAxNS45NSAwIDAgMSAyIDEwYzAtMi4yNzQuNDc1LTQuNDQgMS4zMzItNi40YTEgMSAwIDAgMSAxLjMxNy0uNTE2ek0xMi45NiA3YTMgMyAwIDAgMC0yLjM0MiAxLjEyNmwtLjMyOC40MS0uMTExLS4yNzlBMiAyIDAgMCAwIDguMzIzIDdIOGExIDEgMCAwIDAgMCAyaC4zMjNsLjUzMiAxLjMzLTEuMDM1IDEuMjk1YTEgMSAwIDAgMS0uNzgxLjM3NUg3YTEgMSAwIDEgMCAwIDJoLjAzOWEzIDMgMCAwIDAgMi4zNDItMS4xMjZsLjMyOC0uNDEuMTExLjI3OUEyIDIgMCAwIDAgMTEuNjc3IDE0SDEyYTEgMSAwIDEgMCAwLTJoLS4zMjNsLS41MzItMS4zMyAxLjAzNS0xLjI5NUExIDEgMCAwIDEgMTIuOTYxIDlIMTNhMSAxIDAgMSAwIDAtMmgtLjAzOXptMS44NzQtMi42YTEgMSAwIDAgMSAxLjgzMy0uOEExNS45NSAxNS45NSAwIDAgMSAxOCAxMGMwIDIuMjc0LS40NzUgNC40NC0xLjMzMiA2LjRhMSAxIDAgMSAxLTEuODMyLS44QTEzLjk0OSAxMy45NDkgMCAwIDAgMTYgMTBjMC0xLjk5My0uNDE2LTMuODg2LTEuMTY1LTUuNnoiIGNsaXAtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPgo=");
 
 /***/ }),
 
@@ -95,11 +95,12 @@ module.exports = __webpack_require__.p + "static/assets/1821649bb254ff5d93bb397a
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console,
-  msg
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console,
+    msg
+  } = _ref;
   const vm = addon.tab.traps.vm;
   let localVariables = [];
   let globalVariables = [];
@@ -115,11 +116,9 @@ __webpack_require__.r(__webpack_exports__);
     for (const variable of localVariables) {
       variable.handleSearch(searchBox.value);
     }
-
     for (const variable of globalVariables) {
       variable.handleSearch(searchBox.value);
     }
-
     updateHeadingVisibility();
   });
   manager.appendChild(searchBox);
@@ -143,19 +142,17 @@ __webpack_require__.r(__webpack_exports__);
   addon.tab.displayNoneWhileDisabled(varTab, {
     display: "flex"
   });
-  varTab.classList.add(addon.tab.scratchClass("react-tabs_react-tabs__tab"), addon.tab.scratchClass("gui_tab")); // Cannot use number due to conflict after leaving and re-entering editor
-
+  varTab.classList.add(addon.tab.scratchClass("react-tabs_react-tabs__tab"), addon.tab.scratchClass("gui_tab"));
+  // Cannot use number due to conflict after leaving and re-entering editor
   varTab.id = "react-tabs-sa-variable-manager";
   const varTabIcon = document.createElement("img");
   varTabIcon.draggable = false;
-  varTabIcon.src = addon.self.getResource("/icon.svg")
-  /* rewritten by pull.js */
-  ;
+  varTabIcon.src = addon.self.getResource("/icon.svg") /* rewritten by pull.js */;
+
   const varTabText = document.createElement("span");
   varTabText.innerText = msg("variables");
   varTab.appendChild(varTabIcon);
   varTab.appendChild(varTabText);
-
   function updateHeadingVisibility() {
     // used to hide the headings if there are no variables
     let filteredLocals = localVariables.filter(v => v.row.style.display !== "none");
@@ -163,7 +160,6 @@ __webpack_require__.r(__webpack_exports__);
     localHeading.style.display = filteredLocals.length === 0 ? "none" : "";
     globalHeading.style.display = filteredGlobals.length === 0 ? "none" : "";
   }
-
   const rowToVariableMap = new WeakMap();
   const observer = new IntersectionObserver(changes => {
     for (const change of changes) {
@@ -173,7 +169,6 @@ __webpack_require__.r(__webpack_exports__);
   }, {
     rootMargin: "100px"
   });
-
   class WrappedVariable {
     constructor(scratchVariable, target) {
       this.scratchVariable = scratchVariable;
@@ -182,12 +177,10 @@ __webpack_require__.r(__webpack_exports__);
       this.ignoreTooBig = false;
       this.buildDOM();
     }
-
     updateValue(force) {
       if (!this.visible && !force) return;
       let newValue;
       let maxSafeLength;
-
       if (this.scratchVariable.type === "list") {
         newValue = this.scratchVariable.value.join("\n");
         maxSafeLength = 5000000;
@@ -195,27 +188,22 @@ __webpack_require__.r(__webpack_exports__);
         newValue = this.scratchVariable.value;
         maxSafeLength = 1000000;
       }
-
       if (!this.ignoreTooBig && newValue.length > maxSafeLength) {
         this.input.value = "";
         this.row.dataset.tooBig = true;
         return;
       }
-
       this.row.dataset.tooBig = false;
-
       if (newValue !== this.input.value) {
         this.input.disabled = false;
         this.input.value = newValue;
       }
     }
-
     handleSearch(search) {
       // this doesn't check if this.visible is true or whatever. maybe that would improve performance while typing into the search box but it's probably fine™
       if (this.scratchVariable.name.toLowerCase().includes(search.toLowerCase()) || !search) {
         // fuzzy searches are lame we are too cool for fuzzy searches (& i doubt they're even the right thing to use here, this should work fine enough)
         this.row.style.display = ""; // make the row normal
-
         this.updateValue(true); // force it to update because its hidden and it wouldn't be able to otherwise
       } else {
         this.row.style.display = "none"; // set the entire row as hidden
@@ -226,22 +214,18 @@ __webpack_require__.r(__webpack_exports__);
       if (this.scratchVariable.type === "list") {
         this.input.style.height = "auto";
         const height = Math.min(1000, this.input.scrollHeight);
-
         if (height > 0) {
           this.input.style.height = height + "px";
         }
       }
     }
-
     setVisible(visible) {
       if (this.visible === visible) return;
       this.visible = visible;
-
       if (visible) {
         this.updateValue();
       }
     }
-
     buildDOM() {
       const id = "sa-variable-manager-".concat(this.scratchVariable.id);
       const row = document.createElement("tr");
@@ -251,20 +235,16 @@ __webpack_require__.r(__webpack_exports__);
       const label = document.createElement("input");
       label.value = this.scratchVariable.name;
       label.htmlFor = id;
-
       const onLabelOut = e => {
         e.preventDefault();
         const workspace = Blockly.getMainWorkspace();
         let newName = label.value;
-
         if (newName === this.scratchVariable.name) {
           // If the name is unchanged before we make sure the cloud prefix exists, there's nothing to do.
           return;
         }
-
         const CLOUD_SYMBOL = "☁";
         const CLOUD_PREFIX = CLOUD_SYMBOL + " ";
-
         if (this.scratchVariable.isCloud) {
           if (newName.startsWith(CLOUD_SYMBOL)) {
             if (!newName.startsWith(CLOUD_PREFIX)) {
@@ -275,9 +255,7 @@ __webpack_require__.r(__webpack_exports__);
             newName = CLOUD_PREFIX + newName;
           }
         }
-
         let nameAlreadyUsed = false;
-
         if (this.target.isStage) {
           // Global variables must not conflict with any global variables or local variables in any sprite.
           const existingNames = vm.runtime.getAllVarNamesOfType(this.scratchVariable.type);
@@ -286,20 +264,17 @@ __webpack_require__.r(__webpack_exports__);
           // Local variables must not conflict with any global variables or local variables in this sprite.
           nameAlreadyUsed = !!workspace.getVariable(newName, this.scratchVariable.type);
         }
-
         const isEmpty = !newName.trim();
-
         if (isEmpty || nameAlreadyUsed) {
           label.value = this.scratchVariable.name;
         } else {
-          workspace.renameVariableById(this.scratchVariable.id, newName); // Only update the input's value when we need to to avoid resetting undo history.
-
+          workspace.renameVariableById(this.scratchVariable.id, newName);
+          // Only update the input's value when we need to to avoid resetting undo history.
           if (label.value !== newName) {
             label.value = newName;
           }
         }
       };
-
       label.addEventListener("keydown", e => {
         if (e.key === "Enter") e.target.blur();
       });
@@ -326,34 +301,27 @@ __webpack_require__.r(__webpack_exports__);
         this.updateValue(true);
       });
       let input;
-
       if (this.scratchVariable.type === "list") {
         input = document.createElement("textarea");
       } else {
         input = document.createElement("input");
       }
-
       input.className = "sa-var-manager-value-input";
       input.id = id;
       this.input = input;
       this.updateValue(true);
-
       if (this.scratchVariable.type === "list") {
         this.input.addEventListener("input", () => this.resizeInputIfList(), false);
       }
-
       const onInputOut = e => {
         e.preventDefault();
-
         if (this.scratchVariable.type === "list") {
           vm.setVariableValue(this.target.id, this.scratchVariable.id, input.value.split("\n"));
         } else {
           vm.setVariableValue(this.target.id, this.scratchVariable.id, input.value);
         }
-
         input.blur();
       };
-
       input.addEventListener("keydown", e => {
         if (e.target.nodeName === "INPUT" && e.key === "Enter") e.target.blur();
       });
@@ -372,64 +340,50 @@ __webpack_require__.r(__webpack_exports__);
       row.appendChild(valueCell);
       this.handleSearch(searchBox.value);
     }
-
   }
-
   function fullReload() {
     var _addon$tab$redux$stat, _addon$tab$redux$stat2, _addon$tab$redux$stat3;
-
     if (((_addon$tab$redux$stat = addon.tab.redux.state) === null || _addon$tab$redux$stat === void 0 ? void 0 : (_addon$tab$redux$stat2 = _addon$tab$redux$stat.scratchGui) === null || _addon$tab$redux$stat2 === void 0 ? void 0 : (_addon$tab$redux$stat3 = _addon$tab$redux$stat2.editorTab) === null || _addon$tab$redux$stat3 === void 0 ? void 0 : _addon$tab$redux$stat3.activeTabIndex) !== 3 || preventUpdate) return;
     const editingTarget = vm.runtime.getEditingTarget();
     const stage = vm.runtime.getTargetForStage();
     localVariables = editingTarget.isStage ? [] : Object.values(editingTarget.variables).filter(i => i.type === "" || i.type === "list").map(i => new WrappedVariable(i, editingTarget));
     globalVariables = Object.values(stage.variables).filter(i => i.type === "" || i.type === "list").map(i => new WrappedVariable(i, stage));
     updateHeadingVisibility();
-
     while (localList.firstChild) {
       localList.removeChild(localList.firstChild);
     }
-
     while (globalList.firstChild) {
       globalList.removeChild(globalList.firstChild);
     }
-
     for (const variable of localVariables) {
       localList.appendChild(variable.row);
       variable.resizeInputIfList();
     }
-
     for (const variable of globalVariables) {
       globalList.appendChild(variable.row);
       variable.resizeInputIfList();
     }
   }
-
   function quickReload() {
     var _addon$tab$redux$stat4, _addon$tab$redux$stat5, _addon$tab$redux$stat6;
-
     if (((_addon$tab$redux$stat4 = addon.tab.redux.state) === null || _addon$tab$redux$stat4 === void 0 ? void 0 : (_addon$tab$redux$stat5 = _addon$tab$redux$stat4.scratchGui) === null || _addon$tab$redux$stat5 === void 0 ? void 0 : (_addon$tab$redux$stat6 = _addon$tab$redux$stat5.editorTab) === null || _addon$tab$redux$stat6 === void 0 ? void 0 : _addon$tab$redux$stat6.activeTabIndex) !== 3 || preventUpdate) return;
-
     for (const variable of localVariables) {
       variable.updateValue();
     }
-
     for (const variable of globalVariables) {
       variable.updateValue();
     }
   }
-
   function cleanup() {
     localVariables = [];
     globalVariables = [];
   }
-
   varTab.addEventListener("click", e => {
     addon.tab.redux.dispatch({
       type: "scratch-gui/navigation/ACTIVATE_TAB",
       activeTabIndex: 3
     });
   });
-
   function setVisible(visible) {
     if (visible) {
       varTab.classList.add(addon.tab.scratchClass("react-tabs_react-tabs__tab--selected"), addon.tab.scratchClass("gui_is-selected"));
@@ -442,11 +396,11 @@ __webpack_require__.r(__webpack_exports__);
       cleanup();
     }
   }
-
   addon.tab.redux.initialize();
-  addon.tab.redux.addEventListener("statechanged", ({
-    detail
-  }) => {
+  addon.tab.redux.addEventListener("statechanged", _ref2 => {
+    let {
+      detail
+    } = _ref2;
     if (detail.action.type === "scratch-gui/navigation/ACTIVATE_TAB") {
       setVisible(detail.action.activeTabIndex === 3);
     } else if (detail.action.type === "scratch-gui/mode/SET_PLAYER") {
@@ -471,19 +425,18 @@ __webpack_require__.r(__webpack_exports__);
     }
   });
   const oldStep = vm.runtime._step;
-
-  vm.runtime._step = function (...args) {
+  vm.runtime._step = function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
     const ret = oldStep.call(this, ...args);
-
     try {
       quickReload();
     } catch (e) {
       console.error(e);
     }
-
     return ret;
   };
-
   addon.self.addEventListener("disabled", () => {
     if (addon.tab.redux.state.scratchGui.editorTab.activeTabIndex === 3) {
       addon.tab.redux.dispatch({
@@ -492,7 +445,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   });
-
   while (true) {
     await addon.tab.waitForElement("[class^='react-tabs_react-tabs__tab-list']", {
       markAsSeen: true,

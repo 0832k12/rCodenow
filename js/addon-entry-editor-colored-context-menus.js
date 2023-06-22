@@ -53,52 +53,47 @@ const resources = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _libraries_common_cs_text_color_esm_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../libraries/common/cs/text-color.esm.js */ "./src/addons/libraries/common/cs/text-color.esm.js");
 
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console
+  } = _ref;
   const ScratchBlocks = await addon.tab.traps.getBlockly();
-
   const applyContextMenuColor = block => {
     const widgetDiv = ScratchBlocks.WidgetDiv.DIV;
-
     if (!widgetDiv) {
       return;
     }
-
     const background = block.svgPath_;
-
     if (!background) {
       return;
     }
-
     const fill = Object(_libraries_common_cs_text_color_esm_js__WEBPACK_IMPORTED_MODULE_0__["removeAlpha"])(background.getAttribute("fill"));
     const border = background.getAttribute("stroke") || "#0003";
     widgetDiv.classList.add("sa-contextmenu-colored");
     widgetDiv.style.setProperty("--sa-contextmenu-bg", fill);
     widgetDiv.style.setProperty("--sa-contextmenu-border", border);
   };
-
   const originalHandleRightClick = ScratchBlocks.Gesture.prototype.handleRightClick;
-
-  ScratchBlocks.Gesture.prototype.handleRightClick = function (...args) {
+  ScratchBlocks.Gesture.prototype.handleRightClick = function () {
     const block = this.targetBlock_;
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
     const ret = originalHandleRightClick.call(this, ...args);
-
     if (block) {
       applyContextMenuColor(block);
     }
-
     return ret;
   };
-
   const originalHide = ScratchBlocks.WidgetDiv.hide;
-
-  ScratchBlocks.WidgetDiv.hide = function (...args) {
+  ScratchBlocks.WidgetDiv.hide = function () {
     if (ScratchBlocks.WidgetDiv.DIV) {
       ScratchBlocks.WidgetDiv.DIV.classList.remove("sa-contextmenu-colored");
     }
-
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
     return originalHide.call(this, ...args);
   };
 });

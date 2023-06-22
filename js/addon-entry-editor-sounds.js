@@ -28,29 +28,31 @@ const resources = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console
+  } = _ref;
   const ScratchBlocks = await addon.tab.traps.getBlockly();
-
   const injectCurrent = () => {
     const workspace = Blockly.getMainWorkspace();
     const pathToMedia = workspace.options.pathToMedia;
     ScratchBlocks.inject.loadSounds_(pathToMedia, workspace);
-  }; // Add sounds to the current workspace
+  };
 
+  // Add sounds to the current workspace
+  injectCurrent();
 
-  injectCurrent(); // Add sounds to all future workspaces
-
+  // Add sounds to all future workspaces
   const originalInit = ScratchBlocks.init_;
-
-  ScratchBlocks.init_ = function (...args) {
+  ScratchBlocks.init_ = function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
     const wksp = args[0];
     wksp.options.hasSounds = true;
     return originalInit.call(this, ...args);
   };
-
   addon.self.addEventListener("disabled", () => {
     const workspace = Blockly.getMainWorkspace();
     const audio = workspace.getAudioManager();

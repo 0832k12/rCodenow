@@ -135,10 +135,11 @@ module.exports = __webpack_require__.p + "static/assets/3547fa1f2678a483a19f4685
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _module_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./module.js */ "./src/addons/addons/vol-slider/module.js");
 
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console
-}) {
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console
+  } = _ref;
   const vm = addon.tab.traps.vm;
   Object(_module_js__WEBPACK_IMPORTED_MODULE_0__["setup"])(vm);
   const icon = document.createElement("div");
@@ -146,10 +147,8 @@ __webpack_require__.r(__webpack_exports__);
   icon.addEventListener("click", () => {
     Object(_module_js__WEBPACK_IMPORTED_MODULE_0__["setMuted"])(!Object(_module_js__WEBPACK_IMPORTED_MODULE_0__["isMuted"])());
   });
-
   const updateIcon = () => {
     const newVolume = Object(_module_js__WEBPACK_IMPORTED_MODULE_0__["getVolume"])();
-
     if (newVolume == 0) {
       icon.dataset.icon = "mute";
     } else if (newVolume < 0.5) {
@@ -158,7 +157,6 @@ __webpack_require__.r(__webpack_exports__);
       icon.dataset.icon = "loud";
     }
   };
-
   Object(_module_js__WEBPACK_IMPORTED_MODULE_0__["onVolumeChanged"])(updateIcon);
   const slider = document.createElement("input");
   slider.className = "sa-vol-slider-input";
@@ -177,7 +175,6 @@ __webpack_require__.r(__webpack_exports__);
   });
   Object(_module_js__WEBPACK_IMPORTED_MODULE_0__["onVolumeChanged"])(() => {
     const newVolume = Object(_module_js__WEBPACK_IMPORTED_MODULE_0__["getVolume"])();
-
     if (newVolume !== +slider.value) {
       slider.value = newVolume;
     }
@@ -190,11 +187,9 @@ __webpack_require__.r(__webpack_exports__);
   addon.tab.displayNoneWhileDisabled(container, {
     display: "flex"
   });
-
   if (addon.tab.redux.state && addon.tab.redux.state.scratchGui.stageSize.stageSize === "small") {
     document.body.classList.add("sa-vol-slider-small");
   }
-
   document.addEventListener("click", e => {
     if (e.target.closest("[class*='stage-header_stage-button-first']")) {
       document.body.classList.add("sa-vol-slider-small");
@@ -210,7 +205,6 @@ __webpack_require__.r(__webpack_exports__);
   addon.self.addEventListener("reenabled", () => {
     Object(_module_js__WEBPACK_IMPORTED_MODULE_0__["setVolume"])(addon.settings.get("defVol") / 100);
   });
-
   while (true) {
     await addon.tab.waitForElement("[class^='green-flag_green-flag']", {
       markAsSeen: true,

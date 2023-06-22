@@ -246,12 +246,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reducers_tw__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../reducers/tw */ "./src/reducers/tw.js");
 /* harmony import */ var _tw_fullscreen_api__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tw-fullscreen-api */ "./src/lib/tw-fullscreen-api.js");
 const _excluded = ["isFullScreen", "onSetIsFullScreen", "onSetWindowIsFullScreen"];
-
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
 
 
 
@@ -265,16 +261,13 @@ const TWFullScreenHOC = function TWFullScreenHOC(WrappedComponent) {
       super(props);
       lodash_bindall__WEBPACK_IMPORTED_MODULE_0___default()(this, ['handleFullScreenChange']);
     }
-
     componentDidMount() {
       document.addEventListener('fullscreenchange', this.handleFullScreenChange);
       document.addEventListener('webkitfullscreenchange', this.handleFullScreenChange);
     }
-
     shouldComponentUpdate(nextProps) {
       return this.props.isFullScreen !== nextProps.isFullScreen;
     }
-
     componentDidUpdate() {
       if (_tw_fullscreen_api__WEBPACK_IMPORTED_MODULE_6__["default"].available()) {
         if (this.props.isFullScreen) {
@@ -284,51 +277,42 @@ const TWFullScreenHOC = function TWFullScreenHOC(WrappedComponent) {
         }
       }
     }
-
     componentWillUnmount() {
       document.removeEventListener('fullscreenchange', this.handleFullScreenChange);
       document.removeEventListener('webkitfullscreenchange', this.handleFullScreenChange);
     }
-
     handleFullScreenChange() {
       const isFullScreen = _tw_fullscreen_api__WEBPACK_IMPORTED_MODULE_6__["default"].enabled();
       this.props.onSetWindowIsFullScreen(isFullScreen);
       this.props.onSetIsFullScreen(isFullScreen);
     }
-
     render() {
       const _this$props = this.props,
-            {
-        /* eslint-disable no-unused-vars */
-        isFullScreen,
-        onSetIsFullScreen,
-        onSetWindowIsFullScreen
-      } = _this$props,
-            props = _objectWithoutProperties(_this$props, _excluded);
-
+        {
+          /* eslint-disable no-unused-vars */
+          isFullScreen,
+          onSetIsFullScreen,
+          onSetWindowIsFullScreen
+          /* eslint-enable no-unused-vars */
+        } = _this$props,
+        props = _objectWithoutProperties(_this$props, _excluded);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(WrappedComponent, props);
     }
-
   }
-
   FullScreenComponent.propTypes = {
     isFullScreen: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool,
     onSetIsFullScreen: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
     onSetWindowIsFullScreen: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func
   };
-
   const mapStateToProps = state => ({
     isFullScreen: state.scratchGui.mode.isFullScreen
   });
-
   const mapDispatchToProps = dispatch => ({
     onSetIsFullScreen: isFullScreen => dispatch(Object(_reducers_mode__WEBPACK_IMPORTED_MODULE_4__["setFullScreen"])(isFullScreen)),
     onSetWindowIsFullScreen: isFullScreen => dispatch(Object(_reducers_tw__WEBPACK_IMPORTED_MODULE_5__["setIsWindowFullScreen"])(isFullScreen))
   });
-
   return Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(FullScreenComponent);
 };
-
 
 
 /***/ }),
@@ -367,42 +351,33 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const getProjectId = () => {
   // For compatibility reasons, we first look at the hash.
   // eg. https://turbowarp.org/embed.html#1
   const hashMatch = location.hash.match(/#(\d+)/);
-
   if (hashMatch !== null) {
     return hashMatch[1];
-  } // Otherwise, we'll recreate what "wildcard" routing does.
+  }
+  // Otherwise, we'll recreate what "wildcard" routing does.
   // eg. https://turbowarp.org/1/embed
-
-
   const pathMatch = location.pathname.match(/(\d+)\/embed/);
-
   if (pathMatch !== null) {
     return pathMatch[pathMatch.length - 1];
   }
-
   return '0';
 };
-
 const projectId = getProjectId();
 const urlParams = new URLSearchParams(location.search);
 let vm;
-
 const onVmInit = _vm => {
   vm = _vm;
 };
-
 const onProjectLoaded = () => {
   if (urlParams.has('autoplay')) {
     vm.start();
     vm.greenFlag();
   }
 };
-
 const WrappedGUI = Object(redux__WEBPACK_IMPORTED_MODULE_3__["compose"])(_lib_app_state_hoc_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], _lib_tw_state_manager_hoc_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], _lib_tw_embed_fullscreen_hoc_jsx__WEBPACK_IMPORTED_MODULE_6__["default"])(_render_gui_jsx__WEBPACK_IMPORTED_MODULE_9__["default"]);
 Object(react_modal__WEBPACK_IMPORTED_MODULE_4__["setAppElement"])(_app_target__WEBPACK_IMPORTED_MODULE_10__["default"]);
 react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(WrappedGUI, {
@@ -412,7 +387,6 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEB
   onProjectLoaded: onProjectLoaded,
   routingStyle: "none"
 }), _app_target__WEBPACK_IMPORTED_MODULE_10__["default"]);
-
 if (urlParams.has('addons')) {
   Object(_addons_entry__WEBPACK_IMPORTED_MODULE_8__["default"])();
 }

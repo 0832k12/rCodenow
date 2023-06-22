@@ -167,10 +167,10 @@ module.exports = __webpack_require__.p + "static/assets/88a77444f0bb453209bf1c62
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _event_target_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../event-target.js */ "./src/addons/event-target.js");
-
-/* inserted by pull.js */
+ /* inserted by pull.js */
 
 let console = window.console;
+
 /*
 Mapping types:
 
@@ -230,30 +230,24 @@ const defaultAxesMappings = {
     deadZone: 0.2
   }]
 };
-
 const emptyMapping = () => ({
   type: "key",
   high: null,
   low: null
 });
-
 const transformAndCopyMapping = mapping => {
   if (typeof mapping !== "object" || !mapping) {
     console.warn("invalid mapping", mapping);
     return emptyMapping();
   }
-
   const copy = Object.assign({}, mapping);
-
   if (copy.type === "key") {
     if (typeof copy.deadZone === "undefined") {
       copy.deadZone = 0.5;
     }
-
     if (typeof copy.high === "undefined") {
       copy.high = "";
     }
-
     if (typeof copy.low === "undefined") {
       copy.low = "";
     }
@@ -261,7 +255,6 @@ const transformAndCopyMapping = mapping => {
     if (typeof copy.deadZone === "undefined") {
       copy.deadZone = 0.5;
     }
-
     if (typeof copy.button === "undefined") {
       copy.button = 0;
     }
@@ -269,15 +262,12 @@ const transformAndCopyMapping = mapping => {
     if (typeof copy.high === "undefined") {
       copy.high = "";
     }
-
     if (typeof copy.low === "undefined") {
       copy.low = "";
     }
-
     if (typeof copy.sensitivity === "undefined") {
       copy.sensitivity = 10;
     }
-
     if (typeof copy.deadZone === "undefined") {
       copy.deadZone = 0.5;
     }
@@ -285,41 +275,31 @@ const transformAndCopyMapping = mapping => {
     console.warn("unknown mapping type", copy.type);
     return emptyMapping();
   }
-
   return copy;
 };
-
 const prepareMappingForExport = mapping => Object.assign({}, mapping);
-
 const prepareAxisMappingForExport = prepareMappingForExport;
-
 const prepareButtonMappingForExport = mapping => {
   const copy = prepareMappingForExport(mapping);
   delete copy.deadZone;
   delete copy.low;
   return copy;
 };
-
 const padWithEmptyMappings = (array, length) => {
   // Keep adding empty mappings until the list is full
   while (array.length < length) {
     array.push(emptyMapping());
-  } // In case the input array is longer than the desired length
-
-
+  }
+  // In case the input array is longer than the desired length
   array.length = length;
   return array;
 };
-
 const createEmptyMappingList = length => padWithEmptyMappings([], length);
-
 const getMovementConfiguration = usedKeys => ({
   usesArrows: usedKeys.has("ArrowUp") || usedKeys.has("ArrowDown") || usedKeys.has("ArrowRight") || usedKeys.has("ArrowLeft"),
   usesWASD: usedKeys.has("w") && usedKeys.has("s") || usedKeys.has("a") && usedKeys.has("d")
 });
-
 const getGamepadId = gamepad => "".concat(gamepad.id, " (").concat(gamepad.index, ")");
-
 class GamepadData {
   /**
    * @param {Gamepad} gamepad Source Gamepad
@@ -330,21 +310,17 @@ class GamepadData {
     this.gamepadLib = gamepadLib;
     this.resetMappings();
   }
-
   resetMappings() {
     this.hints = this.gamepadLib.getHints();
     this.buttonMappings = this.getDefaultButtonMappings().map(transformAndCopyMapping);
     this.axesMappings = this.getDefaultAxisMappings().map(transformAndCopyMapping);
   }
-
   clearMappings() {
     this.buttonMappings = createEmptyMappingList(this.gamepad.buttons.length);
     this.axesMappings = createEmptyMappingList(this.gamepad.axes.length);
   }
-
   getDefaultButtonMappings() {
     let buttons;
-
     if (this.hints.importedSettings) {
       buttons = this.hints.importedSettings.buttons;
     } else {
@@ -354,18 +330,16 @@ class GamepadData {
         usesArrows,
         usesWASD
       } = getMovementConfiguration(usedKeys);
-
       if (usesWASD) {
         alreadyUsedKeys.add("w");
         alreadyUsedKeys.add("a");
         alreadyUsedKeys.add("s");
         alreadyUsedKeys.add("d");
       }
-
-      const possiblePauseKeys = [// Restart keys, pause keys, other potentially dangerous keys
+      const possiblePauseKeys = [
+      // Restart keys, pause keys, other potentially dangerous keys
       "p", "q", "r"];
       const possibleActionKeys = [" ", "Enter", "e", "f", "z", "x", "c", ...Array.from(usedKeys).filter(i => i.length === 1 && !possiblePauseKeys.includes(i))];
-
       const findKey = keys => {
         for (const key of keys) {
           if (usedKeys.has(key) && !alreadyUsedKeys.has(key)) {
@@ -373,63 +347,51 @@ class GamepadData {
             return key;
           }
         }
-
         return null;
       };
-
       const getPrimaryAction = () => {
         if (usesArrows && usedKeys.has("ArrowUp")) {
           return "ArrowUp";
         }
-
         if (usesWASD && usedKeys.has("w")) {
           return "w";
         }
-
         return findKey(possibleActionKeys);
       };
-
       const getSecondaryAction = () => findKey(possibleActionKeys);
-
       const getPauseKey = () => findKey(possiblePauseKeys);
-
       const getUp = () => {
         if (usesArrows || !usesWASD) return "ArrowUp";
         return "w";
       };
-
       const getDown = () => {
         if (usesArrows || !usesWASD) return "ArrowDown";
         return "s";
       };
-
       const getRight = () => {
         if (usesArrows || !usesWASD) return "ArrowRight";
         return "d";
       };
-
       const getLeft = () => {
         if (usesArrows || !usesWASD) return "ArrowLeft";
         return "a";
       };
-
       const action1 = getPrimaryAction();
       let action2 = getSecondaryAction();
       let action3 = getSecondaryAction();
-      let action4 = getSecondaryAction(); // When only 1 or 2 action keys are detected, bind the other buttons to the same things.
-
+      let action4 = getSecondaryAction();
+      // When only 1 or 2 action keys are detected, bind the other buttons to the same things.
       if (action1 && !action2 && !action3 && !action4) {
         action2 = action1;
         action3 = action1;
         action4 = action1;
       }
-
       if (action1 && action2 && !action3 && !action4) {
         action3 = action1;
         action4 = action2;
-      } // Set indices "manually" because we don't evaluate them in order.
+      }
 
-
+      // Set indices "manually" because we don't evaluate them in order.
       buttons = [];
       buttons[0] = {
         /*
@@ -504,10 +466,10 @@ class GamepadData {
         */
         type: "key",
         high: getPauseKey()
-      }; // Xbox: Left analog press
-
-      buttons[10] = emptyMapping(); // Xbox: Right analog press
-
+      };
+      // Xbox: Left analog press
+      buttons[10] = emptyMapping();
+      // Xbox: Right analog press
       buttons[11] = emptyMapping();
       buttons[12] = {
         /*
@@ -538,13 +500,10 @@ class GamepadData {
         high: getRight()
       };
     }
-
     return padWithEmptyMappings(buttons, this.gamepad.buttons.length);
   }
-
   getDefaultAxisMappings() {
     let axes = [];
-
     if (this.hints.importedSettings) {
       axes = this.hints.importedSettings.axes;
     } else {
@@ -557,7 +516,6 @@ class GamepadData {
           usesArrows,
           usesWASD
         } = getMovementConfiguration(usedKeys);
-
         if (usesWASD) {
           axes.push(defaultAxesMappings.wasd[0]);
           axes.push(defaultAxesMappings.wasd[1]);
@@ -568,28 +526,23 @@ class GamepadData {
           axes.push(defaultAxesMappings.cursor[0]);
           axes.push(defaultAxesMappings.cursor[1]);
         }
-
         axes.push(defaultAxesMappings.cursor[0]);
         axes.push(defaultAxesMappings.cursor[1]);
       }
     }
-
     return padWithEmptyMappings(axes, this.gamepad.axes.length);
   }
-
 }
-
 const defaultHints = () => ({
   usedKeys: new Set(),
   importedSettings: null,
   generated: false
 });
-
 class GamepadLib extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor() {
     super();
-    /** @type {Map<string, GamepadData>} */
 
+    /** @type {Map<string, GamepadData>} */
     this.gamepads = new Map();
     this.handleConnect = this.handleConnect.bind(this);
     this.handleDisconnect = this.handleDisconnect.bind(this);
@@ -614,69 +567,56 @@ class GamepadLib extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["default"
     this.oldMouseDown = new Set();
     this.addEventHandlers();
   }
-
   addEventHandlers() {
     window.addEventListener("gamepadconnected", this.handleConnect);
     window.addEventListener("gamepaddisconnected", this.handleDisconnect);
   }
-
   removeEventHandlers() {
     window.removeEventListener("gamepadconnected", this.handleConnect);
     window.removeEventListener("gamepaddisconnected", this.handleDisconnect);
   }
-
   gamepadConnected() {
     if (this.gamepads.size > 0) {
       return Promise.resolve();
     }
-
     return new Promise(resolve => {
       this.connectCallbacks.push(resolve);
     });
   }
-
   getHints() {
     return Object.assign(defaultHints(), this.getUserHints());
   }
-
   getUserHints() {
     // to be overridden by users
     return {};
   }
-
   resetControls() {
     for (const gamepad of this.gamepads.values()) {
       gamepad.resetMappings();
     }
   }
-
   clearControls() {
     for (const gamepad of this.gamepads.values()) {
       gamepad.clearMappings();
     }
   }
-
   handleConnect(e) {
     for (const callback of this.connectCallbacks) {
       callback();
     }
-
     this.connectCallbacks = [];
     const gamepad = e.gamepad;
     const id = getGamepadId(gamepad);
     console.log("connected", gamepad);
     const gamepadData = new GamepadData(gamepad, this);
     this.gamepads.set(id, gamepadData);
-
     if (this.animationFrame === null) {
       this.animationFrame = requestAnimationFrame(this.update);
     }
-
     this.dispatchEvent(new CustomEvent("gamepadconnected", {
       detail: gamepadData
     }));
   }
-
   handleDisconnect(e) {
     const gamepad = e.gamepad;
     const id = getGamepadId(gamepad);
@@ -686,14 +626,12 @@ class GamepadLib extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["default"
     this.dispatchEvent(new CustomEvent("gamepaddisconnected", {
       detail: gamepadData
     }));
-
     if (this.gamepads.size === 0) {
       cancelAnimationFrame(this.animationFrame);
       this.animationFrame = null;
       this.currentTime = null;
     }
   }
-
   dispatchKey(key, pressed) {
     if (pressed) {
       this.dispatchEvent(new CustomEvent("keydown", {
@@ -705,7 +643,6 @@ class GamepadLib extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["default"
       }));
     }
   }
-
   dispatchMouse(button, down) {
     if (down) {
       this.dispatchEvent(new CustomEvent("mousedown", {
@@ -717,7 +654,6 @@ class GamepadLib extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["default"
       }));
     }
   }
-
   dispatchMouseMove(x, y) {
     this.dispatchEvent(new CustomEvent("mousemove", {
       detail: {
@@ -726,7 +662,6 @@ class GamepadLib extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["default"
       }
     }));
   }
-
   updateButton(value, mapping) {
     if (mapping.type === "key") {
       if (value >= mapping.deadZone) {
@@ -740,7 +675,6 @@ class GamepadLib extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["default"
       }
     } else if (mapping.type === "mousedown") {
       const isDown = Math.abs(value) >= mapping.deadZone;
-
       if (isDown) {
         this.mouseButtonsPressedThisFrame.add(mapping.button);
       }
@@ -749,12 +683,10 @@ class GamepadLib extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["default"
       let action;
       if (value >= deadZone) action = mapping.high;
       if (value <= -deadZone) action = mapping.low;
-
       if (action) {
         // an axis value just beyond the deadzone should have a multiplier near 0, a high value should have a multiplier of 1
         const multiplier = (Math.abs(value) - deadZone) / (1 - deadZone);
         const speed = multiplier * multiplier * mapping.sensitivity * this.deltaTime;
-
         if (action === "+x") {
           this.virtualCursor.x += speed;
         } else if (action === "-x") {
@@ -764,151 +696,120 @@ class GamepadLib extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["default"
         } else if (action === "-y") {
           this.virtualCursor.y -= speed;
         }
-
         this.virtualCursor.modified = true;
       }
     }
   }
-
   update(time) {
     this.oldKeysPressed = this.keysPressedThisFrame;
     this.oldMouseButtonsPressed = this.mouseButtonsPressedThisFrame;
     this.keysPressedThisFrame = new Set();
     this.mouseButtonsPressedThisFrame = new Set();
-
     if (this.currentTime === null) {
       this.deltaTime = 0; // doesn't matter what this is, it's just the first frame
     } else {
       this.deltaTime = time - this.currentTime;
     }
-
     this.deltaTime = Math.max(Math.min(this.deltaTime, 1000), 0);
     this.currentTime = time;
     this.animationFrame = requestAnimationFrame(this.update);
     const gamepads = navigator.getGamepads();
-
     for (const gamepad of gamepads) {
       if (gamepad === null) {
         continue;
       }
-
       const id = getGamepadId(gamepad);
       const data = this.gamepads.get(id);
-
       for (let i = 0; i < gamepad.buttons.length; i++) {
         const button = gamepad.buttons[i];
         const value = button.value;
         const mapping = data.buttonMappings[i];
         this.updateButton(value, mapping);
       }
-
       for (let i = 0; i < gamepad.axes.length; i++) {
         const axis = gamepad.axes[i];
         const mapping = data.axesMappings[i];
         this.updateButton(axis, mapping);
       }
     }
-
     if (this._editor) {
       this._editor.update(gamepads);
     }
-
     for (const key of this.keysPressedThisFrame) {
       if (!this.oldKeysPressed.has(key)) {
         this.dispatchKey(key, true);
       }
     }
-
     for (const key of this.oldKeysPressed) {
       if (!this.keysPressedThisFrame.has(key)) {
         this.dispatchKey(key, false);
       }
     }
-
     for (const button of this.mouseButtonsPressedThisFrame) {
       if (!this.oldMouseButtonsPressed.has(button)) {
         this.dispatchMouse(button, true);
       }
     }
-
     for (const button of this.oldMouseButtonsPressed) {
       if (!this.mouseButtonsPressedThisFrame.has(button)) {
         this.dispatchMouse(button, false);
       }
     }
-
     if (this.virtualCursor.modified) {
       this.virtualCursor.modified = false;
-
       if (this.virtualCursor.x > this.virtualCursor.maxX) {
         this.virtualCursor.x = this.virtualCursor.maxX;
       }
-
       if (this.virtualCursor.x < this.virtualCursor.minX) {
         this.virtualCursor.x = this.virtualCursor.minX;
       }
-
       if (this.virtualCursor.y > this.virtualCursor.maxY) {
         this.virtualCursor.y = this.virtualCursor.maxY;
       }
-
       if (this.virtualCursor.y < this.virtualCursor.minY) {
         this.virtualCursor.y = this.virtualCursor.minY;
       }
-
       this.dispatchMouseMove(this.virtualCursor.x, this.virtualCursor.y);
     }
   }
-
   editor() {
     if (!this._editor) {
       this._editor = new GamepadEditor(this);
     }
-
     return this._editor;
   }
-
 }
-
 GamepadLib.browserHasBrokenGamepadAPI = () => {
   // Check that the gamepad API is supported at all
   if (!navigator.getGamepads) {
     return true;
-  } // Firefox on Linux has a broken gamepad API implementation that results in strange and sometimes unusable mappings
+  }
+  // Firefox on Linux has a broken gamepad API implementation that results in strange and sometimes unusable mappings
   // https://bugzilla.mozilla.org/show_bug.cgi?id=1643358
   // https://bugzilla.mozilla.org/show_bug.cgi?id=1643835
-
-
   if (navigator.userAgent.includes("Firefox") && navigator.userAgent.includes("Linux")) {
     return true;
-  } // Firefox on macOS has other bugs that result in strange and unusable mappings
+  }
+  // Firefox on macOS has other bugs that result in strange and unusable mappings
   // eg. https://bugzilla.mozilla.org/show_bug.cgi?id=1434408
-
-
   if (navigator.userAgent.includes("Firefox") && navigator.userAgent.includes("Mac OS")) {
     return true;
   }
-
   return false;
 };
-
 GamepadLib.setConsole = n => console = n;
-
 const removeAllChildren = el => {
   while (el.firstChild) {
     el.removeChild(el.firstChild);
   }
 };
-
 const buttonHtmlId = index => "gamepadlib-button-".concat(index);
-
 const axisHtmlId = n => "gamepadlib-axis-".concat(n);
-
 class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(gamepadLib) {
     super();
-    /** @type {GamepadLib} */
 
+    /** @type {GamepadLib} */
     this.gamepadLib = gamepadLib;
     this.root = Object.assign(document.createElement("div"), {
       className: "gamepadlib-root"
@@ -928,38 +829,32 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
     this.gamepadLib.addEventListener("gamepaddisconnected", this.onGamepadsChange);
     this.buttonIdToElement = new Map();
     this.axisIdToElement = new Map();
-    this.hidden = false; // should be overridden later
+    this.hidden = false;
 
+    // should be overridden later
     this.msg = (id, opts) => id;
   }
-
   onSelectorChange() {
     this.updateContent();
     this.dispatchEvent(new CustomEvent("gamepad-changed"));
   }
-
   onGamepadsChange() {
     this.updateAllContent();
     this.dispatchEvent(new CustomEvent("gamepad-changed"));
   }
-
   updateAllContent() {
     this.updateDropdown();
     this.updateContent();
     this.focus();
   }
-
   updateDropdown() {
     removeAllChildren(this.selector);
     const gamepads = Array.from(this.gamepadLib.gamepads.entries());
-
     if (gamepads.length === 0) {
       this.selector.hidden = true;
       return;
     }
-
     this.selector.hidden = false;
-
     for (const [id, _] of gamepads) {
       const option = document.createElement("option");
       option.textContent = id;
@@ -967,7 +862,6 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
       this.selector.appendChild(option);
     }
   }
-
   keyToString(key) {
     if (key === " ") return this.msg("key-space");
     if (key === "ArrowUp") return this.msg("key-up");
@@ -975,29 +869,25 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
     if (key === "ArrowLeft") return this.msg("key-left");
     if (key === "ArrowRight") return this.msg("key-right");
     if (key === "Enter") return this.msg("key-enter");
-
     if (key.length === 1) {
       return key.toUpperCase();
-    } // Convert eg. "PageUp" -> "Page Up"
-
-
+    }
+    // Convert eg. "PageUp" -> "Page Up"
     return key.replace(/[a-z]([A-Z])/, n => "".concat(n[0], " ").concat(n[1]));
   }
-
-  createButtonMapping(mappingList, index, {
-    property = "high",
-    allowClick = true
-  } = {}) {
+  createButtonMapping(mappingList, index) {
+    let {
+      property = "high",
+      allowClick = true
+    } = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
     const input = document.createElement("input");
     input.readOnly = true;
     input.className = "gamepadlib-keyinput";
     input.title = this.msg("keyinput-title");
     input.dataset.index = index;
-
     const update = () => {
       const mapping = mappingList[index];
       input.dataset.empty = false;
-
       if (mapping.type === "key") {
         if (mapping[property] === null) {
           input.value = this.msg("key-none");
@@ -1007,18 +897,15 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
         }
       } else if (mapping.type === "mousedown") {
         let value = this.msg("key-click");
-
         if (mapping.button !== 0) {
           value += " (".concat(mapping.button, ")");
         }
-
         input.value = value;
       } else {
         // should never happen
         input.value = "??? ".concat(mapping.type);
       }
     };
-
     const changedMapping = () => {
       mappingList[index] = transformAndCopyMapping(mappingList[index]);
       isAcceptingInput = false;
@@ -1027,12 +914,9 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
       input.dispatchEvent(new CustomEvent("mapping-changed"));
       this.changed();
     };
-
     let isAcceptingInput = false;
-
     const handleClick = e => {
       e.preventDefault();
-
       if (isAcceptingInput) {
         if (allowClick) {
           const mapping = mappingList[index];
@@ -1048,23 +932,22 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
         isAcceptingInput = true;
       }
     };
-
     const handleKeyEvent = e => {
       if (isAcceptingInput) {
         e.preventDefault();
-        const key = e.key; // TW: We allow binding to control and shift
-
+        const key = e.key;
+        // TW: We allow binding to control and shift
         if (["Alt"].includes(key)) {
           return;
         }
-
         const mapping = mappingList[index];
-        const KEYS = ["ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft", "Enter", // TW: We support more keys
+        const KEYS = ["ArrowUp", "ArrowDown", "ArrowRight", "ArrowLeft", "Enter",
+        // TW: We support more keys
         // "Backspace",
         // "Delete",
-        "Shift", "CapsLock", "ScrollLock", "Control", // "Escape",
+        "Shift", "CapsLock", "ScrollLock", "Control",
+        // "Escape",
         "Insert", "Home", "End", "PageUp", "PageDown"];
-
         if (key.length === 1 || KEYS.includes(key)) {
           mapping.type = "key";
           mapping[property] = key;
@@ -1072,33 +955,26 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
           mapping.type = "key";
           mapping[property] = null;
         }
-
         changedMapping();
       } else if (e.key === "Enter") {
         e.preventDefault();
         e.target.click();
       }
     };
-
     const MODIFIER_KEYS = ["Shift", "Control"];
-
     const handleKeyDown = e => {
       if (!MODIFIER_KEYS.includes(e.key)) handleKeyEvent(e);
     };
-
     const handleKeyUp = e => {
       if (MODIFIER_KEYS.includes(e.key)) handleKeyEvent(e);
     };
-
     const handleBlur = () => {
       input.dataset.acceptingInput = false;
-
       if (isAcceptingInput) {
         isAcceptingInput = false;
         update();
       }
     };
-
     input.addEventListener("contextmenu", e => {
       e.preventDefault();
     });
@@ -1109,7 +985,6 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
     update();
     return input;
   }
-
   createAxisMapping(mappingList, index) {
     const selector = document.createElement("select");
     selector.className = "gamepadlib-axis-mapping";
@@ -1135,7 +1010,6 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
       textContent: this.msg("axis-custom"),
       value: "custom"
     }));
-
     const updateDropdownValue = () => {
       if (mappingList[index].type === "key" || mappingList[index].type === "mousedown") {
         if (mappingList[index].high === null && mappingList[index].low === null && mappingList[index + 1].high === null && mappingList[index + 1].low === null) {
@@ -1154,14 +1028,11 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
         selector.value = "none";
       }
     };
-
     updateDropdownValue();
     const circleOverlay = document.createElement("div");
     circleOverlay.className = "gamepadlib-axis-circle-overlay";
-
     const updateOverlay = () => {
       removeAllChildren(circleOverlay);
-
       if (mappingList[index].type === "key") {
         const buttons = [this.createButtonMapping(mappingList, index + 1, {
           property: "low",
@@ -1176,7 +1047,6 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
           property: "high",
           allowClick: false
         })];
-
         for (const button of buttons) {
           button.classList.add("gamepadlib-axis-mapper");
           button.addEventListener("mapping-changed", updateDropdownValue);
@@ -1184,7 +1054,6 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
         }
       }
     };
-
     updateOverlay();
     selector.addEventListener("change", () => {
       if (selector.value === "custom") {
@@ -1206,7 +1075,6 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
         mappingList[index] = transformAndCopyMapping(emptyMapping());
         mappingList[index + 1] = transformAndCopyMapping(emptyMapping());
       }
-
       updateOverlay();
       this.changed();
     });
@@ -1215,29 +1083,22 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
       selector
     };
   }
-
   hasControllerSelected() {
     return !!this.selector.value;
   }
-
   updateContent() {
     removeAllChildren(this.content);
-
     if (this.hidden) {
       return;
     }
-
     const selectedId = this.selector.value;
-
     if (!selectedId) {
       const message = document.createElement("div");
       message.textContent = this.msg("no-controllers");
       this.content.appendChild(message);
       return;
     }
-
     const gamepadData = this.gamepadLib.gamepads.get(selectedId);
-
     if (!gamepadData) {
       // Users should never be able to see this
       const message = document.createElement("div");
@@ -1245,13 +1106,11 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
       this.content.appendChild(message);
       return;
     }
-
     this.buttonIdToElement.clear();
     this.axisIdToElement.clear();
     const mappingsContainer = document.createElement("div");
     mappingsContainer.className = "gamepadlib-content-buttons";
     const buttonMappings = gamepadData.buttonMappings;
-
     for (let i = 0; i < buttonMappings.length; i++) {
       const container = document.createElement("div");
       container.className = "gamepadlib-mapping";
@@ -1273,11 +1132,9 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
       mappingsContainer.appendChild(container);
       this.buttonIdToElement.set(i, container);
     }
-
     const axesContainer = document.createElement("div");
     axesContainer.className = "gamepadlib-content-axes";
     const axesMappings = gamepadData.axesMappings;
-
     for (let i = 0; i < axesMappings.length; i += 2) {
       const container = document.createElement("div");
       container.className = "gamepadlib-axis";
@@ -1303,44 +1160,33 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
       axesContainer.appendChild(container);
       this.axisIdToElement.set(i, dot);
     }
-
     this.content.appendChild(mappingsContainer);
     this.content.appendChild(axesContainer);
   }
-
   update(gamepads) {
     if (this.hidden) {
       return;
     }
-
     const selectedId = this.selector.value;
-
     if (!selectedId) {
       return;
     }
-
     const gamepad = Array.from(gamepads).find(i => i && getGamepadId(i) === this.selector.value);
-
     if (!gamepad) {
       return;
     }
-
     for (let i = 0; i < gamepad.buttons.length; i++) {
       const element = this.buttonIdToElement.get(i);
-
       if (element) {
         const button = gamepad.buttons[i];
         const value = button.value.toString();
-
         if (value !== element.dataset.value) {
           element.dataset.value = value;
         }
       }
     }
-
     for (let i = 0; i < gamepad.axes.length; i += 2) {
       const element = this.axisIdToElement.get(i);
-
       if (element) {
         const x = gamepad.axes[i];
         const y = gamepad.axes[i + 1] || 0;
@@ -1349,49 +1195,38 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
       }
     }
   }
-
   export() {
     const selectedId = this.selector.value;
-
     if (!selectedId) {
       return null;
     }
-
     const gamepadData = this.gamepadLib.gamepads.get(selectedId);
-
     if (!gamepadData) {
       return null;
     }
-
     return {
       axes: gamepadData.axesMappings.map(prepareAxisMappingForExport),
       buttons: gamepadData.buttonMappings.map(prepareButtonMappingForExport)
     };
   }
-
   changed() {
     this.dispatchEvent(new CustomEvent("mapping-changed"));
   }
-
   hide() {
     this.hidden = true;
     this.updateContent();
   }
-
   focus() {
     if (this.selector.value) {
       this.selector.focus();
     }
   }
-
   generateEditor() {
     this.hidden = false;
     this.updateAllContent();
     return this.root;
   }
-
 }
-
 /* harmony default export */ __webpack_exports__["default"] = (GamepadLib);
 
 /***/ }),
@@ -1406,55 +1241,46 @@ class GamepadEditor extends _event_target_js__WEBPACK_IMPORTED_MODULE_0__["defau
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _gamepadlib_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./gamepadlib.js */ "./src/addons/addons/gamepad/gamepadlib.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    console,
+    msg
+  } = _ref;
+  const vm = addon.tab.traps.vm;
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  console,
-  msg
-}) {
-  const vm = addon.tab.traps.vm; // Wait for the project to finish loading. Renderer and scripts will not be fully available until this happens.
-
+  // Wait for the project to finish loading. Renderer and scripts will not be fully available until this happens.
   await new Promise(resolve => {
     if (vm.editingTarget) return resolve();
     vm.runtime.once("PROJECT_LOADED", resolve);
   });
-
   const vmStarted = () => vm.runtime._steppingInterval !== null;
-
   const scratchKeyToKey = key => {
     switch (key) {
       case "right arrow":
         return "ArrowRight";
-
       case "up arrow":
         return "ArrowUp";
-
       case "left arrow":
         return "ArrowLeft";
-
       case "down arrow":
         return "ArrowDown";
-
       case "enter":
         return "Enter";
-
       case "space":
         return " ";
     }
-
     return key.toLowerCase().charAt(0);
   };
-
   const getKeysUsedByProject = () => {
     const allBlocks = [vm.runtime.getTargetForStage(), ...vm.runtime.targets].filter(i => i.isOriginal).map(i => i.blocks);
     const result = new Set();
-
     for (const blocks of allBlocks) {
       for (const block of Object.values(blocks._blocks)) {
         if (block.opcode === "event_whenkeypressed" || block.opcode === "sensing_keyoptions") {
@@ -1462,51 +1288,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           if (block.opcode === "sensing_keyoptions" && !block.parent) {
             continue;
           }
-
           const key = block.fields.KEY_OPTION.value;
           result.add(scratchKeyToKey(key));
         }
       }
     }
-
     return result;
   };
-
   const GAMEPAD_CONFIG_MAGIC = " // _gamepad_";
-
   const findOptionsComment = () => {
     const target = vm.runtime.getTargetForStage();
     const comments = target.comments;
-
     for (const comment of Object.values(comments)) {
       if (comment.text.includes(GAMEPAD_CONFIG_MAGIC)) {
         return comment;
       }
     }
-
     return null;
   };
-
   const parseOptionsComment = () => {
     const comment = findOptionsComment();
-
     if (!comment) {
       return null;
     }
-
     const lineWithMagic = comment.text.split("\n").find(i => i.endsWith(GAMEPAD_CONFIG_MAGIC));
-
     if (!lineWithMagic) {
       console.warn("Gamepad comment does not contain valid line");
       return null;
     }
-
     const jsonText = lineWithMagic.substr(0, lineWithMagic.length - GAMEPAD_CONFIG_MAGIC.length);
     let parsed;
-
     try {
       parsed = JSON.parse(jsonText);
-
       if (!parsed || typeof parsed !== "object" || !Array.isArray(parsed.buttons) || !Array.isArray(parsed.axes)) {
         throw new Error("Invalid data");
       }
@@ -1514,49 +1327,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       console.warn("Gamepad comment has invalid JSON", e);
       return null;
     }
-
     return parsed;
   };
-
   _gamepadlib_js__WEBPACK_IMPORTED_MODULE_0__["default"].setConsole(console);
   const gamepad = new _gamepadlib_js__WEBPACK_IMPORTED_MODULE_0__["default"]();
-
   gamepad.getUserHints = () => {
     const parsedOptions = parseOptionsComment();
-
     if (parsedOptions) {
       return {
         importedSettings: parsedOptions
       };
     }
-
     return {
       usedKeys: getKeysUsedByProject()
     };
   };
-
   vm.runtime.on("PROJECT_LOADED", () => {
     gamepad.resetControls();
   });
-
   if (addon.settings.get("hide")) {
     await new Promise(resolve => {
       const end = () => {
         addon.settings.removeEventListener("change", listener);
         resolve();
       };
-
       const listener = () => {
         if (!addon.settings.get("hide")) {
           end();
         }
       };
-
       gamepad.gamepadConnected().then(end);
       addon.settings.addEventListener("change", listener);
     });
   }
-
   const renderer = vm.runtime.renderer;
   const width = renderer._xRight - renderer._xLeft;
   const height = renderer._yTop - renderer._yBottom;
@@ -1573,80 +1376,69 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   const buttonImage = document.createElement("img");
   buttonImage.className = addon.tab.scratchClass("stage-header_stage-button-icon");
   buttonImage.draggable = false;
-  buttonImage.src = addon.self.getResource("/gamepad.svg")
-  /* rewritten by pull.js */
-  ;
+  buttonImage.src = addon.self.getResource("/gamepad.svg") /* rewritten by pull.js */;
   buttonContent.appendChild(buttonImage);
   buttonContainer.appendChild(buttonContent);
   container.appendChild(buttonContainer);
   let editor;
   let shouldStoreSettingsInProject = false;
-
   const didChangeProject = () => {
     vm.runtime.emitProjectChanged();
-
     if (vm.editingTarget === vm.runtime.getTargetForStage()) {
       vm.emitWorkspaceUpdate();
     }
   };
-
   const storeMappings = () => {
     const exported = editor.export();
-
     if (!exported) {
       console.warn("Could not export gamepad settings");
       return;
     }
-
     const text = "".concat(msg("config-header"), "\n").concat(JSON.stringify(exported)).concat(GAMEPAD_CONFIG_MAGIC);
     const existingComment = findOptionsComment();
-
     if (existingComment) {
       existingComment.text = text;
     } else {
       const target = vm.runtime.getTargetForStage();
-      target.createComment( // comment ID, just has to be a random string
-      Math.random() + "", // block ID
-      null, // text
-      text, // x, y, width, height
-      50, 50, 350, 150, // minimized
+      target.createComment(
+      // comment ID, just has to be a random string
+      Math.random() + "",
+      // block ID
+      null,
+      // text
+      text,
+      // x, y, width, height
+      50, 50, 350, 150,
+      // minimized
       false);
     }
-
     didChangeProject();
   };
-
   const removeStoredMappings = () => {
     const comment = findOptionsComment();
-
     if (comment) {
       const target = vm.runtime.getTargetForStage();
       delete target.comments[comment.id];
       didChangeProject();
     }
   };
-
   const handleGamepadMappingChanged = () => {
     if (shouldStoreSettingsInProject) {
       storeMappings();
     }
   };
-
   const handleStoreSettingsCheckboxChanged = e => {
     shouldStoreSettingsInProject = !!e.target.checked;
-
     if (shouldStoreSettingsInProject) {
       storeMappings();
     } else {
       removeStoredMappings();
     }
   };
-
   const handleEditorControllerChanged = () => {
     document.body.classList.toggle("sa-gamepad-has-controller", editor.hasControllerSelected());
     handleGamepadMappingChanged();
   };
-
   buttonContainer.addEventListener("click", () => {
     if (!editor) {
       editor = gamepad.editor();
@@ -1654,7 +1446,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       editor.addEventListener("mapping-changed", handleGamepadMappingChanged);
       editor.addEventListener("gamepad-changed", handleEditorControllerChanged);
     }
-
     const editorEl = editor.generateEditor();
     handleEditorControllerChanged();
     const {
@@ -1667,13 +1458,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       isOpen: true,
       useEditorClasses: true
     });
-
     const handleKeyDown = e => {
       if (e.key === "Escape" && !e.target.closest("[data-accepting-input]")) {
         remove();
       }
     };
-
     backdrop.addEventListener("click", remove);
     window.addEventListener("keydown", handleKeyDown);
     addon.self.addEventListener("disabled", remove);
@@ -1688,25 +1477,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     });
     content.classList.add("sa-gamepad-popup-content");
-
     if (_gamepadlib_js__WEBPACK_IMPORTED_MODULE_0__["default"].browserHasBrokenGamepadAPI()) {
       const warning = document.createElement("div");
       warning.textContent = msg("browser-support");
       warning.className = "sa-gamepad-browser-support-warning";
       content.appendChild(warning);
     }
-
     content.appendChild(editorEl);
     const extraOptionsContainer = document.createElement("div");
     extraOptionsContainer.className = "sa-gamepad-extra-options";
     content.appendChild(extraOptionsContainer);
-
     const mappingsWereResetOrCleared = () => {
       editor.updateAllContent();
       storeSettingsCheckbox.checked = false;
       shouldStoreSettingsInProject = false;
     };
-
     const resetButton = document.createElement("button");
     resetButton.className = "sa-gamepad-reset-button";
     resetButton.textContent = msg("reset");
@@ -1734,11 +1519,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     extraOptionsContainer.appendChild(storeSettingsLabel);
     editor.focus();
   });
-
   if (addon.tab.redux.state && addon.tab.redux.state.scratchGui.stageSize.stageSize === "small") {
     document.body.classList.add("sa-gamepad-small");
   }
-
   document.addEventListener("click", e => {
     if (e.target.closest("[class*='stage-header_stage-button-first']:not(.sa-hide-stage-button)")) {
       document.body.classList.add("sa-gamepad-small");
@@ -1751,41 +1534,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   const virtualCursorElement = document.createElement("img");
   virtualCursorElement.hidden = true;
   virtualCursorElement.className = "sa-gamepad-cursor";
-  virtualCursorElement.src = addon.self.getResource("/cursor.png")
-  /* rewritten by pull.js */
-  ;
+  virtualCursorElement.src = addon.self.getResource("/cursor.png") /* rewritten by pull.js */;
   addon.self.addEventListener("disabled", () => {
     virtualCursorElement.hidden = true;
   });
   let hideCursorTimeout;
-
   const hideRealCursor = () => {
     document.body.classList.add("sa-gamepad-hide-cursor");
   };
-
   const showRealCursor = () => {
     document.body.classList.remove("sa-gamepad-hide-cursor");
   };
-
   const virtualCursorSetVisible = visible => {
     virtualCursorElement.hidden = !visible;
     clearTimeout(hideCursorTimeout);
-
     if (visible) {
       hideRealCursor();
       hideCursorTimeout = setTimeout(virtualCursorHide, 8000);
     }
   };
-
   const virtualCursorHide = () => {
     virtualCursorSetVisible(false);
   };
-
   const virtualCursorSetDown = down => {
     virtualCursorSetVisible(true);
     virtualCursorElement.classList.toggle("sa-gamepad-cursor-down", down);
   };
-
   const virtualCursorSetPosition = (x, y) => {
     virtualCursorSetVisible(true);
     const CURSOR_SIZE = 6;
@@ -1793,13 +1567,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     const stageY = height / 2 - y - CURSOR_SIZE / 2;
     virtualCursorElement.style.transform = "translate(".concat(stageX, "px, ").concat(stageY, "px)");
   };
-
   document.addEventListener("mousemove", () => {
     virtualCursorSetVisible(false);
     showRealCursor();
   });
-  let getCanvasSize; // Support modern ResizeObserver and slow getBoundingClientRect version for improved browser support (matters for TurboWarp)
-
+  let getCanvasSize;
+  // Support modern ResizeObserver and slow getBoundingClientRect version for improved browser support (matters for TurboWarp)
   if (window.ResizeObserver) {
     let canvasWidth = width;
     let canvasHeight = height;
@@ -1810,19 +1583,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     });
     resizeObserver.observe(canvas);
-
     getCanvasSize = () => [canvasWidth, canvasHeight];
   } else {
     getCanvasSize = () => {
       const rect = canvas.getBoundingClientRect();
       return [rect.width, rect.height];
     };
-  } // Both in Scratch space
+  }
 
-
+  // Both in Scratch space
   let virtualX = 0;
   let virtualY = 0;
-
   const postMouseData = data => {
     if (addon.self.disabled || !vmStarted()) return;
     const [rectWidth, rectHeight] = getCanvasSize();
@@ -1833,7 +1604,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       y: (height / 2 - virtualY) * (rectHeight / height)
     }));
   };
-
   const postKeyboardData = (key, isDown) => {
     if (addon.self.disabled || !vmStarted()) return;
     vm.postIOData("keyboard", {
@@ -1841,11 +1611,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       isDown
     });
   };
-
   const handleGamepadButtonDown = e => postKeyboardData(e.detail, true);
-
   const handleGamepadButtonUp = e => postKeyboardData(e.detail, false);
-
   const handleGamepadMouseDown = e => {
     virtualCursorSetDown(true);
     postMouseData({
@@ -1853,7 +1620,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       button: e.detail
     });
   };
-
   const handleGamepadMouseUp = e => {
     virtualCursorSetDown(false);
     postMouseData({
@@ -1861,14 +1627,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       button: e.detail
     });
   };
-
   const handleGamepadMouseMove = e => {
     virtualX = e.detail.x;
     virtualY = e.detail.y;
     virtualCursorSetPosition(virtualX, virtualY);
     postMouseData({});
   };
-
   gamepad.virtualCursor.maxX = renderer._xRight;
   gamepad.virtualCursor.minX = renderer._xLeft;
   gamepad.virtualCursor.maxY = renderer._yTop;
@@ -1878,14 +1642,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   gamepad.addEventListener("mousedown", handleGamepadMouseDown);
   gamepad.addEventListener("mouseup", handleGamepadMouseUp);
   gamepad.addEventListener("mousemove", handleGamepadMouseMove);
-
   while (true) {
     const target = await addon.tab.waitForElement('[class^="stage-header_embed-buttons_"], [class^="stage-header_stage-size-row"], [class^="stage-header_stage-menu-wrapper"] > [class^="button_outlined-button"]', {
       markAsSeen: true,
       reduxEvents: ["scratch-gui/mode/SET_PLAYER", "scratch-gui/mode/SET_FULL_SCREEN", "fontsLoaded/SET_FONTS_LOADED", "scratch-gui/locales/SELECT_LOCALE"]
     });
     container.dataset.editorMode = addon.tab.editorMode;
-
     if (target.className.includes("stage-size-row")) {
       addon.tab.appendToSharedSpace({
         space: "stageHeader",
@@ -1899,7 +1661,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         order: 0
       });
     }
-
     const monitorListScaler = document.querySelector("[class^='monitor-list_monitor-list-scaler']");
     monitorListScaler.appendChild(virtualCursorElement);
   }

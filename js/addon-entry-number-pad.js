@@ -28,20 +28,23 @@ const resources = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (async function ({
-  addon,
-  msg,
-  console
-}) {
-  const ScratchBlocks = await addon.tab.traps.getBlockly(); // https://github.com/LLK/scratch-blocks/blob/develop/core/field_number.js#L165
+/* harmony default export */ __webpack_exports__["default"] = (async function (_ref) {
+  let {
+    addon,
+    msg,
+    console
+  } = _ref;
+  const ScratchBlocks = await addon.tab.traps.getBlockly();
 
+  // https://github.com/LLK/scratch-blocks/blob/develop/core/field_number.js#L165
   const originalMouseDown = ScratchBlocks.FieldNumber.prototype.showEditor_;
-
-  ScratchBlocks.FieldNumber.prototype.showEditor_ = function (...args) {
+  ScratchBlocks.FieldNumber.prototype.showEditor_ = function () {
     if (!addon.self.disabled) {
       this.useTouchInteraction_ = true;
     }
-
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
     return originalMouseDown.apply(this, args);
   };
 });
