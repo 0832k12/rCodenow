@@ -2422,6 +2422,51 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/lib/isScratchDesktop.js":
+/*!*************************************!*\
+  !*** ./src/lib/isScratchDesktop.js ***!
+  \*************************************/
+/*! exports provided: default, isScratchDesktop, notScratchDesktop, setIsScratchDesktop */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isScratchDesktop", function() { return isScratchDesktop; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "notScratchDesktop", function() { return notScratchDesktop; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setIsScratchDesktop", function() { return setIsScratchDesktop; });
+/**
+ * Internal stored state. Not valid until after at least one call to `setIsScratchDesktop()`.
+ * @type {boolean}
+ */
+let _isScratchDesktop; // undefined = not ready yet
+
+/**
+ * Tell the `isScratchDesktop()` whether or not the GUI is running under Scratch Desktop.
+ * @param {boolean} value - the new value which `isScratchDesktop()` should return in the future.
+ */
+const setIsScratchDesktop = function setIsScratchDesktop(value) {
+  _isScratchDesktop = value;
+};
+
+/**
+ * @returns {boolean} - true if it seems like the GUI is running under Scratch Desktop; false otherwise.
+ * If `setIsScratchDesktop()` has not yet been called, this can return `undefined`.
+ */
+const isScratchDesktop = function isScratchDesktop() {
+  return _isScratchDesktop;
+};
+
+/**
+ * @returns {boolean} - false if it seems like the GUI is running under Scratch Desktop; true otherwise.
+ */
+const notScratchDesktop = function notScratchDesktop() {
+  return !isScratchDesktop();
+};
+/* harmony default export */ __webpack_exports__["default"] = (isScratchDesktop);
+
+
+/***/ }),
+
 /***/ "./src/lib/normalize.css":
 /*!*******************************!*\
   !*** ./src/lib/normalize.css ***!

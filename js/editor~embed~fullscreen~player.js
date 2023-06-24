@@ -1663,7 +1663,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "/* make sure to keep these in sync with other constants,\ne.g. STAGE_DIMENSION_DEFAULTS in lib/screen-utils.js */\n\n/* layout contants from `layout-constants.js` */\n\n/* #E5F0FF */\n\n/* #E9F1FC */\n\n/* #D9E3F2 */\n\n/* 90% transparent version of motion-primary */\n\n/* #FFFFFF */\n\n/* 25% transparent version of ui-white */\n\n/* 25% transparent version of ui-white */\n\n/* 25% transparent version of ui-white */\n\n/* 15% transparent version of black */\n\n/* #575E75 */\n\n/* 35% transparent version of motion-primary */\n\n/* 15% transparent version of motion-primary */\n\n/* opt-in theme overrides */\n\n/* #FF661A */\n\n/* #E64D00 */\n\n/* #CF63CF */\n\n/* #BD42BD */\n\n/* #FFAB19 */\n\n/* #FF8C1A */\n\n/* #0FBD8C */\n\n/* #0FBD8C */\n\n/* #FF8C1A */\n\n/* #FFB366 */\n\n/* #FF8C1A */\n\n/* #0FBD8C */\n\n/* #0B8E69 */\n\n/* 35% transparent version of extensions-primary */\n\n/* opaque version of extensions-transparent, on white bg */\n\n/* lighter than motion-primary */\n\n/*\n    Contains constants for the z-index values of elements that are part of the global stack context.\n    In other words, z-index values that are \"inside\" a component are not added here.\n    This prevents conflicts between identical z-index values in different components.\n*/\n\n/* Toolbox z-index: 40; set in scratch-blocks */\n\n/* tooltips should go over add buttons if they overlap */\n\n/* monitors go over add buttons */\n\n/* \"ask\" block text input goes above monitors */\n\n/* menu-bar should go over monitors, alerts and tutorials */\n\n/* tw: show below menu bar normally */\n\n/* Block drag z-index: 1000; default 50 is overriden in blocks.css */\n\n/* so it is draggable into other panes */\n\n/* in most interfaces, the context menu is always on top */\n\n.monitor_monitor-container_BKHcx {\n    position: absolute;\n    background: hsla(215, 100%, 95%, 1); /* tw: do not look different in dark mode */\n    z-index: 48;\n    border: 1px solid hsla(0, 0%, 0%, 0.15);\n    border-radius: calc(0.5rem / 2);\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-size: 0.75rem;\n    transition: box-shadow 0.2s;\n    pointer-events: all;\n    overflow: hidden;\n    color: #575e75; /* tw: explicitly set color to match Scratch */\n}\n\n.monitor_monitor_1DS0_:hover {\n    cursor: pointer;\n}\n\n.monitor_dragging_1m_Kt {\n    z-index: 1010;\n    box-shadow: 3px 3px 5px #888888;\n}\n\n.monitor_default-monitor_2KHFc {\n    display: flex;\n    flex-direction: column;\n    padding: 3px;\n}\n\n.monitor_label_1Jx1h {\n    font-weight: bold;\n    text-align: center;\n    margin: 0 5px;\n}\n\n.monitor_value_2DN5C {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    min-width: 40px;\n    text-align: center;\n    color: white;\n    margin: 0 5px;\n    border-radius: calc(0.5rem / 2);\n    padding: 0 2px;\n    white-space: pre-wrap;\n    transform: translateZ(0); /* Fixes flickering in Safari */\n}\n\n.monitor_large-value_3DIcK {\n    min-height: 1.4rem;\n    min-width: 3rem;\n    padding: 0.1rem 0.25rem;\n    text-align: center;\n    color: white;\n    font-size: 1rem;\n    white-space: pre-wrap;\n    transform: translateZ(0); /* Fixes flickering in Safari */\n}\n\n.monitor_row_3kEbv {\n    display: flex;\n    flex-direction: row;\n}\n\n.monitor_slider_18owZ {\n    width: 100%;\n    transform: translateZ(0); /* Fixes flickering in Safari */\n}\n\n.monitor_list-monitor_2sZXc {\n    display: flex;\n    flex-direction: column;\n}\n\n.monitor_list-header_2fGXP {\n    background: hsla(0, 100%, 100%, 1);\n    border-bottom: 1px solid hsla(0, 0%, 0%, 0.15);\n    text-align: center;\n    padding: 3px;\n    font-size: 0.75rem;\n    font-weight: bold;\n    color: hsla(225, 15%, 40%, 1); /* tw: do not look different in dark mode */\n    width: 100%;\n}\n\n.monitor_list-body_3Yq5K {\n    background: hsla(215, 100%, 95%, 1); /* tw: do not look different in dark mode */\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n    overflow-x: hidden;\n    height: calc(100% - 44px);\n}\n\n.monitor_list-row_1nPeY {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    align-items: center;\n    padding: 2px;\n    flex-shrink: 0;\n    transform: translateZ(0); /* Keep sharp when scaled */\n}\n\n.monitor_list-index_1h6b3 {\n    font-weight: bold;\n    color: hsla(225, 15%, 40%, 1); /* tw: do not look different in dark mode */\n    margin: 0 3px;\n}\n\n.monitor_list-value_2Ui8b {\n    min-width: 40px;\n    text-align: left;\n    color: white;\n    margin: 0 3px;\n    border-radius: calc(0.5rem / 2);\n    border: 1px solid hsla(0, 0%, 0%, 0.15);\n    flex-grow: 1;\n    height: 22px;\n}\n\n.monitor_list-footer_28WLY {\n    background: hsla(0, 100%, 100%, 1);\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    padding: 3px;\n    font-size: 0.75rem;\n    font-weight: bold;\n    color: hsla(225, 15%, 40%, 1); /* tw: do not look different in dark mode */\n}\n\n.monitor_list-empty_kM_Oc {\n    text-align: center;\n    width: 100%;\n    padding: 5px;\n}\n\n.monitor_input-wrapper_22rQF {\n    position: relative;\n    overflow: hidden;\n    display: flex;\n    align-items: center;\n    background: rgba(0, 0, 0, 0.1);\n}\n\n.monitor_value-inner_2B2eT {\n    padding: 3px 5px;\n    min-height: 22px;\n    overflow: hidden; /* Don't let long values escape container */\n    text-overflow: ellipsis;\n    -webkit-user-select: text;\n       -moz-user-select: text;\n        -ms-user-select: text;\n            user-select: text; /* Allow selecting list values for 2.0 compatibility, only relevant in player */\n    white-space: pre;\n}\n\n.monitor_list-input_NzzdG {\n    padding: 3px 5px;\n    border: 0;\n    background: none;\n    color: hsla(0, 100%, 100%, 1);\n    outline: none;\n    font-size: 0.75rem;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    /* Workaround for Firefox */\n    width: 0;\n    flex: 1 1 auto;\n}\n\n.monitor_remove-button_2PY5T {\n    padding: 0;\n    padding-right: 5px;\n    cursor: pointer;\n    color: hsla(0, 100%, 100%, 1);\n}\n\n.monitor_add-button_3djmW {\n    cursor: pointer;\n    margin-right: 3px;\n}\n\n.monitor_resize-handle_1DCXV {\n    cursor: nwse-resize;\n    margin-left: 3px;\n}\n\n.monitor_footer-length_1SD4W {\n    text-align: center;\n}\n", ""]);
+exports.push([module.i, "/* make sure to keep these in sync with other constants,\ne.g. STAGE_DIMENSION_DEFAULTS in lib/screen-utils.js */\n\n/* layout contants from `layout-constants.js` */\n\n/* #E5F0FF */\n\n/* #E9F1FC */\n\n/* #D9E3F2 */\n\n/* 90% transparent version of motion-primary */\n\n/* #FFFFFF */\n\n/* 25% transparent version of ui-white */\n\n/* 25% transparent version of ui-white */\n\n/* 25% transparent version of ui-white */\n\n/* 15% transparent version of black */\n\n/* #575E75 */\n\n/* 35% transparent version of motion-primary */\n\n/* 15% transparent version of motion-primary */\n\n/* opt-in theme overrides */\n\n/* #FF661A */\n\n/* #E64D00 */\n\n/* #CF63CF */\n\n/* #BD42BD */\n\n/* #FFAB19 */\n\n/* #FF8C1A */\n\n/* #0FBD8C */\n\n/* #0FBD8C */\n\n/* #FF8C1A */\n\n/* #FFB366 */\n\n/* #FF8C1A */\n\n/* #0FBD8C */\n\n/* #0B8E69 */\n\n/* 35% transparent version of extensions-primary */\n\n/* opaque version of extensions-transparent, on white bg */\n\n/* lighter than motion-primary */\n\n/*\n    Contains constants for the z-index values of elements that are part of the global stack context.\n    In other words, z-index values that are \"inside\" a component are not added here.\n    This prevents conflicts between identical z-index values in different components.\n*/\n\n/* Toolbox z-index: 40; set in scratch-blocks */\n\n/* tooltips should go over add buttons if they overlap */\n\n/* monitors go over add buttons */\n\n/* \"ask\" block text input goes above monitors */\n\n/* menu-bar should go over monitors, alerts and tutorials */\n\n/* tw: show below menu bar normally */\n\n/* Block drag z-index: 1000; default 50 is overriden in blocks.css */\n\n/* so it is draggable into other panes */\n\n/* in most interfaces, the context menu is always on top */\n\n.monitor_monitor-container_BKHcx {\n    position: absolute;\n    background: hsla(215, 100%, 95%, 1); /* tw: do not look different in dark mode */\n    z-index: 48;\n    border: 1px solid hsla(0, 0%, 0%, 0.15);\n    border-radius: calc(0.5rem / 2);\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    font-size: 0.75rem;\n    transition: box-shadow 0.2s;\n    pointer-events: all;\n    overflow: hidden;\n    color: #575e75; /* tw: explicitly set color to match Scratch */\n}\n\n.monitor_monitor_1DS0_:hover {\n    cursor: pointer;\n}\n\n.monitor_dragging_1m_Kt {\n    z-index: 1010;\n    box-shadow: 3px 3px 5px #888888;\n}\n\n.monitor_default-monitor_2KHFc {\n    display: flex;\n    flex-direction: column;\n    padding: 3px;\n}\n\n.monitor_label_1Jx1h {\n    font-weight: bold;\n    text-align: center;\n    margin: 0 5px;\n}\n\n.monitor_value_2DN5C {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    min-width: 40px;\n    text-align: center;\n    color: white;\n    margin: 0 5px;\n    border-radius: calc(0.5rem / 2);\n    padding: 0 2px;\n    white-space: pre-wrap;\n    transform: translateZ(0); /* Fixes flickering in Safari */\n}\n\n.monitor_large-value_3DIcK {\n    min-height: 1.4rem;\n    min-width: 3rem;\n    padding: 0.1rem 0.25rem;\n    text-align: center;\n    color: white;\n    font-size: 1rem;\n    white-space: pre-wrap;\n    transform: translateZ(0); /* Fixes flickering in Safari */\n}\n\n.monitor_row_3kEbv {\n    display: flex;\n    flex-direction: row;\n}\n\n.monitor_slider_18owZ {\n    width: 100%;\n    transform: translateZ(0); /* Fixes flickering in Safari */\n}\n\n.monitor_list-monitor_2sZXc {\n    display: flex;\n    flex-direction: column;\n}\n\n.monitor_list-header_2fGXP {\n    background: hsla(0, 100%, 100%, 1);\n    border-bottom: 1px solid hsla(0, 0%, 0%, 0.15);\n    text-align: center;\n    padding: 3px;\n    font-size: 0.75rem;\n    font-weight: bold;\n    color: hsla(225, 15%, 40%, 1); /* tw: do not look different in dark mode */\n    width: 100%;\n}\n\n.monitor_list-body_3Yq5K {\n    background: hsla(215, 100%, 95%, 1); /* tw: do not look different in dark mode */\n    width: 100%;\n    display: flex;\n    flex-direction: column;\n    overflow-x: hidden;\n    flex-grow: 1;\n}\n\n.monitor_list-row_1nPeY {\n    display: flex;\n    flex-direction: row;\n    justify-content: space-around;\n    align-items: center;\n    padding: 2px;\n    flex-shrink: 0;\n    transform: translateZ(0); /* Keep sharp when scaled */\n}\n\n.monitor_list-index_1h6b3 {\n    font-weight: bold;\n    color: hsla(225, 15%, 40%, 1); /* tw: do not look different in dark mode */\n    margin: 0 3px;\n}\n\n.monitor_list-value_2Ui8b {\n    min-width: 40px;\n    text-align: left;\n    color: white;\n    margin: 0 3px;\n    border-radius: calc(0.5rem / 2);\n    border: 1px solid hsla(0, 0%, 0%, 0.15);\n    flex-grow: 1;\n    height: 22px;\n}\n\n.monitor_list-footer_28WLY {\n    background: hsla(0, 100%, 100%, 1);\n    display: flex;\n    flex-direction: row;\n    justify-content: space-between;\n    padding: 3px;\n    font-size: 0.75rem;\n    font-weight: bold;\n    border-top: 1px solid hsla(0, 0%, 0%, 0.15);\n    color: hsla(225, 15%, 40%, 1); /* tw: do not look different in dark mode */\n}\n\n.monitor_list-empty_kM_Oc {\n    text-align: center;\n    width: 100%;\n    padding: 5px;\n}\n\n.monitor_input-wrapper_22rQF {\n    position: relative;\n    overflow: hidden;\n    display: flex;\n    align-items: center;\n    background: rgba(0, 0, 0, 0.1);\n}\n\n.monitor_value-inner_2B2eT {\n    padding: 3px 5px;\n    min-height: 22px;\n    overflow: hidden; /* Don't let long values escape container */\n    text-overflow: ellipsis;\n    -webkit-user-select: text;\n       -moz-user-select: text;\n        -ms-user-select: text;\n            user-select: text; /* Allow selecting list values for 2.0 compatibility, only relevant in player */\n    white-space: pre;\n}\n\n.monitor_list-input_NzzdG {\n    padding: 3px 5px;\n    border: 0;\n    background: none;\n    color: hsla(0, 100%, 100%, 1);\n    outline: none;\n    font-size: 0.75rem;\n    font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n    /* Workaround for Firefox */\n    width: 0;\n    flex: 1 1 auto;\n}\n\n.monitor_remove-button_2PY5T {\n    padding: 0;\n    padding-right: 5px;\n    cursor: pointer;\n    color: hsla(0, 100%, 100%, 1);\n}\n\n.monitor_add-button_3djmW {\n    cursor: pointer;\n    margin-right: 3px;\n}\n\n.monitor_resize-handle_1DCXV {\n    cursor: nwse-resize;\n    margin-left: 3px;\n}\n\n.monitor_footer-length_1SD4W {\n    text-align: center;\n}\n", ""]);
 
 // exports
 exports.locals = {
@@ -12338,7 +12338,7 @@ class ListMonitorScroller extends react__WEBPACK_IMPORTED_MODULE_0___default.a.C
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_virtualized__WEBPACK_IMPORTED_MODULE_6__["List"], {
       activeIndex: activeIndex,
       activeValue: activeValue,
-      height: height - 44 /* Header/footer size, approx */,
+      height: height - 42 /* Header/footer size, approx */,
       noRowsRenderer: this.noRowsRenderer,
       rowCount: values.length,
       rowHeight: 24 /* Row size is same for all rows */,
@@ -12571,7 +12571,9 @@ const MonitorComponent = props => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0_
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_box_box_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
   className: _monitor_css__WEBPACK_IMPORTED_MODULE_12___default.a.monitorContainer,
   componentRef: props.componentRef,
-  onDoubleClick: props.mode === 'list' || !props.draggable ? null : props.onNextMode
+  onDoubleClick: props.mode === 'list' || !props.draggable ? null : props.onNextMode,
+  "data-id": props.id,
+  "data-opcode": props.opcode
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(modes[props.mode], _objectSpread({
   categoryColor: categories[props.category]
 }, props)))), /*#__PURE__*/react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.createPortal(
@@ -21431,7 +21433,7 @@ CustomProcedures.defaultOptions = {
   zoom: {
     controls: false,
     wheel: false,
-    startScale: 1
+    startScale: 1.5
   },
   comments: false,
   collapse: false,
@@ -21816,11 +21818,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reducers_cc_extension__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../reducers/cc-extension */ "./src/reducers/cc-extension.js");
 /* harmony import */ var _reducers_locales__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../reducers/locales */ "./src/reducers/locales.js");
 /* harmony import */ var _lib_cc_extension_manager_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../lib/cc-extension-manager.js */ "./src/lib/cc-extension-manager.js");
-/* harmony import */ var _lib_libraries_extensions_index_jsx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../lib/libraries/extensions/index.jsx */ "./src/lib/libraries/extensions/index.jsx");
-/* harmony import */ var _lib_libraries_tw_extension_tags__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../lib/libraries/tw-extension-tags */ "./src/lib/libraries/tw-extension-tags.js");
-/* harmony import */ var _components_library_library_jsx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/library/library.jsx */ "./src/components/library/library.jsx");
-/* harmony import */ var _components_action_menu_icon_sprite_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/action-menu/icon--sprite.svg */ "./src/components/action-menu/icon--sprite.svg");
-/* harmony import */ var _components_action_menu_icon_sprite_svg__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_action_menu_icon_sprite_svg__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _lib_libraries_tw_extension_tags__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../lib/libraries/tw-extension-tags */ "./src/lib/libraries/tw-extension-tags.js");
+/* harmony import */ var _components_library_library_jsx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/library/library.jsx */ "./src/components/library/library.jsx");
+/* harmony import */ var _components_action_menu_icon_sprite_svg__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/action-menu/icon--sprite.svg */ "./src/components/action-menu/icon--sprite.svg");
+/* harmony import */ var _components_action_menu_icon_sprite_svg__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_action_menu_icon_sprite_svg__WEBPACK_IMPORTED_MODULE_12__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -21838,7 +21839,8 @@ function _toPrimitive(input, hint) { if (typeof input !== "object" || input === 
 
 
 /*
-这是rCodenow的Turbowarp扩展库，将不再更新。
+这是rCodenow的Turbowarp扩展库，将不再更新。 
+import extensionLibraryContent from '../lib/libraries/extensions/index.jsx';
 */
 
 
@@ -21878,7 +21880,7 @@ class ExtensionLibrary extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Pure
   handleUploadExtension() {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
-    input.setAttribute('accept', '.js,.ccx');
+    input.setAttribute('accept', '.js,.ccx,.rxe');
     input.setAttribute('multiple', true);
     input.onchange = event => {
       const files = event.target.files;
@@ -21909,6 +21911,16 @@ class ExtensionLibrary extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Pure
           reader.readAsArrayBuffer(file, 'utf8');
           reader.onload = async () => {
             await this.props.loadCcx(reader.result);
+            if (this.props.visible) this.props.onRequestClose();
+          };
+          break;
+        }
+      case 'rxe':
+        {
+          const reader = new FileReader();
+          reader.readAsArrayBuffer(file, 'utf8');
+          reader.onload = async () => {
+            await this.props.loadrxe(reader.result);
             if (this.props.visible) this.props.onRequestClose();
           };
           break;
@@ -22013,7 +22025,7 @@ class ExtensionLibrary extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Pure
   }
   render() {
     const extensionLibraryThumbnailData = Object.values(this.props.extension || {}).map(extension => _objectSpread(_objectSpread({}, extension), {}, {
-      rawURL: extension.iconURL || _components_action_menu_icon_sprite_svg__WEBPACK_IMPORTED_MODULE_13___default.a,
+      rawURL: extension.iconURL || _components_action_menu_icon_sprite_svg__WEBPACK_IMPORTED_MODULE_12___default.a,
       featured: true,
       name: this.props.intl.formatMessage({
         id: extension.name
@@ -22028,10 +22040,10 @@ class ExtensionLibrary extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Pure
       }
       return a.enabled ? -1 : 1;
     });
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_library_library_jsx__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_library_library_jsx__WEBPACK_IMPORTED_MODULE_11__["default"], {
       data: extensionLibraryThumbnailData,
       filterable: true,
-      tags: _lib_libraries_tw_extension_tags__WEBPACK_IMPORTED_MODULE_11__["default"],
+      tags: _lib_libraries_tw_extension_tags__WEBPACK_IMPORTED_MODULE_10__["default"],
       onUpload: this.handleUploadExtension,
       onFromWeb: this.handleClickExtensionStore,
       id: "extensionLibrary",
@@ -31598,30 +31610,7 @@ const builtinExtensions = [{
   description: "be.Operation.describe",
   tags: ['rcodenow'],
   featured: true
-},
-/*
-{
-    name: (
-        <FormattedMessage
-            defaultMessage="Canvas"
-            id="rc.canvas.name"
-        />
-    ),
-    extensionId: 'canvas',
-    author: '大主教大祭司',
-    iconURL: canvasIconURL,
-    insetIconURL: canvasInsetIconURL,
-    description: (
-        <FormattedMessage
-            defaultMessage="Extra drawing tools using an HTML Canvas. Works well when used withother extensions."
-            id="rc.canvas.describe"
-        />
-    ),
-    tags: ['rcodenow'],
-    featured: true,
-},
-*/
-{
+}, {
   name: "gui.extension.text2speech.name",
   extensionId: 'text2speech',
   author: 'Amazon Web Services',
@@ -31758,19 +31747,7 @@ const builtinExtensions = [{
   description: "tw.customExtension.description",
   tags: ['upload'],
   featured: true
-}
-/*
-{
-    name: 'Local',
-    extensionId: 'local',
-    author: '大主教大祭司',
-    iconURL: customExtensionIcon,
-    description: "gui.extension.localdiscribe",
-    tags: ['upload'],
-    featured: true
-}
-*/];
-
+}];
 const loadBuiltinExtension = dispatch => {
   for (const ext of builtinExtensions) {
     clipcc_extension__WEBPACK_IMPORTED_MODULE_5___default.a.extensionManager.addInstance(ext.extensionId, {
