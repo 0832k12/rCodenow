@@ -31383,70 +31383,72 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _libraries_extensions_tool_tool_svg__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_tool_tool_svg__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var _libraries_extensions_Operation_operations_png__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./libraries/extensions/Operation/operations.png */ "./src/lib/libraries/extensions/Operation/operations.png");
 /* harmony import */ var _libraries_extensions_Operation_operations_png__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_Operation_operations_png__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var _libraries_extensions_music_music_png__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./libraries/extensions/music/music.png */ "./src/lib/libraries/extensions/music/music.png");
-/* harmony import */ var _libraries_extensions_music_music_png__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_music_music_png__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _libraries_extensions_music_music_small_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./libraries/extensions/music/music-small.svg */ "./src/lib/libraries/extensions/music/music-small.svg");
-/* harmony import */ var _libraries_extensions_music_music_small_svg__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_music_music_small_svg__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var _libraries_extensions_pen_pen_png__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./libraries/extensions/pen/pen.png */ "./src/lib/libraries/extensions/pen/pen.png");
-/* harmony import */ var _libraries_extensions_pen_pen_png__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_pen_pen_png__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var _libraries_extensions_pen_pen_small_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./libraries/extensions/pen/pen-small.svg */ "./src/lib/libraries/extensions/pen/pen-small.svg");
-/* harmony import */ var _libraries_extensions_pen_pen_small_svg__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_pen_pen_small_svg__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var _libraries_extensions_videoSensing_video_sensing_png__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./libraries/extensions/videoSensing/video-sensing.png */ "./src/lib/libraries/extensions/videoSensing/video-sensing.png");
-/* harmony import */ var _libraries_extensions_videoSensing_video_sensing_png__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_videoSensing_video_sensing_png__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var _libraries_extensions_videoSensing_video_sensing_small_svg__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./libraries/extensions/videoSensing/video-sensing-small.svg */ "./src/lib/libraries/extensions/videoSensing/video-sensing-small.svg");
-/* harmony import */ var _libraries_extensions_videoSensing_video_sensing_small_svg__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_videoSensing_video_sensing_small_svg__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var _libraries_extensions_text2speech_text2speech_png__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./libraries/extensions/text2speech/text2speech.png */ "./src/lib/libraries/extensions/text2speech/text2speech.png");
-/* harmony import */ var _libraries_extensions_text2speech_text2speech_png__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_text2speech_text2speech_png__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var _libraries_extensions_text2speech_text2speech_small_svg__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./libraries/extensions/text2speech/text2speech-small.svg */ "./src/lib/libraries/extensions/text2speech/text2speech-small.svg");
-/* harmony import */ var _libraries_extensions_text2speech_text2speech_small_svg__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_text2speech_text2speech_small_svg__WEBPACK_IMPORTED_MODULE_25__);
-/* harmony import */ var _libraries_extensions_translate_translate_png__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./libraries/extensions/translate/translate.png */ "./src/lib/libraries/extensions/translate/translate.png");
-/* harmony import */ var _libraries_extensions_translate_translate_png__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_translate_translate_png__WEBPACK_IMPORTED_MODULE_26__);
-/* harmony import */ var _libraries_extensions_translate_translate_small_png__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./libraries/extensions/translate/translate-small.png */ "./src/lib/libraries/extensions/translate/translate-small.png");
-/* harmony import */ var _libraries_extensions_translate_translate_small_png__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_translate_translate_small_png__WEBPACK_IMPORTED_MODULE_27__);
-/* harmony import */ var _libraries_extensions_makeymakey_makeymakey_png__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./libraries/extensions/makeymakey/makeymakey.png */ "./src/lib/libraries/extensions/makeymakey/makeymakey.png");
-/* harmony import */ var _libraries_extensions_makeymakey_makeymakey_png__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_makeymakey_makeymakey_png__WEBPACK_IMPORTED_MODULE_28__);
-/* harmony import */ var _libraries_extensions_makeymakey_makeymakey_small_svg__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./libraries/extensions/makeymakey/makeymakey-small.svg */ "./src/lib/libraries/extensions/makeymakey/makeymakey-small.svg");
-/* harmony import */ var _libraries_extensions_makeymakey_makeymakey_small_svg__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_makeymakey_makeymakey_small_svg__WEBPACK_IMPORTED_MODULE_29__);
-/* harmony import */ var _libraries_extensions_microbit_microbit_png__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./libraries/extensions/microbit/microbit.png */ "./src/lib/libraries/extensions/microbit/microbit.png");
-/* harmony import */ var _libraries_extensions_microbit_microbit_png__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_microbit_microbit_png__WEBPACK_IMPORTED_MODULE_30__);
-/* harmony import */ var _libraries_extensions_microbit_microbit_small_svg__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./libraries/extensions/microbit/microbit-small.svg */ "./src/lib/libraries/extensions/microbit/microbit-small.svg");
-/* harmony import */ var _libraries_extensions_microbit_microbit_small_svg__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_microbit_microbit_small_svg__WEBPACK_IMPORTED_MODULE_31__);
-/* harmony import */ var _libraries_extensions_microbit_microbit_illustration_svg__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./libraries/extensions/microbit/microbit-illustration.svg */ "./src/lib/libraries/extensions/microbit/microbit-illustration.svg");
-/* harmony import */ var _libraries_extensions_microbit_microbit_illustration_svg__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_microbit_microbit_illustration_svg__WEBPACK_IMPORTED_MODULE_32__);
-/* harmony import */ var _libraries_extensions_ev3_ev3_png__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./libraries/extensions/ev3/ev3.png */ "./src/lib/libraries/extensions/ev3/ev3.png");
-/* harmony import */ var _libraries_extensions_ev3_ev3_png__WEBPACK_IMPORTED_MODULE_33___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_ev3_ev3_png__WEBPACK_IMPORTED_MODULE_33__);
-/* harmony import */ var _libraries_extensions_ev3_ev3_small_svg__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./libraries/extensions/ev3/ev3-small.svg */ "./src/lib/libraries/extensions/ev3/ev3-small.svg");
-/* harmony import */ var _libraries_extensions_ev3_ev3_small_svg__WEBPACK_IMPORTED_MODULE_34___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_ev3_ev3_small_svg__WEBPACK_IMPORTED_MODULE_34__);
-/* harmony import */ var _libraries_extensions_ev3_ev3_hub_illustration_svg__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./libraries/extensions/ev3/ev3-hub-illustration.svg */ "./src/lib/libraries/extensions/ev3/ev3-hub-illustration.svg");
-/* harmony import */ var _libraries_extensions_ev3_ev3_hub_illustration_svg__WEBPACK_IMPORTED_MODULE_35___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_ev3_ev3_hub_illustration_svg__WEBPACK_IMPORTED_MODULE_35__);
-/* harmony import */ var _libraries_extensions_wedo2_wedo_png__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./libraries/extensions/wedo2/wedo.png */ "./src/lib/libraries/extensions/wedo2/wedo.png");
-/* harmony import */ var _libraries_extensions_wedo2_wedo_png__WEBPACK_IMPORTED_MODULE_36___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_wedo2_wedo_png__WEBPACK_IMPORTED_MODULE_36__);
-/* harmony import */ var _libraries_extensions_wedo2_wedo_small_svg__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./libraries/extensions/wedo2/wedo-small.svg */ "./src/lib/libraries/extensions/wedo2/wedo-small.svg");
-/* harmony import */ var _libraries_extensions_wedo2_wedo_small_svg__WEBPACK_IMPORTED_MODULE_37___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_wedo2_wedo_small_svg__WEBPACK_IMPORTED_MODULE_37__);
-/* harmony import */ var _libraries_extensions_wedo2_wedo_illustration_svg__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./libraries/extensions/wedo2/wedo-illustration.svg */ "./src/lib/libraries/extensions/wedo2/wedo-illustration.svg");
-/* harmony import */ var _libraries_extensions_wedo2_wedo_illustration_svg__WEBPACK_IMPORTED_MODULE_38___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_wedo2_wedo_illustration_svg__WEBPACK_IMPORTED_MODULE_38__);
-/* harmony import */ var _libraries_extensions_wedo2_wedo_button_illustration_svg__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./libraries/extensions/wedo2/wedo-button-illustration.svg */ "./src/lib/libraries/extensions/wedo2/wedo-button-illustration.svg");
-/* harmony import */ var _libraries_extensions_wedo2_wedo_button_illustration_svg__WEBPACK_IMPORTED_MODULE_39___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_wedo2_wedo_button_illustration_svg__WEBPACK_IMPORTED_MODULE_39__);
-/* harmony import */ var _libraries_extensions_boost_boost_png__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./libraries/extensions/boost/boost.png */ "./src/lib/libraries/extensions/boost/boost.png");
-/* harmony import */ var _libraries_extensions_boost_boost_png__WEBPACK_IMPORTED_MODULE_40___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_boost_boost_png__WEBPACK_IMPORTED_MODULE_40__);
-/* harmony import */ var _libraries_extensions_boost_boost_small_svg__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./libraries/extensions/boost/boost-small.svg */ "./src/lib/libraries/extensions/boost/boost-small.svg");
-/* harmony import */ var _libraries_extensions_boost_boost_small_svg__WEBPACK_IMPORTED_MODULE_41___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_boost_boost_small_svg__WEBPACK_IMPORTED_MODULE_41__);
-/* harmony import */ var _libraries_extensions_boost_boost_illustration_svg__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./libraries/extensions/boost/boost-illustration.svg */ "./src/lib/libraries/extensions/boost/boost-illustration.svg");
-/* harmony import */ var _libraries_extensions_boost_boost_illustration_svg__WEBPACK_IMPORTED_MODULE_42___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_boost_boost_illustration_svg__WEBPACK_IMPORTED_MODULE_42__);
-/* harmony import */ var _libraries_extensions_boost_boost_button_illustration_svg__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./libraries/extensions/boost/boost-button-illustration.svg */ "./src/lib/libraries/extensions/boost/boost-button-illustration.svg");
-/* harmony import */ var _libraries_extensions_boost_boost_button_illustration_svg__WEBPACK_IMPORTED_MODULE_43___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_boost_boost_button_illustration_svg__WEBPACK_IMPORTED_MODULE_43__);
-/* harmony import */ var _libraries_extensions_gdxfor_gdxfor_png__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./libraries/extensions/gdxfor/gdxfor.png */ "./src/lib/libraries/extensions/gdxfor/gdxfor.png");
-/* harmony import */ var _libraries_extensions_gdxfor_gdxfor_png__WEBPACK_IMPORTED_MODULE_44___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_gdxfor_gdxfor_png__WEBPACK_IMPORTED_MODULE_44__);
-/* harmony import */ var _libraries_extensions_gdxfor_gdxfor_small_svg__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./libraries/extensions/gdxfor/gdxfor-small.svg */ "./src/lib/libraries/extensions/gdxfor/gdxfor-small.svg");
-/* harmony import */ var _libraries_extensions_gdxfor_gdxfor_small_svg__WEBPACK_IMPORTED_MODULE_45___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_gdxfor_gdxfor_small_svg__WEBPACK_IMPORTED_MODULE_45__);
-/* harmony import */ var _libraries_extensions_gdxfor_gdxfor_illustration_svg__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./libraries/extensions/gdxfor/gdxfor-illustration.svg */ "./src/lib/libraries/extensions/gdxfor/gdxfor-illustration.svg");
-/* harmony import */ var _libraries_extensions_gdxfor_gdxfor_illustration_svg__WEBPACK_IMPORTED_MODULE_46___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_gdxfor_gdxfor_illustration_svg__WEBPACK_IMPORTED_MODULE_46__);
-/* harmony import */ var _libraries_extensions_tw_tw_svg__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./libraries/extensions/tw/tw.svg */ "./src/lib/libraries/extensions/tw/tw.svg");
-/* harmony import */ var _libraries_extensions_tw_tw_svg__WEBPACK_IMPORTED_MODULE_47___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_tw_tw_svg__WEBPACK_IMPORTED_MODULE_47__);
-/* harmony import */ var _libraries_extensions_custom_custom_svg__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./libraries/extensions/custom/custom.svg */ "./src/lib/libraries/extensions/custom/custom.svg");
-/* harmony import */ var _libraries_extensions_custom_custom_svg__WEBPACK_IMPORTED_MODULE_48___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_custom_custom_svg__WEBPACK_IMPORTED_MODULE_48__);
-/* harmony import */ var _libraries_extensions_gallery_gallery_svg__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./libraries/extensions/gallery/gallery.svg */ "./src/lib/libraries/extensions/gallery/gallery.svg");
-/* harmony import */ var _libraries_extensions_gallery_gallery_svg__WEBPACK_IMPORTED_MODULE_49___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_gallery_gallery_svg__WEBPACK_IMPORTED_MODULE_49__);
+/* harmony import */ var _libraries_extensions_inline_inlinemain_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./libraries/extensions/inline/inlinemain.svg */ "./src/lib/libraries/extensions/inline/inlinemain.svg");
+/* harmony import */ var _libraries_extensions_inline_inlinemain_svg__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_inline_inlinemain_svg__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _libraries_extensions_music_music_png__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./libraries/extensions/music/music.png */ "./src/lib/libraries/extensions/music/music.png");
+/* harmony import */ var _libraries_extensions_music_music_png__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_music_music_png__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var _libraries_extensions_music_music_small_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./libraries/extensions/music/music-small.svg */ "./src/lib/libraries/extensions/music/music-small.svg");
+/* harmony import */ var _libraries_extensions_music_music_small_svg__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_music_music_small_svg__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var _libraries_extensions_pen_pen_png__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./libraries/extensions/pen/pen.png */ "./src/lib/libraries/extensions/pen/pen.png");
+/* harmony import */ var _libraries_extensions_pen_pen_png__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_pen_pen_png__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _libraries_extensions_pen_pen_small_svg__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./libraries/extensions/pen/pen-small.svg */ "./src/lib/libraries/extensions/pen/pen-small.svg");
+/* harmony import */ var _libraries_extensions_pen_pen_small_svg__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_pen_pen_small_svg__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _libraries_extensions_videoSensing_video_sensing_png__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./libraries/extensions/videoSensing/video-sensing.png */ "./src/lib/libraries/extensions/videoSensing/video-sensing.png");
+/* harmony import */ var _libraries_extensions_videoSensing_video_sensing_png__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_videoSensing_video_sensing_png__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var _libraries_extensions_videoSensing_video_sensing_small_svg__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./libraries/extensions/videoSensing/video-sensing-small.svg */ "./src/lib/libraries/extensions/videoSensing/video-sensing-small.svg");
+/* harmony import */ var _libraries_extensions_videoSensing_video_sensing_small_svg__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_videoSensing_video_sensing_small_svg__WEBPACK_IMPORTED_MODULE_24__);
+/* harmony import */ var _libraries_extensions_text2speech_text2speech_png__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./libraries/extensions/text2speech/text2speech.png */ "./src/lib/libraries/extensions/text2speech/text2speech.png");
+/* harmony import */ var _libraries_extensions_text2speech_text2speech_png__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_text2speech_text2speech_png__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var _libraries_extensions_text2speech_text2speech_small_svg__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./libraries/extensions/text2speech/text2speech-small.svg */ "./src/lib/libraries/extensions/text2speech/text2speech-small.svg");
+/* harmony import */ var _libraries_extensions_text2speech_text2speech_small_svg__WEBPACK_IMPORTED_MODULE_26___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_text2speech_text2speech_small_svg__WEBPACK_IMPORTED_MODULE_26__);
+/* harmony import */ var _libraries_extensions_translate_translate_png__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./libraries/extensions/translate/translate.png */ "./src/lib/libraries/extensions/translate/translate.png");
+/* harmony import */ var _libraries_extensions_translate_translate_png__WEBPACK_IMPORTED_MODULE_27___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_translate_translate_png__WEBPACK_IMPORTED_MODULE_27__);
+/* harmony import */ var _libraries_extensions_translate_translate_small_png__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./libraries/extensions/translate/translate-small.png */ "./src/lib/libraries/extensions/translate/translate-small.png");
+/* harmony import */ var _libraries_extensions_translate_translate_small_png__WEBPACK_IMPORTED_MODULE_28___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_translate_translate_small_png__WEBPACK_IMPORTED_MODULE_28__);
+/* harmony import */ var _libraries_extensions_makeymakey_makeymakey_png__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./libraries/extensions/makeymakey/makeymakey.png */ "./src/lib/libraries/extensions/makeymakey/makeymakey.png");
+/* harmony import */ var _libraries_extensions_makeymakey_makeymakey_png__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_makeymakey_makeymakey_png__WEBPACK_IMPORTED_MODULE_29__);
+/* harmony import */ var _libraries_extensions_makeymakey_makeymakey_small_svg__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./libraries/extensions/makeymakey/makeymakey-small.svg */ "./src/lib/libraries/extensions/makeymakey/makeymakey-small.svg");
+/* harmony import */ var _libraries_extensions_makeymakey_makeymakey_small_svg__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_makeymakey_makeymakey_small_svg__WEBPACK_IMPORTED_MODULE_30__);
+/* harmony import */ var _libraries_extensions_microbit_microbit_png__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./libraries/extensions/microbit/microbit.png */ "./src/lib/libraries/extensions/microbit/microbit.png");
+/* harmony import */ var _libraries_extensions_microbit_microbit_png__WEBPACK_IMPORTED_MODULE_31___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_microbit_microbit_png__WEBPACK_IMPORTED_MODULE_31__);
+/* harmony import */ var _libraries_extensions_microbit_microbit_small_svg__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./libraries/extensions/microbit/microbit-small.svg */ "./src/lib/libraries/extensions/microbit/microbit-small.svg");
+/* harmony import */ var _libraries_extensions_microbit_microbit_small_svg__WEBPACK_IMPORTED_MODULE_32___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_microbit_microbit_small_svg__WEBPACK_IMPORTED_MODULE_32__);
+/* harmony import */ var _libraries_extensions_microbit_microbit_illustration_svg__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./libraries/extensions/microbit/microbit-illustration.svg */ "./src/lib/libraries/extensions/microbit/microbit-illustration.svg");
+/* harmony import */ var _libraries_extensions_microbit_microbit_illustration_svg__WEBPACK_IMPORTED_MODULE_33___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_microbit_microbit_illustration_svg__WEBPACK_IMPORTED_MODULE_33__);
+/* harmony import */ var _libraries_extensions_ev3_ev3_png__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./libraries/extensions/ev3/ev3.png */ "./src/lib/libraries/extensions/ev3/ev3.png");
+/* harmony import */ var _libraries_extensions_ev3_ev3_png__WEBPACK_IMPORTED_MODULE_34___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_ev3_ev3_png__WEBPACK_IMPORTED_MODULE_34__);
+/* harmony import */ var _libraries_extensions_ev3_ev3_small_svg__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./libraries/extensions/ev3/ev3-small.svg */ "./src/lib/libraries/extensions/ev3/ev3-small.svg");
+/* harmony import */ var _libraries_extensions_ev3_ev3_small_svg__WEBPACK_IMPORTED_MODULE_35___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_ev3_ev3_small_svg__WEBPACK_IMPORTED_MODULE_35__);
+/* harmony import */ var _libraries_extensions_ev3_ev3_hub_illustration_svg__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./libraries/extensions/ev3/ev3-hub-illustration.svg */ "./src/lib/libraries/extensions/ev3/ev3-hub-illustration.svg");
+/* harmony import */ var _libraries_extensions_ev3_ev3_hub_illustration_svg__WEBPACK_IMPORTED_MODULE_36___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_ev3_ev3_hub_illustration_svg__WEBPACK_IMPORTED_MODULE_36__);
+/* harmony import */ var _libraries_extensions_wedo2_wedo_png__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./libraries/extensions/wedo2/wedo.png */ "./src/lib/libraries/extensions/wedo2/wedo.png");
+/* harmony import */ var _libraries_extensions_wedo2_wedo_png__WEBPACK_IMPORTED_MODULE_37___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_wedo2_wedo_png__WEBPACK_IMPORTED_MODULE_37__);
+/* harmony import */ var _libraries_extensions_wedo2_wedo_small_svg__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./libraries/extensions/wedo2/wedo-small.svg */ "./src/lib/libraries/extensions/wedo2/wedo-small.svg");
+/* harmony import */ var _libraries_extensions_wedo2_wedo_small_svg__WEBPACK_IMPORTED_MODULE_38___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_wedo2_wedo_small_svg__WEBPACK_IMPORTED_MODULE_38__);
+/* harmony import */ var _libraries_extensions_wedo2_wedo_illustration_svg__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./libraries/extensions/wedo2/wedo-illustration.svg */ "./src/lib/libraries/extensions/wedo2/wedo-illustration.svg");
+/* harmony import */ var _libraries_extensions_wedo2_wedo_illustration_svg__WEBPACK_IMPORTED_MODULE_39___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_wedo2_wedo_illustration_svg__WEBPACK_IMPORTED_MODULE_39__);
+/* harmony import */ var _libraries_extensions_wedo2_wedo_button_illustration_svg__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./libraries/extensions/wedo2/wedo-button-illustration.svg */ "./src/lib/libraries/extensions/wedo2/wedo-button-illustration.svg");
+/* harmony import */ var _libraries_extensions_wedo2_wedo_button_illustration_svg__WEBPACK_IMPORTED_MODULE_40___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_wedo2_wedo_button_illustration_svg__WEBPACK_IMPORTED_MODULE_40__);
+/* harmony import */ var _libraries_extensions_boost_boost_png__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./libraries/extensions/boost/boost.png */ "./src/lib/libraries/extensions/boost/boost.png");
+/* harmony import */ var _libraries_extensions_boost_boost_png__WEBPACK_IMPORTED_MODULE_41___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_boost_boost_png__WEBPACK_IMPORTED_MODULE_41__);
+/* harmony import */ var _libraries_extensions_boost_boost_small_svg__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./libraries/extensions/boost/boost-small.svg */ "./src/lib/libraries/extensions/boost/boost-small.svg");
+/* harmony import */ var _libraries_extensions_boost_boost_small_svg__WEBPACK_IMPORTED_MODULE_42___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_boost_boost_small_svg__WEBPACK_IMPORTED_MODULE_42__);
+/* harmony import */ var _libraries_extensions_boost_boost_illustration_svg__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./libraries/extensions/boost/boost-illustration.svg */ "./src/lib/libraries/extensions/boost/boost-illustration.svg");
+/* harmony import */ var _libraries_extensions_boost_boost_illustration_svg__WEBPACK_IMPORTED_MODULE_43___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_boost_boost_illustration_svg__WEBPACK_IMPORTED_MODULE_43__);
+/* harmony import */ var _libraries_extensions_boost_boost_button_illustration_svg__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./libraries/extensions/boost/boost-button-illustration.svg */ "./src/lib/libraries/extensions/boost/boost-button-illustration.svg");
+/* harmony import */ var _libraries_extensions_boost_boost_button_illustration_svg__WEBPACK_IMPORTED_MODULE_44___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_boost_boost_button_illustration_svg__WEBPACK_IMPORTED_MODULE_44__);
+/* harmony import */ var _libraries_extensions_gdxfor_gdxfor_png__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./libraries/extensions/gdxfor/gdxfor.png */ "./src/lib/libraries/extensions/gdxfor/gdxfor.png");
+/* harmony import */ var _libraries_extensions_gdxfor_gdxfor_png__WEBPACK_IMPORTED_MODULE_45___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_gdxfor_gdxfor_png__WEBPACK_IMPORTED_MODULE_45__);
+/* harmony import */ var _libraries_extensions_gdxfor_gdxfor_small_svg__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./libraries/extensions/gdxfor/gdxfor-small.svg */ "./src/lib/libraries/extensions/gdxfor/gdxfor-small.svg");
+/* harmony import */ var _libraries_extensions_gdxfor_gdxfor_small_svg__WEBPACK_IMPORTED_MODULE_46___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_gdxfor_gdxfor_small_svg__WEBPACK_IMPORTED_MODULE_46__);
+/* harmony import */ var _libraries_extensions_gdxfor_gdxfor_illustration_svg__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./libraries/extensions/gdxfor/gdxfor-illustration.svg */ "./src/lib/libraries/extensions/gdxfor/gdxfor-illustration.svg");
+/* harmony import */ var _libraries_extensions_gdxfor_gdxfor_illustration_svg__WEBPACK_IMPORTED_MODULE_47___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_gdxfor_gdxfor_illustration_svg__WEBPACK_IMPORTED_MODULE_47__);
+/* harmony import */ var _libraries_extensions_tw_tw_svg__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./libraries/extensions/tw/tw.svg */ "./src/lib/libraries/extensions/tw/tw.svg");
+/* harmony import */ var _libraries_extensions_tw_tw_svg__WEBPACK_IMPORTED_MODULE_48___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_tw_tw_svg__WEBPACK_IMPORTED_MODULE_48__);
+/* harmony import */ var _libraries_extensions_custom_custom_svg__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./libraries/extensions/custom/custom.svg */ "./src/lib/libraries/extensions/custom/custom.svg");
+/* harmony import */ var _libraries_extensions_custom_custom_svg__WEBPACK_IMPORTED_MODULE_49___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_custom_custom_svg__WEBPACK_IMPORTED_MODULE_49__);
+/* harmony import */ var _libraries_extensions_gallery_gallery_svg__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./libraries/extensions/gallery/gallery.svg */ "./src/lib/libraries/extensions/gallery/gallery.svg");
+/* harmony import */ var _libraries_extensions_gallery_gallery_svg__WEBPACK_IMPORTED_MODULE_50___default = /*#__PURE__*/__webpack_require__.n(_libraries_extensions_gallery_gallery_svg__WEBPACK_IMPORTED_MODULE_50__);
 /* eslint-disable no-unused-vars */
 
 
@@ -31456,6 +31458,7 @@ const inlineblock = 'data:text/javascript;base64,LyoqCiAqIE9yaWdpbmFsIG5vbi1mdW5
 import {addNewSetting} from '../reducers/settings';
 import {newExtensionSettings} from '../reducers/extension-settings';
 */
+
 
 
 
@@ -31525,23 +31528,23 @@ const builtinExtensions = [{
   extensionId: 'cstlmsInline',
   author: '大主教大祭司',
   extensionURL: inlineblock,
-  iconURL: _libraries_extensions_gallery_gallery_svg__WEBPACK_IMPORTED_MODULE_49___default.a,
+  iconURL: _libraries_extensions_inline_inlinemain_svg__WEBPACK_IMPORTED_MODULE_18___default.a,
   description: "rc.rxblocks.inline.describe",
   tags: ['rcodenow'],
   featured: true
 }, {
   name: "gui.extension.music.name",
   extensionId: 'music',
-  iconURL: _libraries_extensions_music_music_png__WEBPACK_IMPORTED_MODULE_18___default.a,
-  insetIconURL: _libraries_extensions_music_music_small_svg__WEBPACK_IMPORTED_MODULE_19___default.a,
+  iconURL: _libraries_extensions_music_music_png__WEBPACK_IMPORTED_MODULE_19___default.a,
+  insetIconURL: _libraries_extensions_music_music_small_svg__WEBPACK_IMPORTED_MODULE_20___default.a,
   description: "gui.extension.music.description",
   tags: ['scratch'],
   featured: true
 }, {
   name: "gui.extension.pen.name",
   extensionId: 'pen',
-  iconURL: _libraries_extensions_pen_pen_png__WEBPACK_IMPORTED_MODULE_20___default.a,
-  insetIconURL: _libraries_extensions_pen_pen_small_svg__WEBPACK_IMPORTED_MODULE_21___default.a,
+  iconURL: _libraries_extensions_pen_pen_png__WEBPACK_IMPORTED_MODULE_21___default.a,
+  insetIconURL: _libraries_extensions_pen_pen_small_svg__WEBPACK_IMPORTED_MODULE_22___default.a,
   description: "gui.extension.pen.description",
   tags: ['scratch'],
   featured: true
@@ -31557,8 +31560,8 @@ const builtinExtensions = [{
 }, {
   name: "gui.extension.videosensing.name",
   extensionId: 'videoSensing',
-  iconURL: _libraries_extensions_videoSensing_video_sensing_png__WEBPACK_IMPORTED_MODULE_22___default.a,
-  insetIconURL: _libraries_extensions_videoSensing_video_sensing_small_svg__WEBPACK_IMPORTED_MODULE_23___default.a,
+  iconURL: _libraries_extensions_videoSensing_video_sensing_png__WEBPACK_IMPORTED_MODULE_23___default.a,
+  insetIconURL: _libraries_extensions_videoSensing_video_sensing_small_svg__WEBPACK_IMPORTED_MODULE_24___default.a,
   description: "gui.extension.videosensing.description",
   tags: ['scratch'],
   featured: true
@@ -31630,8 +31633,8 @@ const builtinExtensions = [{
   name: "gui.extension.text2speech.name",
   extensionId: 'text2speech',
   author: 'Amazon Web Services',
-  iconURL: _libraries_extensions_text2speech_text2speech_png__WEBPACK_IMPORTED_MODULE_24___default.a,
-  insetIconURL: _libraries_extensions_text2speech_text2speech_small_svg__WEBPACK_IMPORTED_MODULE_25___default.a,
+  iconURL: _libraries_extensions_text2speech_text2speech_png__WEBPACK_IMPORTED_MODULE_25___default.a,
+  insetIconURL: _libraries_extensions_text2speech_text2speech_small_svg__WEBPACK_IMPORTED_MODULE_26___default.a,
   description: "gui.extension.text2speech.description",
   tags: ['scratch'],
   featured: true,
@@ -31640,8 +31643,8 @@ const builtinExtensions = [{
   name: "gui.extension.translate.name",
   extensionId: 'translate',
   author: 'Google',
-  iconURL: _libraries_extensions_translate_translate_png__WEBPACK_IMPORTED_MODULE_26___default.a,
-  insetIconURL: _libraries_extensions_translate_translate_small_png__WEBPACK_IMPORTED_MODULE_27___default.a,
+  iconURL: _libraries_extensions_translate_translate_png__WEBPACK_IMPORTED_MODULE_27___default.a,
+  insetIconURL: _libraries_extensions_translate_translate_small_png__WEBPACK_IMPORTED_MODULE_28___default.a,
   description: "gui.extension.translate.description",
   tags: ['scratch'],
   featured: true,
@@ -31650,8 +31653,8 @@ const builtinExtensions = [{
   name: 'Makey Makey',
   extensionId: 'makeymakey',
   author: 'JoyLabz',
-  iconURL: _libraries_extensions_makeymakey_makeymakey_png__WEBPACK_IMPORTED_MODULE_28___default.a,
-  insetIconURL: _libraries_extensions_makeymakey_makeymakey_small_svg__WEBPACK_IMPORTED_MODULE_29___default.a,
+  iconURL: _libraries_extensions_makeymakey_makeymakey_png__WEBPACK_IMPORTED_MODULE_29___default.a,
+  insetIconURL: _libraries_extensions_makeymakey_makeymakey_small_svg__WEBPACK_IMPORTED_MODULE_30___default.a,
   description: "gui.extension.makeymakey.description",
   tags: ['scratch'],
   featured: true
@@ -31659,8 +31662,8 @@ const builtinExtensions = [{
   name: 'micro:bit',
   extensionId: 'microbit',
   author: 'micro:bit',
-  iconURL: _libraries_extensions_microbit_microbit_png__WEBPACK_IMPORTED_MODULE_30___default.a,
-  insetIconURL: _libraries_extensions_microbit_microbit_small_svg__WEBPACK_IMPORTED_MODULE_31___default.a,
+  iconURL: _libraries_extensions_microbit_microbit_png__WEBPACK_IMPORTED_MODULE_31___default.a,
+  insetIconURL: _libraries_extensions_microbit_microbit_small_svg__WEBPACK_IMPORTED_MODULE_32___default.a,
   description: "gui.extension.microbit.description",
   tags: ['scratch'],
   featured: true,
@@ -31669,16 +31672,16 @@ const builtinExtensions = [{
   requirement: ['internet'],
   launchPeripheralConnectionFlow: true,
   useAutoScan: false,
-  connectionIconURL: _libraries_extensions_microbit_microbit_illustration_svg__WEBPACK_IMPORTED_MODULE_32___default.a,
-  connectionSmallIconURL: _libraries_extensions_microbit_microbit_small_svg__WEBPACK_IMPORTED_MODULE_31___default.a,
+  connectionIconURL: _libraries_extensions_microbit_microbit_illustration_svg__WEBPACK_IMPORTED_MODULE_33___default.a,
+  connectionSmallIconURL: _libraries_extensions_microbit_microbit_small_svg__WEBPACK_IMPORTED_MODULE_32___default.a,
   connectingMessage: "gui.extension.microbit.connectingMessage",
   helpLink: 'https://scratch.mit.edu/microbit'
 }, {
   name: 'LEGO MINDSTORMS EV3',
   extensionId: 'ev3',
   author: 'LEGO',
-  iconURL: _libraries_extensions_ev3_ev3_png__WEBPACK_IMPORTED_MODULE_33___default.a,
-  insetIconURL: _libraries_extensions_ev3_ev3_small_svg__WEBPACK_IMPORTED_MODULE_34___default.a,
+  iconURL: _libraries_extensions_ev3_ev3_png__WEBPACK_IMPORTED_MODULE_34___default.a,
+  insetIconURL: _libraries_extensions_ev3_ev3_small_svg__WEBPACK_IMPORTED_MODULE_35___default.a,
   description: "gui.extension.ev3.description",
   tags: ['scratch'],
   featured: true,
@@ -31687,32 +31690,32 @@ const builtinExtensions = [{
   requirement: ['internet'],
   launchPeripheralConnectionFlow: true,
   useAutoScan: false,
-  connectionIconURL: _libraries_extensions_ev3_ev3_hub_illustration_svg__WEBPACK_IMPORTED_MODULE_35___default.a,
-  connectionSmallIconURL: _libraries_extensions_ev3_ev3_small_svg__WEBPACK_IMPORTED_MODULE_34___default.a,
+  connectionIconURL: _libraries_extensions_ev3_ev3_hub_illustration_svg__WEBPACK_IMPORTED_MODULE_36___default.a,
+  connectionSmallIconURL: _libraries_extensions_ev3_ev3_small_svg__WEBPACK_IMPORTED_MODULE_35___default.a,
   connectingMessage: "gui.extension.ev3.connectingMessage",
   helpLink: 'https://scratch.mit.edu/ev3'
 }, {
   name: 'LEGO BOOST',
   extensionId: 'boost',
   author: 'LEGO',
-  iconURL: _libraries_extensions_boost_boost_png__WEBPACK_IMPORTED_MODULE_40___default.a,
-  insetIconURL: _libraries_extensions_boost_boost_small_svg__WEBPACK_IMPORTED_MODULE_41___default.a,
+  iconURL: _libraries_extensions_boost_boost_png__WEBPACK_IMPORTED_MODULE_41___default.a,
+  insetIconURL: _libraries_extensions_boost_boost_small_svg__WEBPACK_IMPORTED_MODULE_42___default.a,
   description: "gui.extension.boost.description",
   tags: ['scratch'],
   featured: true,
   disabled: false,
   requirement: ['internet', 'bluetooth'],
-  connectionIconURL: _libraries_extensions_boost_boost_illustration_svg__WEBPACK_IMPORTED_MODULE_42___default.a,
-  connectionSmallIconURL: _libraries_extensions_boost_boost_small_svg__WEBPACK_IMPORTED_MODULE_41___default.a,
-  connectionTipIconURL: _libraries_extensions_boost_boost_button_illustration_svg__WEBPACK_IMPORTED_MODULE_43___default.a,
+  connectionIconURL: _libraries_extensions_boost_boost_illustration_svg__WEBPACK_IMPORTED_MODULE_43___default.a,
+  connectionSmallIconURL: _libraries_extensions_boost_boost_small_svg__WEBPACK_IMPORTED_MODULE_42___default.a,
+  connectionTipIconURL: _libraries_extensions_boost_boost_button_illustration_svg__WEBPACK_IMPORTED_MODULE_44___default.a,
   connectingMessage: "gui.extension.boost.connectingMessage",
   helpLink: 'https://scratch.mit.edu/boost'
 }, {
   name: 'LEGO Education WeDo 2.0',
   extensionId: 'wedo2',
   author: 'LEGO',
-  iconURL: _libraries_extensions_wedo2_wedo_png__WEBPACK_IMPORTED_MODULE_36___default.a,
-  insetIconURL: _libraries_extensions_wedo2_wedo_small_svg__WEBPACK_IMPORTED_MODULE_37___default.a,
+  iconURL: _libraries_extensions_wedo2_wedo_png__WEBPACK_IMPORTED_MODULE_37___default.a,
+  insetIconURL: _libraries_extensions_wedo2_wedo_small_svg__WEBPACK_IMPORTED_MODULE_38___default.a,
   description: "gui.extension.wedo2.description",
   tags: ['scratch'],
   featured: true,
@@ -31720,31 +31723,31 @@ const builtinExtensions = [{
   requirement: ['internet', 'bluetooth'],
   launchPeripheralConnectionFlow: true,
   useAutoScan: true,
-  connectionIconURL: _libraries_extensions_wedo2_wedo_illustration_svg__WEBPACK_IMPORTED_MODULE_38___default.a,
-  connectionSmallIconURL: _libraries_extensions_wedo2_wedo_small_svg__WEBPACK_IMPORTED_MODULE_37___default.a,
-  connectionTipIconURL: _libraries_extensions_wedo2_wedo_button_illustration_svg__WEBPACK_IMPORTED_MODULE_39___default.a,
+  connectionIconURL: _libraries_extensions_wedo2_wedo_illustration_svg__WEBPACK_IMPORTED_MODULE_39___default.a,
+  connectionSmallIconURL: _libraries_extensions_wedo2_wedo_small_svg__WEBPACK_IMPORTED_MODULE_38___default.a,
+  connectionTipIconURL: _libraries_extensions_wedo2_wedo_button_illustration_svg__WEBPACK_IMPORTED_MODULE_40___default.a,
   connectingMessage: "gui.extension.wedo2.connectingMessage",
   helpLink: 'https://scratch.mit.edu/wedo'
 }, {
   name: 'Go Direct Force & Acceleration',
   extensionId: 'gdxfor',
   author: 'Vernier',
-  iconURL: _libraries_extensions_gdxfor_gdxfor_png__WEBPACK_IMPORTED_MODULE_44___default.a,
-  insetIconURL: _libraries_extensions_gdxfor_gdxfor_small_svg__WEBPACK_IMPORTED_MODULE_45___default.a,
+  iconURL: _libraries_extensions_gdxfor_gdxfor_png__WEBPACK_IMPORTED_MODULE_45___default.a,
+  insetIconURL: _libraries_extensions_gdxfor_gdxfor_small_svg__WEBPACK_IMPORTED_MODULE_46___default.a,
   description: "gui.extension.gdxfor.description",
   tags: ['scratch'],
   featured: true,
   disabled: false,
   requirement: ['internet', 'bluetooth'],
-  connectionIconURL: _libraries_extensions_gdxfor_gdxfor_illustration_svg__WEBPACK_IMPORTED_MODULE_46___default.a,
-  connectionSmallIconURL: _libraries_extensions_gdxfor_gdxfor_small_svg__WEBPACK_IMPORTED_MODULE_45___default.a,
+  connectionIconURL: _libraries_extensions_gdxfor_gdxfor_illustration_svg__WEBPACK_IMPORTED_MODULE_47___default.a,
+  connectionSmallIconURL: _libraries_extensions_gdxfor_gdxfor_small_svg__WEBPACK_IMPORTED_MODULE_46___default.a,
   connectingMessage: "gui.extension.gdxfor.connectingMessage",
   helpLink: 'https://scratch.mit.edu/vernier'
 }, {
   name: "tw.extensionGallery.name",
   href: 'https://extensions.turbowarp.org/',
   extensionId: '',
-  iconURL: _libraries_extensions_gallery_gallery_svg__WEBPACK_IMPORTED_MODULE_49___default.a,
+  iconURL: _libraries_extensions_gallery_gallery_svg__WEBPACK_IMPORTED_MODULE_50___default.a,
   description: "tw.extensionGallery.description",
   incompatibleWithScratch: true,
   tags: ['tw'],
@@ -31752,14 +31755,14 @@ const builtinExtensions = [{
 }, {
   name: "tw.twExtension.name",
   extensionId: 'tw',
-  iconURL: _libraries_extensions_tw_tw_svg__WEBPACK_IMPORTED_MODULE_47___default.a,
+  iconURL: _libraries_extensions_tw_tw_svg__WEBPACK_IMPORTED_MODULE_48___default.a,
   description: "tw.twExtension.description",
   tags: ['tw'],
   featured: true
 }, {
   name: "tw.customExtension.name",
   extensionId: '',
-  iconURL: _libraries_extensions_custom_custom_svg__WEBPACK_IMPORTED_MODULE_48___default.a,
+  iconURL: _libraries_extensions_custom_custom_svg__WEBPACK_IMPORTED_MODULE_49___default.a,
   description: "tw.customExtension.description",
   tags: ['upload'],
   featured: true
@@ -35167,6 +35170,17 @@ galleryItem({
   tags: ['upload'],
   featured: true
 }]);
+
+/***/ }),
+
+/***/ "./src/lib/libraries/extensions/inline/inlinemain.svg":
+/*!************************************************************!*\
+  !*** ./src/lib/libraries/extensions/inline/inlinemain.svg ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/assets/c8ad2c3a8e666adb210977612c952fc6.svg";
 
 /***/ }),
 
