@@ -1368,7 +1368,7 @@ if (locale !== 'en') {
     Object.assign(settingsTranslations, messages);
   }
 }
-document.title = "".concat(settingsTranslations.title, " - TurboWarp");
+document.title = "".concat(settingsTranslations.title, " - rCodenow");
 const theme = Object(_lib_tw_theme_hoc_jsx__WEBPACK_IMPORTED_MODULE_10__["getInitialDarkMode"])() ? 'dark' : 'light';
 document.body.setAttribute('theme', theme);
 let _throttleTimeout;
@@ -2634,7 +2634,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const onExportSettings = settings => {
   const blob = new Blob([JSON.stringify(settings)]);
-  Object(_lib_download_blob_js__WEBPACK_IMPORTED_MODULE_2__["default"])('turbowarp-addon-settings.json', blob);
+  Object(_lib_download_blob_js__WEBPACK_IMPORTED_MODULE_2__["default"])('rCodenow-addon-settings.json', blob);
 };
 react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_addons_settings_settings_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
   onExportSettings: onExportSettings

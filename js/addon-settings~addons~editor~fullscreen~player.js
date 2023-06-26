@@ -1304,7 +1304,7 @@ const manifest = {
     "id": "shiftKeysWarn"
   }, {
     "type": "warning",
-    "text": "The \"TurboWarp keys\" will only work in TurboWarp, not in Scratch.",
+    "text": "The \"rCodenow keys\" will only work in rCodenow, not in Scratch.",
     "id": "twKeysWarn"
   }],
   "settings": [{
@@ -1321,7 +1321,7 @@ const manifest = {
     "default": false
   }, {
     "dynamic": true,
-    "name": "Show TurboWarp keys",
+    "name": "Show rCodenow keys",
     "id": "twKeys",
     "type": "boolean",
     "default": false
@@ -1687,7 +1687,7 @@ const manifest = {
     "allowTransparency": true
   }, {
     "dynamic": true,
-    "name": "TurboWarp",
+    "name": "rCodenow",
     "id": "tw-color",
     "type": "color",
     "default": "#ff4c4c",

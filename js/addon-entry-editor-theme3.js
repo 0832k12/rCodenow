@@ -321,7 +321,7 @@ const categories = [{
       colourSecondary = secondaryColor(extensionsCategory);
       colourTertiary = tertiaryColor(extensionsCategory);
     }
-    // TurboWarp Blocks
+    // rCodenow Blocks
     if (this.type.startsWith("tw_")) {
       colour = primaryColor(twCategory);
       colourSecondary = secondaryColor(twCategory);

@@ -1572,7 +1572,7 @@ function _toPrimitive(input, hint) { if (typeof input !== "object" || input === 
     showRealCursor();
   });
   let getCanvasSize;
-  // Support modern ResizeObserver and slow getBoundingClientRect version for improved browser support (matters for TurboWarp)
+  // Support modern ResizeObserver and slow getBoundingClientRect version for improved browser support (matters for rCodenow)
   if (window.ResizeObserver) {
     let canvasWidth = width;
     let canvasHeight = height;
