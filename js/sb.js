@@ -318,6 +318,8 @@ Blockly.Msg.REDO = 'Redo';
 Blockly.Msg.EDIT_PROCEDURE = 'Edit';
 Blockly.Msg.SHOW_PROCEDURE_DEFINITION = 'Go to definition';
 Blockly.Msg.WORKSPACE_COMMENT_DEFAULT_TEXT = 'Say something...';
+Blockly.Msg.COPY_TO_CLIPBOARD = 'Copy to Clipboard';
+Blockly.Msg.PASTE_FROM_CLIPBOARD = 'Paste from Clipboard';
 
 // Color
 Blockly.Msg.COLOUR_HUE_LABEL = 'Color';
@@ -681,7 +683,9 @@ Blockly.ScratchMsgs.locales["en"] =
     "NEW_BROADCAST_MESSAGE_TITLE": "New message name:",
     "BROADCAST_MODAL_TITLE": "New Message",
     "DEFAULT_BROADCAST_MESSAGE_NAME": "message1",
-    "LOCAL_DATA_SETVARIABLETO":"set local variable %1 to %2"
+    "LOCAL_DATA_SETVARIABLETO":"set local variable %1 to %2",
+    "COPY_TO_CLIPBOARD": "Copy to Clipboard",
+    "PASTE_FROM_CLIPBOARD": "Paste from Clipboard"
 };
 
 
