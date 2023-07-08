@@ -16879,7 +16879,7 @@ const CustomExtensionModal = props => /*#__PURE__*/react__WEBPACK_IMPORTED_MODUL
   value: props.url,
   onChange: props.onChangeURL,
   onKeyDown: props.onKeyDown,
-  placeholder: "https://0832k12.github.io/...",
+  placeholder: "https://ext.rc.40code.com/...",
   autoFocus: true
 })) : props.type === 'file' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, {
   key: props.type
@@ -17097,7 +17097,7 @@ const DocumentationLink = _ref => {
     children
   } = _ref;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: "https://docs.rCodenow.org/".concat(slug),
+    href: "https://docs.turbowarp.org/".concat(slug),
     target: "_blank",
     rel: "noopener noreferrer"
   }, children);
@@ -24460,19 +24460,7 @@ const concatenateByteArrays = arrays => {
 class SB3Downloader extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
   constructor(props) {
     super(props);
-    lodash_bindall__WEBPACK_IMPORTED_MODULE_0___default()(this, ['downloadProject', 'saveAsNew', 'saveToLastFile', 'saveToLastFileOrNew', 'getExtensionData']);
-  }
-  getExtensionData(extensions) {
-    const result = [];
-    for (const id in extensions) {
-      if (this.props.extension[id].api > 0) {
-        result.push({
-          fileName: "extensions/".concat(id, "@").concat(this.props.extension[id].version, ".ccx"),
-          fileContent: this.props.extension[id].fileContent
-        });
-      }
-    }
-    return result;
+    lodash_bindall__WEBPACK_IMPORTED_MODULE_0___default()(this, ['downloadProject', 'saveAsNew', 'saveToLastFile', 'saveToLastFileOrNew']);
   }
   startedSaving() {
     this.props.onShowSavingAlert();
@@ -24489,7 +24477,7 @@ class SB3Downloader extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Compone
       return;
     }
     this.startedSaving();
-    this.props.saveProjectSb3(this.getExtensionData).then(content => {
+    this.props.saveProjectSb3().then(content => {
       this.finishedSaving();
       Object(_lib_download_blob__WEBPACK_IMPORTED_MODULE_5__["default"])(this.props.projectFilename, content);
     });
@@ -24656,16 +24644,6 @@ SB3Downloader.propTypes = {
   onSaveFinished: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
   projectFilename: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
   saveProjectSb3: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
-  extension: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
-    extensionId: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
-    iconURL: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
-    insetIconURL: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
-    author: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string)]),
-    name: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
-    description: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
-    requirement: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string),
-    data: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.instanceOf(ArrayBuffer)
-  }),
   saveProjectSb3Stream: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
   canSaveProject: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
   onSetFileHandle: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
@@ -24683,8 +24661,7 @@ const mapStateToProps = state => ({
   saveProjectSb3: state.scratchGui.vm.saveProjectSb3.bind(state.scratchGui.vm),
   saveProjectSb3Stream: state.scratchGui.vm.saveProjectSb3Stream.bind(state.scratchGui.vm),
   canSaveProject: Object(_reducers_project_state__WEBPACK_IMPORTED_MODULE_10__["getIsShowingProject"])(state.scratchGui.projectState.loadingState),
-  projectFilename: getProjectFilename(state.scratchGui.projectTitle, _reducers_project_title__WEBPACK_IMPORTED_MODULE_4__["projectTitleInitialState"]),
-  extension: state.scratchGui.extension.extension
+  projectFilename: getProjectFilename(state.scratchGui.projectTitle, _reducers_project_title__WEBPACK_IMPORTED_MODULE_4__["projectTitleInitialState"])
 });
 const mapDispatchToProps = dispatch => ({
   onSetFileHandle: fileHandle => dispatch(Object(_reducers_tw__WEBPACK_IMPORTED_MODULE_8__["setFileHandle"])(fileHandle)),
