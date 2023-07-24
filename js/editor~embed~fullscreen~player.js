@@ -28554,7 +28554,7 @@ const isAlwaysTrustedForFetching = parsed =>
 // If we would trust loading an extension from here, we can trust loading resources too.
 isTrustedExtension(parsed.href) ||
 // Any rCodenow service such as trampoline
-parsed.origin === 'https://rCodenow.org' || parsed.origin.endsWith('.rCodenow.org') || parsed.origin.endsWith('.rCodenow.xyz') ||
+parsed.origin === 'https://turbowarp.org' || parsed.origin.endsWith('.turbowarp.org') || parsed.origin.endsWith('.turbowarp.xyz') ||
 // GitHub
 parsed.origin === 'https://raw.githubusercontent.com' || parsed.origin === 'https://api.github.com' || parsed.origin.endsWith('.github.io') ||
 // GitLab
