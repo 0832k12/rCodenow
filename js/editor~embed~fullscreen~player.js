@@ -13003,7 +13003,7 @@ const PromptComponent = props => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__
   defaultMessage: "Although you can create cloud variables, they won't work unless this project is uploaded to Scratch or converted using a tool like the {packager}.",
   values: {
     packager: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("a", {
-      href: "https://packager.rCodenow.org",
+      href: "https://packager.turbowarp.org",
       target: "_blank",
       rel: "noopener noreferrer"
     }, 'rCodenow Packager')
@@ -35196,13 +35196,13 @@ const galleryItem = object => _objectSpread(_objectSpread({}, object), {}, {
     defaultMessage: "rCodenow Extension Gallery",
     id: "tw.extensionGallery.name"
   }),
-  href: 'https://extensions.rCodenow.org/',
+  href: 'https://extensions.turbowarp.org/',
   extensionId: '',
   iconURL: _gallery_gallery_svg__WEBPACK_IMPORTED_MODULE_45___default.a,
   description: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_1__["FormattedMessage"]
   // eslint-disable-next-line max-len
   , {
-    defaultMessage: "We list many extensions here for convenience. You can find even more on extensions.rCodenow.org.",
+    defaultMessage: "We list many extensions here for convenience. You can find even more on extensions.turbowarp.org.",
     id: "tw.extensionGallery.description"
   }),
   tags: ['tw'],
@@ -35229,98 +35229,98 @@ galleryItem({
   // eslint-disable-next-line max-len
   description: 'An easy way to display and animate text. Compatible with Scratch Lab\'s Animated Text experiment.',
   extensionId: 'text',
-  extensionURL: 'https://extensions.rCodenow.org/lab/text.js',
+  extensionURL: 'https://extensions.turbowarp.org/lab/text.js',
   iconURL: _gallery_animated_text_svg__WEBPACK_IMPORTED_MODULE_47___default.a
 }), galleryItem({
   name: 'Stretch',
   description: 'Stretch sprites horizontally or vertically.',
   extensionId: 'stretch',
-  extensionURL: 'https://extensions.rCodenow.org/stretch.js',
+  extensionURL: 'https://extensions.turbowarp.org/stretch.js',
   iconURL: _gallery_stretch_svg__WEBPACK_IMPORTED_MODULE_48___default.a
 }), galleryItem({
   name: 'Gamepad',
   description: 'Directly access gamepads instead of just mapping buttons to keys.',
   extensionId: 'Gamepad',
-  extensionURL: 'https://extensions.rCodenow.org/gamepad.js',
+  extensionURL: 'https://extensions.turbowarp.org/gamepad.js',
   iconURL: _gallery_gamepad_svg__WEBPACK_IMPORTED_MODULE_49___default.a
 }), galleryItem({
   name: 'Files',
   description: 'Read and download files.',
   extensionId: 'files',
-  extensionURL: 'https://extensions.rCodenow.org/files.js',
+  extensionURL: 'https://extensions.turbowarp.org/files.js',
   iconURL: _gallery_file_svg__WEBPACK_IMPORTED_MODULE_51___default.a
 }), galleryItem({
   name: 'Pointerlock',
   // eslint-disable-next-line max-len
   description: 'Adds blocks for mouse locking. Mouse x & y blocks will report the change since the previous frame while the pointer is locked.',
   extensionId: 'pointerlock',
-  extensionURL: 'https://extensions.rCodenow.org/pointerlock.js',
+  extensionURL: 'https://extensions.turbowarp.org/pointerlock.js',
   iconURL: _gallery_pointerlock_svg__WEBPACK_IMPORTED_MODULE_53___default.a
 }), galleryItem({
   name: 'Mouse Cursor',
   description: 'Use custom cursors or hide the cursor. Also allows replacing the cursor with any costume image.',
   extensionId: 'MouseCursor',
-  extensionURL: 'https://extensions.rCodenow.org/cursor.js',
+  extensionURL: 'https://extensions.turbowarp.org/cursor.js',
   iconURL: _gallery_cursor_svg__WEBPACK_IMPORTED_MODULE_50___default.a
 }), galleryItem({
   name: 'Runtime Options',
   description: 'Get and modify turbo mode, framerate, interpolation, clone limit, stage size, and more.',
   extensionId: 'runtimeoptions',
-  extensionURL: 'https://extensions.rCodenow.org/runtime-options.js',
+  extensionURL: 'https://extensions.turbowarp.org/runtime-options.js',
   iconURL: _gallery_runtime_options_svg__WEBPACK_IMPORTED_MODULE_54___default.a
 }), galleryItem({
   name: 'Clones Plus',
   description: 'Expansion of Scratch\'s clone features. Created by LukeManiaStudios.',
   extensionId: 'lmsclonesplus',
-  extensionURL: 'https://extensions.rCodenow.org/LukeManiaStudios/ClonesPlus.js',
+  extensionURL: 'https://extensions.turbowarp.org/LukeManiaStudios/ClonesPlus.js',
   iconURL: _gallery_clonesplus_svg__WEBPACK_IMPORTED_MODULE_57___default.a
 }), galleryItem({
   name: 'Clipping & Blending',
   description: 'Clipping outside of a specified rectangular area and additive color blending. Created by Vadik1.',
   extensionId: 'xeltallivclipblend',
-  extensionURL: 'https://extensions.rCodenow.org/Xeltalliv/clippingblending.js',
+  extensionURL: 'https://extensions.turbowarp.org/Xeltalliv/clippingblending.js',
   iconURL: _gallery_clippingblending_svg__WEBPACK_IMPORTED_MODULE_58___default.a
 }), galleryItem({
   name: 'Text',
   description: 'Manipulate characters and text. Originally created by CST1229.',
   extensionId: 'strings',
-  extensionURL: 'https://extensions.rCodenow.org/text.js',
+  extensionURL: 'https://extensions.turbowarp.org/text.js',
   iconURL: _gallery_text_svg__WEBPACK_IMPORTED_MODULE_61___default.a
 }), galleryItem({
   name: 'Bitwise',
   description: 'Blocks that operate on the binary representation of numbers in computers.',
   extensionId: 'Bitwise',
-  extensionURL: 'https://extensions.rCodenow.org/bitwise.js',
+  extensionURL: 'https://extensions.turbowarp.org/bitwise.js',
   iconURL: _gallery_bitwise_svg__WEBPACK_IMPORTED_MODULE_60___default.a
 }), galleryItem({
   name: 'RegExp',
   description: 'Full interface for working with Regular Expressions. Created by TrueFantom.',
   extensionId: 'truefantomregexp',
-  extensionURL: 'https://extensions.rCodenow.org/true-fantom/regexp.js',
+  extensionURL: 'https://extensions.turbowarp.org/true-fantom/regexp.js',
   iconURL: _gallery_regex_svg__WEBPACK_IMPORTED_MODULE_59___default.a
 }), galleryItem({
   name: 'Box2D Physics',
   description: 'Two dimensional physics. Originally created by griffpatch.',
   extensionId: 'griffpatch',
-  extensionURL: 'https://extensions.rCodenow.org/box2d.js',
+  extensionURL: 'https://extensions.turbowarp.org/box2d.js',
   iconURL: _gallery_box2d_svg__WEBPACK_IMPORTED_MODULE_63___default.a
 }), galleryItem({
   name: 'Fetch',
   description: 'Make requests to the broader internet.',
   extensionId: 'fetch',
-  extensionURL: 'https://extensions.rCodenow.org/fetch.js',
+  extensionURL: 'https://extensions.turbowarp.org/fetch.js',
   iconURL: _gallery_fetch_svg__WEBPACK_IMPORTED_MODULE_62___default.a
 }), galleryItem({
   name: 'Local Storage',
   description: 'Store data persistently.',
   extensionId: 'localstorage',
-  extensionURL: 'https://extensions.rCodenow.org/local-storage.js',
+  extensionURL: 'https://extensions.turbowarp.org/local-storage.js',
   iconURL: _gallery_unknown_svg__WEBPACK_IMPORTED_MODULE_46___default.a
 }), galleryItem({
   name: 'Utilities',
   description: 'A bunch of interesting blocks. Originally created by Sheep_maker.',
   extensionId: 'utilities',
-  extensionURL: 'https://extensions.rCodenow.org/utilities.js',
+  extensionURL: 'https://extensions.turbowarp.org/utilities.js',
   iconURL: _gallery_utilities_svg__WEBPACK_IMPORTED_MODULE_55___default.a
 }), {
   name: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_1__["FormattedMessage"], {
@@ -36699,7 +36699,7 @@ const fetchProjectToken = async projectId => {
     return metadata.project_token;
   } catch (e) {
     _log__WEBPACK_IMPORTED_MODULE_8__["default"].error(e);
-    throw new Error('Cannot access project token. Project is probably unshared. See https://docs.rCodenow.org/unshared-projects');
+    throw new Error('Cannot access project token. Project is probably unshared. See https://docs.turbowarp.org/unshared-projects');
   }
 };
 
@@ -39249,7 +39249,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 const fetchProjectMeta = async projectId => {
-  const urls = ["https://trampoline.rCodenow.org/api/projects/".concat(projectId), "https://trampoline.rCodenow.xyz/api/projects/".concat(projectId)];
+  const urls = ["https://trampoline.turbowarp.org/api/projects/".concat(projectId), "https://trampoline.rCodenow.xyz/api/projects/".concat(projectId)];
   let firstError;
   for (const url of urls) {
     try {
@@ -39308,7 +39308,7 @@ const TWProjectMetaFetcherHOC = function TWProjectMetaFetcherHOC(WrappedComponen
           this.props.onSetProjectTitle(title);
         }
         const authorName = data.author.username;
-        const authorThumbnail = "https://trampoline.rCodenow.org/avatars/".concat(data.author.id);
+        const authorThumbnail = "https://trampoline.turbowarp.org/avatars/".concat(data.author.id);
         this.props.onSetAuthor(authorName, authorThumbnail);
         const instructions = data.instructions || '';
         const credits = data.description || '';
@@ -41360,7 +41360,7 @@ function _extends() { _extends = Object.assign ? Object.assign.bind() : function
 
 
 const searchParams = new URLSearchParams(location.search);
-const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.rCodenow.org';
+const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.turbowarp.org';
 const RenderGUI = props => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_containers_gui_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], _extends({
   cloudHost: cloudHost,
   canSave: false,

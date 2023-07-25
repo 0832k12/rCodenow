@@ -27,8 +27,59 @@
         0% { transform: rotate(0deg); } 
         100% { transform: rotate(360deg); }
       }
+        /* 样式美化 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        #myModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px; /* 更圆滑一些 */
+            z-index: 9999;
+            max-height: 80%; /* 调整最大高度，内容超过该高度时会被截断 */
+            overflow-y: hidden; /* 隐藏滚动条 */
+            color: #000; /* 文本颜色设置为黑色 */
+        }
+        #myModal p {
+            margin: 0;
+            line-height: 1.6;
+        }
+        #myModal h2 {
+            margin-top: 0; /* 移除标题的默认上外边距 */
+        }
+        #closeButton {
+            position: relative;
+            bottom: -10px; /* 调整按钮位置，将其上移 */
+            background-color: #609834;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px; /* 更圆滑一些 */
+            cursor: pointer;
+        }
+        /* 遮罩层样式 */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色 */
+            z-index: 9998; /* 比提示框的z-index低，使其位于提示框下方 */
+        }
     </style>
-    <link rel="dns-prefetch" href="https://trampoline.rCodenow.org/">
+    <link rel="dns-prefetch" href="https://trampoline.turbowarp.org/">
     <link rel="dns-prefetch" href="https://projects.scratch.mit.edu/">
     <link rel="dns-prefetch" href="https://assets.scratch.mit.edu/">
   </head>
@@ -51,5 +102,69 @@
       })();
     </script>
     <div id="app"></div>
+    
   <script src="js/vendors~addon-settings~credits~editor~embed~fullscreen~player.js"></script><script src="js/vendors~editor~embed~fullscreen~player.js"></script><script src="js/addon-settings~addons~editor~fullscreen~player.js"></script><script src="js/editor~embed~fullscreen~player.js"></script><script src="js/editor.js"></script></body>
+  <body>
+    <div id="overlay"></div>
+    <!-- 提示弹出框 -->
+    <!-- 提示弹出框 -->
+    <div id="myModal">
+      <h2 id="modalTitle"></h2>
+      <div id="modalContent"></div>
+      <button id="closeButton" onclick="closeModal()">我知道了</button>
+  </div>
+
+  <script>
+      // 检查是否需要弹出提示
+      window.onload = function() {
+          if (shouldShowModal()) {
+              showModal();
+          }
+      };
+
+      // 检查是否需要弹出提示的函数
+      function shouldShowModal() {
+          // 通过localStorage检查是否已经显示过提示
+          var showModal = localStorage.getItem('showModal');
+          // 这里可以根据需要添加判断提示内容是否有更新的逻辑
+          // 比如通过版本号或者提示内容的哈希值来判断是否需要更新提示
+
+          return !showModal; // 返回true表示需要弹出提示，false表示不需要弹出
+      }
+
+      // 显示提示的函数
+      function showModal() {
+          var modal = document.getElementById('myModal');
+          var overlay = document.getElementById('overlay');
+          modal.style.display = 'block';
+          overlay.style.display = 'block'; // 显示遮罩层
+
+          // 设置标题和内容
+          var modalTitle = 'rCodenow 已知BUG：';
+          var modalContent = `
+<ul>
+<li>目前不支持非返回值函数的全局函数的调用</li>
+<li>ClipCC扩展不能保存/加载</li>
+</ul>
+`;
+
+          // 插入标题和内容到提示框中
+          var modalTitleElement = document.getElementById('modalTitle');
+          var modalContentElement = document.getElementById('modalContent');
+          modalTitleElement.innerText = modalTitle;
+          modalContentElement.innerHTML = modalContent;
+      }
+
+      // 关闭提示的函数，并在本地存储中添加标记
+      function closeModal() {
+          var modal = document.getElementById('myModal');
+          var overlay = document.getElementById('overlay');
+          modal.style.display = 'none';
+          overlay.style.display = 'none'; // 隐藏遮罩层
+
+          // 添加标记到localStorage，表示已经显示过提示
+          localStorage.setItem('showModal', true);
+      }
+  </script>
+  </body>
 </html>

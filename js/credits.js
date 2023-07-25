@@ -457,7 +457,7 @@ const fromHardcoded = _ref => {
     name
   } = _ref;
   return {
-    image: "https://trampoline.rCodenow.org/avatars/".concat(userId),
+    image: "https://trampoline.turbowarp.org/avatars/".concat(userId),
     href: "https://scratch.mit.edu/users/".concat(username, "/"),
     text: name || username
   };

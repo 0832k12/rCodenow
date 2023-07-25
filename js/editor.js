@@ -2206,15 +2206,15 @@ StudioView.prototype.getURL = function () {
 StudioView.prototype.onselect = function (id, el) {};
 StudioView.prototype.onpageload = function () {};
 StudioView.prototype.onend = function () {};
-StudioView.STUDIO_API = 'https://trampoline.rCodenow.org/api/studios/$id/projects?offset=$offset';
+StudioView.STUDIO_API = 'https://trampoline.turbowarp.org/api/studios/$id/projects?offset=$offset';
 
 // The URL to download thumbnails from.
 // $id is replaced with the project's ID.
-StudioView.THUMBNAIL_SRC = 'https://trampoline.rCodenow.org/thumbnails/$id?width=144&height=108';
+StudioView.THUMBNAIL_SRC = 'https://trampoline.turbowarp.org/thumbnails/$id?width=144&height=108';
 
 // The URL for project pages.
 // $id is replaced with the project ID.
-StudioView.PROJECT_PAGE = 'https://rCodenow.org/$id';
+StudioView.PROJECT_PAGE = 'https://turbowarp.org/$id';
 
 // The URL for studio pages.
 // $id is replaced with the studio ID.
@@ -2897,7 +2897,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 if (window.parent !== window) {
   // eslint-disable-next-line no-alert
-  alert('This page is embedding rCodenow in a way that is unsupported and will cease to function in the near future. Please read https://docs.rCodenow.org/embedding');
+  alert('This page is embedding rCodenow in a way that is unsupported and will cease to function in the near future. Please read https://docs.turbowarp.org/embedding');
   throw new Error('Invalid embed');
 }
 let announcement = null;
@@ -3066,10 +3066,10 @@ class Interface extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
       id: "tw.unshared.2",
       values: {
         link: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-          href: "https://docs.rCodenow.org/unshared-projects",
+          href: "https://docs.turbowarp.org/unshared-projects",
           target: "_blank",
           rel: "noopener noreferrer"
-        }, 'https://docs.rCodenow.org/unshared-projects')
+        }, 'https://docs.turbowarp.org/unshared-projects')
       }
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"]
     // eslint-disable-next-line max-len
