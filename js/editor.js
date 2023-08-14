@@ -65,7 +65,7 @@ var GUI =
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/" + ({"addons":"addons","iframe-extension-worker":"iframe-extension-worker","library-backdrops":"library-backdrops","library-costumes":"library-costumes","library-sounds":"library-sounds","library-sprites":"library-sprites","sb":"sb","addon-default-entry":"addon-default-entry","addon-entry-2d-color-picker":"addon-entry-2d-color-picker","addon-entry-better-img-uploads":"addon-entry-better-img-uploads","addon-entry-block-count":"addon-entry-block-count","addon-entry-block-palette-icons":"addon-entry-block-palette-icons","addon-entry-blocks2image":"addon-entry-blocks2image","addon-entry-cat-blocks":"addon-entry-cat-blocks","addon-entry-clones":"addon-entry-clones","addon-entry-columns":"addon-entry-columns","addon-entry-custom-block-shape":"addon-entry-custom-block-shape","addon-entry-custom-block-text":"addon-entry-custom-block-text","addon-entry-custom-zoom":"addon-entry-custom-zoom","addon-entry-data-category-tweaks-v2":"addon-entry-data-category-tweaks-v2","addon-entry-debugger":"addon-entry-debugger","addon-entry-default-costume-editor-color":"addon-entry-default-costume-editor-color","addon-entry-disable-paste-offset":"addon-entry-disable-paste-offset","addon-entry-disable-stage-drag-select":"addon-entry-disable-stage-drag-select","addon-entry-editor-buttons-reverse-order":"addon-entry-editor-buttons-reverse-order","addon-entry-editor-colored-context-menus":"addon-entry-editor-colored-context-menus","addon-entry-editor-extra-keys":"addon-entry-editor-extra-keys","addon-entry-editor-sounds":"addon-entry-editor-sounds","addon-entry-editor-stage-left":"addon-entry-editor-stage-left","addon-entry-editor-stepping":"addon-entry-editor-stepping","addon-entry-editor-theme3":"addon-entry-editor-theme3","addon-entry-fullscreen":"addon-entry-fullscreen","addon-entry-gamepad":"addon-entry-gamepad","addon-entry-hide-delete-button":"addon-entry-hide-delete-button","addon-entry-hide-flyout":"addon-entry-hide-flyout","addon-entry-hide-new-variables":"addon-entry-hide-new-variables","addon-entry-hide-stage":"addon-entry-hide-stage","addon-entry-initialise-sprite-position":"addon-entry-initialise-sprite-position","addon-entry-load-extensions":"addon-entry-load-extensions","addon-entry-mediarecorder":"addon-entry-mediarecorder","addon-entry-mouse-pos":"addon-entry-mouse-pos","addon-entry-no-script-bumping":"addon-entry-no-script-bumping","addon-entry-number-pad":"addon-entry-number-pad","addon-entry-paint-by-default":"addon-entry-paint-by-default","addon-entry-paint-snap":"addon-entry-paint-snap","addon-entry-remove-curved-stage-border":"addon-entry-remove-curved-stage-border","addon-entry-remove-sprite-confirm":"addon-entry-remove-sprite-confirm","addon-entry-script-snap":"addon-entry-script-snap","addon-entry-search-sprites":"addon-entry-search-sprites","addon-entry-sprite-properties":"addon-entry-sprite-properties","addon-entry-swap-local-global":"addon-entry-swap-local-global","addon-entry-transparent-orphans":"addon-entry-transparent-orphans","addon-entry-tw-disable-cloud-variables":"addon-entry-tw-disable-cloud-variables","addon-entry-tw-disable-compiler":"addon-entry-tw-disable-compiler","addon-entry-tw-disable-restore-points":"addon-entry-tw-disable-restore-points","addon-entry-tw-remove-backpack":"addon-entry-tw-remove-backpack","addon-entry-tw-remove-feedback":"addon-entry-tw-remove-feedback","addon-entry-tw-straighten-comments":"addon-entry-tw-straighten-comments","addon-entry-variable-manager":"addon-entry-variable-manager","addon-entry-vol-slider":"addon-entry-vol-slider","addon-entry-zebra-striping":"addon-entry-zebra-striping","addon-l10n-de":"addon-l10n-de","addon-l10n-es":"addon-l10n-es","addon-l10n-fr":"addon-l10n-fr","addon-l10n-hu":"addon-l10n-hu","addon-l10n-it":"addon-l10n-it","addon-l10n-ja":"addon-l10n-ja","addon-l10n-ko":"addon-l10n-ko","addon-l10n-nl":"addon-l10n-nl","addon-l10n-pl":"addon-l10n-pl","addon-l10n-pt":"addon-l10n-pt","addon-l10n-ro":"addon-l10n-ro","addon-l10n-ru":"addon-l10n-ru","addon-l10n-sl":"addon-l10n-sl","addon-l10n-tr":"addon-l10n-tr","addon-l10n-zh":"addon-l10n-zh","addon-l10n-zh-tw":"addon-l10n-zh-tw"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "js/" + ({"addons":"addons","iframe-extension-worker":"iframe-extension-worker","library-backdrops":"library-backdrops","library-costumes":"library-costumes","library-sounds":"library-sounds","library-sprites":"library-sprites","sb":"sb","addon-default-entry":"addon-default-entry","addon-entry-2d-color-picker":"addon-entry-2d-color-picker","addon-entry-better-img-uploads":"addon-entry-better-img-uploads","addon-entry-block-count":"addon-entry-block-count","addon-entry-block-palette-icons":"addon-entry-block-palette-icons","addon-entry-blocks2image":"addon-entry-blocks2image","addon-entry-cat-blocks":"addon-entry-cat-blocks","addon-entry-clones":"addon-entry-clones","addon-entry-columns":"addon-entry-columns","addon-entry-custom-block-shape":"addon-entry-custom-block-shape","addon-entry-custom-block-text":"addon-entry-custom-block-text","addon-entry-custom-zoom":"addon-entry-custom-zoom","addon-entry-data-category-tweaks-v2":"addon-entry-data-category-tweaks-v2","addon-entry-debugger":"addon-entry-debugger","addon-entry-default-costume-editor-color":"addon-entry-default-costume-editor-color","addon-entry-disable-paste-offset":"addon-entry-disable-paste-offset","addon-entry-disable-stage-drag-select":"addon-entry-disable-stage-drag-select","addon-entry-editor-buttons-reverse-order":"addon-entry-editor-buttons-reverse-order","addon-entry-editor-colored-context-menus":"addon-entry-editor-colored-context-menus","addon-entry-editor-extra-keys":"addon-entry-editor-extra-keys","addon-entry-editor-sounds":"addon-entry-editor-sounds","addon-entry-editor-stage-left":"addon-entry-editor-stage-left","addon-entry-editor-stepping":"addon-entry-editor-stepping","addon-entry-editor-theme3":"addon-entry-editor-theme3","addon-entry-fullscreen":"addon-entry-fullscreen","addon-entry-gamepad":"addon-entry-gamepad","addon-entry-hide-delete-button":"addon-entry-hide-delete-button","addon-entry-hide-flyout":"addon-entry-hide-flyout","addon-entry-hide-new-variables":"addon-entry-hide-new-variables","addon-entry-hide-stage":"addon-entry-hide-stage","addon-entry-initialise-sprite-position":"addon-entry-initialise-sprite-position","addon-entry-load-extensions":"addon-entry-load-extensions","addon-entry-mediarecorder":"addon-entry-mediarecorder","addon-entry-mouse-pos":"addon-entry-mouse-pos","addon-entry-no-script-bumping":"addon-entry-no-script-bumping","addon-entry-number-pad":"addon-entry-number-pad","addon-entry-paint-by-default":"addon-entry-paint-by-default","addon-entry-paint-snap":"addon-entry-paint-snap","addon-entry-remove-curved-stage-border":"addon-entry-remove-curved-stage-border","addon-entry-remove-sprite-confirm":"addon-entry-remove-sprite-confirm","addon-entry-script-snap":"addon-entry-script-snap","addon-entry-search-sprites":"addon-entry-search-sprites","addon-entry-sprite-properties":"addon-entry-sprite-properties","addon-entry-swap-local-global":"addon-entry-swap-local-global","addon-entry-transparent-orphans":"addon-entry-transparent-orphans","addon-entry-tw-disable-cloud-variables":"addon-entry-tw-disable-cloud-variables","addon-entry-tw-disable-compiler":"addon-entry-tw-disable-compiler","addon-entry-tw-remove-backpack":"addon-entry-tw-remove-backpack","addon-entry-tw-remove-feedback":"addon-entry-tw-remove-feedback","addon-entry-tw-straighten-comments":"addon-entry-tw-straighten-comments","addon-entry-variable-manager":"addon-entry-variable-manager","addon-entry-vol-slider":"addon-entry-vol-slider","addon-entry-zebra-striping":"addon-entry-zebra-striping","addon-l10n-de":"addon-l10n-de","addon-l10n-es":"addon-l10n-es","addon-l10n-fr":"addon-l10n-fr","addon-l10n-hu":"addon-l10n-hu","addon-l10n-it":"addon-l10n-it","addon-l10n-ja":"addon-l10n-ja","addon-l10n-ko":"addon-l10n-ko","addon-l10n-nl":"addon-l10n-nl","addon-l10n-pl":"addon-l10n-pl","addon-l10n-pt":"addon-l10n-pt","addon-l10n-ro":"addon-l10n-ro","addon-l10n-ru":"addon-l10n-ru","addon-l10n-sl":"addon-l10n-sl","addon-l10n-tr":"addon-l10n-tr","addon-l10n-zh":"addon-l10n-zh","addon-l10n-zh-tw":"addon-l10n-zh-tw"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -377,7 +377,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "/* Base styles used by Scratch https://github.com/LLK/scratch-www/blob/develop/src/main.scss */\nh1,\nh2,\nh3,\nh4,\nh5,\np {\n    margin: 0;\n    padding: 0;\n    border: 0;\n}\nh1,\nh2,\nh3,\nh4,\nh5 {\n    font-weight: bold;\n    line-height: 1.7em;\n}\nh1 {\n    font-weight: 2.5rem;\n}\nh2 {\n    font-weight: 2rem;\n}\nh3 {\n    font-size: 1.4rem;\n}\nh4 {\n    font-size: 1rem;\n}\na {\n    color: #25d;\n    cursor: pointer;\n    text-decoration: underline;\n}\n.interface_container_1cGgE {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n}\n.interface_editor_3WnQ8 {\n    min-width: 1024px;\n    min-height: 640px;\n    height: 100%;\n}\n.interface_editor_3WnQ8 .interface_center_2vEJw {\n    height: 100%;\n}\n.interface_player-only_1YGqr .interface_center_2vEJw {\n    margin: auto;\n}\n.interface_menu_2TZCG {\n    margin-bottom: 8px;\n}\n.interface_section_3f_bi {\n    margin: 8px 0 8px 0;\n}\n.interface_footer_vF3nx {\n    padding: 10px 0;\n    margin-top: 10px;\n    border-top: 2px solid #ddd;\n}\n.interface_footer_vF3nx a {\n    font-weight: bold;\n    text-decoration: none;\n}\n[theme=\"dark\"] .interface_footer_vF3nx {\n    border-color: #1a1a1a;\n}\n.interface_footer-content_2-VDh {\n    max-width: 600px;\n    margin: auto;\n}\n.interface_footer-text_2qZPP {\n    text-align: center;\n    margin: 5px 0 10px 0;\n}\n.interface_footer-columns_22Cpb {\n    display: flex;\n    justify-content: center;\n    justify-items: center;\n    flex-wrap: wrap;\n}\n.interface_footer-section_vgGzW {\n    display: flex;\n    flex-direction: column;\n    width: 200px;\n    margin-bottom: 10px;\n}\n.interface_footer-section_vgGzW > * {\n    margin-bottom: 10px;\n}\n[theme=\"dark\"] .interface_container_1cGgE {\n    background-color: #111;\n}\n[theme=\"dark\"] .interface_player-only_1YGqr {\n    color: #ddd;\n}\n[theme=\"dark\"] a {\n    color: #4af;\n}\n.interface_unshared-update_zPoHa {\n    line-height: 1.5em;\n    padding: 0.5rem;\n    margin: 5px 0 8px 0;\n    border: 1px solid #ffb9b9;\n    background-color: #ffdbdb;\n    border-radius: 0.5rem;\n}\n[theme=\"dark\"] .interface_unshared-update_zPoHa {\n    border-color: #6a2929;\n    background-color: #452222;\n}\n.interface_unshared-update_zPoHa p {\n    margin: 4px 0;\n}\n.interface_unshared-update_zPoHa a {\n    font-weight: bold;\n    text-decoration: none;\n}\n", ""]);
+exports.push([module.i, "/* Base styles used by Scratch https://github.com/LLK/scratch-www/blob/develop/src/main.scss */\nh1,\nh2,\nh3,\nh4,\nh5,\np {\n    margin: 0;\n    padding: 0;\n    border: 0;\n}\nh1,\nh2,\nh3,\nh4,\nh5 {\n    font-weight: bold;\n    line-height: 1.7em;\n}\nh1 {\n    font-weight: 2.5rem;\n}\nh2 {\n    font-weight: 2rem;\n}\nh3 {\n    font-size: 1.4rem;\n}\nh4 {\n    font-size: 1rem;\n}\na {\n    color: #25d;\n    cursor: pointer;\n    text-decoration: underline;\n}\n.interface_container_1cGgE {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n}\n.interface_editor_3WnQ8 {\n    min-width: 1024px;\n    min-height: 640px;\n    height: 100%;\n}\n.interface_editor_3WnQ8 .interface_center_2vEJw {\n    height: 100%;\n}\n.interface_player-only_1YGqr .interface_center_2vEJw {\n    margin: auto;\n}\n.interface_menu_2TZCG {\n    margin-bottom: 8px;\n}\n.interface_section_3f_bi {\n    margin: 8px 0 8px 0;\n}\n.interface_footer_vF3nx {\n    padding: 10px 0;\n    margin-top: 10px;\n    border-top: 2px solid #ddd;\n}\n.interface_footer_vF3nx a {\n    font-weight: bold;\n    text-decoration: none;\n}\n[theme=\"dark\"] .interface_footer_vF3nx {\n    border-color: #1a1a1a;\n}\n.interface_footer-content_2-VDh {\n    max-width: 600px;\n    margin: auto;\n}\n.interface_footer-text_2qZPP {\n    text-align: center;\n    margin: 5px 0 10px 0;\n}\n.interface_footer-columns_22Cpb {\n    display: flex;\n    justify-content: center;\n    justify-items: center;\n    flex-wrap: wrap;\n}\n.interface_footer-section_vgGzW {\n    display: flex;\n    flex-direction: column;\n    width: 200px;\n    margin-bottom: 10px;\n}\n.interface_footer-section_vgGzW > * {\n    margin-bottom: 10px;\n}\n[theme=\"dark\"] .interface_container_1cGgE {\n    background-color: #111;\n}\n[theme=\"dark\"] .interface_player-only_1YGqr {\n    color: #ddd;\n}\n[theme=\"dark\"] a {\n    color: #4af;\n}\n.interface_infobox_KQp6d {\n    line-height: 1.5em;\n    padding: 0.5rem;\n    margin: 5px 0 8px 0;\n    border-radius: 0.5rem;\n    border: 1px solid #b9d6ff;\n    background-color: #dbebff;\n}\n[theme=\"dark\"] .interface_infobox_KQp6d {\n    border-color: #203652;\n    background-color: #16202c;\n}\n.interface_infobox_KQp6d p {\n    margin: 4px 0;\n}\n.interface_infobox_KQp6d a {\n    font-weight: bold;\n    text-decoration: none;\n}\n.interface_unshared-update_zPoHa {\n    border-color: #ffb9b9;\n    background-color: #ffdbdb;\n}\n[theme=\"dark\"] .interface_unshared-update_zPoHa {\n    border-color: #6a2929;\n    background-color: #452222;\n}\n", ""]);
 
 // exports
 exports.locals = {
@@ -397,6 +397,7 @@ exports.locals = {
 	"footerColumns": "interface_footer-columns_22Cpb",
 	"footer-section": "interface_footer-section_vgGzW",
 	"footerSection": "interface_footer-section_vgGzW",
+	"infobox": "interface_infobox_KQp6d",
 	"unshared-update": "interface_unshared-update_zPoHa",
 	"unsharedUpdate": "interface_unshared-update_zPoHa"
 };
@@ -2477,128 +2478,6 @@ const PackagerIntegrationHOC = function PackagerIntegrationHOC(WrappedComponent)
 
 /***/ }),
 
-/***/ "./src/lib/tw-restore-point-hoc.jsx":
-/*!******************************************!*\
-  !*** ./src/lib/tw-restore-point-hoc.jsx ***!
-  \******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TWRestorePointHOC; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _reducers_alerts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../reducers/alerts */ "./src/reducers/alerts.js");
-/* harmony import */ var _reducers_project_state__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reducers/project-state */ "./src/reducers/project-state.js");
-/* harmony import */ var lodash_bindall__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash.bindall */ "./node_modules/lodash.bindall/index.js");
-/* harmony import */ var lodash_bindall__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash_bindall__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var scratch_vm__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! scratch-vm */ "./node_modules/scratch-vm/src/index.js");
-/* harmony import */ var scratch_vm__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(scratch_vm__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _tw_restore_point_api__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tw-restore-point-api */ "./src/lib/tw-restore-point-api.js");
-const _excluded = ["projectChanged", "onAutosavingStart", "onAutosavingFinish", "vm"];
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
-
-
-
-
-
-
-
-/**
- * @fileoverview
- * HOC responsible for automatically creating restore points.
- */
-
-const INTERVAL = 1000 * 60 * 5;
-let bailed = false;
-const disabled = () => bailed || window.DISABLE_RESTORE_POINTS;
-const TWRestorePointHOC = function TWRestorePointHOC(WrappedComponent) {
-  class RestorePointComponent extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
-    constructor(props) {
-      super(props);
-      lodash_bindall__WEBPACK_IMPORTED_MODULE_5___default()(this, ['createRestorePoint']);
-      this.timeout = null;
-    }
-    componentDidUpdate(prevProps) {
-      if (disabled()) {
-        return;
-      }
-      if (this.props.projectChanged !== prevProps.projectChanged || this.props.isShowingProject !== prevProps.isShowingProject) {
-        if (this.props.projectChanged && this.props.isShowingProject) {
-          // Project was modified; queue restore point.
-          this.timeout = setTimeout(this.createRestorePoint, INTERVAL);
-        } else {
-          // Project was saved; abort restore point.
-          clearTimeout(this.timeout);
-          this.timeout = null;
-        }
-      }
-    }
-    componentWillUnmount() {
-      clearTimeout(this.timeout);
-    }
-    async createRestorePoint() {
-      if (disabled()) {
-        return;
-      }
-      try {
-        this.props.onAutosavingStart();
-        await _tw_restore_point_api__WEBPACK_IMPORTED_MODULE_7__["default"].save(this.props.vm);
-      } catch (error) {
-        bailed = true;
-      }
-      this.timeout = null;
-      // Intentional delay.
-      setTimeout(() => {
-        this.props.onAutosavingFinish();
-        if (this.timeout === null && !bailed && this.props.projectChanged && this.props.isShowingProject) {
-          this.timeout = setTimeout(this.createRestorePoint, INTERVAL);
-        }
-      }, 250);
-    }
-    render() {
-      const _this$props = this.props,
-        {
-          /* eslint-disable no-unused-vars */
-          projectChanged,
-          onAutosavingStart,
-          onAutosavingFinish,
-          vm
-          /* eslint-enable no-unused-vars */
-        } = _this$props,
-        props = _objectWithoutProperties(_this$props, _excluded);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrappedComponent, props);
-    }
-  }
-  RestorePointComponent.propTypes = {
-    isShowingProject: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
-    projectChanged: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
-    onAutosavingStart: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
-    onAutosavingFinish: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
-    vm: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.instanceOf(scratch_vm__WEBPACK_IMPORTED_MODULE_6___default.a)
-  };
-  const mapStateToProps = state => ({
-    isShowingProject: Object(_reducers_project_state__WEBPACK_IMPORTED_MODULE_4__["getIsShowingProject"])(state.scratchGui.projectState.loadingState),
-    projectChanged: state.scratchGui.projectChanged,
-    vm: state.scratchGui.vm
-  });
-  const mapDispatchToProps = dispatch => ({
-    onAutosavingStart: () => dispatch(Object(_reducers_alerts__WEBPACK_IMPORTED_MODULE_3__["showStandardAlert"])('twAutosaving')),
-    onAutosavingFinish: () => dispatch(Object(_reducers_alerts__WEBPACK_IMPORTED_MODULE_3__["closeAlertWithId"])('twAutosaving'))
-  });
-  return Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(RestorePointComponent);
-};
-
-
-/***/ }),
-
 /***/ "./src/lib/tw-theme-hoc.jsx":
 /*!**********************************!*\
   !*** ./src/lib/tw-theme-hoc.jsx ***!
@@ -2827,21 +2706,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_tw_theme_hoc_jsx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../lib/tw-theme-hoc.jsx */ "./src/lib/tw-theme-hoc.jsx");
 /* harmony import */ var _lib_sb_file_uploader_hoc_jsx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../lib/sb-file-uploader-hoc.jsx */ "./src/lib/sb-file-uploader-hoc.jsx");
 /* harmony import */ var _lib_tw_packager_integration_hoc_jsx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../lib/tw-packager-integration-hoc.jsx */ "./src/lib/tw-packager-integration-hoc.jsx");
-/* harmony import */ var _lib_tw_restore_point_hoc_jsx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../lib/tw-restore-point-hoc.jsx */ "./src/lib/tw-restore-point-hoc.jsx");
-/* harmony import */ var _addons_settings_store_singleton__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../addons/settings-store-singleton */ "./src/addons/settings-store-singleton.js");
-/* harmony import */ var _lib_tw_fix_history_api__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../lib/tw-fix-history-api */ "./src/lib/tw-fix-history-api.js");
-/* harmony import */ var _render_gui_jsx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./render-gui.jsx */ "./src/playground/render-gui.jsx");
-/* harmony import */ var _components_menu_bar_menu_bar_jsx__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../components/menu-bar/menu-bar.jsx */ "./src/components/menu-bar/menu-bar.jsx");
-/* harmony import */ var _components_tw_project_input_project_input_jsx__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../components/tw-project-input/project-input.jsx */ "./src/components/tw-project-input/project-input.jsx");
-/* harmony import */ var _components_tw_featured_projects_featured_projects_jsx__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../components/tw-featured-projects/featured-projects.jsx */ "./src/components/tw-featured-projects/featured-projects.jsx");
-/* harmony import */ var _components_tw_description_description_jsx__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../components/tw-description/description.jsx */ "./src/components/tw-description/description.jsx");
-/* harmony import */ var _containers_webgl_modal_jsx__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../containers/webgl-modal.jsx */ "./src/containers/webgl-modal.jsx");
-/* harmony import */ var _components_browser_modal_browser_modal_jsx__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../components/browser-modal/browser-modal.jsx */ "./src/components/browser-modal/browser-modal.jsx");
-/* harmony import */ var _components_tw_cloud_variable_badge_cloud_variable_badge_jsx__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../components/tw-cloud-variable-badge/cloud-variable-badge.jsx */ "./src/components/tw-cloud-variable-badge/cloud-variable-badge.jsx");
-/* harmony import */ var _lib_tw_environment_support_prober__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../lib/tw-environment-support-prober */ "./src/lib/tw-environment-support-prober.js");
-/* harmony import */ var _addons_channels__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../addons/channels */ "./src/addons/channels.js");
-/* harmony import */ var _load_service_worker__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./load-service-worker */ "./src/playground/load-service-worker.js");
-/* harmony import */ var _addons_entry__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../addons/entry */ "./src/addons/entry.js");
+/* harmony import */ var _addons_settings_store_singleton__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../addons/settings-store-singleton */ "./src/addons/settings-store-singleton.js");
+/* harmony import */ var _lib_tw_fix_history_api__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../lib/tw-fix-history-api */ "./src/lib/tw-fix-history-api.js");
+/* harmony import */ var _render_gui_jsx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./render-gui.jsx */ "./src/playground/render-gui.jsx");
+/* harmony import */ var _components_menu_bar_menu_bar_jsx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../components/menu-bar/menu-bar.jsx */ "./src/components/menu-bar/menu-bar.jsx");
+/* harmony import */ var _components_tw_project_input_project_input_jsx__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../components/tw-project-input/project-input.jsx */ "./src/components/tw-project-input/project-input.jsx");
+/* harmony import */ var _components_tw_featured_projects_featured_projects_jsx__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../components/tw-featured-projects/featured-projects.jsx */ "./src/components/tw-featured-projects/featured-projects.jsx");
+/* harmony import */ var _components_tw_description_description_jsx__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../components/tw-description/description.jsx */ "./src/components/tw-description/description.jsx");
+/* harmony import */ var _containers_webgl_modal_jsx__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../containers/webgl-modal.jsx */ "./src/containers/webgl-modal.jsx");
+/* harmony import */ var _components_browser_modal_browser_modal_jsx__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../components/browser-modal/browser-modal.jsx */ "./src/components/browser-modal/browser-modal.jsx");
+/* harmony import */ var _components_tw_cloud_variable_badge_cloud_variable_badge_jsx__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../components/tw-cloud-variable-badge/cloud-variable-badge.jsx */ "./src/components/tw-cloud-variable-badge/cloud-variable-badge.jsx");
+/* harmony import */ var _lib_tw_environment_support_prober__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../lib/tw-environment-support-prober */ "./src/lib/tw-environment-support-prober.js");
+/* harmony import */ var _addons_channels__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../addons/channels */ "./src/addons/channels.js");
+/* harmony import */ var _load_service_worker__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./load-service-worker */ "./src/playground/load-service-worker.js");
+/* harmony import */ var _addons_entry__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../addons/entry */ "./src/addons/entry.js");
+/* harmony import */ var _lib_brand__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ../lib/brand */ "./src/lib/brand.js");
 /* harmony import */ var _interface_css__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./interface.css */ "./src/playground/interface.css");
 /* harmony import */ var _interface_css__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(_interface_css__WEBPACK_IMPORTED_MODULE_30__);
 const _excluded = ["intl", "hasCloudVariables", "description", "isFullScreen", "isLoading", "isPlayerOnly", "isRtl", "onClickTheme", "projectId"];
@@ -2897,7 +2776,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 if (window.parent !== window) {
   // eslint-disable-next-line no-alert
-  alert('This page is embedding rCodenow in a way that is unsupported and will cease to function in the near future. Please read https://docs.turbowarp.org/embedding');
+  alert('This page contains an invalid TurboWarp embed. Please read https://docs.turbowarp.org/embedding for instructions to create a working embed.');
   throw new Error('Invalid embed');
 }
 let announcement = null;
@@ -2912,82 +2791,18 @@ const messages = Object(react_intl__WEBPACK_IMPORTED_MODULE_5__["defineMessages"
     "defaultMessage": "Run Scratch projects faster"
   }
 });
-const WrappedMenuBar = Object(redux__WEBPACK_IMPORTED_MODULE_4__["compose"])(_lib_sb_file_uploader_hoc_jsx__WEBPACK_IMPORTED_MODULE_13__["default"], _lib_tw_packager_integration_hoc_jsx__WEBPACK_IMPORTED_MODULE_14__["default"])(_components_menu_bar_menu_bar_jsx__WEBPACK_IMPORTED_MODULE_19__["default"]);
-if (_addons_channels__WEBPACK_IMPORTED_MODULE_27__["default"].reloadChannel) {
-  _addons_channels__WEBPACK_IMPORTED_MODULE_27__["default"].reloadChannel.addEventListener('message', () => {
+const WrappedMenuBar = Object(redux__WEBPACK_IMPORTED_MODULE_4__["compose"])(_lib_sb_file_uploader_hoc_jsx__WEBPACK_IMPORTED_MODULE_13__["default"], _lib_tw_packager_integration_hoc_jsx__WEBPACK_IMPORTED_MODULE_14__["default"])(_components_menu_bar_menu_bar_jsx__WEBPACK_IMPORTED_MODULE_18__["default"]);
+if (_addons_channels__WEBPACK_IMPORTED_MODULE_26__["default"].reloadChannel) {
+  _addons_channels__WEBPACK_IMPORTED_MODULE_26__["default"].reloadChannel.addEventListener('message', () => {
     location.reload();
   });
 }
-if (_addons_channels__WEBPACK_IMPORTED_MODULE_27__["default"].changeChannel) {
-  _addons_channels__WEBPACK_IMPORTED_MODULE_27__["default"].changeChannel.addEventListener('message', e => {
-    _addons_settings_store_singleton__WEBPACK_IMPORTED_MODULE_16__["default"].setStoreWithVersionCheck(e.data);
+if (_addons_channels__WEBPACK_IMPORTED_MODULE_26__["default"].changeChannel) {
+  _addons_channels__WEBPACK_IMPORTED_MODULE_26__["default"].changeChannel.addEventListener('message', e => {
+    _addons_settings_store_singleton__WEBPACK_IMPORTED_MODULE_15__["default"].setStoreWithVersionCheck(e.data);
   });
 }
-Object(_addons_entry__WEBPACK_IMPORTED_MODULE_29__["default"])();
-const Footer = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("footer", {
-  className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.footer
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-  className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.footerContent
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-  className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.footerText
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"]
-// eslint-disable-next-line max-len
-, {
-  defaultMessage: "rCodenow is not affiliated with Scratch, the Scratch Team, or the Scratch Foundation.",
-  id: "tw.footer.disclaimer"
-})), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-  className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.footerColumns
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-  className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.footerSection
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "credits.html"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
-  defaultMessage: "Credits",
-  id: "tw.footer.credits"
-})), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "https://github.com/sponsors/0832k12"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
-  defaultMessage: "Donate",
-  id: "tw.footer.donate"
-}))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-  className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.footerSection
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "https://desktop.rCodenow.cn/rCodenow/"
-}, 'rCodenow Desktop'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "https://packager.40code.com/"
-}, '40code Packager'), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "https://docs.rCodenow.cn/embedding"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
-  defaultMessage: "Embedding",
-  id: "tw.footer.embed"
-})), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "https://docs.rCodenow.cn/url-parameters"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
-  defaultMessage: "URL Parameters",
-  id: "tw.footer.parameters"
-})), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "https://docs.rCodenow.cn/"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
-  defaultMessage: "Documentation",
-  id: "tw.footer.documentation"
-}))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-  className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.footerSection
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "https://0832k12.github.io/rxly"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
-  defaultMessage: "Feedback & Bugs",
-  id: "tw.feedback"
-})), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "https://github.com/0832k12/rcodenow-gui/"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
-  defaultMessage: "Source Code",
-  id: "tw.code"
-})), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
-  href: "privacy.html"
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
-  defaultMessage: "Privacy Policy",
-  id: "tw.privacy"
-}))))));
+Object(_addons_entry__WEBPACK_IMPORTED_MODULE_28__["default"])();
 class Interface extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
   constructor(props) {
     super(props);
@@ -2995,7 +2810,7 @@ class Interface extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
   }
   componentDidUpdate(prevProps) {
     if (prevProps.isLoading && !this.props.isLoading) {
-      Object(_load_service_worker__WEBPACK_IMPORTED_MODULE_28__["loadServiceWorker"])();
+      Object(_load_service_worker__WEBPACK_IMPORTED_MODULE_27__["loadServiceWorker"])();
     }
   }
   handleUpdateProjectTitle(title, isDefault) {
@@ -3044,20 +2859,20 @@ class Interface extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
       } : null
     }, isHomepage && announcement ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_containers_dom_element_renderer_jsx__WEBPACK_IMPORTED_MODULE_7__["default"], {
       domElement: announcement
-    }) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_render_gui_jsx__WEBPACK_IMPORTED_MODULE_18__["default"], _extends({
+    }) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_render_gui_jsx__WEBPACK_IMPORTED_MODULE_17__["default"], _extends({
       onClickAddonSettings: handleClickAddonSettings,
       onClickTheme: onClickTheme,
       onUpdateProjectTitle: this.handleUpdateProjectTitle,
       backpackVisible: true,
       backpackHost: "_local_"
-    }, props)), isHomepage ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, Object(_lib_tw_environment_support_prober__WEBPACK_IMPORTED_MODULE_26__["isRendererSupported"])() ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_containers_webgl_modal_jsx__WEBPACK_IMPORTED_MODULE_23__["default"], {
+    }, props)), isHomepage ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2___default.a.Fragment, null, Object(_lib_tw_environment_support_prober__WEBPACK_IMPORTED_MODULE_25__["isRendererSupported"])() ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_containers_webgl_modal_jsx__WEBPACK_IMPORTED_MODULE_22__["default"], {
       isRtl: isRtl
-    }), Object(_lib_tw_environment_support_prober__WEBPACK_IMPORTED_MODULE_26__["isBrowserSupported"])() ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_browser_modal_browser_modal_jsx__WEBPACK_IMPORTED_MODULE_24__["default"], {
+    }), Object(_lib_tw_environment_support_prober__WEBPACK_IMPORTED_MODULE_25__["isBrowserSupported"])() ? null : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_browser_modal_browser_modal_jsx__WEBPACK_IMPORTED_MODULE_23__["default"], {
       isRtl: isRtl
     }), (
     // eslint-disable-next-line max-len
     description.instructions === 'unshared' || description.credits === 'unshared') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-      className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.unsharedUpdate
+      className: classnames__WEBPACK_IMPORTED_MODULE_0___default()(_interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.infobox, _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.unsharedUpdate)
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"], {
       defaultMessage: "Unshared projects are no longer visible.",
       id: "tw.unshared2.1"
@@ -3083,15 +2898,32 @@ class Interface extends react__WEBPACK_IMPORTED_MODULE_2___default.a.Component {
       id: "tw.unshared.bug"
     }))), hasCloudVariables && projectId !== '0' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.section
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_tw_cloud_variable_badge_cloud_variable_badge_jsx__WEBPACK_IMPORTED_MODULE_25__["default"], null)), description.instructions || description.credits ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_tw_cloud_variable_badge_cloud_variable_badge_jsx__WEBPACK_IMPORTED_MODULE_24__["default"], null)), description.instructions || description.credits ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.section
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_tw_description_description_jsx__WEBPACK_IMPORTED_MODULE_22__["default"], {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_components_tw_description_description_jsx__WEBPACK_IMPORTED_MODULE_21__["default"], {
       instructions: description.instructions,
       credits: description.credits,
       projectId: projectId
     })) : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
       className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.section
-    })) : null));
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("p", {
+      className: _interface_css__WEBPACK_IMPORTED_MODULE_30___default.a.infobox
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
+      href: "".concat("", "august-2023-scratch-maintenance.html"),
+      target: "_blank",
+      rel: "noreferrer"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react_intl__WEBPACK_IMPORTED_MODULE_5__["FormattedMessage"]
+    // eslint-disable-next-line max-len
+    , {
+      defaultMessage: "Upcoming Scratch maintenance may affect parts of {APP_NAME}"
+      // eslint-disable-next-line max-len
+      ,
+
+      id: "tw.aug23downtime",
+      values: {
+        APP_NAME: _lib_brand__WEBPACK_IMPORTED_MODULE_29__["APP_NAME"]
+      }
+    }))))) : null));
   }
 }
 Interface.propTypes = {
@@ -3124,7 +2956,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = () => ({});
 const ConnectedInterface = Object(react_intl__WEBPACK_IMPORTED_MODULE_5__["injectIntl"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(Interface));
-const WrappedInterface = Object(redux__WEBPACK_IMPORTED_MODULE_4__["compose"])(_lib_app_state_hoc_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], Object(_lib_error_boundary_hoc_jsx__WEBPACK_IMPORTED_MODULE_9__["default"])('TW Interface'), _lib_tw_project_meta_fetcher_hoc_jsx__WEBPACK_IMPORTED_MODULE_10__["default"], _lib_tw_state_manager_hoc_jsx__WEBPACK_IMPORTED_MODULE_11__["default"], _lib_tw_theme_hoc_jsx__WEBPACK_IMPORTED_MODULE_12__["default"], _lib_tw_restore_point_hoc_jsx__WEBPACK_IMPORTED_MODULE_15__["default"], _lib_tw_packager_integration_hoc_jsx__WEBPACK_IMPORTED_MODULE_14__["default"])(ConnectedInterface);
+const WrappedInterface = Object(redux__WEBPACK_IMPORTED_MODULE_4__["compose"])(_lib_app_state_hoc_jsx__WEBPACK_IMPORTED_MODULE_8__["default"], Object(_lib_error_boundary_hoc_jsx__WEBPACK_IMPORTED_MODULE_9__["default"])('TW Interface'), _lib_tw_project_meta_fetcher_hoc_jsx__WEBPACK_IMPORTED_MODULE_10__["default"], _lib_tw_state_manager_hoc_jsx__WEBPACK_IMPORTED_MODULE_11__["default"], _lib_tw_theme_hoc_jsx__WEBPACK_IMPORTED_MODULE_12__["default"], _lib_tw_packager_integration_hoc_jsx__WEBPACK_IMPORTED_MODULE_14__["default"])(ConnectedInterface);
 /* harmony default export */ __webpack_exports__["default"] = (WrappedInterface);
 
 /***/ })

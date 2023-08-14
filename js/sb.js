@@ -1,9 +1,9 @@
 (window["webpackJsonpGUI"] = window["webpackJsonpGUI"] || []).push([["sb"],{
 
-/***/ "./node_modules/imports-loader/index.js?Blockly=../shim/blocks_compressed_vertical,goog=../shim/blockly_compressed_vertical.goog!./node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/msg/messages.js":
-/*!******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/imports-loader?Blockly=../shim/blocks_compressed_vertical,goog=../shim/blockly_compressed_vertical.goog!./node_modules/exports-loader?Blockly!./node_modules/scratch-blocks/msg/messages.js ***!
-  \******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/scratch-blocks/node_modules/imports-loader/index.js?Blockly=../shim/blocks_compressed_vertical,goog=../shim/blockly_compressed_vertical.goog!./node_modules/scratch-blocks/node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/msg/messages.js":
+/*!**************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/scratch-blocks/node_modules/imports-loader?Blockly=../shim/blocks_compressed_vertical,goog=../shim/blockly_compressed_vertical.goog!./node_modules/scratch-blocks/node_modules/exports-loader?Blockly!./node_modules/scratch-blocks/msg/messages.js ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11,7 +11,7 @@
 var Blockly = __webpack_require__(/*! ../shim/blocks_compressed_vertical */ "./node_modules/scratch-blocks/shim/blocks_compressed_vertical.js");
 var goog = __webpack_require__(/*! ../shim/blockly_compressed_vertical.goog */ "./node_modules/scratch-blocks/shim/blockly_compressed_vertical.goog.js");
 
-/**
+    /**
  * @license
  * Visual Blocks Language
  *
@@ -56,6 +56,8 @@ Blockly.Msg.CONTROL_STOP_ALL = 'all';
 Blockly.Msg.CONTROL_STOP_THIS = 'this script';
 Blockly.Msg.CONTROL_STOP_OTHER = 'other scripts in sprite';
 Blockly.Msg.CONTROL_WAIT = 'wait %1 seconds';
+Blockly.Msg.CONTROL_SUSPEND = 'suspend thread';
+Blockly.Msg.CONTROL_BREAKPOINT = 'breakpoint';
 Blockly.Msg.CONTROL_WAITUNTIL = 'wait until %1';
 Blockly.Msg.CONTROL_REPEATUNTIL = 'repeat until %1';
 Blockly.Msg.CONTROL_WHILE = 'while %1';
@@ -206,6 +208,7 @@ Blockly.Msg.OPERATORS_AND = '%1 and %2';
 Blockly.Msg.OPERATORS_OR = '%1 or %2';
 Blockly.Msg.OPERATORS_NOT = 'not %1';
 Blockly.Msg.OPERATORS_JOIN = 'join %1 %2';
+Blockly.Msg.OPERATORS_INDEXOF = 'position %1 of %2 contain %3';
 Blockly.Msg.OPERATORS_JOIN_APPLE = 'apple';
 Blockly.Msg.OPERATORS_JOIN_BANANA = 'banana';
 Blockly.Msg.OPERATORS_LETTEROF = 'letter %1 of %2';
@@ -230,8 +233,27 @@ Blockly.Msg.OPERATORS_MATHOP_LOG = 'log';
 Blockly.Msg.OPERATORS_MATHOP_EEXP = 'e ^';
 Blockly.Msg.OPERATORS_MATHOP_10EXP = '10 ^';
 
+Blockly.Msg.OPERATORS_POWER = '%1 ^ %2';
+Blockly.Msg.OPERATORS_BITAND = '%1 & %2';
+Blockly.Msg.OPERATORS_BITOR = '%1 | %2';
+Blockly.Msg.OPERATORS_BITXOR = '%1 xor %2';
+Blockly.Msg.OPERATORS_BITLSH = '%1 << %2';
+Blockly.Msg.OPERATORS_BITRSH = '%1 >> %2';
+Blockly.Msg.OPERATORS_BITURSH = '%1 >>> %2';
+Blockly.Msg.OPERATORS_BITNOT = '~ %1';
+Blockly.Msg.OPERATORS_GE = '%1 ≥ %2';
+Blockly.Msg.OPERATORS_LE = '%1 ≤ %2';
+Blockly.Msg.OPERATORS_NEQUALS = '%1 ≠ %2';
+
 // Procedures blocks
 Blockly.Msg.PROCEDURES_DEFINITION = 'define %1';
+Blockly.Msg.PROCEDURES_RETURN = 'return %1';
+
+// TW Procedures blocks
+Blockly.Msg.PROCEDURES_RETURN = 'return %1';
+Blockly.Msg.PROCEDURES_TO_REPORTER = 'Change To Reporter';
+Blockly.Msg.PROCEDURES_TO_STATEMENT = 'Change To Stacked Block';
+Blockly.Msg.PROCEDURES_DOCS = 'How to use return';
 
 // Sensing blocks
 Blockly.Msg.SENSING_TOUCHINGOBJECT = 'touching %1?';
@@ -241,13 +263,23 @@ Blockly.Msg.SENSING_TOUCHINGCOLOR = 'touching color %1?';
 Blockly.Msg.SENSING_COLORISTOUCHINGCOLOR = 'color %1 is touching %2?';
 Blockly.Msg.SENSING_DISTANCETO = 'distance to %1';
 Blockly.Msg.SENSING_DISTANCETO_POINTER = 'mouse-pointer';
+Blockly.Msg.SENSING_DISTANCEBETWEENPOSITION = 'distance from (x: %1, y: %2 ) to (x: %3 , y: %4 )';
+Blockly.Msg.SENSING_DIRECTIONBETWEENPOSITION = 'direction from (x: %1, y: %2 ) to (x: %3 , y: %4 )';
+Blockly.Msg.SENSING_COLORAT = 'get the color at (x: %1, y: %2)';
 Blockly.Msg.SENSING_ASKANDWAIT = 'ask %1 and wait';
 Blockly.Msg.SENSING_ASK_TEXT = 'What\'s your name?';
 Blockly.Msg.SENSING_ANSWER = 'answer';
 Blockly.Msg.SENSING_KEYPRESSED = 'key %1 pressed?';
 Blockly.Msg.SENSING_MOUSEDOWN = 'mouse down?';
+Blockly.Msg.SENSING_MOUSEPRESSED = 'mouse %1 pressed?';
+Blockly.Msg.SENSING_MOUSEPRESSED_LEFT = 'left';
+Blockly.Msg.SENSING_MOUSEPRESSED_MIDDLE = 'middle';
+Blockly.Msg.SENSING_MOUSEPRESSED_RIGHT = 'right';
 Blockly.Msg.SENSING_MOUSEX = 'mouse x';
 Blockly.Msg.SENSING_MOUSEY = 'mouse y';
+Blockly.Msg.SENSING_JOYSTICKX = 'joystick x axis';
+Blockly.Msg.SENSING_JOYSTICKY = 'joystick y axis';
+Blockly.Msg.SENSING_JOYSTICK_DISTANCE = 'joystick distance';
 Blockly.Msg.SENSING_SETDRAGMODE = 'set drag mode %1';
 Blockly.Msg.SENSING_SETDRAGMODE_DRAGGABLE = 'draggable';
 Blockly.Msg.SENSING_SETDRAGMODE_NOTDRAGGABLE = 'not draggable';
@@ -277,6 +309,11 @@ Blockly.Msg.SENSING_CURRENT_SECOND = 'second';
 Blockly.Msg.SENSING_DAYSSINCE2000 = 'days since 2000';
 Blockly.Msg.SENSING_USERNAME = 'username';
 Blockly.Msg.SENSING_USERID = 'user id';
+Blockly.Msg.SENSING_ISTURBOMODE = 'turbo mode?';
+Blockly.Msg.SENSING_OPERATINGSYSTEM = 'operating system';
+Blockly.Msg.SENSING_CLIPCC_VERSION = 'ClipCC version';
+Blockly.Msg.SENSING_TURNONTURBOMODE = 'turn on turbo mode';
+Blockly.Msg.SENSING_TURNOFFTURBOMODE = 'turn off turbo mode';
 
 // Sound blocks
 Blockly.Msg.SOUND_PLAY = 'start sound %1';
@@ -301,16 +338,21 @@ Blockly.Msg.CATEGORY_CONTROL = 'Control';
 Blockly.Msg.CATEGORY_SENSING = 'Sensing';
 Blockly.Msg.CATEGORY_OPERATORS = 'Operators';
 Blockly.Msg.CATEGORY_VARIABLES = 'Variables';
-Blockly.Msg.CATEGORY_MYBLOCKS = 'My Blocks';
+Blockly.Msg.CATEGORY_FUNCTIONS = 'Functions';
 
 // Context menus
 Blockly.Msg.DUPLICATE = 'Duplicate';
+Blockly.Msg.COPY_IMAGE = 'Copy Block Image';
+Blockly.Msg.COPY_TO_CLIPBOARD = 'Copy to Clipboard';
+Blockly.Msg.PASTE_FROM_CLIPBOARD = 'Paste from Clipboard';
 Blockly.Msg.DELETE = 'Delete';
 Blockly.Msg.ADD_COMMENT = 'Add Comment';
 Blockly.Msg.REMOVE_COMMENT = 'Remove Comment';
 Blockly.Msg.DELETE_BLOCK = 'Delete Block';
 Blockly.Msg.DELETE_X_BLOCKS = 'Delete %1 Blocks';
 Blockly.Msg.DELETE_ALL_BLOCKS = 'Delete all %1 blocks?';
+Blockly.Msg.DISABLE_BLOCK = 'Disable Block';
+Blockly.Msg.ENABLE_BLOCK = 'Enable Block';
 Blockly.Msg.CLEAN_UP = 'Clean up Blocks';
 Blockly.Msg.HELP = 'Help';
 Blockly.Msg.UNDO = 'Undo';
@@ -318,8 +360,6 @@ Blockly.Msg.REDO = 'Redo';
 Blockly.Msg.EDIT_PROCEDURE = 'Edit';
 Blockly.Msg.SHOW_PROCEDURE_DEFINITION = 'Go to definition';
 Blockly.Msg.WORKSPACE_COMMENT_DEFAULT_TEXT = 'Say something...';
-Blockly.Msg.COPY_TO_CLIPBOARD = 'Copy to Clipboard';
-Blockly.Msg.PASTE_FROM_CLIPBOARD = 'Paste from Clipboard';
 
 // Color
 Blockly.Msg.COLOUR_HUE_LABEL = 'Color';
@@ -343,10 +383,10 @@ Blockly.Msg.DELETE_VARIABLE = 'Delete the "%1" variable';
 
 // Custom Procedures
 // @todo Remove these once fully managed by Scratch VM / Scratch GUI
-Blockly.Msg.NEW_PROCEDURE = 'Make a Block';
-Blockly.Msg.PROCEDURE_ALREADY_EXISTS = 'A procedure named "%1" already exists.';
-Blockly.Msg.PROCEDURE_DEFAULT_NAME = 'block name';
-Blockly.Msg.PROCEDURE_USED = 'To delete a block definition, first remove all uses of the block';
+Blockly.Msg.NEW_PROCEDURE = 'Make a Function';
+Blockly.Msg.PROCEDURE_ALREADY_EXISTS = 'A function named "%1" already exists.';
+Blockly.Msg.PROCEDURE_USED = 'To delete a function definition, first remove all uses of the block';
+Blockly.Msg.PROCEDURE_DEFAULT_NAME = 'function name';
 
 // Lists
 // @todo Remove these once fully managed by Scratch VM / Scratch GUI
@@ -366,6 +406,7 @@ Blockly.Msg.NEW_BROADCAST_MESSAGE = 'New message';
 Blockly.Msg.NEW_BROADCAST_MESSAGE_TITLE = 'New message name:';
 Blockly.Msg.BROADCAST_MODAL_TITLE = 'New Message';
 Blockly.Msg.DEFAULT_BROADCAST_MESSAGE_NAME = 'message1';
+Blockly.Msg.OBSOLETED_BLOCKS = 'Obsoleted Blocks';
 
 
 /*** EXPORTS FROM exports-loader ***/
@@ -374,10 +415,10 @@ module.exports = Blockly;
 
 /***/ }),
 
-/***/ "./node_modules/imports-loader/index.js?Blockly=../shim/blocks_compressed_vertical-blockly_compressed_vertical-messages,goog=../shim/blockly_compressed_vertical.goog!./node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/msg/scratch_msgs.js":
-/*!***********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/imports-loader?Blockly=../shim/blocks_compressed_vertical-blockly_compressed_vertical-messages,goog=../shim/blockly_compressed_vertical.goog!./node_modules/exports-loader?Blockly!./node_modules/scratch-blocks/msg/scratch_msgs.js ***!
-  \***********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/scratch-blocks/node_modules/imports-loader/index.js?Blockly=../shim/blocks_compressed_vertical-blockly_compressed_vertical-messages,goog=../shim/blockly_compressed_vertical.goog!./node_modules/scratch-blocks/node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/msg/scratch_msgs.js":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/scratch-blocks/node_modules/imports-loader?Blockly=../shim/blocks_compressed_vertical-blockly_compressed_vertical-messages,goog=../shim/blockly_compressed_vertical.goog!./node_modules/scratch-blocks/node_modules/exports-loader?Blockly!./node_modules/scratch-blocks/msg/scratch_msgs.js ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -533,7 +574,6 @@ Blockly.ScratchMsgs.locales["en"] =
     "MOTION_XSCROLL": "x scroll",
     "MOTION_YSCROLL": "y scroll",
     "MOTION_STAGE_SELECTED": "Stage selected: no motion blocks",
-    "OPERATORS_POWER": "%1 ^ %2",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
     "OPERATORS_MULTIPLY": "%1 * %2",
@@ -569,9 +609,18 @@ Blockly.ScratchMsgs.locales["en"] =
     "OPERATORS_MATHOP_LOG": "log",
     "OPERATORS_MATHOP_EEXP": "e ^",
     "OPERATORS_MATHOP_10EXP": "10 ^",
+    "OPERATORS_POWER": "%1 ^ %2",
+    "OPERATORS_BITAND": "%1 & %2",
+    "OPERATORS_BITOR": "%1 | %2",
+    "OPERATORS_BITXOR": "%1 xor %2",
+    "OPERATORS_BITLSH": "%1 << %2",
+    "OPERATORS_BITRSH": "%1 >> %2",
+    "OPERATORS_BITURSH": "%1 >>> %2",
+    "OPERATORS_BITNOT": "~ %1",
+    "OPERATORS_GE": "%1 ≥ %2",
+    "OPERATORS_LE": "%1 ≤ %2",
+    "OPERATORS_NEQUALS": "%1 ≠ %2",
     "PROCEDURES_DEFINITION": "define %1",
-    "PROCEDURES_CALL_WITH_RETURN":"define %1",
-    "PROCEDURES_RETURN":"return %1",
     "SENSING_TOUCHINGOBJECT": "touching %1?",
     "SENSING_TOUCHINGOBJECT_POINTER": "mouse-pointer",
     "SENSING_TOUCHINGOBJECT_EDGE": "edge",
@@ -579,11 +628,17 @@ Blockly.ScratchMsgs.locales["en"] =
     "SENSING_COLORISTOUCHINGCOLOR": "color %1 is touching %2?",
     "SENSING_DISTANCETO": "distance to %1",
     "SENSING_DISTANCETO_POINTER": "mouse-pointer",
+    "SENSING_DISTANCEBETWEENPOSITION": "distance from (x: %1, y: %2 ) to (x: %3 , y: %4 )",
+    "SENSING_DIRECTIONBETWEENPOSITION": "direction from (x: %1, y: %2 ) to (x: %3 , y: %4 )",
     "SENSING_ASKANDWAIT": "ask %1 and wait",
     "SENSING_ASK_TEXT": "What's your name?",
     "SENSING_ANSWER": "answer",
     "SENSING_KEYPRESSED": "key %1 pressed?",
     "SENSING_MOUSEDOWN": "mouse down?",
+    "SENSING_MOUSEPRESSED": "mouse %1 pressed?",
+    "SENSING_MOUSEPRESSED_LEFT": "left",
+    "SENSING_MOUSEPRESSED_MIDDLE": "middle",
+    "SENSING_MOUSEPRESSED_RIGHT": "right",
     "SENSING_MOUSEX": "mouse x",
     "SENSING_MOUSEY": "mouse y",
     "SENSING_SETDRAGMODE": "set drag mode %1",
@@ -615,6 +670,10 @@ Blockly.ScratchMsgs.locales["en"] =
     "SENSING_DAYSSINCE2000": "days since 2000",
     "SENSING_USERNAME": "username",
     "SENSING_USERID": "user id",
+    "SENSING_ISTURBOMODE": "turbo mode?",
+    "SENSING_OPERATINGSYSTEM": "operating system",
+    "SENSING_TURNONTURBOMODE": "turn on turbo mode",
+    "SENSING_TURNOFFTURBOMODE": "turn off turbo mode",
     "SOUND_PLAY": "start sound %1",
     "SOUND_PLAYUNTILDONE": "play sound %1 until done",
     "SOUND_STOPALLSOUNDS": "stop all sounds",
@@ -635,8 +694,7 @@ Blockly.ScratchMsgs.locales["en"] =
     "CATEGORY_SENSING": "Sensing",
     "CATEGORY_OPERATORS": "Operators",
     "CATEGORY_VARIABLES": "Variables",
-    "CATEGORY_MYBLOCKS": "Function",
-    "CATEGORY_RETURN": "Return",
+    "CATEGORY_MYBLOCKS": "My Blocks",
     "DUPLICATE": "Duplicate",
     "DELETE": "Delete",
     "ADD_COMMENT": "Add Comment",
@@ -667,9 +725,8 @@ Blockly.ScratchMsgs.locales["en"] =
     "CANNOT_DELETE_VARIABLE_PROCEDURE": "Can't delete the variable \"%1\" because it's part of the definition of the function \"%2\"",
     "DELETE_VARIABLE": "Delete the \"%1\" variable",
     "NEW_PROCEDURE": "Make a Function",
-    "PROCEDURE_ALREADY_EXISTS": "A procedure named \"%1\" already exists.",
-    "PROCEDURE_DEFAULT_NAME": "block name",
-    "PROCEDURE_USED": "To delete a block definition, first remove all uses of the block",
+    "PROCEDURE_ALREADY_EXISTS": "A function named \"%1\" already exists.",
+    "PROCEDURE_DEFAULT_NAME": "function name",
     "NEW_LIST": "Make a List",
     "NEW_LIST_TITLE": "New list name:",
     "LIST_MODAL_TITLE": "New List",
@@ -683,11 +740,348 @@ Blockly.ScratchMsgs.locales["en"] =
     "NEW_BROADCAST_MESSAGE_TITLE": "New message name:",
     "BROADCAST_MODAL_TITLE": "New Message",
     "DEFAULT_BROADCAST_MESSAGE_NAME": "message1",
-    "LOCAL_DATA_SETVARIABLETO":"set local variable %1 to %2",
+    "SENSING_CLIPCC_VERSION": "ClipCC version",
+    "OPERATORS_INDEXOF": "position %1 of %2 contain %3",
+    "PROCEDURES_RETURN": "return %1",
+    "DISABLE_BLOCK": "Disable Block",
+    "ENABLE_BLOCK": "Enable Block",
+    "PROCEDURE_USED": "To delete a function definition, first remove all uses of the block",
+    "CATEGORY_FUNCTIONS": "Functions",
+    "OBSOLETED_BLOCKS": "Obsoleted Blocks",
+    "CONTROL_BREAKPOINT": "breakpoint",
+    "CONTROL_SUSPEND": "suspend thread",
+    "SENSING_JOYSTICKX": "joystick x axis",
+    "SENSING_JOYSTICKY": "joystick y axis",
+    "SENSING_JOYSTICK_DISTANCE": "joystick distance",
+    "SENSING_COLORAT": "get the color at (x: %1, y: %2)",
     "COPY_TO_CLIPBOARD": "Copy to Clipboard",
-    "PASTE_FROM_CLIPBOARD": "Paste from Clipboard"
+    "PASTE_FROM_CLIPBOARD": "Paste from Clipboard",
+    "COPY_IMAGE": "Copy Block Image"
 };
 
+Blockly.ScratchMsgs.locales["fr"] =
+{
+    "CONTROL_FOREVER": "répéter indéfiniment",
+    "CONTROL_REPEAT": "répéter %1 fois",
+    "CONTROL_IF": "si %1 alors",
+    "CONTROL_ELSE": "sinon",
+    "CONTROL_STOP": "stop",
+    "CONTROL_STOP_ALL": "tout",
+    "CONTROL_STOP_THIS": "ce script",
+    "CONTROL_STOP_OTHER": "autres scripts dans sprite",
+    "CONTROL_WAIT": "attendre %1 secondes",
+    "CONTROL_WAITUNTIL": "attendre jusqu'à ce que %1",
+    "CONTROL_REPEATUNTIL": "répéter jusqu'à ce que %1",
+    "CONTROL_WHILE": "tant que %1",
+    "CONTROL_FOREACH": "pour chaque %1 dans %2",
+    "CONTROL_STARTASCLONE": "quand je commence comme un clone",
+    "CONTROL_CREATECLONEOF": "créer un clone de %1",
+    "CONTROL_CREATECLONEOF_MYSELF": "moi-même",
+    "CONTROL_DELETETHISCLONE": "supprimer ce clone",
+    "CONTROL_COUNTER": "compteur",
+    "CONTROL_INCRCOUNTER": "incrémenter le compteur",
+    "CONTROL_CLEARCOUNTER": "effacer le compteur",
+    "CONTROL_ALLATONCE": "tous en même temps",
+    "DATA_SETVARIABLETO": "mettre %1 à %2",
+    "DATA_CHANGEVARIABLEBY": "ajouter %2 à %1",
+    "DATA_SHOWVARIABLE": "montrer la variable %1",
+    "DATA_HIDEVARIABLE": "cacher la variable %1",
+    "DATA_ADDTOLIST": "ajouter %1 à %2",
+    "DATA_DELETEOFLIST": "supprimer l'élément %1 de %2",
+    "DATA_DELETEALLOFLIST": "supprimer tous les éléments de la liste %1",
+    "DATA_INSERTATLIST": "insérer %1 en position %2 de %3",
+    "DATA_REPLACEITEMOFLIST": "remplacer l'élément %1 de la liste %2 par %3",
+    "DATA_ITEMOFLIST": "élément %1 de %2",
+    "DATA_ITEMNUMOFLIST": "position de %1 dans %2",
+    "DATA_LENGTHOFLIST": "longueur de %1",
+    "DATA_LISTCONTAINSITEM": "%1 contient %2 ?",
+    "DATA_SHOWLIST": "montrer la liste %1",
+    "DATA_HIDELIST": "cacher la liste %1",
+    "DATA_INDEX_ALL": "tout",
+    "DATA_INDEX_LAST": "dernier",
+    "DATA_INDEX_RANDOM": "au hasard",
+    "EVENT_WHENFLAGCLICKED": "quand %1 est cliqué",
+    "EVENT_WHENTHISSPRITECLICKED": "quand ce sprite est cliqué",
+    "EVENT_WHENSTAGECLICKED": "quand la scène est cliquée",
+    "EVENT_WHENTOUCHINGOBJECT": "quand ce sprite touche %1",
+    "EVENT_WHENBROADCASTRECEIVED": "quand je reçois %1",
+    "EVENT_WHENBACKDROPSWITCHESTO": "quand l'arrière-plan bascule sur %1",
+    "EVENT_WHENGREATERTHAN": "quand le %1 > %2",
+    "EVENT_WHENGREATERTHAN_TIMER": "chronomètre",
+    "EVENT_WHENGREATERTHAN_LOUDNESS": "volume sonore",
+    "EVENT_BROADCAST": "envoyer à tous %1",
+    "EVENT_BROADCASTANDWAIT": "envoyer à tous %1 et attendre",
+    "EVENT_WHENKEYPRESSED": "quand la touche %1 est pressée",
+    "EVENT_WHENKEYPRESSED_SPACE": "espace",
+    "EVENT_WHENKEYPRESSED_LEFT": "flèche gauche",
+    "EVENT_WHENKEYPRESSED_RIGHT": "flèche droite",
+    "EVENT_WHENKEYPRESSED_DOWN": "flèche bas",
+    "EVENT_WHENKEYPRESSED_UP": "flèche haut",
+    "EVENT_WHENKEYPRESSED_ANY": "n'importe laquelle",
+    "LOOKS_SAYFORSECS": "dire %1 pendant %2 secondes",
+    "LOOKS_SAY": "dire %1",
+    "LOOKS_HELLO": "Bonjour !",
+    "LOOKS_THINKFORSECS": "penser à %1 pendant %2 secondes",
+    "LOOKS_THINK": "penser à %1",
+    "LOOKS_HMM": "Hmm...",
+    "LOOKS_SHOW": "montrer",
+    "LOOKS_HIDE": "cacher",
+    "LOOKS_HIDEALLSPRITES": "cacher tous les sprites",
+    "LOOKS_EFFECT_COLOR": "couleur",
+    "LOOKS_EFFECT_FISHEYE": "fisheye",
+    "LOOKS_EFFECT_WHIRL": "tourbillon",
+    "LOOKS_EFFECT_PIXELATE": "pixeliser",
+    "LOOKS_EFFECT_MOSAIC": "mosaïque",
+    "LOOKS_EFFECT_BRIGHTNESS": "luminosité",
+    "LOOKS_EFFECT_GHOST": "fantôme",
+    "LOOKS_CHANGEEFFECTBY": "ajouter %2 à l'effet %1",
+    "LOOKS_SETEFFECTTO": "mettre l'effet %1 à %2",
+    "LOOKS_CLEARGRAPHICEFFECTS": "annuler les effets graphiques",
+    "LOOKS_CHANGESIZEBY": "ajouter %1 à la taille",
+    "LOOKS_SETSIZETO": "mettre la taille à %1 % de la taille initiale",
+    "LOOKS_SIZE": "taille",
+    "LOOKS_CHANGESTRETCHBY": "ajouter %1 à l'étirement",
+    "LOOKS_SETSTRETCHTO": "mettre l'étirement à %1 %",
+    "LOOKS_SWITCHCOSTUMETO": "basculer sur le costume %1",
+    "LOOKS_NEXTCOSTUME": "costume suivant",
+    "LOOKS_SWITCHBACKDROPTO": "basculer sur l'arrière-plan %1",
+    "LOOKS_GOTOFRONTBACK": "aller à l'%1 plan",
+    "LOOKS_GOTOFRONTBACK_FRONT": "avant",
+    "LOOKS_GOTOFRONTBACK_BACK": "arrière",
+    "LOOKS_GOFORWARDBACKWARDLAYERS": "déplacer de %2 plans vers l'%1",
+    "LOOKS_GOFORWARDBACKWARDLAYERS_FORWARD": "avant",
+    "LOOKS_GOFORWARDBACKWARDLAYERS_BACKWARD": "arrière",
+    "LOOKS_BACKDROPNUMBERNAME": "%1 de l'arrière-plan",
+    "LOOKS_COSTUMENUMBERNAME": "%1 du costume",
+    "LOOKS_NUMBERNAME_NUMBER": "numéro",
+    "LOOKS_NUMBERNAME_NAME": "nom",
+    "LOOKS_SWITCHBACKDROPTOANDWAIT": "basculer sur l'arrière-plan %1 et attendre",
+    "LOOKS_NEXTBACKDROP_BLOCK": "arrière-plan suivant",
+    "LOOKS_NEXTBACKDROP": "arrière-plan suivant",
+    "LOOKS_PREVIOUSBACKDROP": "arrière-plan précédent",
+    "LOOKS_RANDOMBACKDROP": "arrière-plan aléatoire",
+    "MOTION_MOVESTEPS": "avancer de %1 pas",
+    "MOTION_TURNLEFT": "tourner %1 de %2 degrés",
+    "MOTION_TURNRIGHT": "tourner %1 de %2 degrés",
+    "MOTION_POINTINDIRECTION": "s'orienter à %1",
+    "MOTION_POINTTOWARDS": "s'orienter vers %1",
+    "MOTION_POINTTOWARDS_POINTER": "pointeur de souris",
+    "MOTION_POINTTOWARDS_RANDOM": "direction aléatoire",
+    "MOTION_GOTO": "aller à %1",
+    "MOTION_GOTO_POINTER": "pointeur de souris",
+    "MOTION_GOTO_RANDOM": "position aléatoire",
+    "MOTION_GOTOXY": "aller à x: %1 y: %2",
+    "MOTION_GLIDESECSTOXY": "glisser en %1 secondes à x: %2 y: %3",
+    "MOTION_GLIDETO": "glisser en %1 secondes à %2",
+    "MOTION_GLIDETO_POINTER": "pointeur de souris",
+    "MOTION_GLIDETO_RANDOM": "position aléatoire",
+    "MOTION_CHANGEXBY": "ajouter %1 à x",
+    "MOTION_SETX": "mettre x à %1",
+    "MOTION_CHANGEYBY": "ajouter %1 à y",
+    "MOTION_SETY": "mettre y à %1",
+    "MOTION_IFONEDGEBOUNCE": "rebondir si le bord est atteint",
+    "MOTION_SETROTATIONSTYLE": "fixer le sens de rotation %1",
+    "MOTION_SETROTATIONSTYLE_LEFTRIGHT": "gauche-droite",
+    "MOTION_SETROTATIONSTYLE_DONTROTATE": "ne tourne pas",
+    "MOTION_SETROTATIONSTYLE_ALLAROUND": "à 360°",
+    "MOTION_XPOSITION": "abscisse x",
+    "MOTION_YPOSITION": "ordonnée y",
+    "MOTION_DIRECTION": "direction",
+    "MOTION_SCROLLRIGHT": "défiler à droite de %1",
+    "MOTION_SCROLLUP": "défiler en haut de %1",
+    "MOTION_ALIGNSCENE": "aligner la scène %1",
+    "MOTION_ALIGNSCENE_BOTTOMLEFT": "bas-gauche",
+    "MOTION_ALIGNSCENE_BOTTOMRIGHT": "bas-droite",
+    "MOTION_ALIGNSCENE_MIDDLE": "milieu",
+    "MOTION_ALIGNSCENE_TOPLEFT": "haut-gauche",
+    "MOTION_ALIGNSCENE_TOPRIGHT": "haut-droite",
+    "MOTION_XSCROLL": "défilement x",
+    "MOTION_YSCROLL": "défilement y",
+    "MOTION_STAGE_SELECTED": "Scène sélectionnée: pas de blocs de mouvement",
+    "OPERATORS_ADD": "%1 + %2",
+    "OPERATORS_SUBTRACT": "%1 - %2",
+    "OPERATORS_MULTIPLY": "%1 * %2",
+    "OPERATORS_DIVIDE": "%1 / %2",
+    "OPERATORS_RANDOM": "nombre aléatoire entre %1 et %2",
+    "OPERATORS_GT": "%1 > %2",
+    "OPERATORS_LT": "%1 < %2",
+    "OPERATORS_EQUALS": "%1 = %2",
+    "OPERATORS_AND": "%1 et %2",
+    "OPERATORS_OR": "%1 ou %2",
+    "OPERATORS_NOT": "non %1",
+    "OPERATORS_JOIN": "regrouper %1 et %2",
+    "OPERATORS_JOIN_APPLE": "pomme",
+    "OPERATORS_JOIN_BANANA": "banane",
+    "OPERATORS_LETTEROF": "lettre %1 de %2",
+    "OPERATORS_LETTEROF_APPLE": "p",
+    "OPERATORS_LENGTH": "longueur de %1",
+    "OPERATORS_CONTAINS": "%1 contient %2 ?",
+    "OPERATORS_MOD": "%1 modulo %2",
+    "OPERATORS_ROUND": "arrondi de %1",
+    "OPERATORS_MATHOP": "%1 de %2",
+    "OPERATORS_MATHOP_ABS": "abs",
+    "OPERATORS_MATHOP_FLOOR": "plancher",
+    "OPERATORS_MATHOP_CEILING": "plafond",
+    "OPERATORS_MATHOP_SQRT": "racine",
+    "OPERATORS_MATHOP_SIN": "sin",
+    "OPERATORS_MATHOP_COS": "cos",
+    "OPERATORS_MATHOP_TAN": "tan",
+    "OPERATORS_MATHOP_ASIN": "asin",
+    "OPERATORS_MATHOP_ACOS": "acos",
+    "OPERATORS_MATHOP_ATAN": "atan",
+    "OPERATORS_MATHOP_LN": "ln",
+    "OPERATORS_MATHOP_LOG": "log",
+    "OPERATORS_MATHOP_EEXP": "e^",
+    "OPERATORS_MATHOP_10EXP": "10^",
+    "OPERATORS_POWER": "%1 ^ %2",
+    "OPERATORS_BITAND": "%1 & %2",
+    "OPERATORS_BITOR": "%1 | %2",
+    "OPERATORS_BITXOR": "%1 ⊕ %2",
+    "OPERATORS_BITLSH": "%1 << %2",
+    "OPERATORS_BITRSH": "%1 >> %2",
+    "OPERATORS_BITURSH": "%1 >>> %2",
+    "OPERATORS_BITNOT": "~ %1",
+    "OPERATORS_GE": "%1 ≥ %2",
+    "OPERATORS_LE": "%1 ≤ %2",
+    "OPERATORS_NEQUALS": "%1 ≠ %2",
+    "PROCEDURES_DEFINITION": "définir %1",
+    "SENSING_TOUCHINGOBJECT": "touche le %1 ?",
+    "SENSING_TOUCHINGOBJECT_POINTER": "pointeur de souris",
+    "SENSING_TOUCHINGOBJECT_EDGE": "bord",
+    "SENSING_TOUCHINGCOLOR": "couleur %1 touchée ?",
+    "SENSING_COLORISTOUCHINGCOLOR": "couleur %1 touche %2 ?",
+    "SENSING_DISTANCETO": "distance de %1",
+    "SENSING_DISTANCETO_POINTER": "pointeur de souris",
+    "SENSING_DISTANCEBETWEENPOSITION": "distance de (x : %1, y : %2 ) à (x : %3, y : %4 )",
+    "SENSING_DIRECTIONBETWEENPOSITION": "direction de (x : %1, y : %2 ) à (x : %3, y : %4 )",
+    "SENSING_ASKANDWAIT": "demander %1 et attendre",
+    "SENSING_ASK_TEXT": "Quel est ton nom ?",
+    "SENSING_ANSWER": "réponse",
+    "SENSING_KEYPRESSED": "touche %1 pressée ?",
+    "SENSING_MOUSEDOWN": "souris pressée ?",
+    "SENSING_MOUSEPRESSED": "bouton de souris %1 pressée ?",
+    "SENSING_MOUSEPRESSED_LEFT": "gauche",
+    "SENSING_MOUSEPRESSED_MIDDLE": "molette",
+    "SENSING_MOUSEPRESSED_RIGHT": "droit",
+    "SENSING_MOUSEX": "souris x",
+    "SENSING_MOUSEY": "souris y",
+    "SENSING_SETDRAGMODE": "mettre mode de glissement à %1",
+    "SENSING_SETDRAGMODE_DRAGGABLE": "glissable",
+    "SENSING_SETDRAGMODE_NOTDRAGGABLE": "non glissable",
+    "SENSING_LOUDNESS": "volume sonore",
+    "SENSING_LOUD": "fort ?",
+    "SENSING_TIMER": "chronomètre",
+    "SENSING_RESETTIMER": "réinitialiser le chronomètre",
+    "SENSING_OF": "%1 de %2",
+    "SENSING_OF_XPOSITION": "abscisse x",
+    "SENSING_OF_YPOSITION": "ordonnée y",
+    "SENSING_OF_DIRECTION": "direction",
+    "SENSING_OF_COSTUMENUMBER": "numéro de costume",
+    "SENSING_OF_COSTUMENAME": "nom du costume",
+    "SENSING_OF_SIZE": "taille",
+    "SENSING_OF_VOLUME": "volume",
+    "SENSING_OF_BACKDROPNUMBER": "numéro de l'arrière-plan",
+    "SENSING_OF_BACKDROPNAME": "nom de l'arrière-plan",
+    "SENSING_OF_STAGE": "la scène",
+    "SENSING_CURRENT": "%1 actuelle",
+    "SENSING_CURRENT_YEAR": "année",
+    "SENSING_CURRENT_MONTH": "mois",
+    "SENSING_CURRENT_DATE": "date",
+    "SENSING_CURRENT_DAYOFWEEK": "jour de la semaine",
+    "SENSING_CURRENT_HOUR": "heure",
+    "SENSING_CURRENT_MINUTE": "minute",
+    "SENSING_CURRENT_SECOND": "seconde",
+    "SENSING_DAYSSINCE2000": "jours depuis 2000",
+    "SENSING_USERNAME": "nom d'utilisateur",
+    "SENSING_USERID": "id de l'utilisateur",
+    "SENSING_ISTURBOMODE": "mode turbo ?",
+    "SENSING_OPERATINGSYSTEM": "système d'exploitation",
+    "SENSING_TURNONTURBOMODE": "activer le mode turbo",
+    "SENSING_TURNOFFTURBOMODE": "désactiver le mode turbo",
+    "SOUND_PLAY": "jouer le son %1",
+    "SOUND_PLAYUNTILDONE": "jouer le son %1 jusqu'au bout",
+    "SOUND_STOPALLSOUNDS": "arrêter tous les sons",
+    "SOUND_SETEFFECTO": "mettre l'effet %1 à %2",
+    "SOUND_CHANGEEFFECTBY": "ajouter %2 à l'effet %1",
+    "SOUND_CLEAREFFECTS": "annuler tous les effets sonores",
+    "SOUND_EFFECTS_PITCH": "hauteur",
+    "SOUND_EFFECTS_PAN": "stéréo gauche/droite",
+    "SOUND_CHANGEVOLUMEBY": "ajouter %1 au volume",
+    "SOUND_SETVOLUMETO": "mettre le volume à %1%",
+    "SOUND_VOLUME": "volume",
+    "SOUND_RECORD": "enregistrer...",
+    "CATEGORY_MOTION": "Mouvement",
+    "CATEGORY_LOOKS": "Apparence",
+    "CATEGORY_SOUND": "Son",
+    "CATEGORY_EVENTS": "Événements",
+    "CATEGORY_CONTROL": "Contrôle",
+    "CATEGORY_SENSING": "Capteurs",
+    "CATEGORY_OPERATORS": "Opérateurs",
+    "CATEGORY_VARIABLES": "Variables",
+    "CATEGORY_MYBLOCKS": "Mes Blocs",
+    "DUPLICATE": "Dupliquer",
+    "DELETE": "Supprimer",
+    "ADD_COMMENT": "Ajouter un commentaire",
+    "REMOVE_COMMENT": "Retirer le commentaire",
+    "DELETE_BLOCK": "Supprimer le bloc",
+    "DELETE_X_BLOCKS": "Supprimer %1 blocs",
+    "DELETE_ALL_BLOCKS": "Supprimer tous les %1 blocs ?",
+    "CLEAN_UP": "Nettoyer les blocs",
+    "HELP": "Aide",
+    "UNDO": "Restaurer",
+    "REDO": "Refaire",
+    "EDIT_PROCEDURE": "Modifier",
+    "SHOW_PROCEDURE_DEFINITION": "Aller à la définition",
+    "WORKSPACE_COMMENT_DEFAULT_TEXT": "Dire quelque chose...",
+    "COLOUR_HUE_LABEL": "Couleur",
+    "COLOUR_SATURATION_LABEL": "Saturation",
+    "COLOUR_BRIGHTNESS_LABEL": "Luminosité",
+    "CHANGE_VALUE_TITLE": "Changer la valeur :",
+    "RENAME_VARIABLE": "Renommer la variable",
+    "RENAME_VARIABLE_TITLE": "Renommer toutes les variables \"%1\" en :",
+    "RENAME_VARIABLE_MODAL_TITLE": "Renommer la variable",
+    "NEW_VARIABLE": "Créer une variable",
+    "NEW_VARIABLE_TITLE": "Nouveau nom de la variable",
+    "VARIABLE_MODAL_TITLE": "Nouvelle variable",
+    "VARIABLE_ALREADY_EXISTS": "Une variable nommé \"%1\" existe déjà.",
+    "VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE": "Une variable nommée \"%1\" existe déjà pour une autre variable de type \"%2\".",
+    "DELETE_VARIABLE_CONFIRMATION": "Supprimer %1 utilisations de la variable \"%2\"?",
+    "CANNOT_DELETE_VARIABLE_PROCEDURE": "Impossible de supprimer la variable \"%1\" car elle fait partie de la définition de la fonction \"%2\"",
+    "DELETE_VARIABLE": "Supprimer la variable \"%1\"",
+    "NEW_PROCEDURE": "Créer un bloc",
+    "PROCEDURE_ALREADY_EXISTS": "Une procédure nommée \"%1\" existe déjà.",
+    "PROCEDURE_DEFAULT_NAME": "nom du bloc",
+    "NEW_LIST": "Créer une liste",
+    "NEW_LIST_TITLE": "Nom de la nouvelle liste :",
+    "LIST_MODAL_TITLE": "Nouvelle liste",
+    "LIST_ALREADY_EXISTS": "Une liste nommée \"%1\" existe déjà.",
+    "RENAME_LIST_TITLE": "Renommer toutes les listes \"%1\" en :",
+    "RENAME_LIST_MODAL_TITLE": "Renommer la liste",
+    "DEFAULT_LIST_ITEM": "chose",
+    "DELETE_LIST": "Supprimer la liste \"%1\"",
+    "RENAME_LIST": "Renommer la liste",
+    "NEW_BROADCAST_MESSAGE": "Nouveau message",
+    "NEW_BROADCAST_MESSAGE_TITLE": "Nom du nouveau message :",
+    "BROADCAST_MODAL_TITLE": "Nouveau message",
+    "DEFAULT_BROADCAST_MESSAGE_NAME": "message1",
+    "SENSING_CLIPCC_VERSION": "Version de ClipCC",
+    "OPERATORS_INDEXOF": "position %1 de %2 contient %3",
+    "PROCEDURES_RETURN": "renvoyer %1",
+    "DISABLE_BLOCK": "Désactiver le bloc",
+    "ENABLE_BLOCK": "Activer le bloc",
+    "PROCEDURE_USED": "Pour supprimer la définition d'un bloc, supprimez d'abord toutes les utilisations de ce bloc",
+    "CATEGORY_FUNCTIONS": "Fonctions",
+    "OBSOLETED_BLOCKS": "Blocs obsolètes ",
+    "CONTROL_BREAKPOINT": "point d'arrêt",
+    "CONTROL_SUSPEND": "suspend thread",
+    "SENSING_JOYSTICKX": "axe x du joystick",
+    "SENSING_JOYSTICKY": "axe y du joystick",
+    "SENSING_JOYSTICK_DISTANCE": "distance du joystick",
+    "SENSING_COLORAT": "obtenir la couleur à (x : %1, y : %2)",
+    "COPY_TO_CLIPBOARD": "Copier dans le presse-papiers",
+    "PASTE_FROM_CLIPBOARD": "Copier depuis le presse-papiers",
+    "COPY_IMAGE": "Copier l'image du bloc"
+};
 
 Blockly.ScratchMsgs.locales["zh-cn"] =
 {
@@ -703,7 +1097,7 @@ Blockly.ScratchMsgs.locales["zh-cn"] =
     "CONTROL_WAITUNTIL": "等待 %1",
     "CONTROL_REPEATUNTIL": "重复执行直到 %1",
     "CONTROL_WHILE": "当 %1 重复执行",
-    "CONTROL_FOREACH": "重复执行 %2 次并将 %1 递增1",
+    "CONTROL_FOREACH": "重复执行 %2 次并递增 %1",
     "CONTROL_STARTASCLONE": "当作为克隆体启动时",
     "CONTROL_CREATECLONEOF": "克隆 %1",
     "CONTROL_CREATECLONEOF_MYSELF": "自己",
@@ -828,7 +1222,6 @@ Blockly.ScratchMsgs.locales["zh-cn"] =
     "MOTION_XSCROLL": "x滚动位置",
     "MOTION_YSCROLL": "y滚动位置",
     "MOTION_STAGE_SELECTED": "选中了舞台：不可使用运动类积木",
-    "OPERATORS_POWER": "%1 ^ %2",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
     "OPERATORS_MULTIPLY": "%1 * %2",
@@ -864,9 +1257,18 @@ Blockly.ScratchMsgs.locales["zh-cn"] =
     "OPERATORS_MATHOP_LOG": "log",
     "OPERATORS_MATHOP_EEXP": "e ^",
     "OPERATORS_MATHOP_10EXP": "10 ^",
+    "OPERATORS_POWER": "%1 ^ %2",
+    "OPERATORS_BITAND": "%1 & %2",
+    "OPERATORS_BITOR": "%1 | %2",
+    "OPERATORS_BITXOR": "%1 ⊕ %2",
+    "OPERATORS_BITLSH": "%1 << %2",
+    "OPERATORS_BITRSH": "%1 >> %2",
+    "OPERATORS_BITURSH": "%1 >>> %2",
+    "OPERATORS_BITNOT": "~ %1",
+    "OPERATORS_GE": "%1 ≥ %2",
+    "OPERATORS_LE": "%1 ≤ %2",
+    "OPERATORS_NEQUALS": "%1 ≠ %2",
     "PROCEDURES_DEFINITION": "定义 %1",
-    "PROCEDURES_CALL_WITH_RETURN":"定义 %1",
-    "PROCEDURES_RETURN":"返回 %1",
     "SENSING_TOUCHINGOBJECT": "碰到 %1 ?",
     "SENSING_TOUCHINGOBJECT_POINTER": "鼠标指针",
     "SENSING_TOUCHINGOBJECT_EDGE": "舞台边缘",
@@ -874,18 +1276,24 @@ Blockly.ScratchMsgs.locales["zh-cn"] =
     "SENSING_COLORISTOUCHINGCOLOR": "颜色 %1 碰到 %2 ?",
     "SENSING_DISTANCETO": "到 %1 的距离",
     "SENSING_DISTANCETO_POINTER": "鼠标指针",
+    "SENSING_DISTANCEBETWEENPOSITION": "从 (x: %1, y: %2) 到 (x: %3, y: %4) 的距离",
+    "SENSING_DIRECTIONBETWEENPOSITION": "从 (x: %1, y: %2) 到 (x: %3, y: %4) 的的方向",
     "SENSING_ASKANDWAIT": "询问 %1 并等待",
     "SENSING_ASK_TEXT": "你叫什么名字？",
     "SENSING_ANSWER": "回答",
     "SENSING_KEYPRESSED": "按下 %1 键?",
     "SENSING_MOUSEDOWN": "按下鼠标?",
+    "SENSING_MOUSEPRESSED": "鼠标 %1 按下？",
+    "SENSING_MOUSEPRESSED_LEFT": "左键",
+    "SENSING_MOUSEPRESSED_MIDDLE": "中键",
+    "SENSING_MOUSEPRESSED_RIGHT": "右键",
     "SENSING_MOUSEX": "鼠标的x坐标",
     "SENSING_MOUSEY": "鼠标的y坐标",
     "SENSING_SETDRAGMODE": "将拖动模式设为 %1",
     "SENSING_SETDRAGMODE_DRAGGABLE": "可拖动",
     "SENSING_SETDRAGMODE_NOTDRAGGABLE": "不可拖动",
     "SENSING_LOUDNESS": "响度",
-    "SENSING_LOUD": "响声？",
+    "SENSING_LOUD": "喧闹？",
     "SENSING_TIMER": "计时器",
     "SENSING_RESETTIMER": "计时器归零",
     "SENSING_OF": "%2 的 %1",
@@ -909,7 +1317,11 @@ Blockly.ScratchMsgs.locales["zh-cn"] =
     "SENSING_CURRENT_SECOND": "秒",
     "SENSING_DAYSSINCE2000": "2000年至今的天数",
     "SENSING_USERNAME": "用户名",
-    "SENSING_USERID": "用户id",
+    "SENSING_USERID": "用户ID",
+    "SENSING_ISTURBOMODE": "快速模式?",
+    "SENSING_OPERATINGSYSTEM": "操作系统",
+    "SENSING_TURNONTURBOMODE": "打开快速模式",
+    "SENSING_TURNOFFTURBOMODE": "关闭快速模式",
     "SOUND_PLAY": "播放声音 %1",
     "SOUND_PLAYUNTILDONE": "播放声音 %1 等待播完",
     "SOUND_STOPALLSOUNDS": "停止所有声音",
@@ -931,7 +1343,6 @@ Blockly.ScratchMsgs.locales["zh-cn"] =
     "CATEGORY_OPERATORS": "运算",
     "CATEGORY_VARIABLES": "变量",
     "CATEGORY_MYBLOCKS": "函数",
-    "CATEGORY_RETURN": "返回",
     "DUPLICATE": "复制",
     "DELETE": "删除",
     "ADD_COMMENT": "添加注释",
@@ -963,8 +1374,7 @@ Blockly.ScratchMsgs.locales["zh-cn"] =
     "DELETE_VARIABLE": "删除变量「%1」",
     "NEW_PROCEDURE": "制作新的函数",
     "PROCEDURE_ALREADY_EXISTS": "已经存在名为「%1」的程序。",
-    "PROCEDURE_DEFAULT_NAME": "积木名称",
-    "PROCEDURE_USED": "在删除一个积木定义前，请先把该积木从所有使用的地方删除。",
+    "PROCEDURE_DEFAULT_NAME": "函数名称",
     "NEW_LIST": "建立一个列表",
     "NEW_LIST_TITLE": "新的列表名：",
     "LIST_MODAL_TITLE": "新建列表",
@@ -978,8 +1388,673 @@ Blockly.ScratchMsgs.locales["zh-cn"] =
     "NEW_BROADCAST_MESSAGE_TITLE": "新消息的名称：",
     "BROADCAST_MODAL_TITLE": "新消息",
     "DEFAULT_BROADCAST_MESSAGE_NAME": "消息1",
-    "LOCAL_DATA_SETVARIABLETO":"set local variable %1 to %2"
+    "SENSING_CLIPCC_VERSION": "ClipCC版本",
+    "OPERATORS_INDEXOF": "字符串 %2 中子串 %3 第 %1 次出现的位置",
+    "PROCEDURES_RETURN": "返回 %1",
+    "DISABLE_BLOCK": "禁用积木",
+    "ENABLE_BLOCK": "启用积木",
+    "PROCEDURE_USED": "要删除函数定义，需先删除引用该函数的所有积木",
+    "CATEGORY_FUNCTIONS": "函数",
+    "OBSOLETED_BLOCKS": "弃用的积木",
+    "CONTROL_BREAKPOINT": "断点",
+    "CONTROL_SUSPEND": "挂起线程",
+    "SENSING_JOYSTICKX": "摇杆 x 偏移",
+    "SENSING_JOYSTICKY": "摇杆 y 偏移",
+    "SENSING_JOYSTICK_DISTANCE": "摇杆距离",
+    "SENSING_COLORAT": "获取在点 (x: %1, y: %2) 的值",
+    "COPY_TO_CLIPBOARD": "复制到剪贴板",
+    "PASTE_FROM_CLIPBOARD": "从剪贴板粘贴",
+    "COPY_IMAGE": "复制积木图片"
 };
+
+Blockly.ScratchMsgs.locales["zh-tw"] =
+{
+    "CONTROL_FOREVER": "重複無限次",
+    "CONTROL_REPEAT": "重複 %1 次",
+    "CONTROL_IF": "如果 %1 那麼",
+    "CONTROL_ELSE": "否則",
+    "CONTROL_STOP": "停止",
+    "CONTROL_STOP_ALL": "全部",
+    "CONTROL_STOP_THIS": "這個程式",
+    "CONTROL_STOP_OTHER": "這個物件的其它程式",
+    "CONTROL_WAIT": "等待 %1 秒",
+    "CONTROL_WAITUNTIL": "等待直到 %1",
+    "CONTROL_REPEATUNTIL": "重複直到 %1",
+    "CONTROL_WHILE": "當 %1",
+    "CONTROL_FOREACH": "計數 %1 於 %2",
+    "CONTROL_STARTASCLONE": "當分身產生",
+    "CONTROL_CREATECLONEOF": "建立 %1 的分身",
+    "CONTROL_CREATECLONEOF_MYSELF": "自己",
+    "CONTROL_DELETETHISCLONE": "分身刪除",
+    "CONTROL_COUNTER": "計數器",
+    "CONTROL_INCRCOUNTER": "計數器累計",
+    "CONTROL_CLEARCOUNTER": "計數器重置",
+    "CONTROL_ALLATONCE": "全部一起",
+    "DATA_SETVARIABLETO": "變數 %1 設為 %2",
+    "DATA_CHANGEVARIABLEBY": "變數 %1 改變 %2",
+    "DATA_SHOWVARIABLE": "變數 %1 顯示",
+    "DATA_HIDEVARIABLE": "變數 %1 隱藏",
+    "DATA_ADDTOLIST": "%1 .. %2",
+    "DATA_DELETEOFLIST": "刪除 %2 的第 %1 項",
+    "DATA_DELETEALLOFLIST": "刪除 %1 的所有項目",
+    "DATA_INSERTATLIST": "插入 %1 到 %3 的第 %2 項",
+    "DATA_REPLACEITEMOFLIST": "替換 %2 的第 %1 項為 %3",
+    "DATA_ITEMOFLIST": "%2 的第 %1 項",
+    "DATA_ITEMNUMOFLIST": "%1 在 %2 裡的項目編號",
+    "DATA_LENGTHOFLIST": "清單 %1 的長度",
+    "DATA_LISTCONTAINSITEM": "清單 %1 包含 %2？",
+    "DATA_SHOWLIST": "清單 %1 顯示",
+    "DATA_HIDELIST": "清單 %1 隱藏",
+    "DATA_INDEX_ALL": "全部",
+    "DATA_INDEX_LAST": "末",
+    "DATA_INDEX_RANDOM": "隨機",
+    "EVENT_WHENFLAGCLICKED": "當 %1 被點擊",
+    "EVENT_WHENTHISSPRITECLICKED": "當角色被點擊",
+    "EVENT_WHENSTAGECLICKED": "當舞台被點擊",
+    "EVENT_WHENTOUCHINGOBJECT": "當角色碰到 %1",
+    "EVENT_WHENBROADCASTRECEIVED": "當收到訊息 %1",
+    "EVENT_WHENBACKDROPSWITCHESTO": "當背景換成 %1",
+    "EVENT_WHENGREATERTHAN": "當 %1 > %2",
+    "EVENT_WHENGREATERTHAN_TIMER": "計時器",
+    "EVENT_WHENGREATERTHAN_LOUDNESS": "聲音響度",
+    "EVENT_BROADCAST": "廣播訊息 %1",
+    "EVENT_BROADCASTANDWAIT": "廣播訊息 %1 並等待",
+    "EVENT_WHENKEYPRESSED": "當 %1 鍵被按下",
+    "EVENT_WHENKEYPRESSED_SPACE": "空白",
+    "EVENT_WHENKEYPRESSED_LEFT": "向左",
+    "EVENT_WHENKEYPRESSED_RIGHT": "向右",
+    "EVENT_WHENKEYPRESSED_DOWN": "向下",
+    "EVENT_WHENKEYPRESSED_UP": "向上",
+    "EVENT_WHENKEYPRESSED_ANY": "任何",
+    "LOOKS_SAYFORSECS": "說出 %1 持續 %2 秒",
+    "LOOKS_SAY": "說出 %1",
+    "LOOKS_HELLO": "Hello!",
+    "LOOKS_THINKFORSECS": "想著 %1 持續 %2 秒",
+    "LOOKS_THINK": "想著 %1",
+    "LOOKS_HMM": "Hmm...",
+    "LOOKS_SHOW": "顯示",
+    "LOOKS_HIDE": "隱藏",
+    "LOOKS_HIDEALLSPRITES": "隱藏所有角色",
+    "LOOKS_EFFECT_COLOR": "顏色",
+    "LOOKS_EFFECT_FISHEYE": "魚眼",
+    "LOOKS_EFFECT_WHIRL": "漩渦",
+    "LOOKS_EFFECT_PIXELATE": "像素化",
+    "LOOKS_EFFECT_MOSAIC": "馬賽克",
+    "LOOKS_EFFECT_BRIGHTNESS": "亮度",
+    "LOOKS_EFFECT_GHOST": "幻影",
+    "LOOKS_CHANGEEFFECTBY": "圖像效果 %1 改變 %2",
+    "LOOKS_SETEFFECTTO": "圖像效果 %1 設為 %2",
+    "LOOKS_CLEARGRAPHICEFFECTS": "圖像效果清除",
+    "LOOKS_CHANGESIZEBY": "尺寸改變 %1",
+    "LOOKS_SETSIZETO": "尺寸設為 %1 %",
+    "LOOKS_SIZE": "尺寸",
+    "LOOKS_CHANGESTRETCHBY": "伸縮改變 %1",
+    "LOOKS_SETSTRETCHTO": "伸縮設為 %1 %",
+    "LOOKS_SWITCHCOSTUMETO": "造型換成 %1",
+    "LOOKS_NEXTCOSTUME": "造型換成下一個",
+    "LOOKS_SWITCHBACKDROPTO": "背景換成 %1",
+    "LOOKS_GOTOFRONTBACK": "圖層移到 %1 層",
+    "LOOKS_GOTOFRONTBACK_FRONT": "最上",
+    "LOOKS_GOTOFRONTBACK_BACK": "最下",
+    "LOOKS_GOFORWARDBACKWARDLAYERS": "圖層 %1 移 %2 層",
+    "LOOKS_GOFORWARDBACKWARDLAYERS_FORWARD": "上",
+    "LOOKS_GOFORWARDBACKWARDLAYERS_BACKWARD": "下",
+    "LOOKS_BACKDROPNUMBERNAME": "背景 %1",
+    "LOOKS_COSTUMENUMBERNAME": "造型 %1",
+    "LOOKS_NUMBERNAME_NUMBER": "編號",
+    "LOOKS_NUMBERNAME_NAME": "名稱",
+    "LOOKS_SWITCHBACKDROPTOANDWAIT": "背景換成 %1 並等待",
+    "LOOKS_NEXTBACKDROP_BLOCK": "背景換成下一個",
+    "LOOKS_NEXTBACKDROP": "下一個背景",
+    "LOOKS_PREVIOUSBACKDROP": "上一個背景",
+    "LOOKS_RANDOMBACKDROP": "任一個背景",
+    "MOTION_MOVESTEPS": "移動 %1 點",
+    "MOTION_TURNLEFT": "左轉 %1 %2 度",
+    "MOTION_TURNRIGHT": "右轉 %1 %2 度",
+    "MOTION_POINTINDIRECTION": "面朝 %1 度",
+    "MOTION_POINTTOWARDS": "面朝 %1 向",
+    "MOTION_POINTTOWARDS_POINTER": "鼠標",
+    "MOTION_POINTTOWARDS_RANDOM": "隨機",
+    "MOTION_GOTO": "定位到 %1 位置",
+    "MOTION_GOTO_POINTER": "鼠標",
+    "MOTION_GOTO_RANDOM": "隨機",
+    "MOTION_GOTOXY": "定位到 x:%1 y:%2",
+    "MOTION_GLIDESECSTOXY": "滑行 %1 秒到 x:%2 y:%3",
+    "MOTION_GLIDETO": "滑行 %1 秒到 %2 位置",
+    "MOTION_GLIDETO_POINTER": "鼠標",
+    "MOTION_GLIDETO_RANDOM": "隨機",
+    "MOTION_CHANGEXBY": "x 改變 %1",
+    "MOTION_SETX": "x 設為 %1",
+    "MOTION_CHANGEYBY": "y 改變 %1",
+    "MOTION_SETY": "y 設為 %1",
+    "MOTION_IFONEDGEBOUNCE": "碰到邊緣就反彈",
+    "MOTION_SETROTATIONSTYLE": "迴轉方式設為 %1",
+    "MOTION_SETROTATIONSTYLE_LEFTRIGHT": "左-右",
+    "MOTION_SETROTATIONSTYLE_DONTROTATE": "不旋轉",
+    "MOTION_SETROTATIONSTYLE_ALLAROUND": "不設限",
+    "MOTION_XPOSITION": "x 座標",
+    "MOTION_YPOSITION": "y 座標",
+    "MOTION_DIRECTION": "方向",
+    "MOTION_SCROLLRIGHT": "滾動向右 %1",
+    "MOTION_SCROLLUP": "滾動向上 %1",
+    "MOTION_ALIGNSCENE": "場景 %1 對齊",
+    "MOTION_ALIGNSCENE_BOTTOMLEFT": "左下",
+    "MOTION_ALIGNSCENE_BOTTOMRIGHT": "右下",
+    "MOTION_ALIGNSCENE_MIDDLE": "中間",
+    "MOTION_ALIGNSCENE_TOPLEFT": "左上",
+    "MOTION_ALIGNSCENE_TOPRIGHT": "右上",
+    "MOTION_XSCROLL": "x 捲軸",
+    "MOTION_YSCROLL": "y 捲軸",
+    "MOTION_STAGE_SELECTED": "目前選擇的物件是「舞台」：無可用的動作積木",
+    "OPERATORS_ADD": "%1 + %2",
+    "OPERATORS_SUBTRACT": "%1 - %2",
+    "OPERATORS_MULTIPLY": "%1 * %2",
+    "OPERATORS_DIVIDE": "%1 / %2",
+    "OPERATORS_RANDOM": "隨機取數 %1 到 %2",
+    "OPERATORS_GT": "%1 > %2",
+    "OPERATORS_LT": "%1 < %2",
+    "OPERATORS_EQUALS": "%1 = %2",
+    "OPERATORS_AND": "%1 且 %2",
+    "OPERATORS_OR": "%1 或 %2",
+    "OPERATORS_NOT": "%1 不成立",
+    "OPERATORS_JOIN": "字串組合 %1 %2",
+    "OPERATORS_JOIN_APPLE": "apple",
+    "OPERATORS_JOIN_BANANA": "banana",
+    "OPERATORS_LETTEROF": "字串 %2 的第 %1 字",
+    "OPERATORS_LETTEROF_APPLE": "a",
+    "OPERATORS_LENGTH": "字串 %1 的長度",
+    "OPERATORS_CONTAINS": "字串 %1 包含 %2？",
+    "OPERATORS_MOD": "%1 除以 %2 的餘數",
+    "OPERATORS_ROUND": "四捨五入數值 %1",
+    "OPERATORS_MATHOP": "%1 數值 %2",
+    "OPERATORS_MATHOP_ABS": "絕對值",
+    "OPERATORS_MATHOP_FLOOR": "無條件捨去",
+    "OPERATORS_MATHOP_CEILING": "無條件進位",
+    "OPERATORS_MATHOP_SQRT": "平方根",
+    "OPERATORS_MATHOP_SIN": "sin",
+    "OPERATORS_MATHOP_COS": "cos",
+    "OPERATORS_MATHOP_TAN": "tan",
+    "OPERATORS_MATHOP_ASIN": "asin",
+    "OPERATORS_MATHOP_ACOS": "acos",
+    "OPERATORS_MATHOP_ATAN": "atan",
+    "OPERATORS_MATHOP_LN": "ln",
+    "OPERATORS_MATHOP_LOG": "log",
+    "OPERATORS_MATHOP_EEXP": "e ^",
+    "OPERATORS_MATHOP_10EXP": "10 ^",
+    "OPERATORS_POWER": "%1 ^ %2",
+    "OPERATORS_BITAND": "%1 & %2",
+    "OPERATORS_BITOR": "%1 | %2",
+    "OPERATORS_BITXOR": "%1 ⊕ %2",
+    "OPERATORS_BITLSH": "%1 << %2",
+    "OPERATORS_BITRSH": "%1 >> %2",
+    "OPERATORS_BITURSH": "%1 >>> %2",
+    "OPERATORS_BITNOT": "~ %1",
+    "OPERATORS_GE": "%1 ≥ %2",
+    "OPERATORS_LE": "%1 ≤ %2",
+    "OPERATORS_NEQUALS": "%1 ≠ %2",
+    "PROCEDURES_DEFINITION": "定義 %1",
+    "SENSING_TOUCHINGOBJECT": "碰到 %1？",
+    "SENSING_TOUCHINGOBJECT_POINTER": "鼠標",
+    "SENSING_TOUCHINGOBJECT_EDGE": "邊緣",
+    "SENSING_TOUCHINGCOLOR": "碰到顏色 %1？",
+    "SENSING_COLORISTOUCHINGCOLOR": "顏色 %1 碰到 顏色 %2？",
+    "SENSING_DISTANCETO": "與 %1 的間距",
+    "SENSING_DISTANCETO_POINTER": "鼠標",
+    "SENSING_DISTANCEBETWEENPOSITION": "從 (x: %1, y: %2 ) 到 (x: %3 , y: %4 ) 的距離",
+    "SENSING_DIRECTIONBETWEENPOSITION": "從 (x: %1, y: %2 ) 到 (x: %3 , y: %4 ) 的方向",
+    "SENSING_ASKANDWAIT": "詢問 %1 並等待",
+    "SENSING_ASK_TEXT": "你的名字是？",
+    "SENSING_ANSWER": "詢問的答案",
+    "SENSING_KEYPRESSED": "%1 鍵被按下？",
+    "SENSING_MOUSEDOWN": "滑鼠鍵被按下？",
+    "SENSING_MOUSEPRESSED": "滑鼠 %1 按下？",
+    "SENSING_MOUSEPRESSED_LEFT": "左鍵",
+    "SENSING_MOUSEPRESSED_MIDDLE": "中鍵",
+    "SENSING_MOUSEPRESSED_RIGHT": "右鍵",
+    "SENSING_MOUSEX": "鼠標的 x",
+    "SENSING_MOUSEY": "鼠標的 y",
+    "SENSING_SETDRAGMODE": "拖曳方式設為 %1",
+    "SENSING_SETDRAGMODE_DRAGGABLE": "可拖曳",
+    "SENSING_SETDRAGMODE_NOTDRAGGABLE": "不可拖曳",
+    "SENSING_LOUDNESS": "聲音響度",
+    "SENSING_LOUD": "大聲？",
+    "SENSING_TIMER": "計時器",
+    "SENSING_RESETTIMER": "計時器重置",
+    "SENSING_OF": "%2 的 %1",
+    "SENSING_OF_XPOSITION": "x 座標",
+    "SENSING_OF_YPOSITION": "y 座標",
+    "SENSING_OF_DIRECTION": "方向",
+    "SENSING_OF_COSTUMENUMBER": "造型編號",
+    "SENSING_OF_COSTUMENAME": "造型名稱",
+    "SENSING_OF_SIZE": "尺寸",
+    "SENSING_OF_VOLUME": "音量",
+    "SENSING_OF_BACKDROPNUMBER": "背景編號",
+    "SENSING_OF_BACKDROPNAME": "背景名稱",
+    "SENSING_OF_STAGE": "舞台",
+    "SENSING_CURRENT": "目前時間的 %1",
+    "SENSING_CURRENT_YEAR": "年",
+    "SENSING_CURRENT_MONTH": "月",
+    "SENSING_CURRENT_DATE": "日",
+    "SENSING_CURRENT_DAYOFWEEK": "週",
+    "SENSING_CURRENT_HOUR": "時",
+    "SENSING_CURRENT_MINUTE": "分",
+    "SENSING_CURRENT_SECOND": "秒",
+    "SENSING_DAYSSINCE2000": "2000年迄今日數",
+    "SENSING_USERNAME": "用戶名稱",
+    "SENSING_USERID": "用戶 ID",
+    "SENSING_ISTURBOMODE": "加速模式？",
+    "SENSING_OPERATINGSYSTEM": "作業系統",
+    "SENSING_TURNONTURBOMODE": "開啟加速模式",
+    "SENSING_TURNOFFTURBOMODE": "關閉加速模式",
+    "SOUND_PLAY": "播放音效 %1",
+    "SOUND_PLAYUNTILDONE": "播放音效 %1 直到結束",
+    "SOUND_STOPALLSOUNDS": "停播所有音效",
+    "SOUND_SETEFFECTO": "聲音效果 %1 設為 %2",
+    "SOUND_CHANGEEFFECTBY": "聲音效果 %1 改變 %2",
+    "SOUND_CLEAREFFECTS": "聲音效果清除",
+    "SOUND_EFFECTS_PITCH": "音高",
+    "SOUND_EFFECTS_PAN": "聲道左/右",
+    "SOUND_CHANGEVOLUMEBY": "音量改變 %1",
+    "SOUND_SETVOLUMETO": "音量設為 %1%",
+    "SOUND_VOLUME": "音量",
+    "SOUND_RECORD": "錄音…",
+    "CATEGORY_MOTION": "動作",
+    "CATEGORY_LOOKS": "外觀",
+    "CATEGORY_SOUND": "音效",
+    "CATEGORY_EVENTS": "事件",
+    "CATEGORY_CONTROL": "控制",
+    "CATEGORY_SENSING": "偵測",
+    "CATEGORY_OPERATORS": "運算",
+    "CATEGORY_VARIABLES": "變數",
+    "CATEGORY_MYBLOCKS": "函式",
+    "DUPLICATE": "複製",
+    "DELETE": "刪除",
+    "ADD_COMMENT": "添加註解",
+    "REMOVE_COMMENT": "移除註解",
+    "DELETE_BLOCK": "刪除積木",
+    "DELETE_X_BLOCKS": "刪除 %1 個積木",
+    "DELETE_ALL_BLOCKS": "要刪除全部（%1 個）積木？",
+    "CLEAN_UP": "整理積木",
+    "HELP": "幫助",
+    "UNDO": "復原",
+    "REDO": "重做",
+    "EDIT_PROCEDURE": "編輯",
+    "SHOW_PROCEDURE_DEFINITION": "移至定義",
+    "WORKSPACE_COMMENT_DEFAULT_TEXT": "說些什麼…",
+    "COLOUR_HUE_LABEL": "顏色",
+    "COLOUR_SATURATION_LABEL": "彩度",
+    "COLOUR_BRIGHTNESS_LABEL": "亮度",
+    "CHANGE_VALUE_TITLE": "改成：",
+    "RENAME_VARIABLE": "重新命名變數",
+    "RENAME_VARIABLE_TITLE": "將變數「%1」重新命名為：",
+    "RENAME_VARIABLE_MODAL_TITLE": "重新命名變數",
+    "NEW_VARIABLE": "建立一個變數",
+    "NEW_VARIABLE_TITLE": "新變數的名稱",
+    "VARIABLE_MODAL_TITLE": "新的變數",
+    "VARIABLE_ALREADY_EXISTS": "變數名稱「%1」已經被使用。",
+    "VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE": "變數名稱「%1」已經被使用在「%2」型別了。",
+    "DELETE_VARIABLE_CONFIRMATION": "刪除正在使用的變數「%2」的 %1 個地方？",
+    "CANNOT_DELETE_VARIABLE_PROCEDURE": "無法刪除變數「%1」，因為它是函式「%2」定義中的一部分。",
+    "DELETE_VARIABLE": "刪除變數「%1」",
+    "NEW_PROCEDURE": "建立一個積木",
+    "PROCEDURE_ALREADY_EXISTS": "程序名稱「%1」已經被使用。",
+    "PROCEDURE_DEFAULT_NAME": "積木名稱",
+    "NEW_LIST": "建立一個清單",
+    "NEW_LIST_TITLE": "新清單的名稱",
+    "LIST_MODAL_TITLE": "新的清單",
+    "LIST_ALREADY_EXISTS": "清單名稱「%1」已經被使用。",
+    "RENAME_LIST_TITLE": "將清單「%1」重新命名為：",
+    "RENAME_LIST_MODAL_TITLE": "重新命名清單",
+    "DEFAULT_LIST_ITEM": "thing",
+    "DELETE_LIST": "刪除清單「%1」",
+    "RENAME_LIST": "重新命名清單",
+    "NEW_BROADCAST_MESSAGE": "新的訊息",
+    "NEW_BROADCAST_MESSAGE_TITLE": "新訊息的名稱",
+    "BROADCAST_MODAL_TITLE": "新的訊息",
+    "DEFAULT_BROADCAST_MESSAGE_NAME": "message1",
+    "SENSING_CLIPCC_VERSION": "ClipCC版本",
+    "OPERATORS_INDEXOF": "%3 在 %2 中第 %1 次出現的位置",
+    "PROCEDURES_RETURN": "返回%1",
+    "DISABLE_BLOCK": "禁用積木",
+    "ENABLE_BLOCK": "啟用積木",
+    "PROCEDURE_USED": "刪除本函數前，請先刪除它的所有引用",
+    "CATEGORY_FUNCTIONS": "函數",
+    "OBSOLETED_BLOCKS": "弃用的積木",
+    "CONTROL_BREAKPOINT": "斷點",
+    "CONTROL_SUSPEND": "掛起線程",
+    "SENSING_JOYSTICKX": "搖桿x軸",
+    "SENSING_JOYSTICKY": "搖桿y軸",
+    "SENSING_JOYSTICK_DISTANCE": "搖杆位置",
+    "SENSING_COLORAT": "獲取在點 (x: %1, y:%2) 的顏色",
+    "COPY_TO_CLIPBOARD": "複製到剪貼板",
+    "PASTE_FROM_CLIPBOARD": "從剪貼板粘貼",
+    "COPY_IMAGE": "給塊塊拍個照"
+};
+
+Blockly.ScratchMsgs.locales["zh-cn-chunibyo"] =
+{
+    "CONTROL_FOREVER": "再来亿次",
+    "CONTROL_REPEAT": "再来 %1 次",
+    "CONTROL_IF": "如果 %1 那么",
+    "CONTROL_ELSE": "否则",
+    "CONTROL_STOP": "冻结",
+    "CONTROL_STOP_ALL": "全部脚本",
+    "CONTROL_STOP_THIS": "这个脚本",
+    "CONTROL_STOP_OTHER": "该角色的其他脚本",
+    "CONTROL_WAIT": "冻结 %1 秒",
+    "CONTROL_WAITUNTIL": "冻结直到 %1",
+    "CONTROL_REPEATUNTIL": "再来亿次直到 %1",
+    "CONTROL_WHILE": "当 %1 重复执行",
+    "CONTROL_FOREACH": "对于 %2 中的每个 %1",
+    "CONTROL_STARTASCLONE": "当作为工具人启动时",
+    "CONTROL_CREATECLONEOF": "克隆 %1",
+    "CONTROL_CREATECLONEOF_MYSELF": "本公主",
+    "CONTROL_DELETETHISCLONE": "删除此工具人",
+    "CONTROL_COUNTER": "计数器",
+    "CONTROL_INCRCOUNTER": "计数器加一",
+    "CONTROL_CLEARCOUNTER": "计数器归零",
+    "CONTROL_ALLATONCE": "所有脚本",
+    "DATA_SETVARIABLETO": "将 %1 设为 %2",
+    "DATA_CHANGEVARIABLEBY": "将 %1 增加 %2",
+    "DATA_SHOWVARIABLE": "显示变量 %1",
+    "DATA_HIDEVARIABLE": "隐藏变量 %1",
+    "DATA_ADDTOLIST": "将 %1 加入 %2",
+    "DATA_DELETEOFLIST": "删除 %2 的第 %1 项",
+    "DATA_DELETEALLOFLIST": "删除 %1 的全部项目",
+    "DATA_INSERTATLIST": "在 %3 的第 %2 项前插入 %1",
+    "DATA_REPLACEITEMOFLIST": "将 %2 的第 %1 项替换为 %3",
+    "DATA_ITEMOFLIST": "%2 的第 %1 项",
+    "DATA_ITEMNUMOFLIST": "%2 中第一个 %1 的编号",
+    "DATA_LENGTHOFLIST": "%1 的项目数",
+    "DATA_LISTCONTAINSITEM": "%1 包含 %2 ?",
+    "DATA_SHOWLIST": "显示列表 %1",
+    "DATA_HIDELIST": "隐藏列表 %1",
+    "DATA_INDEX_ALL": "全部",
+    "DATA_INDEX_LAST": "末尾",
+    "DATA_INDEX_RANDOM": "随缘",
+    "EVENT_WHENFLAGCLICKED": "当 %1 被按在鼠标下",
+    "EVENT_WHENTHISSPRITECLICKED": "当角色被点击",
+    "EVENT_WHENSTAGECLICKED": "当世界被惊动",
+    "EVENT_WHENTOUCHINGOBJECT": "当该角色碰到 %1",
+    "EVENT_WHENBROADCASTRECEIVED": "当接收到 %1",
+    "EVENT_WHENBACKDROPSWITCHESTO": "当背景换成 %1",
+    "EVENT_WHENGREATERTHAN": "当 %1 > %2",
+    "EVENT_WHENGREATERTHAN_TIMER": "时光流逝",
+    "EVENT_WHENGREATERTHAN_LOUDNESS": "吵闹的程度",
+    "EVENT_BROADCAST": "大叫 %1",
+    "EVENT_BROADCASTANDWAIT": "大叫 %1 并昏厥",
+    "EVENT_WHENKEYPRESSED": "当 %1 被轻柔的抚摸",
+    "EVENT_WHENKEYPRESSED_SPACE": "空格",
+    "EVENT_WHENKEYPRESSED_LEFT": "←",
+    "EVENT_WHENKEYPRESSED_RIGHT": "→",
+    "EVENT_WHENKEYPRESSED_DOWN": "↓",
+    "EVENT_WHENKEYPRESSED_UP": "↑",
+    "EVENT_WHENKEYPRESSED_ANY": "任意",
+    "LOOKS_SAYFORSECS": "说 %1 %2 秒",
+    "LOOKS_SAY": "说 %1",
+    "LOOKS_HELLO": "你好！",
+    "LOOKS_THINKFORSECS": "思考 %1 %2 秒",
+    "LOOKS_THINK": "思考 %1",
+    "LOOKS_HMM": "嗯……",
+    "LOOKS_SHOW": "现形",
+    "LOOKS_HIDE": "隐身",
+    "LOOKS_HIDEALLSPRITES": "隐藏所有角色",
+    "LOOKS_EFFECT_COLOR": "颜色",
+    "LOOKS_EFFECT_FISHEYE": "鱼眼",
+    "LOOKS_EFFECT_WHIRL": "漩涡",
+    "LOOKS_EFFECT_PIXELATE": "像素化",
+    "LOOKS_EFFECT_MOSAIC": "马赛克",
+    "LOOKS_EFFECT_BRIGHTNESS": "亮度",
+    "LOOKS_EFFECT_GHOST": "幽灵化",
+    "LOOKS_CHANGEEFFECTBY": "将 %1 特效增加 %2",
+    "LOOKS_SETEFFECTTO": "将 %1 特效设定为 %2",
+    "LOOKS_CLEARGRAPHICEFFECTS": "清除图形特效",
+    "LOOKS_CHANGESIZEBY": "将大小增加 %1",
+    "LOOKS_SETSIZETO": "将大小设为 %1",
+    "LOOKS_SIZE": "大小",
+    "LOOKS_CHANGESTRETCHBY": "伸缩%1",
+    "LOOKS_SETSTRETCHTO": "设置伸缩为%1 %",
+    "LOOKS_SWITCHCOSTUMETO": "换成 %1 造型",
+    "LOOKS_NEXTCOSTUME": "下一个造型",
+    "LOOKS_SWITCHBACKDROPTO": "换成 %1 背景",
+    "LOOKS_GOTOFRONTBACK": "移到最 %1 ",
+    "LOOKS_GOTOFRONTBACK_FRONT": "前面",
+    "LOOKS_GOTOFRONTBACK_BACK": "后面",
+    "LOOKS_GOFORWARDBACKWARDLAYERS": "%1 %2 层",
+    "LOOKS_GOFORWARDBACKWARDLAYERS_FORWARD": "前移",
+    "LOOKS_GOFORWARDBACKWARDLAYERS_BACKWARD": "后移",
+    "LOOKS_BACKDROPNUMBERNAME": "背景 %1",
+    "LOOKS_COSTUMENUMBERNAME": "造型 %1",
+    "LOOKS_NUMBERNAME_NUMBER": "编号",
+    "LOOKS_NUMBERNAME_NAME": "名称",
+    "LOOKS_SWITCHBACKDROPTOANDWAIT": "换成 %1 背景并等待",
+    "LOOKS_NEXTBACKDROP_BLOCK": "下一个背景",
+    "LOOKS_NEXTBACKDROP": "下一个背景",
+    "LOOKS_PREVIOUSBACKDROP": "上一个背景",
+    "LOOKS_RANDOMBACKDROP": "随机背景",
+    "MOTION_MOVESTEPS": "行走 %1 米",
+    "MOTION_TURNLEFT": "左转 %1 %2 度",
+    "MOTION_TURNRIGHT": "右转 %1 %2 度",
+    "MOTION_POINTINDIRECTION": "面向 %1 方向",
+    "MOTION_POINTTOWARDS": "面向 %1",
+    "MOTION_POINTTOWARDS_POINTER": "鼠标指针",
+    "MOTION_POINTTOWARDS_RANDOM": "随机方向",
+    "MOTION_GOTO": "瞬移到 %1",
+    "MOTION_GOTO_POINTER": "鼠标指针",
+    "MOTION_GOTO_RANDOM": "随机位置",
+    "MOTION_GOTOXY": "瞬移到 x: %1 y: %2",
+    "MOTION_GLIDESECSTOXY": "在 %1 秒内滑行到 x: %2 y: %3",
+    "MOTION_GLIDETO": "在 %1 秒内滑行到 %2",
+    "MOTION_GLIDETO_POINTER": "鼠标指针",
+    "MOTION_GLIDETO_RANDOM": "随机位置",
+    "MOTION_CHANGEXBY": "将x坐标增加 %1",
+    "MOTION_SETX": "将x坐标设为 %1",
+    "MOTION_CHANGEYBY": "将y坐标增加 %1",
+    "MOTION_SETY": "将y坐标设为 %1",
+    "MOTION_IFONEDGEBOUNCE": "碰到结界就反弹",
+    "MOTION_SETROTATIONSTYLE": "将旋转方式设为 %1",
+    "MOTION_SETROTATIONSTYLE_LEFTRIGHT": "左右翻转",
+    "MOTION_SETROTATIONSTYLE_DONTROTATE": "不可旋转",
+    "MOTION_SETROTATIONSTYLE_ALLAROUND": "任意旋转",
+    "MOTION_XPOSITION": "x 坐标",
+    "MOTION_YPOSITION": "y 坐标",
+    "MOTION_DIRECTION": "方向",
+    "MOTION_SCROLLRIGHT": "向右滚动 %1",
+    "MOTION_SCROLLUP": "向上滚动 %1",
+    "MOTION_ALIGNSCENE": "和场景 %1 对齐",
+    "MOTION_ALIGNSCENE_BOTTOMLEFT": "左下角",
+    "MOTION_ALIGNSCENE_BOTTOMRIGHT": "右下角",
+    "MOTION_ALIGNSCENE_MIDDLE": "中间",
+    "MOTION_ALIGNSCENE_TOPLEFT": "左上角",
+    "MOTION_ALIGNSCENE_TOPRIGHT": "右上角",
+    "MOTION_XSCROLL": "x滚动位置",
+    "MOTION_YSCROLL": "y滚动位置",
+    "MOTION_STAGE_SELECTED": "选中了世界：世界是不能运动的",
+    "OPERATORS_ADD": "%1 + %2",
+    "OPERATORS_SUBTRACT": "%1 - %2",
+    "OPERATORS_MULTIPLY": "%1 * %2",
+    "OPERATORS_DIVIDE": "%1 / %2",
+    "OPERATORS_RANDOM": "让小公主在 %1 和 %2 之间掷骰子",
+    "OPERATORS_GT": "%1 > %2",
+    "OPERATORS_LT": "%1 < %2",
+    "OPERATORS_EQUALS": "%1 = %2",
+    "OPERATORS_AND": "%1 与 %2",
+    "OPERATORS_OR": "%1 或 %2",
+    "OPERATORS_NOT": "%1 不成立",
+    "OPERATORS_JOIN": "将 %1 和 %2 粘在一起",
+    "OPERATORS_JOIN_APPLE": "苹果",
+    "OPERATORS_JOIN_BANANA": "香蕉",
+    "OPERATORS_LETTEROF": "%2 的第 %1 个字符",
+    "OPERATORS_LETTEROF_APPLE": "果",
+    "OPERATORS_LENGTH": "数数 %1 的字符数",
+    "OPERATORS_CONTAINS": "%1 包含 %2 ?",
+    "OPERATORS_MOD": "%1 除以 %2 的余数",
+    "OPERATORS_ROUND": "四舍五入 %1",
+    "OPERATORS_MATHOP": "%1 %2",
+    "OPERATORS_MATHOP_ABS": "绝对值",
+    "OPERATORS_MATHOP_FLOOR": "向下取整",
+    "OPERATORS_MATHOP_CEILING": "向上取整",
+    "OPERATORS_MATHOP_SQRT": "平方根",
+    "OPERATORS_MATHOP_SIN": "sin",
+    "OPERATORS_MATHOP_COS": "cos",
+    "OPERATORS_MATHOP_TAN": "tan",
+    "OPERATORS_MATHOP_ASIN": "asin",
+    "OPERATORS_MATHOP_ACOS": "acos",
+    "OPERATORS_MATHOP_ATAN": "atan",
+    "OPERATORS_MATHOP_LN": "ln",
+    "OPERATORS_MATHOP_LOG": "log",
+    "OPERATORS_MATHOP_EEXP": "e ^",
+    "OPERATORS_MATHOP_10EXP": "10 ^",
+    "OPERATORS_POWER": "%1 ^ %2",
+    "OPERATORS_BITAND": "%1 & %2",
+    "OPERATORS_BITOR": "%1 | %2",
+    "OPERATORS_BITXOR": "%1 xor %2",
+    "OPERATORS_BITLSH": "%1 << %2",
+    "OPERATORS_BITRSH": "%1 >> %2",
+    "OPERATORS_BITURSH": "%1 >>> %2",
+    "OPERATORS_BITNOT": "~ %1",
+    "OPERATORS_GE": "%1 ≥ %2",
+    "OPERATORS_LE": "%1 ≤ %2",
+    "OPERATORS_NEQUALS": "%1 ≠ %2",
+    "PROCEDURES_DEFINITION": "定义 %1",
+    "SENSING_TOUCHINGOBJECT": "碰到 %1 ?",
+    "SENSING_TOUCHINGOBJECT_POINTER": "鼠标指针",
+    "SENSING_TOUCHINGOBJECT_EDGE": "边境之地",
+    "SENSING_TOUCHINGCOLOR": "看见颜色 %1 ?",
+    "SENSING_COLORISTOUCHINGCOLOR": "颜色 %1 碰到 %2 ?",
+    "SENSING_DISTANCETO": "到 %1 的距离",
+    "SENSING_DISTANCETO_POINTER": "鼠标指针",
+    "SENSING_DISTANCEBETWEENPOSITION": "从 (x: %1, y: %2) 到 (x: %3, y: %4) 的距离",
+    "SENSING_DIRECTIONBETWEENPOSITION": "从 (x: %1, y: %2) 到 (x: %3, y: %4) 的的方向",
+    "SENSING_ASKANDWAIT": "公主请教你 %1 并等待",
+    "SENSING_ASK_TEXT": "君的名字",
+    "SENSING_ANSWER": "陛下的回应",
+    "SENSING_KEYPRESSED": "%1 被抚摸了吗?",
+    "SENSING_MOUSEDOWN": "鼠标被陛下按下了吗?",
+    "SENSING_MOUSEPRESSED": "按下鼠标 %1 键了吗?",
+    "SENSING_MOUSEPRESSED_LEFT": "左",
+    "SENSING_MOUSEPRESSED_MIDDLE": "中",
+    "SENSING_MOUSEPRESSED_RIGHT": "右",
+    "SENSING_MOUSEX": "小指针的x坐标",
+    "SENSING_MOUSEY": "小指针的x坐标",
+    "SENSING_SETDRAGMODE": "将拖动模式设为 %1",
+    "SENSING_SETDRAGMODE_DRAGGABLE": "可拖动",
+    "SENSING_SETDRAGMODE_NOTDRAGGABLE": "不可拖动",
+    "SENSING_LOUDNESS": "吵闹的程度",
+    "SENSING_LOUD": "大声哭闹？",
+    "SENSING_TIMER": "时光流逝",
+    "SENSING_RESETTIMER": "时光归零",
+    "SENSING_OF": "%2 的 %1",
+    "SENSING_OF_XPOSITION": "x 坐标",
+    "SENSING_OF_YPOSITION": "y 坐标",
+    "SENSING_OF_DIRECTION": "方向",
+    "SENSING_OF_COSTUMENUMBER": "造型编号",
+    "SENSING_OF_COSTUMENAME": "造型名称",
+    "SENSING_OF_SIZE": "大小",
+    "SENSING_OF_VOLUME": "音量",
+    "SENSING_OF_BACKDROPNUMBER": "背景编号",
+    "SENSING_OF_BACKDROPNAME": "背景名称",
+    "SENSING_OF_STAGE": "舞台",
+    "SENSING_CURRENT": "当前时间的 %1",
+    "SENSING_CURRENT_YEAR": "年",
+    "SENSING_CURRENT_MONTH": "月",
+    "SENSING_CURRENT_DATE": "日",
+    "SENSING_CURRENT_DAYOFWEEK": "星期",
+    "SENSING_CURRENT_HOUR": "时",
+    "SENSING_CURRENT_MINUTE": "分",
+    "SENSING_CURRENT_SECOND": "秒",
+    "SENSING_DAYSSINCE2000": "2000年至今的天数",
+    "SENSING_USERNAME": "勇者大名",
+    "SENSING_USERID": "用户挨镝",
+    "SENSING_ISTURBOMODE": "是芜湖模式吗?",
+    "SENSING_OPERATINGSYSTEM": "世界之外",
+    "SENSING_TURNONTURBOMODE": "打开芜湖模式",
+    "SENSING_TURNOFFTURBOMODE": "关闭芜湖模式",
+    "SOUND_PLAY": "放声大唱 %1",
+    "SOUND_PLAYUNTILDONE": "一口气唱完 %1",
+    "SOUND_STOPALLSOUNDS": "停止所有声音",
+    "SOUND_SETEFFECTO": "将 %1 音效设为 %2",
+    "SOUND_CHANGEEFFECTBY": "将 %1 音效增加 %2",
+    "SOUND_CLEAREFFECTS": "清除音效",
+    "SOUND_EFFECTS_PITCH": "音调",
+    "SOUND_EFFECTS_PAN": "左右平衡",
+    "SOUND_CHANGEVOLUMEBY": "将音量增加 %1",
+    "SOUND_SETVOLUMETO": "将音量设为 %1%",
+    "SOUND_VOLUME": "音量",
+    "SOUND_RECORD": "录制…",
+    "CATEGORY_MOTION": "武功",
+    "CATEGORY_LOOKS": "外观",
+    "CATEGORY_SOUND": "声",
+    "CATEGORY_EVENTS": "穴位",
+    "CATEGORY_CONTROL": "内功",
+    "CATEGORY_SENSING": "厂卫",
+    "CATEGORY_OPERATORS": "海岛算经",
+    "CATEGORY_VARIABLES": "法宝",
+    "CATEGORY_MYBLOCKS": "自家心法",
+    "DUPLICATE": "临摹",
+    "DELETE": "删除",
+    "ADD_COMMENT": "写条备注",
+    "REMOVE_COMMENT": "扔掉备注",
+    "DELETE_BLOCK": "删除",
+    "DELETE_X_BLOCKS": "删除 %1 积木",
+    "DELETE_ALL_BLOCKS": "删除全部 %1 积木？",
+    "CLEAN_UP": "整理积木",
+    "HELP": "帮助",
+    "UNDO": "撤销",
+    "REDO": "重做",
+    "EDIT_PROCEDURE": "编辑",
+    "SHOW_PROCEDURE_DEFINITION": "翻阅宝典",
+    "WORKSPACE_COMMENT_DEFAULT_TEXT": "说些什么……",
+    "COLOUR_HUE_LABEL": "颜色",
+    "COLOUR_SATURATION_LABEL": "饱和度",
+    "COLOUR_BRIGHTNESS_LABEL": "亮度",
+    "CHANGE_VALUE_TITLE": "更改变量：",
+    "RENAME_VARIABLE": "修改变量名",
+    "RENAME_VARIABLE_TITLE": "将所有的「%1」变量名改为：",
+    "RENAME_VARIABLE_MODAL_TITLE": "修改变量名",
+    "NEW_VARIABLE": "建立一个变量",
+    "NEW_VARIABLE_TITLE": "新变量名：",
+    "VARIABLE_MODAL_TITLE": "新建变量",
+    "VARIABLE_ALREADY_EXISTS": "已经存在名为「%1」的变量。",
+    "VARIABLE_ALREADY_EXISTS_FOR_ANOTHER_TYPE": "已经存在一个名为「%1」的变量，其类型为「%2」。",
+    "DELETE_VARIABLE_CONFIRMATION": "删除%1处「%2」变量吗？",
+    "CANNOT_DELETE_VARIABLE_PROCEDURE": "无法删除变量「%1」，因为函数「%2」的定义中用到了它",
+    "DELETE_VARIABLE": "删除变量「%1」",
+    "NEW_PROCEDURE": "编纂宝典",
+    "PROCEDURE_ALREADY_EXISTS": "已经存在名为「%1」的程序。",
+    "PROCEDURE_DEFAULT_NAME": "宝典名称",
+    "NEW_LIST": "建立一个列表",
+    "NEW_LIST_TITLE": "新的列表名：",
+    "LIST_MODAL_TITLE": "新建列表",
+    "LIST_ALREADY_EXISTS": "名为 「%1」 的列表已存在。",
+    "RENAME_LIST_TITLE": "将所有的「%1」列表改名为：",
+    "RENAME_LIST_MODAL_TITLE": "修改列表名",
+    "DEFAULT_LIST_ITEM": "东西",
+    "DELETE_LIST": "删除「%1」列表",
+    "RENAME_LIST": "修改列表名",
+    "NEW_BROADCAST_MESSAGE": "新消息",
+    "NEW_BROADCAST_MESSAGE_TITLE": "新消息的名称：",
+    "BROADCAST_MODAL_TITLE": "新消息",
+    "DEFAULT_BROADCAST_MESSAGE_NAME": "消息1",
+    "SENSING_CLIPCC_VERSION": "纪年",
+    "OPERATORS_INDEXOF": "子串 %3 在 %2 中第 %1 次出现的位置",
+    "PROCEDURES_RETURN": "炼成 %1",
+    "DISABLE_BLOCK": "置之不理",
+    "ENABLE_BLOCK": "重新理她",
+    "PROCEDURE_USED": "废掉这个宝典前请废掉她的所有臣民",
+    "CATEGORY_FUNCTIONS": "宝典",
+    "OBSOLETED_BLOCKS": "遗忘之地",
+    "CONTROL_BREAKPOINT": "打破点子",
+    "CONTROL_SUSPEND": "冻住线程",
+    "SENSING_JOYSTICKX": "咬杆 x 偏移",
+    "SENSING_JOYSTICKY": "咬杆 y 偏移",
+    "SENSING_JOYSTICK_DISTANCE": "咬杆距离",
+    "SENSING_COLORAT": "给 (x: %1, y: %2) 一点颜色看看",
+    "COPY_TO_CLIPBOARD": "打包到马车上",
+    "PASTE_FROM_CLIPBOARD": "从马车上卸货",
+    "COPY_IMAGE": "给块块拍个照"
+};
+// End of combined translations
 
 
 /*** EXPORTS FROM exports-loader ***/
@@ -988,10 +2063,10 @@ module.exports = Blockly;
 
 /***/ }),
 
-/***/ "./node_modules/imports-loader/index.js?Blockly=./shim/blockly_compressed_vertical.Blockly!./node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/blocks_compressed.js":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/imports-loader?Blockly=./shim/blockly_compressed_vertical.Blockly!./node_modules/exports-loader?Blockly!./node_modules/scratch-blocks/blocks_compressed.js ***!
-  \*********************************************************************************************************************************************************************************/
+/***/ "./node_modules/scratch-blocks/node_modules/imports-loader/index.js?Blockly=./shim/blockly_compressed_vertical.Blockly!./node_modules/scratch-blocks/node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/blocks_compressed.js":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/scratch-blocks/node_modules/imports-loader?Blockly=./shim/blockly_compressed_vertical.Blockly!./node_modules/scratch-blocks/node_modules/exports-loader?Blockly!./node_modules/scratch-blocks/blocks_compressed.js ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1042,10 +2117,10 @@ module.exports = Blockly;
 
 /***/ }),
 
-/***/ "./node_modules/imports-loader/index.js?goog=./shim/blockly_compressed_vertical.goog,Blockly=./shim/blockly_compressed_vertical-blocks_compressed!./node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/blocks_compressed_vertical.js":
-/*!*************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/imports-loader?goog=./shim/blockly_compressed_vertical.goog,Blockly=./shim/blockly_compressed_vertical-blocks_compressed!./node_modules/exports-loader?Blockly!./node_modules/scratch-blocks/blocks_compressed_vertical.js ***!
-  \*************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/scratch-blocks/node_modules/imports-loader/index.js?goog=./shim/blockly_compressed_vertical.goog,Blockly=./shim/blockly_compressed_vertical-blocks_compressed!./node_modules/scratch-blocks/node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/blocks_compressed_vertical.js":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/scratch-blocks/node_modules/imports-loader?goog=./shim/blockly_compressed_vertical.goog,Blockly=./shim/blockly_compressed_vertical-blocks_compressed!./node_modules/scratch-blocks/node_modules/exports-loader?Blockly!./node_modules/scratch-blocks/blocks_compressed_vertical.js ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1300,10 +2375,10 @@ module.exports = Blockly;
 
 /***/ }),
 
-/***/ "./node_modules/imports-loader/index.js?this=>window!./node_modules/exports-loader/index.js?Blockly&goog!./node_modules/scratch-blocks/blockly_compressed_vertical.js":
-/*!**********************************************************************************************************************************************************!*\
-  !*** ./node_modules/imports-loader?this=>window!./node_modules/exports-loader?Blockly&goog!./node_modules/scratch-blocks/blockly_compressed_vertical.js ***!
-  \**********************************************************************************************************************************************************/
+/***/ "./node_modules/scratch-blocks/node_modules/imports-loader/index.js?this=>window!./node_modules/scratch-blocks/node_modules/exports-loader/index.js?Blockly&goog!./node_modules/scratch-blocks/blockly_compressed_vertical.js":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/scratch-blocks/node_modules/imports-loader?this=>window!./node_modules/scratch-blocks/node_modules/exports-loader?Blockly&goog!./node_modules/scratch-blocks/blockly_compressed_vertical.js ***!
+  \******************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -3661,7 +4736,7 @@ exports["goog"] = (goog);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! imports-loader?Blockly=./shim/blockly_compressed_vertical.Blockly!exports-loader?Blockly!../blocks_compressed */ "./node_modules/imports-loader/index.js?Blockly=./shim/blockly_compressed_vertical.Blockly!./node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/blocks_compressed.js");
+module.exports = __webpack_require__(/*! imports-loader?Blockly=./shim/blockly_compressed_vertical.Blockly!exports-loader?Blockly!../blocks_compressed */ "./node_modules/scratch-blocks/node_modules/imports-loader/index.js?Blockly=./shim/blockly_compressed_vertical.Blockly!./node_modules/scratch-blocks/node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/blocks_compressed.js");
 
 
 /***/ }),
@@ -3697,7 +4772,7 @@ module.exports = __webpack_require__(/*! ./blockly_compressed_vertical */ "./nod
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! imports-loader?this=>window!exports-loader?Blockly&goog!../blockly_compressed_vertical */ "./node_modules/imports-loader/index.js?this=>window!./node_modules/exports-loader/index.js?Blockly&goog!./node_modules/scratch-blocks/blockly_compressed_vertical.js");
+module.exports = __webpack_require__(/*! imports-loader?this=>window!exports-loader?Blockly&goog!../blockly_compressed_vertical */ "./node_modules/scratch-blocks/node_modules/imports-loader/index.js?this=>window!./node_modules/scratch-blocks/node_modules/exports-loader/index.js?Blockly&goog!./node_modules/scratch-blocks/blockly_compressed_vertical.js");
 
 
 /***/ }),
@@ -3709,7 +4784,7 @@ module.exports = __webpack_require__(/*! imports-loader?this=>window!exports-loa
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! imports-loader?Blockly=../shim/blocks_compressed_vertical,goog=../shim/blockly_compressed_vertical.goog!exports-loader?Blockly!../msg/messages */ "./node_modules/imports-loader/index.js?Blockly=../shim/blocks_compressed_vertical,goog=../shim/blockly_compressed_vertical.goog!./node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/msg/messages.js");
+module.exports = __webpack_require__(/*! imports-loader?Blockly=../shim/blocks_compressed_vertical,goog=../shim/blockly_compressed_vertical.goog!exports-loader?Blockly!../msg/messages */ "./node_modules/scratch-blocks/node_modules/imports-loader/index.js?Blockly=../shim/blocks_compressed_vertical,goog=../shim/blockly_compressed_vertical.goog!./node_modules/scratch-blocks/node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/msg/messages.js");
 
 
 /***/ }),
@@ -3721,7 +4796,7 @@ module.exports = __webpack_require__(/*! imports-loader?Blockly=../shim/blocks_c
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! imports-loader?goog=./shim/blockly_compressed_vertical.goog,Blockly=./shim/blockly_compressed_vertical-blocks_compressed!exports-loader?Blockly!../blocks_compressed_vertical */ "./node_modules/imports-loader/index.js?goog=./shim/blockly_compressed_vertical.goog,Blockly=./shim/blockly_compressed_vertical-blocks_compressed!./node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/blocks_compressed_vertical.js");
+module.exports = __webpack_require__(/*! imports-loader?goog=./shim/blockly_compressed_vertical.goog,Blockly=./shim/blockly_compressed_vertical-blocks_compressed!exports-loader?Blockly!../blocks_compressed_vertical */ "./node_modules/scratch-blocks/node_modules/imports-loader/index.js?goog=./shim/blockly_compressed_vertical.goog,Blockly=./shim/blockly_compressed_vertical-blocks_compressed!./node_modules/scratch-blocks/node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/blocks_compressed_vertical.js");
 
 
 /***/ }),
@@ -3733,7 +4808,7 @@ module.exports = __webpack_require__(/*! imports-loader?goog=./shim/blockly_comp
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! imports-loader?Blockly=../shim/blocks_compressed_vertical-blockly_compressed_vertical-messages,goog=../shim/blockly_compressed_vertical.goog!exports-loader?Blockly!../msg/scratch_msgs */ "./node_modules/imports-loader/index.js?Blockly=../shim/blocks_compressed_vertical-blockly_compressed_vertical-messages,goog=../shim/blockly_compressed_vertical.goog!./node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/msg/scratch_msgs.js");
+module.exports = __webpack_require__(/*! imports-loader?Blockly=../shim/blocks_compressed_vertical-blockly_compressed_vertical-messages,goog=../shim/blockly_compressed_vertical.goog!exports-loader?Blockly!../msg/scratch_msgs */ "./node_modules/scratch-blocks/node_modules/imports-loader/index.js?Blockly=../shim/blocks_compressed_vertical-blockly_compressed_vertical-messages,goog=../shim/blockly_compressed_vertical.goog!./node_modules/scratch-blocks/node_modules/exports-loader/index.js?Blockly!./node_modules/scratch-blocks/msg/scratch_msgs.js");
 
 
 /***/ })
