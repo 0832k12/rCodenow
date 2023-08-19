@@ -3902,7 +3902,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! exports provided: commit, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"commit\":\"dc74b83\"}");
+module.exports = JSON.parse("{\"commit\":\"e65a5ac\"}");
 
 /***/ }),
 
